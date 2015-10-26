@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D1EDF8AA-9A5B-4CF4-9EBB-A253D089D32B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LoveBank.Core</RootNamespace>
+    <AssemblyName>LoveBank.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Resource\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Crawl_Data_Item.cs" />
+    <Compile Include="Crawl_Data_Item_Selector.cs" />
+    <Compile Include="Domain\AdminLog.cs" />
+    <Compile Include="Domain\Department.cs" />
+    <Compile Include="Domain\Enums\AuditingState.cs" />
+    <Compile Include="Domain\Enums\QRCodeType.cs" />
+    <Compile Include="Domain\Enums\ResoureType.cs" />
+    <Compile Include="Domain\Enums\RowState.cs" />
+    <Compile Include="Domain\Enums\TeamLevel.cs" />
+    <Compile Include="Domain\Enums\TeamState.cs" />
+    <Compile Include="Domain\LoveBank_Ad.cs" />
+    <Compile Include="Domain\Machine.cs" />
+    <Compile Include="Domain\MachineModuleShowManage.cs" />
+    <Compile Include="Domain\MachineProduct.cs" />
+    <Compile Include="Domain\MenuEntity.cs" />
+    <Compile Include="Domain\Product.cs" />
+    <Compile Include="Domain\Enums\QRCodeState.cs" />
+    <Compile Include="Domain\RegionConfig.cs" />
+    <Compile Include="Domain\ReturnEntity.cs" />
+    <Compile Include="Domain\SourceFile.cs" />
+    <Compile Include="Domain\Team.cs" />
+    <Compile Include="Domain\TeamMembers.cs" />
+    <Compile Include="Domain\TeamPojectStation.cs" />
+    <Compile Include="Domain\TeamPojectStationApply.cs" />
+    <Compile Include="Domain\TeamProject.cs" />
+    <Compile Include="Domain\TestProject.cs" />
+    <Compile Include="Domain\Vol.cs" />
+    <Compile Include="Domain\VolAddScoreRecorde.cs" />
+    <Compile Include="Members\UserCreateException.cs" />
+    <Compile Include="Members\UserGroup.cs" />
+    <Compile Include="Payments\PaymentNotice.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Payments\PayStatus.cs" />
+    <Compile Include="Domain\AdminUser.cs" />
+    <Compile Include="Domain\Config.cs" />
+    <Compile Include="Domain\Enums\MsgType.cs" />
+    <Compile Include="Domain\Enums\SendStatus.cs" />
+    <Compile Include="Domain\Enums\SendType.cs" />
+    <Compile Include="Domain\Enums\SmsType.cs" />
+    <Compile Include="Domain\MailServer.cs" />
+    <Compile Include="Payments\PaymentInfo.cs" />
+    <Compile Include="Domain\Role.cs" />
+    <Compile Include="Domain\RoleAccess.cs" />
+    <Compile Include="Domain\SmServer.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="IAggregeRoot.cs" />
+    <Compile Include="Members\User.cs" />
+    <Compile Include="Members\UserAccount.cs" />
+    <Compile Include="Members\UserPasswordException.cs" />
+    <Compile Include="Members\UserSex.cs" />
+    <Compile Include="Money.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IDbProvider.cs" />
+    <Compile Include="ServiceBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoveBank.Common\LoveBank.Common.csproj">
+      <Project>{67d27bc8-876a-481b-b5e2-1103c54b5eed}</Project>
+      <Name>LoveBank.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

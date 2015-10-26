@@ -1,0 +1,41 @@
+﻿@model int
+<div class="m-mian">
+    <div class="inner">
+        <div class="g-bd2 f-cb">
+            <div class="g-mn2">
+                <div class="g-mn2c">
+                    <div class="m-box m-article">
+                        <div class="bd">
+                            <div class="title">
+                                <h2 class="u-tt-xl">@ViewBag.Title</h2>
+                            </div>
+                            <div class="content">@Html.Raw(ViewBag.Content)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="g-sd2">
+                <ul class="m-list5">
+                    <li>
+                        <span>关于我们</span>
+                    </li>
+                    <li class=@(Model==1 ? "z-crt":"") >
+                        <a href="@Url.Action("index", "Help", new { id="1" })">平台简介</a>
+                    </li>
+                    <li class=@(Model==71 ? "z-crt":"") >
+                        <a href="@Url.Action("index", "Help", new { id = "71" })">团队介绍</a>
+                    </li>
+                    <li class=@(Model==72 ? "z-crt":"") >
+                        <a href="@Url.Action("index", "Help", new { id = "72" })">合作伙伴</a>
+                    </li>
+                    <li class=@(Model==5 ? "z-crt":"") >
+                        <a href="@Url.Action("index", "Help", new { id = "5" })">联系我们</a>
+                    </li>
+                    <li class=@(Model==2 ? "z-crt":"") >
+                        <a href="@Url.Action("index", "Help", new { id = "2" })">免责条款</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@using LoveBank.Core
+@model LoveBank.Common.IPagedList<LoveBank.Core.Members.DailyStatistics>
+
+<div class="blank5">
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    @Html.Grid(Model).Columns(column =>
+    {
+        column.For(x => x.Date.ToLongDateString()).Named("日期");
+        column.For(x => x.Money.ToMoney()).Named("用户余额");
+        column.For(x => x.ChargeMoney.ToMoney()).Named("充值金额");
+        column.For(x => x.CarryMoney.ToMoney()).Named("提现金额");
+        column.Custom(x => x.LockMoney.ToMoney()).Named("冻结金额");
+        column.Custom(x => x.CarryLock.ToMoney()).Named("提现冻结");
+        column.For(x => x.InvestLock.ToMoney()).Named("投资冻结");
+        column.For(x => x.RepayMoney.ToMoney()).Named("返款金额");
+    }).Complex(ViewData)
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+@Html.Pager(Model)

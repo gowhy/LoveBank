@@ -1,0 +1,58 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Web.Admin.Models.VolModel>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+
+        function del(id) {
+
+            var url = '@Url.Action("Delete")' + '?id=' + id;
+            deleteMethod(id, "Delete");
+
+        }
+
+        function volAddScoreRecorde(id) {
+
+            var url = '@Url.Action("VolAddScore")' + '?volId=' + id;
+
+            showAjaxResult(url, "增加积分", 600, 285);
+        }
+    </script>
+
+}
+
+
+<div id="button_row">
+
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增</a>
+</div>
+<div class="grid_box">
+
+    @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.Vol.ID).Named("ID");
+        column.For(x => x.Vol.Phone ?? "").Named("手机号");
+        column.For(x => x.Vol.RealName ?? "").Named("姓名");
+        column.For(x => x.Vol.Score).Named("积分");
+        column.For(x => x.Vol.Sex).Named("性别");
+        column.For(x => x.Vol.Age).Named("年龄");
+        //column.For(x => x.Vol.AddTime.ToString("yyyy-MM-dd")).Named("注册时间");
+        column.For(x => x.Department.Name).Named("居住社区");
+        column.For(x => x.Vol.Address).Named("居住详细地址");
+        //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
+   
+
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Vol.ID }))
+            .Add(x => Html.ScriptLink("增加积分", "volAddScoreRecorde({0})", x.Vol.ID))
+
+            );
+    }).Complex(ViewData)
+
+</div>
+
+@Html.Pager(Model)

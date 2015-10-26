@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{11B1D1A1-DF3F-4C52-B57E-5A7A685F09B7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LoveBank.Web</RootNamespace>
+    <AssemblyName>LoveBank.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Resource\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\Resource\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler">
+      <HintPath>..\packages\MiniProfiler.3.2.0.157\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler.Mvc">
+      <HintPath>..\packages\MiniProfiler.MVC4.3.0.11\lib\net40\MiniProfiler.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib, Version=3.0.51.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resource\MvcContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.Entity.6.9.7\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resource\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\packages\Quartz.2.2.4\lib\net40\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UPOPSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resource\UPOPSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.4\lib\NETFramework40\WebActivator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\Attributes\HttpsRequireAttribute.cs" />
+    <Compile Include="Code\Enums\ChangeRoute.cs" />
+    <Compile Include="Code\Enums\InvestRoute.cs" />
+    <Compile Include="Code\Enums\MenuRoute.cs" />
+    <Compile Include="Code\Helper\FunctionHelper.cs" />
+    <Compile Include="Code\LoveBankContext.cs" />
+    <Compile Include="Code\QueryValidatorService.cs" />
+    <Compile Include="Code\UserAuthorizeAttribute.cs" />
+    <Compile Include="Code\ValidateExtensions.cs" />
+    <Compile Include="Code\WidgetExtensions.cs" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Default\Images\banner_2.jpg" />
+    <Content Include="Content\Default\Images\banner_1.jpg" />
+    <Content Include="Content\Default\Images\banner_6.jpg" />
+    <Content Include="Content\Default\Images\chengtou.jpg" />
+    <Content Include="Content\Default\Images\data_01.png" />
+    <Content Include="Content\Default\Images\dbhezuo.jpg" />
+    <Content Include="Content\Default\Images\dsxlogo.jpg" />
+    <Content Include="Content\Default\Images\fengling.jpg" />
+    <Content Include="Content\Default\Images\gyccb.jpg" />
+    <Content Include="Content\Default\Images\gyyh_bg.jpg" />
+    <Content Include="Content\Default\Images\hzsj.png" />
+    <Content Include="Content\Default\Images\jdhlogo.jpg" />
+    <Content Include="Content\Default\Images\jindenghui_logo.jpg" />
+    <Content Include="Content\Default\Images\weixin.jpg" />
+    <Content Include="Content\Default\Images\zz_1.jpg" />
+    <Content Include="Content\Default\Images\zz_2.jpg" />
+    <Content Include="Content\Default\Images\zz_3.jpg" />
+    <Content Include="Content\Default\Images\zz_4.jpg" />
+    <Content Include="Content\Default\Images\zz_5.jpg" />
+    <Content Include="Content\Default\Images\zz_6.jpg" />
+    <Content Include="Content\Default\icon\iconfont.svg" />
+    <Content Include="Content\EmailTemp\BindEmail.txt" />
+    <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PublicController.cs" />
+    <Compile Include="Controllers\RegionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\User\SafeController.cs" />
+    <Compile Include="Controllers\User\SettingController.cs" />
+    <Compile Include="Controllers\ValicodeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\ProjectAgencyModel.cs" />
+    <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\NoticeModel.cs" />
+    <Compile Include="Models\UserBankModel.cs" />
+    <Compile Include="Models\UserSettingModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Default\CSS\qdt.v2.css" />
+    <Content Include="Content\Default\CSS\style.css" />
+    <Content Include="Content\Default\CSS\typo.css" />
+    <Content Include="Content\Default\Images\about_liu.png" />
+    <Content Include="Content\Default\Images\about_logo.png" />
+    <Content Include="Content\Default\Images\about_ptjg.png" />
+    <Content Include="Content\Default\Images\about_xie.png" />
+    <Content Include="Content\Default\Images\anquan_1.png" />
+    <Content Include="Content\Default\Images\anquan_2.png" />
+    <Content Include="Content\Default\Images\anquan_3.png" />
+    <Content Include="Content\Default\Images\anquan_4.png" />
+    <Content Include="Content\Default\Images\anquan_5.png" />
+    <Content Include="Content\Default\Images\appstore.png" />
+    <Content Include="Content\Default\Images\banner.jpg" />
+    <Content Include="Content\Default\Images\banner001a.jpg" />
+    <Content Include="Content\Default\Images\banner1.jpg" />
+    <Content Include="Content\Default\Images\banner2.jpg" />
+    <Content Include="Content\Default\Images\banner3.jpg" />
+    <Content Include="Content\Default\Images\banner4.jpg" />
+    <Content Include="Content\Default\Images\banner_3.jpg" />
+    <Content Include="Content\Default\Images\banner_4.jpg" />
+    <Content Include="Content\Default\Images\banner_5.jpg" />
+    <Content Include="Content\Default\Images\banner_4-o.jpg" />
+    <Content Include="Content\Default\Images\banner_5-o.jpg" />
+    <Content Include="Content\Default\Images\clear.gif" />
+    <Content Include="Content\Default\Images\cnfol.jpg" />
+    <Content Include="Content\Default\Images\footer-icons.png" />
+    <Content Include="Content\Default\Images\googleplay.png" />
+    <Content Include="Content\Default\Images\gyyh.jpg" />
+    <Content Include="Content\Default\Images\hexun.jpg" />
+    <Content Include="Content\Default\Images\law_bg.jpg" />
+    <Content Include="Content\Default\Images\login_bg_1.png" />
+    <Content Include="Content\Default\Images\logo.jpg" />
+    <Content Include="Content\Default\Images\mianfei_1.png" />
+    <Content Include="Content\Default\Images\mianfei_2.png" />
+    <Content Include="Content\Default\Images\mianfei_3.png" />
+    <Content Include="Content\Default\Images\pay1.jpg" />
+    <Content Include="Content\Default\Images\pay2.jpg" />
+    <Content Include="Content\Default\Images\reg_bg.png" />
+    <Content Include="Content\Default\Images\rongzi_1.png" />
+    <Content Include="Content\Default\Images\rongzi_10.png" />
+    <Content Include="Content\Default\Images\rongzi_2.png" />
+    <Content Include="Content\Default\Images\rongzi_3.png" />
+    <Content Include="Content\Default\Images\rongzi_4.png" />
+    <Content Include="Content\Default\Images\rongzi_5.png" />
+    <Content Include="Content\Default\Images\rongzi_6.png" />
+    <Content Include="Content\Default\Images\rongzi_7.png" />
+    <Content Include="Content\Default\Images\rongzi_8.png" />
+    <Content Include="Content\Default\Images\rongzi_9.png" />
+    <Content Include="Content\Default\Images\sina.jpg" />
+    <Content Include="Content\Default\Images\touzijie.jpg" />
+    <Content Include="Content\Default\Images\wangyicaijing.png" />
+    <Content Include="Content\Default\Images\xhnews.jpg" />
+    <Content Include="Content\Default\Images\xinlangkeji.jpg" />
+    <Content Include="Content\Default\Images\xinshou_1.png" />
+    <Content Include="Content\Default\Images\xinshou_2a.png" />
+    <Content Include="Content\Default\Images\xinshou_2b.png" />
+    <Content Include="Content\Default\Images\xinshou_2c.png" />
+    <Content Include="Content\Default\Images\xinshou_3.png" />
+    <Content Include="Content\Default\Images\xinshou_4.png" />
+    <Content Include="Content\Default\Images\zgyl.jpg" />
+    <Content Include="Content\Default\JS\config.js" />
+    <Content Include="Content\Default\JS\html5shiv.js" />
+    <Content Include="Content\Default\JS\id.number.js" />
+    <Content Include="Content\Default\JS\jquery.min.js" />
+    <Content Include="Content\Default\JS\jquery.tabs.js" />
+    <Content Include="Content\Default\JS\jquery.validate.js" />
+    <Content Include="Content\Default\JS\jquery.validate.min.js" />
+    <Content Include="Content\Default\JS\justgage.1.0.1.min.js" />
+    <Content Include="Content\Default\JS\kindediter\kindeditor-min.js" />
+    <Content Include="Content\Default\JS\kindediter\plugins\image\image.js" />
+    <Content Include="Content\Default\JS\kindediter\plugins\image\images\align_left.gif" />
+    <Content Include="Content\Default\JS\kindediter\plugins\image\images\align_right.gif" />
+    <Content Include="Content\Default\JS\kindediter\plugins\image\images\align_top.gif" />
+    <Content Include="Content\Default\JS\kindediter\plugins\image\images\refresh.png" />
+    <Content Include="Content\Default\JS\kindediter\zh_CN.js" />
+    <Content Include="Content\Default\JS\MailJump.js" />
+    <Content Include="Content\Default\JS\messages_zh.js" />
+    <Content Include="Content\Default\JS\plugins.js" />
+    <Content Include="Content\Default\JS\qqkf.js" />
+    <Content Include="Content\Default\JS\skel-panels.min.js" />
+    <Content Include="Content\Default\JS\skel.min.js" />
+    <Content Include="Content\Default\JS\slides.min.jquery.js" />
+    <Content Include="Content\Default\JS\TweenMax.min.js" />
+    <Content Include="Content\Default\JS\uc_center.js" />
+    <Content Include="404.htm" />
+    <Content Include="Content\Default\JS\vendor\box-slider-scroll.jquery.min.js" />
+    <Content Include="Content\Default\JS\vendor\DD_belatedPNG.js" />
+    <Content Include="Content\Default\JS\vendor\jqBarGraph.1.1.min.js" />
+    <Content Include="Content\Default\JS\vendor\jquery-1.11.0.min.js" />
+    <Content Include="Content\Default\JS\vendor\justgage.1.0.1.min.js" />
+    <Content Include="Content\Default\JS\vendor\modernizr-2.8.0.min.js" />
+    <Content Include="Content\Default\JS\vendor\raphael.2.1.0.min.js" />
+    <Content Include="Content\EmailTemp\ForgetPwd.txt" />
+    <Content Include="Content\EmailTemp\Registration.txt" />
+    <Content Include="Content\favicon.ico" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Plugins\Content\banks.png" />
+    <Content Include="Plugins\Content\unionpay.jpg" />
+    <Content Include="Plugins\Content\chinabank.jpg" />
+    <Content Include="Plugins\QDT.Plugins.dll" />
+    <Content Include="Plugins\Content\union-banks.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\jquery-1.9.1-vsdoc.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Public\Footer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Public\TrustLogo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Message.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\LogIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_LoginInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Account.cshtml" />
+    <Content Include="Views\User\BindIdCard.cshtml" />
+    <Content Include="Views\User\BindPhone.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Help\index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_BorrowerInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Browsers\IE10.browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_NotFound.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\RegisterPlus.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\BindBankCard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\_UserMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\RegisterBindEmail.cshtml" />
+    <Content Include="Views\Account\RegisterBindPhone.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\RegSuccess.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\EmailFindpasswordSuccess.cshtml" />
+    <Content Include="Views\Account\EmailRegSuccess.cshtml" />
+    <Content Include="Views\Account\FindPasswordByEmail.cshtml" />
+    <Content Include="Views\Account\FindPasswordByPhone.cshtml" />
+    <Content Include="Views\Account\FindPasswordSuccess.cshtml" />
+    <Content Include="Views\Account\ForgetPassword.cshtml" />
+    <Content Include="Views\Account\PhoneRegSuccess.cshtml" />
+    <Content Include="Views\Account\RegFail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_ArticeNav.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\ForgetSafePwd.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\BindEmail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Default\icon\iconfont.eot" />
+    <None Include="Content\Default\icon\iconfont.ttf" />
+    <None Include="Content\Default\icon\iconfont.woff" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoveBank.Common.Plugins\LoveBank.Common.Plugins.csproj">
+      <Project>{be8afab2-11be-4516-8061-afa2e8ac80ce}</Project>
+      <Name>LoveBank.Common.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Common.Unity\LoveBank.Common.Unity.csproj">
+      <Project>{78611fbd-c0f5-44db-a541-a625a0d206e7}</Project>
+      <Name>LoveBank.Common.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Common\LoveBank.Common.csproj">
+      <Project>{67d27bc8-876a-481b-b5e2-1103c54b5eed}</Project>
+      <Name>LoveBank.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Core.MSData\LoveBank.Core.MSData.csproj">
+      <Project>{ebd5ee34-b6fa-476e-af70-126c2f591290}</Project>
+      <Name>LoveBank.Core.MSData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Core\LoveBank.Core.csproj">
+      <Project>{d1edf8aa-9a5b-4cf4-9ebb-a253d089d32b}</Project>
+      <Name>LoveBank.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Lang\LoveBank.Lang.csproj">
+      <Project>{936febc3-be7f-4849-8f8c-8b484981960a}</Project>
+      <Name>LoveBank.Lang</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.MVC\LoveBank.MVC.csproj">
+      <Project>{bd75dfa9-51de-486c-8fd6-c23f7619df7b}</Project>
+      <Name>LoveBank.MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.P2B.Domain\LoveBank.P2B.Domain.csproj">
+      <Project>{a174bf70-e320-4bf0-999d-529f7741e2eb}</Project>
+      <Name>LoveBank.P2B.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Plugins\LoveBank.Plugins.csproj">
+      <Project>{801b4d33-796e-4392-a3d5-4e7bb410bd50}</Project>
+      <Name>LoveBank.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Services.DTO\LoveBank.Services.DTO.csproj">
+      <Project>{e07c392f-c957-47ed-b265-3259964d864a}</Project>
+      <Name>LoveBank.Services.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Services\LoveBank.Services.csproj">
+      <Project>{e6f4ec50-af31-4238-87f8-042d17c6c2a8}</Project>
+      <Name>LoveBank.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>2203</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8081/qdt</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

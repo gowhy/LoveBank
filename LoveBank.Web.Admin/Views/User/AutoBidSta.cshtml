@@ -1,0 +1,35 @@
+﻿@using LoveBank.Core
+@model LoveBank.Common.IPagedList<LoveBank.Core.Deals.Credit>
+
+@section HeadSection {
+    @Html.IncludeCSS("~/Content/Css/calendar.css")
+    @Html.IncludeScript("~/Content/JS/calendar.js")
+}
+<div class="main_title">
+    自动投标统计<span style="margin-left: 18px;"></span></div>
+<div class="blank5">
+</div>
+<div class="search_row">
+    <form name="search" action="@Url.Action("AutoBidSta")" method="get">	
+        日期：<input type="text" class="textbox" id="date" name="date" value="@Request.Params["date"]" onfocus=" this.blur(); return showCalendar('date', '%Y-%m-%d', false, false, 'btn_date'); " size="8"/>
+        <input type="button" class="button" id="btn_date" value="选择时间" onclick=" return showCalendar('date', '%Y-%m-%d', false, false, 'btn_date'); " />
+        <input type="submit" class="button" value="搜索"/>
+        <span style="margin-left: 18px;">当天自动投标总额：@ViewData["Total"]</span>
+    </form>
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    @Html.Grid(Model).Columns(column =>
+    {
+        column.For(x => x.UserID).Named("编号").HeaderAttributes(style => "width:50px;align:center;");
+        column.For(x => x.UserName).Named("会员名");
+        column.For(x => x.BuyMoney.ToMoney()).Named("投资金额");
+        column.For(x => x.CreateTime.ToShortDateString()).Named("投资日期");
+    }).Complex(ViewData)
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+@Html.Pager(Model)

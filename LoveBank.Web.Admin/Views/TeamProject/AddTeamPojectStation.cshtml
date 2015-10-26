@@ -1,0 +1,125 @@
+﻿
+@model  LoveBank.Common.IPagedList<LoveBank.Core.Domain.TeamPojectStation>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+<div id="p" class="easyui-panel" title="新增岗位" data-options="tools:'#tt'">
+    @using (Html.BeginForm("PostAddTeamPojectStation", "TeamProject", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
+    {
+        <table class="form">
+
+            <tr>
+                <td class="item_title">
+                    岗位名称:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Name"
+                           data-options="prompt:'请输入一体机名称.',required:true,validType:'length[3,20]'" /> (必填)
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">
+                    岗位说明:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Desc" id="Desc"
+                           data-options="required:true,validType:'length[3,200]'" /> (选填)
+
+                </td>
+            </tr>
+     
+    
+            <tr>
+                <td class="item_title">
+                    岗位条件:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   "
+                           id="Condition" name="Condition" /> (选填)
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">
+                    招聘人数:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;   "
+                           id="CountUser" name="CountUser"
+                           value="1" data-options="required:true,validType:'length[1,20]'" /> (必填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+                        <input type="hidden" id="TeamPojectId" name="TeamPojectId" value="@ViewBag.TeamPojectId" />
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新 增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        @*<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 重置 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>*@
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+    }
+
+    <div class="grid_box">
+
+        @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.Id).Named("ID");
+        column.For(x => x.Name ?? "").Named("岗位名称");
+        column.For(x => x.CountUser).Named("招聘人数");
+        column.For(x => x.Condition).Named("岗位条件");
+        column.For(x => x.Desc).Named("岗位说明");
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd hh：mm:ss")).Named("添加时间");
+     
+        //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
+        column.For(x => x.State).Named("设备状态");
+
+        //column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.ID }))
+
+        //    );
+    }).Complex(ViewData)
+    </div>
+</div>
+@*<div id="tt">
+
+    <a href="@Url.Action("Index", "TeamProject")" class="icon-back" title="返回列表"></a>
+</div>*@
+
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
+</style>
+
+
+<script>
+    function submitForm() {
+
+        if ( !$("#AddForm").form('validate')) {
+            return false;
+        }
+        $('#AddForm').submit();
+
+    }
+
+
+
+    function clearForm() {
+        $('#AddForm').form('clear');
+    }
+</script>

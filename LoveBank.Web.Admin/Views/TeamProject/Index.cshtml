@@ -1,0 +1,78 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Core.Domain.TeamProject>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+
+        function del(id) {
+
+            var url = '@Url.Action("Delete")' + '?id=' + id;
+            deleteMethod(id, "Delete");
+
+        }
+   
+          var $win;
+
+          function addStation(id, name) {
+              $win = $('#w').window({
+                  title: "" + name + ",新增岗位",
+                  width: 800,
+                  height: 450,
+                  shadow: true,
+                  modal: true,
+                  //iconCls: 'icon-add',
+                  closed: true,
+                  //minimizable: false,
+                  //maximizable: false,
+                  //collapsible: false
+              });
+
+              $win.window('open');
+              var url = '@Url.Action("AddTeamPojectStation")' + '?teamPojectId=' + id;
+              $("#addStationIFrame").attr("src", url);
+          }
+
+   </script>
+}
+
+
+<div id="button_row">
+
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增项目体</a>
+</div>
+<div class="grid_box">
+
+    @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.ID).Named("ID");
+        column.For(x => x.Name ?? "").Named("名称");
+        column.For(x => x.LinkMan).Named("联系人");
+        column.For(x => x.LinkPhone ?? "").Named("联系电话");
+        column.For(x => x.Address).Named("联系地址");
+        column.For(x => x.ProjectStartDate.ToString("yyyy-MM-dd")).Named("开始时间");
+        column.For(x => x.ProjectEndDate.ToString("yyyy-MM-dd")).Named("结束时间");
+ 
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd")).Named("新增时间");
+      
+        //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
+        column.For(x => x.State).Named("状态");
+
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.ID }))
+            .Add(x => Html.ScriptLink("新增岗位", "addStation({0},'{1}')", x.ID, x.Name))
+            .Add(x => Html.ScriptLink("删除", "del({0})", x.ID))
+
+            );
+    }).Complex(ViewData)
+
+</div>
+
+@Html.Pager(Model)
+
+<div id="w" class="easyui-window" title="新增岗位" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:800px;height:450px;padding:0px;">
+    <iframe scrolling="auto" id='addStationIFrame' frameborder="0" src="" style="width:100%;height:100%;"></iframe>
+</div>

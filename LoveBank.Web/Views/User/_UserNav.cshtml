@@ -1,0 +1,109 @@
+@model QDT.Core.Members.User
+
+@if (Model != null)
+{
+    <div class="g-sd2">
+        <div class="uc-info">
+            <div class="uc-info-head">
+                <a href="@Url.Action("Index", "User")">
+                    <img src="/Content/Default/Images/tx100.jpg" style="width:50px;height:50px;float:left;margin-right:8px;" alt="" />
+                </a>
+                @Model.UserName
+                <p style="font-size:12px;">
+                    @Model.Email
+                </p>
+            </div>
+            @if (Model.GroupID == 1)
+            {
+                <div class="uc-info-item">
+                    <img src="/Content/Default/Images/uc-2.png" alt=""/>账户设置&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="/Content/Default/Images/uc-1.png" alt=""/>安全密码
+                </div>
+                <div class="uc-info-item">
+                   <img src="/Content/Default/Images/uc-3.png" alt=""/>手机绑定&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="@Url.Action("BindIdCard", "User")"><img src="/Content/Default/Images/uc-4.png" alt=""/>身份认证</a>
+                </div>
+                <div class="uc-info-item">
+                    <img src="/Content/Default/Images/uc-5.png" alt=""/>自动投标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="@Url.Action("CreditorList", "User")"><img src="/Content/Default/Images/uc-7.png" alt=""/>债权管理</a>
+                </div>
+            }
+            else
+            {
+                
+            
+            <div class="uc-info-item">
+                <a href="@Url.Action("Account", "User")"><img src="/Content/Default/Images/uc-2.png" alt=""/>账户设置</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Action("SafePassword", "User")"><img src="/Content/Default/Images/uc-1.png" alt=""/>安全密码</a>
+            </div>
+            <div class="uc-info-item">
+                <a href="@Url.Action("BindPhone", "User")"><img src="/Content/Default/Images/uc-3.png" alt=""/>手机绑定</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Action("BindIdCard", "User")"><img src="/Content/Default/Images/uc-4.png" alt=""/>身份认证</a>
+            </div>
+                <div class="uc-info-item">
+                    <a href="@Url.Action("AutoBid", "User")"><img src="/Content/Default/Images/uc-5.png" alt=""/>自动投标</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="@Url.Action("CreditorList", "User")"><img src="/Content/Default/Images/uc-7.png" alt=""/>债权管理</a>
+                </div>
+                }
+            <div class="uc-info-login">
+                上次登录时间：@Model.LoginTime.ToString("yyyy-MM-dd HH:mm:ss")	            	
+            </div>
+            <div style="margin-left:15px;">
+                @if (Model.IDCardPassed)
+                {
+                    <img class="uc-info-talk" src="/Content/Default/Images/uc-d1-p.png" title="已通过身份证认证" style="width: 40px; height: 40px;" alt=""/>
+                }
+                else
+                {
+                    <a href="@Url.Action("BindIdCard", "User")">
+                        <img class="uc-info-talk" src="/Content/Default/Images/uc-d1.png" title="未通过身份证认证" style="width: 40px; height: 40px;" alt=""/>
+                    </a>
+                }
+                @if (Model.MobilePassed)
+                {
+                    <img class="uc-info-talk" src="/Content/Default/Images/uc-d2-p.png" title="已通过手机绑定" style="width: 40px; height: 40px;" alt=""/>
+                }
+                else
+                {
+                    <a href="@(Model.GroupID == 1 ? "javascript:void(0)" : Url.Action("BindPhone", "User"))">
+                        <img class="uc-info-talk" src="/Content/Default/Images/uc-d2.png" title="未通过手机绑定" style="width:40px;height:40px;" alt=""/>
+                    </a>
+                }
+                @if (Model.SafePasswordPassed)
+                {
+                    <img class="uc-info-talk" src="/Content/Default/Images/uc-d3-p.png" title="已设置安全密码" style="width: 40px; height: 40px;" alt=""/>
+                }
+                else
+                {
+                    <a href="@(Model.GroupID == 1 ? "javascript:void(0)" : Url.Action("SafePassword", "User"))">
+                        <img class="uc-info-talk" src="/Content/Default/Images/uc-d3.png" title="未设置安全密码" style="width: 40px; height: 40px;" alt=""/>
+                    </a>
+                }
+                @if (Model.EmailPassed)
+                {
+                    <img class="uc-info-talk" src="/Content/Default/Images/uc-d4-p.png" title="已设置电子邮箱" style="width: 40px; height: 40px;" alt=""/>
+                }
+                else
+                {
+                    <a href="#">
+                        <img class="uc-info-talk" src="/Content/Default/Images/uc-d4-p.png" title="已设置电子邮箱" style="width: 40px; height: 40px;" alt=""/>
+                    </a>
+                }
+            </div>
+        </div>
+	            
+        <div class="uc-question" style="margin-top:18px;">
+            <div class="uc-question-head">
+                常见问题
+                <a href="@Url.Action("ShowDetail", "Article", new {id=8})"><span class="more" style="font-size:14px;float:right;color:#000;">更多&raquo;</span></a>
+            </div>
+            <div class="bd m-list2 m-list2-c1" style="margin:20px 0 0 10px;font-size:14px;">
+                <ul>
+                    <li><a href="@Url.Action("ShowDetail", "Article", new {id=8})">我的钱会不会经常投不出去？</a></li>
+                    <li><a href="@Url.Action("ShowDetail", "Article", new {id=8})">什么是"付息还本"法？</a></li>
+                    <li><a href="@Url.Action("ShowDetail", "Article", new {id=8})">申请提现后，多久可以到账？</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}

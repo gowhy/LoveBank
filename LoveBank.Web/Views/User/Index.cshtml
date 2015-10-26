@@ -1,0 +1,96 @@
+﻿@using LoveBank.Core
+@using LoveBank.Web
+@model LoveBank.Core.Members.User
+@{
+    ViewBag.Title = "用户中心";
+    var safeLevel = Html.F().GetUserSafeLevel(Model);
+}
+
+<div class="ui-body">
+    <div class="ui-inner">
+        <div class="ui-grid-row">
+
+            @Html.Action("UserMenu", new { route = MenuRoute.UserCenter })
+
+            <div class="ui-grid-20">
+                <div class="ui-box ui-uc-overview fn-clear">
+                    <div class="ui-uc-avatar">
+                        <i class="iconfont">&#xe624;</i>
+                    </div>
+                    <div class="ui-uc-info">
+                        <h4 class="username">@Model.UserName</h4>
+                        <div class="info-box">
+                            <div class="safe fn-clear">
+                                <span class="fn-left">安全等级：</span>
+                                <div class="ui-progress fn-left" title="@(safeLevel+"%")">
+                                    <div class="ui-progress-bar" style="width: @(safeLevel+"%")"></div>
+                                </div>
+                            </div>
+                            <div class="icons fn-clear">
+                                <a href="@(Model.IDCardPassed ? Url.Action("SafeCenter") : Url.Action("BindIdCard"))" class="@(Model.IDCardPassed ? "passed" : "")" title="@(Model.IDCardPassed ? "已通过实名认证" : "请绑定身份证")"><i class="iconfont">&#xf00bb;</i></a>
+                                <a href="@(Model.MobilePassed ? Url.Action("SafeCenter") : Url.Action("BindPhone"))" class="@(Model.MobilePassed ? "passed" : "")" title="@(Model.MobilePassed ? "已通过手机认证" : "请绑定手机号")"><i class="iconfont">&#xf00a2;</i></a>
+                                <a href="@(Url.Action("SafeCenter"))" class="@(Model.EmailPassed ? "passed" : "")" title="@(Model.EmailPassed ? "已通过邮箱认证" : "请绑定邮箱")"><i class="iconfont">&#xe643;</i></a>
+                                <a href="@(Url.Action("BindBankCard"))" class="@(Html.F().GetUserHasBank(Model.ID) > 0  ? "passed" : "")" title="@(Html.F().GetUserHasBank(Model.ID) > 0 ? "已绑定银行卡" : "请绑定银行卡")"><i class="iconfont">&#x3432;</i></a>
+                            </div>
+                        </div>
+                        <div class="fn-left last">
+                            <div class="balance">
+                                <span>可用金额：</span>
+                                <span><em>@Model.UserAccount.Money.ToMoney()</em></span>
+                                <span class="active">
+                                    <a href="@Url.Action("MoneyIncharge")" class="ui-button ui-button-red">充值</a>
+                                    <a href="@Url.Action("MoneyCarry")" class="ui-button ui-button-orange">提现</a>
+                                </span>
+                            </div>
+                            <div class="ext">
+                                <span>冻结金额：</span>
+                                <span style="margin-right: 30px;"><em>@((Model.UserAccount.LockMoney).ToMoney())</em></span>
+                                <span>账户总额：</span>
+                                <span><em>@((Model.UserAccount.Money + Model.UserAccount.LockMoney).ToMoney())</em></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @Html.Action("InvestList", new { id = Model.ID })
+
+				@Html.Widget("Projects", "Projects", new { num = 1 })						
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Foot
+{
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/vendor/modernizr-2.8.0.min.js")"> </script>
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/vendor/raphael.2.1.0.min.js")"> </script>
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/vendor/justgage.1.0.1.min.js")"> </script>
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/vendor/jqBarGraph.1.1.min.js")"></script>
+
+    <!--[if lt IE 7]>
+        <script type="text/javascript" src="@Url.Content("~/Content/Default/JS/vendor/DD_belatedPNG.js")"></script>
+    <![endif]--> 
+
+<script type="text/javascript">
+    arrayOfData = new Array(
+        [@Model.UserAccount.Money, '可用余额', '#F39C12'],
+        [@Model.UserSta.LoadWaitRepayMoney, '待收本金', '#F39C12'],
+        [@Model.UserSta.LoadWaitRepayEarnings, '待收收益', '#F39C12'],
+        [@Model.UserAccount.LockMoney, '冻结资金', '#F39C12'],
+        [@(Model.UserAccount.Money+Model.UserSta.LoadWaitRepayMoney+Model.UserSta.LoadWaitRepayEarnings+Model.UserAccount.LockMoney), '账户总资产', '#E74C3C'],
+        [@Model.UserSta.LoadEarnings, '累计收益', '#1ABC9C']
+    );
+
+    $('#bargraph').jqbargraph({
+        data: arrayOfData,
+        width: 720,
+        height: 200,
+        colors: false,
+        barSpace: 20,
+        prefix: '¥'
+    });
+    
+</script>
+}

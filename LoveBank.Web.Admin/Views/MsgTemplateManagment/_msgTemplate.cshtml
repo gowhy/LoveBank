@@ -1,0 +1,127 @@
+﻿@using LoveBank.Core.Domain
+@using LoveBank.P2B.Domain.Messages
+<div class="main_title">
+    消息模板管理</div>
+<div class="blank5"></div>
+<div>
+    @using (Html.BeginForm("PostEditMsgTemplate", "MsgTemplateManagment"))
+    {
+        <table class="form" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+                       <td colspan="2" class="topTd"></td>
+                   </tr>
+                <tr>
+                    <td class="item_title">模板名称:</td>
+                    <td class="item_input">
+                        <select name="name">
+                            <option value="">请选择需要编辑的模板</option>
+                            @foreach (MsgTemplate m in ViewData["tmpList"] as List<MsgTemplate>) {
+                                <option value="@m.IdentityName">@m.Title</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr id="html_row" style="display: none;">
+                    <td class="item_title">超文本格式:</td>
+                    <td class="item_input">
+                        <select name="isHtml">
+                            <option value="false">否</option>
+                            <option value="true">是</option>
+                        </select>
+                    </td>
+                </tr>
+	
+                <tr>
+                    <td class="item_title">内容:</td>
+                    <td class="item_input">
+                        <textarea class="textarea" name="content" id="content" style="height: 250px; width: 600px;"></textarea>
+                    </td>
+                </tr>
+                <tr id="content_tip" style="display: none;">
+                    <td colspan="2">
+			
+                    </td>
+                </tr>
+                <tr>
+                    <td class="item_title"></td>
+                    <td class="item_input">
+                        <!--隐藏元素-->
+                        <input type="hidden" value="0" name="id">
+                        <!--隐藏元素-->
+                        <input type="button" id="btnSave" class="button" value="编辑">
+                        <input type="reset" class="button" value="重置">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="bottomTd"></td>
+                </tr>
+            </tbody></table>
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("select[name='name']").bind("change", function () {
+            load_tpl($("select[name='name']").val());
+        });
+        $('#btnSave').bind('click', function () {
+            save_msgTemplate();
+        });
+        load_tpl($("select[name='name']").val());
+
+    });
+    function save_msgTemplate() {
+        var conent = $('#content').val();
+        var isHtml = $('select[name="isHtml"]').val();
+        var id = $('input[name="id"]').val();
+        var data = { content: conent, isHtml: isHtml, id: id };
+        if (id == 0) {
+            customerAlert(null, "请选择要编辑的模板");
+            return false;
+        }
+        $.post('/MsgTemplateManagment/PostEditMsgTemplate', data, function (result) {
+            customerAlert(null, result.Info);
+        });
+    }
+    function load_tpl(tplName) {
+        if (tplName != '') {
+            $.ajax({
+                url: '/MsgTemplateManagment/GetMsgTemplate',
+                data: { identityName: tplName },
+                dataType: "json",
+                success: function (obj) {
+                    if (obj.Status == 1) {
+                        var tpl = obj.Data;
+                        if (tpl.MsgType == 1) {
+                            $("#html_row").show();
+                            $("select[name='isHtml']").val(tpl.IsHtml.toString());
+                        } else {
+                            hide_html_row();
+                        }
+                        $("textarea[name='content']").val(tpl.Content);
+                        $("input[name='id']").val(tpl.ID);
+                        if (tpl.MsgTip) {
+                            $("#content_tip").find("td").html(tpl.MsgTip);
+                            $("#content_tip").show();
+                        }
+
+                    } else {
+                        $("textarea[name='content']").val('');
+                        $("input[name='id']").val(0);
+                        hide_html_row();
+                    }
+                }
+            });
+        } else {
+            $("textarea[name='content']").val('');
+            $("input[name='id']").val(0);
+            $("#content_tip").hide();
+            hide_html_row();
+        }
+    }
+
+    function hide_html_row() {
+        $("#html_row").hide();
+        $("select[name='isHtml']").val(false);
+        $("#content_tip").hide();
+    }
+</script>

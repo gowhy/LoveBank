@@ -1,0 +1,77 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Core.Domain.Product>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+
+        function del(id) {
+
+            var url = '@Url.Action("Delete")' + '?id=' + id;
+            deleteMethod(id, "Delete");
+
+        }
+
+        var $win;
+
+        function bingProduct(id, productName) {
+            $win = $('#w').window({
+                title: "被绑定产品:" + productName + "",
+                width: 800,
+                height: 450,
+                shadow: true,
+                modal: true,
+                //iconCls: 'icon-add',
+                closed: true,
+                //minimizable: false,
+                //maximizable: false,
+                //collapsible: false
+            });
+
+            $win.window('open');
+            var url = '@Url.Action("BindMachine")' + '?ProductId=' + id;
+            $("#MachineBindProduct").attr("src", url);
+        }
+    </script>
+
+}
+
+
+<div id="button_row">
+
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增产品</a>
+</div>
+<div class="grid_box">
+
+    @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.ID).Named("ID");
+        column.For(x => x.Name ?? "").Named("名称");
+        column.For(x => x.Price).Named("价格");
+        column.For(x => x.BarCode).Named("条形码");
+        column.For(x => x.CostScore ).Named("兑现积分");
+        column.For(x => x.Count).Named("库存");
+   
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd")).Named("有效时间");
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd")).Named("过期时间");
+        //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
+        column.For(x => x.State).Named("状态");
+
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.ID }))
+            .Add(x => Html.ScriptLink("绑定终端", "bingProduct({0},'{1}')", x.ID, x.Name))
+            .Add(x => Html.ScriptLink("删除", "del({0})", x.ID))
+
+            );
+    }).Complex(ViewData)
+
+</div>
+
+@Html.Pager(Model)
+
+<div id="w" class="easyui-window" title="绑定商品" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:800px;height:450px;padding:0px;">
+    <iframe scrolling="auto" id='MachineBindProduct' frameborder="0" src="" style="width:100%;height:100%;"></iframe>
+</div>

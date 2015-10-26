@@ -1,0 +1,75 @@
+﻿@using LoveBank.Core
+@model LoveBank.Core.Members.User
+
+<script type="text/javascript">
+    function check_incharge_form() {
+        if ($("input[name='money']").val() == '' && $("input[name='point']").val() == '' && $("input[name='quota']").val() == '') {
+            alert("资金，信用积分，信用额度至少要填一项");
+            return false;
+        }
+        if ($("input[name='money']").val() != '' && isNaN($("input[name='money']").val())) {
+            alert("操作金额不正确");
+            return false;
+        }
+
+        if ($("input[name='point']").val() != '' && isNaN($("input[name='point']").val())) {
+            alert("操作的积分不正确");
+            return false;
+        }
+
+        if ($("input[name='quota']").val() != '' && isNaN($("input[name='quota']").val())) {
+            alert("操作的额度不正确");
+            return false;
+        }
+        return true;
+    }
+</script>
+<div class="main">
+<div class="main_title">@Model.UserName 余额:@Model.UserAccount.Money.ToMoney() &nbsp;&nbsp; 信用:@Model.UserAccount.Point &nbsp;&nbsp; 额度:@Model.UserAccount.Quota.ToMoney() &nbsp;&nbsp; </div>
+    <div class="blank5"></div>
+    <form name="edit" action="@Url.Action("PostAccount")" method="post" enctype="multipart/form-data" onsubmit="return check_incharge_form();">
+    <table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">余额操作:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="money" />
+		<span class='tip_span'>[正数为充值，负数为扣款]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">信用积分:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="point" />
+		<span class='tip_span'>[正数为增加信用，负数为减少信用]</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">信用额度:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="quota" />
+		<span class='tip_span'>[正数为增加额度，负数为减少额度]</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">操作备注:</td>
+		<td class="item_input"><input type="text" class="textbox" name="msg" style="width:400px;" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">&nbsp;</td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			@Html.HiddenFor(x=>x.ID)
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="确认" />
+			<input type="reset" class="button" value="重置" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>

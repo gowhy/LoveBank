@@ -1,0 +1,26 @@
+﻿@using LoveBank.Core
+@model LoveBank.Common.IPagedList<LoveBank.Core.Members.UserAutoBid>
+
+<div class="blank5">
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    @Html.Grid(Model).Columns(column =>
+    {
+        column.CheckBox(x => x.ID);
+        column.For(x => x.UserId).Named("用户编号");
+        column.For(x => Html.F().GetUserName(x.UserId)).Named("用户名");
+        column.For(x => x.LoadMoney.ToMoney()).Named("投资金额");
+        column.For(x => x.MinLoadMoney.ToMoney()).Named("最小投资金额");
+        column.For(x => x.RetainMoney.ToMoney()).Named("账户保留金额");
+        column.Custom(x => x.DealDateUpperLimit).Named("借款期限上限");
+        column.Custom(x => x.MoneyRateLowerLimit).Named("年化率下限");
+        column.For(x => x.AutoTime).Named("自动投资次数");
+    }).Complex(ViewData)
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+@Html.Pager(Model)

@@ -1,0 +1,83 @@
+﻿@using LoveBank.Common
+@model LoveBank.Core.Members.User
+@{
+    ViewBag.Title = "用户身份证绑定";
+}
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/jquery.validate.js")"> </script>
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/messages_zh.js")"> </script>
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/id.number.js")"> </script>
+<script type="text/javascript">
+    $().ready(function () {
+        $.validator.addMethod("idnumber", function (value, element) {
+            return this.optional(element) || idnumber(value);
+        }, "<br/>请正确输入您的身份证号码");
+        $('form').validate({
+            rules: {
+                RealName: "required",
+                IDCard: {
+                    required: true,
+                    idnumber: true
+                }
+            },
+            messages: {
+                RealName: "<br/>请填写真实姓名！",
+                IDCard: {
+                    required: "<br/>请填写身份证号！"
+                }
+            }
+
+        });
+    });
+</script>
+
+<div class="ui-body">
+        <div class="ui-inner">
+            <div class="ui-grid-row">
+
+                @Html.Action("UserMenu", new { route = MenuRoute.SafeCenter })
+
+                <div class="ui-grid-20">
+                    <div class="ui-box">
+                        <div class="ui-box-hd">
+                            <h1 class="ui-box-title">身份验证</h1>
+                        </div>
+
+                        <div class="ui-tipbox ui-tipbox-wait">
+                            <div class="ui-tipbox-icon">
+                                <i class="iconfont" title="提示">󰅂</i>
+                            </div>
+                            <div class="ui-tipbox-content">
+                                <p class="ui-tipbox-explain">现接到公安部门通知，公安部门将于2014年6月20日20:00至6月21日01:00、6月28日18:00至6月29日18:00，分别进行2次系统停机搬迁，搬迁期间将暂停身份信息核查服务。届时将受其影响，新用户实名认证及开户功能暂时无法使用。如期间您需进行实名认证，可采用手持身份证拍照提交客服，帮助用户完成验证流程。</p>
+                            </div>
+                        </div>
+                        
+
+                        <form class="ui-form" name="" method="post" action="@Url.Action("PostBindIdCard")">
+                            <fieldset>
+                                <legend>身份验证</legend>
+
+                                <div class="ui-form-item">
+                                    <label for="" class="ui-label">
+                                        <span class="ui-form-required">*</span>真实姓名
+                                    </label>
+                                    <input class="ui-input ui-input-large" type="text" value="@Model.RealName"  id="RealName" name="RealName" />
+                                </div>
+
+                                <div class="ui-form-item">
+                                    <label for="" class="ui-label"><span class="ui-form-required">*</span>身份证号</label>
+                                    <input class="ui-input ui-input-large" type="text" value="@Model.IDCard" id="IDCard" name="IDCard" onkeyup=" idcheck(this); " />
+                                </div>
+
+                                <div class="ui-form-item">
+                                    <input type="hidden" name="Id" value="@Model.ID"/>
+                                    <input type="submit" class="ui-button ui-button-orange big" value="确定"/>
+                                    <a href="@Url.Action("SafeCenter")" class="ui-button ui-button-gray big">返回</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

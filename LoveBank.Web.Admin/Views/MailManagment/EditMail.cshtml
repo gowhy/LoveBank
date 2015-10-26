@@ -1,0 +1,213 @@
+﻿@model LoveBank.Web.Admin.Models.EmailModel
+@Html.IncludeCSS("~/Content/Css/calendar.css")
+@Html.IncludeScript("~/Content/JS/calendar.js")
+<div class="main_title">
+    编辑<a href="@Url.Action("MailList", "MailManagment")" class="back_list">返回列表</a></div>
+<div class="blank5">
+</div>
+@using (Html.BeginForm("PostEditMail", "MailManagment", FormMethod.Post)) {
+    <table class="form" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+                   <td colspan="2" class="topTd"></td>
+               </tr>
+            <tr>
+                <td class="item_title">邮件类型:</td>
+                <td class="item_input">
+                    <select name="SmsType">
+                        <option value="0" @(Model.InnerSmsType == 0 ? "selected" :"") >普通推广信息</option>
+                        <option value="1" @(Model.InnerSmsType == 1 ? "selected" :"")>借款通知信息</option>
+                    </select>
+			
+                    <span id="deal_id" style="display: none;">
+                        <input type="text" class="textbox" name="DealId" value="@Model.DealId" onblur=" gen_deal_mail(); "> 
+                        <span class="tip_span">请填写合法的借款的ID，多个借款以半角逗号分隔，当信息内容为空时将会自动生成信息内容</span>
+                    </span>
+                    <span id="is_html" style="">
+                        超文本格式：
+                        <select name="IsHtml">
+                            <option value="false" @(!Model.IsHtml ? "selected" : "")>否</option>
+                            <option value="true" @(Model.IsHtml ? "selected" : "")>是</option>
+                        </select>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">发送时间:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox require" name="SendTime" id="send_time" value="@Model.SendTime" onfocus=" this.blur(); return showCalendar('send_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_send_time'); ">
+                    <input type="button" class="button" id="btn_send_time" value="选择时间" onclick=" return showCalendar('send_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_send_time'); ">	
+                    <input type="button" class="button" value="清空时间" onclick=" $('#send_time').val(''); ">	
+                </td>
+            </tr>
+            <tr id="mail_title" style="">
+                <td class="item_title">邮件标题:</td>
+                <td class="item_input"><input type="text" class="textbox" name="Title" value="@Model.Title"></td>
+            </tr>
+            <tr id="mail_content">
+                <td class="item_title">邮件内容:</td>
+                <td class="item_input">
+                    <textarea id="mail_content_editor" name="Content"  style="height: 350px; width: 750px;" >@Model.Content</textarea> 
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">发送类型:</td>
+                <td class="item_input">
+                    <select name="SendType">
+                        <option value="0" @(Model.InnerSendType == 0 ? "selected" : "")>按会员组</option>
+                        <option value="2" @(Model.InnerSendType == 2 ? "selected" : "")>发送自定义</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="city_id" style="display: none;">
+                <td class="item_title">订阅城市:</td>
+                <td class="item_input">
+                    <select name="city_id">
+                        <option value="0">==所有城市==</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="group_id" style="display: table-row;">
+                <td class="item_title">会员组:</td>
+                <td class="item_input">
+                    <select name="SendTypeId">
+                        <option value="0" @(Model.SendTypeId == 0 ? "selected" : "")>==所有会员组==</option>
+                        <option value="1">大客</option><option value="2">企业会员</option><option value="3">普通用户</option><option value="4">充值用户</option><option value="5">路人</option>			</select>
+                </td>
+            </tr>
+            <tr id="send_define_data" style="display: none;">
+                <td class="item_title">自定义:</td>
+                <td class="item_input">
+                    <textarea class="textarea" name="SendDefineData">@Model.SendDefineData</textarea>
+                    <span class="tip_span">用半角逗号分隔</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏字段-->
+                    <input type="hidden" name="Id" value="@Model.Id"/>
+                    <!--隐藏字段-->
+                    <input type="submit" class="button" value="新增">
+                    <input type="button" class="button" style="display: none" value="导入到EDM邮件群发系统" id="edm">			
+                    <input type="reset" class="button" value="重置">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bottomTd"></td>
+            </tr>
+        </tbody></table>
+}
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function (keditor) {
+        editor = keditor.create('#mail_content_editor', {
+            allowFileManager: true
+        });
+        switch_mail_type();
+        switch_send_type();
+        $("select[name='SmsType']").bind("change", function () {
+            switch_mail_type();
+        });
+        $("select[name='SendType']").bind("change", function () {
+            switch_send_type();
+        });
+        $("#edm").bind("click", function () {
+            var mail_type = $("select[name='mail_type']").val();
+            var is_html = $("select[name='is_html']").val();
+            var send_time = $("input[name='send_time']").val();
+            var deal_id = $("input[name='deal_id']").val();
+            var title = $("input[name='title']").val();
+            var content = KE.util.getData("mail_content_editor");
+            var send_type = $("select[name='send_type']").val();
+            var city_id = $("select[name='city_id']").val();
+            var group_id = $("select[name='group_id']").val();
+            var send_define_data = $("textarea[name='send_define_data']").val();
+            var type = $("input[name='type']").val();
+            var page = 1;
+            var query = new Object();
+            query.mail_type = mail_type;
+            query.is_html = is_html;
+            query.send_time = send_time;
+            query.title = title;
+            query.content = content;
+            query.send_type = send_type;
+            query.city_id = city_id;
+            query.group_id = group_id;
+            query.send_define_data = send_define_data;
+            query.type = type;
+            query.page = page;
+            query.deal_id = deal_id;
+            query.m = "PromoteMsg";
+            query.a = "import_mail";
+
+            import_mail(query);
+
+        });
+    });
+    function import_mail(query) {
+        $.ajax({
+            url: ROOT,
+            data: query,
+            type: "POST",
+            dataType: "json",
+            success: function (obj) {
+                if (obj.status == 0) {
+                    query.page = query.page + 1;
+                    import_mail(query);
+                }
+                else {
+                    alert(obj.info);
+                }
+            }
+        });
+    }
+    //切换mail_type, 邮件类型
+    function switch_mail_type() {
+        var mail_type = $("select[name='SmsType']").val();
+        if (mail_type == 0) //普通邮件
+        {
+            $("#deal_id").hide();
+            $("input[name='DealId']").val('');
+            $("#is_html").show();
+            $("#mail_title").show();
+        }
+        else {
+            $("#is_html").hide();
+            $("select[name='IsHtml']").val(0);
+            $("#deal_id").show();
+            $("#mail_title").hide();
+        }
+    }
+    //切换发送方式
+    function switch_send_type() {
+        var sendType = $("select[name='SendType']").val();
+        if (sendType == 0) //按会员组
+        {
+            $("#city_id").hide();
+            $("#group_id").hide();
+            $("#send_define_data").hide();
+            $("#group_id").show();
+            $("select[name='city_id']").val(0);
+            $("textarea[name='SendDefineData']").val('');
+        }
+        else if (sendType == 1) //按地区
+        {
+            $("#city_id").hide();
+            $("#group_id").hide();
+            $("#send_define_data").hide();
+            $("#city_id").show();
+            $("select[name='SendTypeId']").val(0);
+            $("textarea[name='SendDefineData']").val('');
+        }
+        else {
+            //只发送自定义
+            $("#city_id").hide();
+            $("#group_id").hide();
+            $("#send_define_data").hide();
+            $("#send_define_data").show();
+            $("select[name='city_id']").val(0);
+            $("select[name='group_id']").val(0);
+        }
+    }
+
+</script>

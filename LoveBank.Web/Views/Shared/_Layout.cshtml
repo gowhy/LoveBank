@@ -1,0 +1,124 @@
+﻿@{
+    var isLogin = QDTContext.Current.IsAuthenticated;
+    var user = QDTContext.Current.User;
+    var isuser = Request.Url.ToString().Contains("/User");
+}
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <title>@ViewBag.Title--爱心银行</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="keywords" content="爱心银行,社区,小区,明珠社区爱心银行" />
+        <meta name="description" content="爱心银行由我公司运行支持。" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" type="/image/x-icon" />
+        <link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="/image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Default/CSS/style.css")"/>
+        <script type="text/javascript" src="@Url.Content("~/Content/Default/JS/vendor/jquery-1.11.0.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Content/Default/JS/plugins.js")"> </script>
+        @RenderSection("Head", required: false)
+        <script type="text/javascript">
+            $(function() {
+                $("#user_nav").load("/Home/LoginInfo?tmp=" + new Date().getTime());
+            });
+        </script>
+        
+        <script type="text/javascript">
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "//hm.baidu.com/hm.js?20a027778bdbb93f9246614702eedeb8";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+
+        @*
+        <script type="text/javascript">
+            var idgJsHost = (("https:" == document.location.protocol) ? "https" : "http");
+            var idgDomain = idgJsHost == "http" ? "1" : "2";
+            document.write(unescape("%3Cscript src='" + idgJsHost + "://" + idgDomain + ".allyes.com.cn/idigger.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+		
+        <script type="text/javascript">
+            try {
+                var idgTracker = _alysP.init("ifc", "T-000067-01");
+                idgTracker._setTrackPath(idgJsHost + '://idigger.allyes.com/main/adftrack');
+                var s = { };
+                s.userid = ""; // 注册用户ID - 示例 - s.userid="user1";
+                idgTracker._setECM(s);
+                idgTracker._trackPoint();
+            } catch(err) {
+            }
+        </script>
+        *@
+
+    </head>
+    <body>
+
+        <div id="header" class="ui-topbar">
+            <div class="ui-inner fn-clear">
+                <div class="fn-left">
+                    <a target="_blank" href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAxMDk0OF8xNTQxNTVfNDAwODUxNjYwNl8yXw"><i class="iconfont" title="在线客服">&#xf0132;</i> 在线客服</a>
+                    <a href="javascript:;"><i class="iconfont" title="客服热线">&#xf01ef;</i> 客服热线：400-851-6606</a>
+                </div>
+                <div id="user_nav" class="fn-right ui-usernav">
+                
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-head">
+            <div class="ui-inner">
+                <div class="ui-logo">
+                    <h2><a href="/">qiandt.com</a></h2>
+                </div>
+                <div class="ui-nav">
+                    <ul class="ui-sitenav">
+                        <li><a class="active" href="@Url.Action("index", "Home")">首页</a></li>
+@*                        <li><a href="@Url.Action("Loan","Home")">企业融资</a></li>*@
+                        <li><a href="@Url.Action("Guide", "Home")">新手指引</a></li>
+                        <li><a href="@Url.Action("Guarantee", "Home")">安全保障</a></li>
+                    </ul>
+                    <div class="ui-user">
+                        <a class="@(isuser ? "" : "active")" href="@Url.Action("ProjectList", "Home")">我要理财</a>
+                        @if (isLogin && user != null && user.GroupID == 1)
+                        {
+                            <a href="@Url.Action("UserCenter", "Offline")">我的账户</a>
+                        }
+                        else
+                        {
+                            <a class="@(isuser ? "active" : "")" href="@Url.Action("Index", "User")">我的账户</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+        <!--footer begin-->
+        @Html.Action("Footer", "Public")
+        <!-- footer end-->
+        @RenderSection("Footer", required: false)
+        <script type="text/javascript">
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments);
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m);
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-48299263-1', 'qiandt.com');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+    @RenderSection("Foot", required: false)
+</html>

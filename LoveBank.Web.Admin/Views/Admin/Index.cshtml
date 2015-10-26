@@ -1,0 +1,58 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Web.Admin.Models.AdminUserModel>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+        function addUser() {
+
+            var url = '@Url.Action("Add")' + '?id=' +00;
+
+            showAjaxResult(url, "增加用户", 550, 270);
+        }
+        function editUser(id) {
+
+            var url = '@Url.Action("Edit")' + '?id=' + id;
+
+            showAjaxResult(url, "修改用户信息", 450, 250);
+        }
+        function deleteUser(id) {
+
+            var url = '@Url.Action("Delete")' + '?id=' + id;
+            deleteMethod(id, "Delete");
+           //showAjaxResult(url, "删除用户中......", 600, 400);
+        }
+    </script>
+
+}
+
+
+<div id="button_row">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" title="新增" href="javascript: addUser()">新增</a>
+</div>
+<div class="grid_box">
+  
+    @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.AdminUser.ID).Named("用户编号");
+        column.For(x => x.AdminUser.UserName??"").Named("用户名");
+        column.For(x => x.AdminUser.RealName ?? "").Named("真实姓名");
+        column.For(x => x.AdminUser.Phone).Named("手机号");
+        column.For(x =>(x.Role??new LoveBank.Core.Domain.Role()).Name??"").Named("用户角色");
+
+        column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("行政组织");
+        //column.For(x => (x.SocialOrg??new IplusOAEntity.SocialOrgEntity()).Name??"").Named("社会组织"); 
+
+        column.Buttons(btn => btn.Add(x => Html.ScriptLink("编辑", "editUser({0})", x.AdminUser.ID))
+                                 //.Add(x => Html.ScriptLink("删除", "deleteUser({0})", x.Id))
+              
+            );
+    }).Complex(ViewData)
+ 
+</div>
+
+@Html.Pager(Model)

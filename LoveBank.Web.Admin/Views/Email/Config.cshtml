@@ -1,0 +1,60 @@
+﻿@model LoveBank.P2B.Domain.Config.EmailConfig
+
+<div class="main_title">
+    邮件配置
+</div>
+<div class="blank5">
+</div>
+@using (Html.BeginForm("PostConfig", "Email", FormMethod.Post))
+{
+    <table class="form" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+                   <td colspan="2" class="topTd"></td>
+               </tr>
+               <tr>
+                <td class="item_title">发件人名称:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="Name" value="@Model.Name"/></td>
+            </tr>
+            <tr>
+                <td class="item_title">SMTP服务器地址:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="SmtpServer" value="@Model.SmtpServer"/></td>
+            </tr>
+            <tr>
+                <td class="item_title">帐号:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="SmtpUserName" value="@Model.SmtpUserName"></td>
+            </tr>
+            <tr>
+                <td class="item_title">密码:</td>
+                <td class="item_input"><input type="password" class="textbox require" name="smtpPassword" value="@Model.SmtpPassword"></td>
+            </tr>
+            <tr>
+                <td class="item_title">端口号:</td>
+                <td class="item_input"><input type="text" class="textbox" name="smtpPort" value="@(Model.SmtpPort==0?25:Model.SmtpPort)"></td>
+            </tr>
+            <tr>
+                <td class="item_title">Email标题前缀:</td>
+                <td class="item_input"><input type="text" class="textbox" name="SubjectPrefix" value="@Model.SubjectPrefix"></td>
+            </tr>
+            <tr>
+                <td class="item_title">是否SSL加密:</td>
+                <td class="item_input">
+                    <select name="isSSL">
+                        <option value="True" @(Model.IsSSL ? "selected=\"selected\"" : "")>是</option>
+                        <option value="False" @(!Model.IsSSL ? "selected=\"selected\"" : "")>否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <input type="submit" class="button" value="保存">
+                    <a href="@Url.Action("Test", new { email = "lya@qiandt.com" })"  class="button">发送测试</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bottomTd"></td>
+            </tr>
+        </tbody>
+        </table>
+}
+

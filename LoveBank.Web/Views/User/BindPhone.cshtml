@@ -1,0 +1,121 @@
+﻿@using LoveBank.Common
+@model LoveBank.Core.Members.User
+@{
+    ViewBag.Title = "用户手机绑定";
+}
+
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/jquery.validate.js")"> </script>
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/messages_zh.js")"> </script>
+<script type="text/javascript">
+    $().ready(function () {
+        $.validator.addMethod("mobile", function (value, element) {
+            var length = value.length;
+            var mobile = /^1[3-9][0-9]\d{8}$/;
+            return this.optional(element) || (length == 11 && mobile.test(value));
+        }, "<br/>请输入正确的手机号");
+
+        $('form').validate({
+            rules: {
+                Mobile: {
+                    required: true,
+                    mobile:true
+                }
+            },
+            messages: {
+                Mobile: {
+                    required: "请输入手机号！",
+                    mobile: "请输入正确的手机号！"
+                }
+            }
+        });
+    });
+</script>
+
+<div class="ui-body">
+    <div class="ui-inner">
+        <div class="ui-grid-row">
+
+            @Html.Action("UserMenu", new { route = MenuRoute.SafeCenter })
+
+            <div class="ui-grid-20">
+                <div class="ui-box">
+                    <div class="ui-box-hd">
+                        <h1 class="ui-box-title">绑定手机</h1>
+                    </div>
+                        <form class="ui-form" name="" method="post" action="@Url.Action("PostBindPhone")">
+                            <fieldset>
+                                <legend>绑定手机</legend>
+                            
+                                <div class="ui-form-item">
+                                    <label for="" class="ui-label">
+                                        <span class="ui-form-required">*</span>手机号码
+                                    </label>
+                                    <input type="text" id="Mobile" name="Mobile" class="ui-input ui-input-large" value="" />
+                                </div>
+
+                                <div class="ui-form-item">
+                                    <label for="" class="ui-label"><span class="ui-form-required">*</span>验证码</label>
+                                    <input name="ValidateCode" id="ValidateCode" class="ui-input" style="width:80px;margin-right:5px;" />
+                                    <button type="button" id="sendValicode" class="ui-button ui-button-gray" style="color: #000; height: 32px;">获取验证码</button>
+                                </div>
+
+                                <div class="ui-form-item">
+                                    <input type="hidden" name="Id" value="@Model.ID"/>
+                                    <input type="submit" class="ui-button ui-button-orange big" value="确定" />
+                                    <a href="@Url.Action("SafeCenter")" class="ui-button ui-button-gray big">返回</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#sendValicode').click(function () {
+        var phone = $('#Mobile').val();
+        var preg = /^1[3-9][0-9]\d{8}$/;
+        if (!preg.test(phone)) {
+            alert("请输入正确的手机号码！");
+            return;
+        }
+        $.ajax({
+            type: "post", //使用get方法访问后台
+            dataType: "json", //返回json格式的数据
+            url: "/Valicode/Phone", //要访问的后台地址
+            data: "phone=" + phone,
+            success: sendResult
+        });
+    });
+
+    var wait = 90;
+
+    function sendResult(result) {
+        if (result.Status) {
+            sendSuccess();
+        } else {
+            alert(result.Info);
+        }
+    }
+
+    function sendSuccess() {
+        if (wait == 0) {
+            $('#sendValicode').removeAttr("disabled").attr('style', 'color:#000;width:auto;');
+            $('#sendValicode').text('获取验证码');
+            wait = 90;
+            return;
+        } else {
+            $('#sendValicode').attr('disabled', 'disabled').attr('style', 'color:#999;width:auto;');
+            $('#sendValicode').text('再次获取(' + wait + ')');
+            wait = wait - 1;
+            setTimeout(function () {
+                sendSuccess();
+            },
+                1000);
+        }
+    }
+    
+
+</script>

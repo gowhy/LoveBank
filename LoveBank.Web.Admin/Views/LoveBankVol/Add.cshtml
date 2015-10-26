@@ -1,0 +1,219 @@
+﻿@using LoveBank.MVC
+@Html.IncludeCSS("~/Content/plug-in/ztree/css/zTreeStyle/zTreeStyle.css")
+@Html.IncludeCSS("~/Content/Css/demo.css")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
+
+<div id="p" class="easyui-panel" title="新增自愿者" data-options="tools:'#tt'">
+    @using (Html.BeginForm("PostAdd", "LoveBankVol", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
+    {
+        <table class="form">
+
+            <tr>
+                <td class="item_title">
+                    姓名:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="RealName"
+                           data-options="prompt:'请输入姓名.',required:true,validType:'length[2,20]'" /> (必填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    手机号:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Phone"
+                           data-options="prompt:'请输入姓名.',required:true,validType:'length[2,20]'" /> (必填,登陆时的用户名)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    密码:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-validatebox" type="text"  style="height:25px; width:260px;   " name="PassWord" value="000000"
+                           data-options="prompt:'请输入密码.',required:true,validType:'length[6,20]'" /> (默认000000,登陆时使用)
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">性别:</td>
+                <td class="item_input">
+                    <select name="Sex">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    年龄:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;" name="Age"
+                           vrequired="true" missingmessage="必须填写整数"
+                           data-options="prompt:'请输入年龄.',required:true,validType:'length[1,20]'" /> (必填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">志愿者类型:</td>
+                <td class="item_input">
+                    <select name="VolType">
+                        <option value="0"> 一般志愿者</option>
+                        <option value="1">党员志愿者</option>
+                        <option value="2">技术志愿者</option>
+                        <option value="3">文化志愿者</option>
+                        <option value="4">专用志愿者</option>
+                        <option value="5">特殊志愿者</option>
+                        <option value="6">复退军人</option>
+                        <option value="-1">其他</option>
+                    </select>
+                </td>
+            </tr>
+
+        
+            <tr>
+                <td class="item_title">
+                    居住社区:
+                </td>
+                <td class="item_input">
+                    <input type="hidden" name="DepId" id="DepId" />
+                    <input type="text" class="easyui-validatebox" data-options="prompt:'必填.',required:true" style="height:25px; width:260px;   " id="CoverCommunity" name="CoverCommunity" onclick="showMenu(); return false;" />(必填)
+                    <div id="menuContent" class="menuContent" style="display:none; z-index:10000;width:260px;  position: absolute;">
+                        <ul id="ztree" class="ztree" style="margin-top:0; background-color:#edf3f7;  overflow:scroll; border:solid 1px #ccc;"></ul>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    地址:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Address"
+                           data-options="prompt:'志愿者所居住的详细地址.',required:false,validType:'length[6,50]'" /> 
+
+                </td>
+            </tr>
+         
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新 增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        @*<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 重置 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>*@
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+    }
+
+
+</div>
+<div id="tt">
+
+    <a href="@Url.Action("Index", "LoveBankVol")" class="icon-back" title="返回列表"></a>
+</div>
+
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
+</style>
+
+
+<script>
+    function submitForm() {
+
+        if ( !$("#AddForm").form('validate')) {
+            return false;
+        }
+        $('#AddForm').submit();
+
+    }
+
+
+
+    function clearForm() {
+        $('#AddForm').form('clear');
+    }
+</script>
+
+<script type="text/javascript">
+
+
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false
+
+        },
+        check: {
+            enable: true ,
+            chkStyle: "radio",
+            radioType: "all"
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "Id",
+                pIdKey: "PId",
+                rootPId: ""
+            },
+            key: {
+                name: "Name"
+            }
+
+        },
+        callback: {
+            beforeCheck: beforeCheck,
+            onCheck: onCheck
+        }
+    };
+
+    var zNodes =@(Html.Raw(ViewData["Department_List"].ToString()));
+
+
+    function beforeCheck(treeId, treeNode) {
+
+    }
+    function onCheck(e, treeId, treeNode) {
+        $("#DepId").val(treeNode.Id);
+        $("#CoverCommunity").val(treeNode.Name);
+    }
+
+    function showMenu() {
+        $("#menuContent").slideDown("fast");
+        $("body").bind("mousedown", onBodyDown);
+    }
+    function hideMenu() {
+        $("#menuContent").fadeOut("fast");
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function onBodyDown(event) {
+        if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+            hideMenu();
+        }
+    }
+
+
+    $(document).ready(function () {
+        $.fn.zTree.init($("#ztree"), setting, zNodes);
+    });
+
+</script>

@@ -1,0 +1,29 @@
+﻿@model LoveBank.Common.IPagedList<LoveBank.Core.Members.User>
+
+<div class="main_title">
+    会员回收站</div>
+<div class="blank5">
+</div>
+<div class="button_row">
+    <a class="button" href="javascript: foreverdel()">彻底删除</a>
+    <a class="button" href="javascript: restore()">恢复</a>
+</div>
+<div class="blank5">
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    @Html.Grid(Model).Columns(column =>
+                                  {
+                                      column.CheckBox(x => x.ID);
+                                      column.For(x => x.UserName).Named("名称");
+                                      column.For(x => x.Email).Named("会员邮件");
+                                      column.Buttons(btns => btns.Add(x => Html.ScriptLink("彻底删除", "foreverdel({0})", x.ID))
+                                                                 .Add(x => Html.ScriptLink("恢复", "restore({0})",x.ID)));
+                                  }).Complex(ViewData)
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+@Html.Pager(Model)

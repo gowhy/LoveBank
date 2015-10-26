@@ -1,0 +1,128 @@
+﻿@using LoveBank.Common;
+@using LoveBank.MVC
+@model LoveBank.Web.Admin.Models.VolAddScoreModel
+
+@Html.IncludeScript("~/Content/EasyUI/jquery.easyui.min.js")
+@Html.IncludeScript("~/Content/EasyUI/easyui-lang-zh_CN.js")
+
+<form name="PostVolAddScore" id="PostVolAddScore" action="@Url.Action("PostVolAddScore")" method="post" enctype="multipart/form-data">
+    <table class="form" cellpadding="0" cellspacing="0">
+        <tbody>
+
+            <tr>
+                <td class="item_title">
+                    姓名:
+                </td>
+                <td class="item_input">
+                    <input type="hidden" name="VolID" value="@Model.Vol.ID" />
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;" name="RealName" value="@Model.Vol.RealName"
+                         disabled="disabled" /> 
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    手机号:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;" name="Phone" value="@Model.Vol.Phone"
+                           disabled="disabled" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    项目:
+                </td>
+                <td class="item_input">
+                    <select id="TeamProjectId" name="TeamProjectId">
+                        <option value="0" score="0">请选择项目</option>
+                        @foreach (var teamProject in Model.TeamProjectList)
+                        {
+                            <option value="@teamProject.ID" score="@teamProject.Score">@teamProject.Name</option>
+                        }
+                    </select>
+                
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">
+                    增加的积分:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:60px;" id="AddScore" name="AddScore"
+                        
+                        value=""   data-options="prompt:'请输入给用户新增的积分.',required:true,validType:'length[1,20]'" /> 
+                    (必填负数表示回退积分. 最多:<span style="color:red; font-size:larger;" id="cSelectScore"></span>分)
+                   
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    加分原因:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Msg"
+                           data-options="prompt:'请输入加分原因.',required:true,validType:'length[2,50]'" />
+
+                </td>
+            </tr>
+           
+        
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新 增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        @*<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 重置 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>*@
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @*<script src="~/Content/JS/jquery.min.js"></script>*@
+    <script>
+            function submitForm() {
+                // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
+                $('#PostVolAddScore').submit();
+            }
+            function clearForm() {
+                $('#PostVolAddScore').form('clear');
+            }
+
+            function check_incharge_form() {
+
+                return true;
+            }
+
+
+            $("#TeamProjectId").change(function () {
+
+                var score = $(this).find("option:selected").attr("score");
+               
+                //$("#AddScore").val(score);
+                $("#AddScore").numberbox('setValue', score);
+                //$("#AddScore").attr("value", score);
+                $("#cSelectScore").text(score);
+
+            });
+            $("#AddScore").focusout(function () {
+
+               
+                var score = $("#TeamProjectId").find("option:selected").attr("score");
+               
+                if ($(this).val() > score) {
+                  
+                    alert("该活动最大能加:" + score);
+                    $(this).val(score);
+                }
+
+            });
+    </script>
+</form>

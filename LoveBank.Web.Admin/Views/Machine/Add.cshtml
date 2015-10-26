@@ -1,0 +1,185 @@
+﻿@using LoveBank.MVC
+@Html.IncludeCSS("~/Content/plug-in/ztree/css/zTreeStyle/zTreeStyle.css")
+@Html.IncludeCSS("~/Content/Css/demo.css")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
+
+<div id="p" class="easyui-panel" title="新增一体机授权" data-options="tools:'#tt'">
+    @using (Html.BeginForm("PostAdd", "Machine", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
+    {
+        <table class="form">
+
+            <tr>
+                <td class="item_title">
+                    名称:
+                </td>
+                <td class="item_input">
+               
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Name"
+                           data-options="prompt:'请输入一体机名称.',required:true,validType:'length[3,20]'" /> (必填,可随便定义,方便区分即可,如:XXX社区机器)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    标题:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Title"
+                           data-options="required:false,validType:'length[3,20]'" /> (选填,如:爱心银行)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    机器的唯一编码:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="MachineCode"
+                           data-options="prompt:'请输入一体机唯一编码.',required:true,validType:'length[6,50]'" /> (必填,每台机器都有唯一编码，请联系技术人员获取编码,用于对设备授权)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    一体机所属区域:
+                </td>
+                <td class="item_input">
+                    <input type="hidden" name="DeptId" id="DeptId" />
+                    <input type="text" class="easyui-validatebox" data-options="prompt:'必填.',required:true" style="height:25px; width:260px;   " id="CoverCommunity" name="CoverCommunity" onclick="showMenu(); return false;" />(必填)
+                    <div id="menuContent" class="menuContent" style="display:none; z-index:10000;width:260px;  position: absolute;">
+                        <ul id="ztree" class="ztree" style="margin-top:0; background-color:#edf3f7;  overflow:scroll; border:solid 1px #ccc;"></ul>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    备注:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Desc"
+                            /> (选填,对机器进行补充描述)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新 增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 重置 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+    }
+
+
+</div>
+<div id="tt">
+
+    <a href="@Url.Action("Index", "Machine")" class="icon-back" title="返回列表"></a>
+</div>
+
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left:100px;
+    }
+</style>
+
+
+<script>
+    function submitForm() {
+     
+        if ( !$("#AddForm").form('validate')) {
+            return false;
+        }
+        $('#AddForm').submit();
+
+    }
+
+    $('#ff').form({
+        url:'form3_proc.php',
+        onSubmit:function(){
+            return $(this).form('validate');
+        },
+        success:function(data){
+            $.messager.alert('Info', data, 'info');
+        }
+    });
+
+    function clearForm() {
+        $('#AddForm').form('clear');
+    }
+</script>
+
+<script type="text/javascript">
+
+
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false
+
+        },
+        check: {
+            enable: true ,
+            chkStyle: "radio",
+            radioType: "all"
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "Id",
+                pIdKey: "PId",
+                rootPId: ""
+            },
+            key: {
+                name: "Name"
+            }
+
+        },
+        callback: {
+            beforeCheck: beforeCheck,
+            onCheck: onCheck
+        }
+    };
+
+    var zNodes =@(Html.Raw(ViewData["Department_List"].ToString()));
+
+
+    function beforeCheck(treeId, treeNode) {
+
+    }
+    function onCheck(e, treeId, treeNode) {
+        $("#DeptId").val(treeNode.Id);
+        $("#CoverCommunity").val(treeNode.Name);
+    }
+
+    function showMenu() {
+        $("#menuContent").slideDown("fast");
+        $("body").bind("mousedown", onBodyDown);
+    }
+    function hideMenu() {
+        $("#menuContent").fadeOut("fast");
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function onBodyDown(event) {
+        if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+            hideMenu();
+        }
+    }
+
+
+    $(document).ready(function () {
+        $.fn.zTree.init($("#ztree"), setting, zNodes);
+    });
+
+</script>

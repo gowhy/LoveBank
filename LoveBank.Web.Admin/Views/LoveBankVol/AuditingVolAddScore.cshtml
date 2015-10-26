@@ -1,0 +1,134 @@
+﻿@using LoveBank.Common;
+@using LoveBank.MVC
+@model LoveBank.Web.Admin.Models.VolAddSocreRecordeModel
+
+@Html.IncludeScript("~/Content/EasyUI/jquery.easyui.min.js")
+@Html.IncludeScript("~/Content/EasyUI/easyui-lang-zh_CN.js")
+
+<form name="PostVolAddScore" id="PostVolAddScore" action="@Url.Action("PostVolAddScore")" method="post" enctype="multipart/form-data">
+    <table class="form" cellpadding="0" cellspacing="0">
+        <tbody>
+
+            <tr>
+                <td class="item_title">
+                    姓名:
+                </td>
+                <td class="item_input">
+                   
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;" name="RealName" value="@Model.Vol.RealName"
+                           disabled="disabled" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    手机号:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;" name="Phone" value="@Model.Vol.Phone"
+                           disabled="disabled" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    项目:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;" name="TeamProjectName" value="@Model.TeamProjectName"
+                           disabled="disabled" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    增加的积分:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;" name="AddScore"
+                           value="@Model.AddScore" vrequired="true" missingmessage="必须填写整数"
+                           disabled="disabled" data-options="prompt:'请输入年龄.',required:true,validType:'length[1,20]'" /> 
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    加分原因:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Msg"
+                        disabled="disabled"    value="@Model.Msg" data-options="prompt:'请填写加分原因.',required:true,validType:'length[6,50]'" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    审核意见:
+                </td>
+                <td class="item_input">
+                   
+                    <textarea class="easyui-validatebox" style="height:50px; width:260px;   " id="AuditingMsg" name="AuditingMsg"
+                              data-options="prompt:'请填写审核意见',required:true,validType:'length[2,100]'">@Model.AuditingMsg</textarea>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+                        <input type="hidden" name="ID" value="@Model.ID" />
+                        <a href="javascript:void(0)" id="auditingDoing_Pass" class="easyui-linkbutton"  > &nbsp  &nbsp &nbsp &nbsp &nbsp 通过 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        <a href="javascript:void(0)" id="auditingDoing_NoPass" class="easyui-linkbutton"  > &nbsp  &nbsp &nbsp &nbsp &nbsp 不通过 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+        <script type="text/javascript">
+
+    $(function () {
+
+        $("#auditingDoing_Pass").click(function () {
+
+            auditingDoing(@Model.ID,1);
+        });
+
+        $("#auditingDoing_NoPass").click(function () {
+
+            auditingDoing(@Model.ID,2);
+        });
+
+        function auditingDoing(id, AuditingState) {
+
+            var auditingMsg = $("#AuditingMsg").val();
+       
+            var url = '@Url.Action("PostAuditingVolAddScore")' + '?id=' + id + "&AuditingState=" + AuditingState + "&AuditingMsg=" + auditingMsg;
+            url = encodeURI(url);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: "json",
+                success: function (obj) {
+
+                    alert(obj.Info);
+
+                    location.href = location.href;
+                }
+            });
+        }
+
+    });
+
+
+
+</script>
+    
+</form>

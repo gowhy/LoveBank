@@ -1,0 +1,78 @@
+﻿@model LoveBank.Common.Plugins.Sms.SMSAttribute
+           
+<div class="main_title">
+    安装 
+    @Html.ActionLink("返回列表", "MsgInterfaceList", null, new {
+        @class = "back_list"
+    })
+</div>
+@using (Html.BeginForm("PostInstallInterface", "SmManagment", FormMethod.Post)) {
+    <table class="form" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+                   <td colspan="2" class="topTd"></td>
+               </tr>
+            <tr>
+                <td class="item_title">接口名称:</td>
+                <td class="item_input">
+                    @Model.Name
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">接口类名:</td>
+                <td class="item_input">
+                    @Model.TypeName
+                    <input type="hidden" name="ClassName" value="@Model.TypeName"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">短信接口帐号:</td>
+                <td class="item_input">
+                    <input type="text"  class="textbox" name="UserName">
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">短信接口密码:</td>
+                <td class="item_input">
+                    <input type="password" class="textbox" name="Password">
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">描述:</td>
+                <td class="item_input">
+                    <textarea class="textarea" name="Description"></textarea>
+                </td>
+            </tr>
+            @if (Model.Config != null) {
+                <tr>
+                    <td class="item_title">配置信息:</td>
+                    <td class="item_input">
+                   
+                        @foreach (var con in Model.Config) {
+                            <span class="cfg_title">@con.Title:</span>
+                            <span class="cfg_content">
+                                @if (con.Type == 0) {
+                                    <span class="cfg_content">
+                                        <input type="text" name="con.Value"/>
+                                    </span>
+                                }
+                            </span>
+                            <div class="blank5"></div>
+                        }
+                    
+                    </td></tr>
+            }
+           
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <!--隐藏元素-->
+                    <!--隐藏元素-->
+                    <input type="submit" class="button" value="新增">
+                    <input type="reset" class="button" value="重置">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bottomTd"></td>
+            </tr>
+        </tbody></table>
+}

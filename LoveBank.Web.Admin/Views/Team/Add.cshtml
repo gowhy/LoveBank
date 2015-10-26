@@ -1,0 +1,273 @@
+﻿@using LoveBank.MVC
+
+@Html.IncludeCSS("~/Content/plug-in/webuploader/webuploader.css")
+@Html.IncludeScript("~/Content/plug-in/webuploader/webuploader.js")
+@Html.IncludeCSS("~/Content/Css/demo.css")
+@Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
+
+<div id="p" class="easyui-panel" title="新增团体" data-options="tools:'#tt'">
+    @using (Html.BeginForm("PostAdd", "Team", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
+    {
+        <table class="form">
+
+
+            <tr>
+                <td class="item_title">
+                    团体名称:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Name" name="Name"
+                           data-options="required:true,validType:'length[2,20]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    团体等级:
+                </td>
+                <td class="item_input">
+                    @Html.EnumToSelectList(new LoveBank.Core.Domain.Enums.TeamLevel(), null, "Level", null, new {})
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">
+                    成立时间:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="EstabDate" name="EstabDate"
+                         onclick="WdatePicker()"  data-options="required:true" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    联系人:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="LinkMan" id="LinkMan"
+                           data-options="required:true,validType:'length[3,50]'" /> (必填)
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">
+                    联系电话:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="LinkPhone" id="LinkPhone"
+                            data-options="required:true,validType:'length[5,20]'" /> (必填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    团体网站:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="WebSite" id="WebSite"
+                            /> 
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    团体联系地址:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Address" id="Address"
+                           data-options="required:false,validType:'length[1,5]'" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">
+                    团体Logo:
+                </td>
+                <td class="item_input">
+                    <div id="uploader" class="wu-example" style="width:700px;margin-left:0px;">
+                        <div class="queueList" style=" margin:0px; ">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker"></div>
+                                <p>或将图片拖到这里,多可选1个图片</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div><div class="info"></div>
+                            <div class="btns">
+                                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    模块覆盖区域:
+                </td>
+                <td class="item_input">
+                    <input type="hidden" name="DeptId" id="DeptId" />
+                    <input type="text" class="easyui-validatebox" data-options="prompt:'必填.',required:true" style="height:25px; width:260px;   " id="CoverCommunity" name="CoverCommunity" />(必填)
+                    <div id="menuContent" class="menuContent" style="display:none; z-index:10000;width:260px;  position: absolute;">
+                        <ul id="ztree" class="ztree" style="margin-top:0; background-color:#edf3f7;  overflow:scroll; border:solid 1px #ccc;"></ul>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    简介:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Desc" id="Desc" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="addFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+    }
+
+
+</div>
+<div id="tt">
+
+    <a href="@Url.Action("Index", "Team")" class="icon-back" title="返回列表"></a>
+</div>
+
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
+
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+
+    #uploader .placeholder {
+        padding-top: 0px;
+    }
+
+    .queueList {
+        width: 300px;
+    }
+
+    #uploader .queueList.filled {
+        padding: 0px;
+    }
+</style>
+
+
+@Html.IncludeScript("~/Content/JS/MachineModule/edit.js")
+@Html.IncludeCSS("~/Content/plug-in/ztree/css/zTreeStyle/zTreeStyle.css")
+
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/My97DatePicker/WdatePicker.js")
+<script>
+    @*var sourceFileListObj = eval(@Html.Raw( Json.Encode(@Model.SourceFileList)));*@
+    //var sourceFileListObj = null;
+    //var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/Team/", action: "/UpLoadProcess", sourceFileList: sourceFileListObj });
+    ///调用文件上传
+    var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/Team/", action: "/UpLoadProcess"});
+
+    function GetFromJsonData() {
+        var json = {
+            "Name": $("#Name").val(),
+            "Address": $("#Address").val(),
+            "DeptId": $("#DeptId").val(),
+            "LinkMan": $("#LinkMan").val(),
+            "LinkPhone": $("#LinkPhone").val(),
+            "Desc": $("#Desc").val(),
+            "WebSite": $("#WebSite").val(),
+            "EstabDate": $("#EstabDate").val(),
+            "Level": $("#Level").val(),
+            "SourceFileList": upLoader.getSourceFileList()
+
+        };
+        return json;
+    }
+
+
+    $("#addFromSubmit").click(function () {
+
+        if (!$("#AddForm").form('validate')) {
+            return false;
+        }
+        var objJson = GetFromJsonData();
+        if (objJson.SourceFileList == null || objJson.SourceFileList.length < 1 || upLoader.getfileCount() < 1) {
+            alert("请先选择并上传至少一文件");
+            return false;
+        }
+
+        if (objJson.SourceFileList.length != upLoader.getfileCount()) {
+            alert("还有文件未上传");
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Team/PostAdd",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(objJson),
+            dataType: "json",
+            success: function (data) {
+                if (data.Status == true) {
+                    alert("添加成功");
+                  
+                    location.reload();
+
+                } else {
+                    alert(data.Info);
+                }
+            },
+            error: function (data) {
+                alert("添加失败");
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+<style>
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+</style>
+@*显示行政区域tree*@
+<script type="text/javascript">
+    var zNodes =@(Html.Raw(ViewData["Department_List"].ToString()));
+
+    $("#CoverCommunity").TreeMvc({Department_List:zNodes});
+</script>
+
+
+
+
+

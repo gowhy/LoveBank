@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{90CDAAB6-C890-44D3-8998-C7BC540887C8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Crawl.P2B.Application</RootNamespace>
+    <AssemblyName>Crawl.P2B.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\Resource\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MessageQueueModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QDT.Cache\Cache.csproj">
+      <Project>{2B1C95AC-59F8-42E4-AC08-E39EC25D0DE3}</Project>
+      <Name>Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QDT.Common.Plugins\Crawl.Common.Plugins.csproj">
+      <Project>{BE8AFAB2-11BE-4516-8061-AFA2E8AC80CE}</Project>
+      <Name>Crawl.Common.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QDT.Common\Crawl.Common.csproj">
+      <Project>{67D27BC8-876A-481B-B5E2-1103C54B5EED}</Project>
+      <Name>Crawl.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QDT.Core\Crawl.Core.csproj">
+      <Project>{D1EDF8AA-9A5B-4CF4-9EBB-A253D089D32B}</Project>
+      <Name>Crawl.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QDT.P2B.Domain\Crawl.P2B.Domain.csproj">
+      <Project>{A174BF70-E320-4BF0-999D-529F7741E2EB}</Project>
+      <Name>Crawl.P2B.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QDT.Services\Crawl.Services.csproj">
+      <Project>{E6F4EC50-AF31-4238-87F8-042D17C6C2A8}</Project>
+      <Name>Crawl.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

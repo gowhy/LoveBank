@@ -1,0 +1,78 @@
+﻿ <div class="ui-foot">
+        <div class="ui-inner">
+
+            <div class="ui-foot-section">
+                <ul class="ui-foot-links fn-clear">
+                    <li><h4>友情链接</h4></li>
+                    <li><a target="_blank" href="http://www.gzLoveBank.com">爱心银行</a></li>
+              
+                </ul>
+            </div>
+
+            <div class="ui-foot-section fn-clear">
+
+                <div class="ui-foot-links fn-left">
+                    <ul class="fn-clear">
+                        <li><a target="_blank" href="@Url.Action("About", "Home", new { p = "Company" })">公司介绍</a></li>
+                        <li><a target="_blank" href="@Url.Action("Guarantee", "Home")">安全保障</a></li>
+                        <li><a target="_blank" href="@Url.Action("List", "Article", new { cid = 21 })">媒体报道</a></li>
+                        <li><a target="_blank" href="@Url.Action("About", "Home", new { p = "Partner" })">合作伙伴</a></li>
+                        <li><a target="_blank" href="@Url.Action("Help","Home")">帮助中心</a></li>
+                        <li><a target="_blank" href="@Url.Action("Contact", "Home")">联系我们</a></li>
+                    </ul>
+                    <ul class="ui-foot-icons fn-clear">
+                        <li><h4>客户服务</h4></li>
+                        <li><a target="_blank" href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAxMDk0OF8xNTQxNTVfNDAwODUxNjYwNl8yXw" ><i class="iconfont">&#xf0005;</i> 在线客服</a></li>
+                        <li><a href="http://weibo.com/qiandt"><i class="iconfont">&#x349f;</i> 新浪微博</a></li>
+                        <li><a href="http://t.qq.com/qindaitong"><i class="iconfont">&#x343d;</i> 腾讯微博</a></li>
+                        <li class="wxbox"><a href="#" id="wxewm"><i class="iconfont">&#x3433;</i> 微信</a></li>
+                    </ul>
+                </div>
+
+                <div class="service fn-right">
+                    <p>客服电话</p>
+                    <h4>400-851-6606</h4>
+                    <span>9:00 - 20:30</span>
+                </div>
+
+            </div>
+
+            <div class="ui-foot-section last">
+                <div class="ui-foot-copyright">
+                    <span class="ui-foot-contact-link"><span class="fn-rmb">&copy;</span>2014爱心银行 All rights reserved</span>
+                    <span class="ui-foot-contact-link has-separator">XXXX信息服务有限公司</span>
+                    <span class="ui-foot-contact-link has-separator last"><a target="_blank" href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action">黔ICP备 00000000号-1</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script type="text/javascript">
+    $(function () {
+        var x = 5;
+        var y = 5;
+        $("#wxewm").mouseover(function (e) {
+            var wx_content = "<div class='wx_box' style='z-index:199;'><div class='wx_ewm'><img src='/Content/Default/Images/weixin.jpg' width='200' height='200'></div></div>";
+            $(".wxbox").append(wx_content);
+            $(".wx_box").css({ left: (428) + 'px', top: (-128) + 'px' }).show("fast");
+        }).mouseout(function () {
+            $(".wx_box").remove();
+        }).mousemove(function (e) {
+            $(".wx_box").css({ left: (428) + 'px', top: (-128) + 'px' });
+        });
+    })
+</script>
+
+    
+<script type="text/javascript">
+    var _py = [];
+    _py.push(['a', 'nL..B4HKwl8CTSTC7E72fDDReX']);
+    _py.push(['domain', 'stats.ipinyou.com']);
+    _py.push(['e', '']);
+-function (d) {
+    var f = 'https:' == location.protocol;
+    f = (f ? 'https' : 'http') + '://' + (f ? 'fm.ipinyou.com' : 'fm.p0y.cn') + '/j/adv.js';
+    d.write('<script src="' + f + '"><\/script>');
+} (document)
+</script>
+<noscript><img src="//stats.ipinyou.com/adv.gif?a=nL..B4HKwl8CTSTC7E72fDDReX&e=" style="display:none;"/></noscript>

@@ -1,0 +1,33 @@
+﻿@model LoveBank.Core.Members.User
+@{
+    ViewBag.Title = "注册失败";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="mian">
+    <div class="wrapper gray-bg shadow">
+        <div class="msg">
+            <span class="bqico xq2"></span>
+            <h3 class="common-tit sx-tit">
+                <span class="img">&nbsp;</span> 该链接已经失效或者不存在!
+            </h3>
+            <p class="jump">
+                本页面将在<span id="jumpSecond">5</span>秒后自动跳转，如果没有跳转，请<a href="@Url.Action("RegisterBindEmail", "Account", new { @userid=Model.ID })">点击此处</a></p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var timeId = setInterval(function () {
+            rs();
+        }, 1000);
+        var i = 5;
+        function rs() {
+            i--;
+            if (i == 0) {
+                clearInterval(timeId);
+                window.location.href = '/Account/RegisterBindEmail?userid='+"@Model.ID";
+            }
+            $("#jumpSecond").text(i);
+        }
+    })
+</script>

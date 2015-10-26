@@ -1,0 +1,52 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Web.Admin.Models.TeamModel>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+
+        function del(id) {
+
+            var url = '@Url.Action("Delete")' + '?id=' + id;
+            deleteMethod(id, "Delete");
+
+        }
+    </script>
+
+}
+
+
+<div id="button_row">
+
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增团体</a>
+</div>
+<div class="grid_box">
+
+    @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.Id).Named("ID");
+        column.For(x => x.Name ?? "").Named("名称");
+        column.For(x => x.Level.ToLocalizable()).Named("等级");
+        column.For(x => x.LinkMan).Named("联系人");
+        column.For(x => x.LinkPhone ?? "").Named("联系电话");
+        column.For(x => x.Address).Named("联系地址");
+        column.For(x => x.EstabDate.ToString("yyyy-MM-dd")).Named("注册日期");
+        column.For(x => x.WebSite).Named("网站");
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd")).Named("新增时间");
+        column.For(x => x.Department.Name).Named("地区");
+        //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
+        column.For(x => x.State).Named("状态");
+
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Id }))
+            .Add(x => Html.ScriptLink("删除", "del({0})", x.Id))
+
+            );
+    }).Complex(ViewData)
+
+</div>
+
+@Html.Pager(Model)

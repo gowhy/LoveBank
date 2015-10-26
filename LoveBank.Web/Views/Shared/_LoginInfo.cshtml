@@ -1,0 +1,25 @@
+﻿@model LoveBank.Web.Models.IsLoginModel
+@{
+    var user = QDTContext.Current.User;
+}
+
+@if (Model != null && Model.IsLogin)
+{
+    <a href="@Url.Action("Index", "User")">@Model.UserName</a>
+    if (user != null && user.GroupID == 1)
+    {
+        <a href="@Url.Action("UserCenter", "Offline")">个人中心</a>
+    }
+    else
+    {
+        <a href="@Url.Action("Index", "User")">个人中心</a>
+    }
+    <a href="@Url.Action("Help", "Home")" >常见问题</a>
+    <a href="@Url.Action("LogOut", "Account")" class="last">退出</a>
+}
+else
+{
+    <a href="@Url.Action("Register", "Account")" class="topreg">免费注册</a>
+    <a href="@Url.Action("LogIn", "Account")" >立即登录</a>
+    <a href="@Url.Action("Help", "Home")" class="last">常见问题</a>
+}

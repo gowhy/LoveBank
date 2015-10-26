@@ -1,0 +1,38 @@
+﻿
+@model LoveBank.Common.IPagedList<LoveBank.Core.Domain.MailServer>
+<div class="main_title">
+    邮件服务器列表
+    <input type="text" name="txtMailTest" id="txtMailTest"/>
+    <a href="javascript:;" id="btnSendDemo" class="button">发送测试</a>
+
+</div>
+<div class="blank5">
+</div>
+<div class="button_row">
+    @Html.ActionLink("新增", "AddMailServer", new { }, new { @class = "button" })
+
+</div>
+<div class="blank5">
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    @Html.Grid(Model).Columns(column =>
+                                  {
+                                      column.CheckBox(x => x.ID);
+                                      column.For(x => x.ID).Named("编号").HeaderAttributes(style => "width:50px;");
+                                      column.For(x => x.SmtpServer).Named("SMTP服务器地址").SortColumnName("SmtpName");
+                                      column.For(x => x.SmtpName).Named("帐号").SortColumnName("SmtpName");
+                                      column.For(x => x.UseLimit).Named("可用次数").SortColumnName("UseLimit");
+                                      column.For(x => x.TotalUse).Named("已用次数").SortColumnName("TotalUse");
+                                      column.For(x =>x.IsReset ? "是": "否"  ).Named("是否自动清零");
+                                      column.For(x => x.IsEffect ? "有效": "无效").Named("状态").SortColumnName("IsEffect");
+                                      column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "EditMailServer", new { id = x.ID }))
+                                                                 .Add(x => Html.ActionLink("删除", "Index", new { key = x.ID })));
+                                  }).Complex(ViewData)
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+@Html.Pager(Model)

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode title="爱心银行后台">
+      
+      <siteMapNode title="首页" key="N1">
+        <siteMapNode title="首页">
+          <siteMapNode title="首页" controller="Home" action="Main"/>
+        </siteMapNode>
+      </siteMapNode>
+
+      <siteMapNode title="前端设置" key="N7">
+        <siteMapNode title="充值管理">
+          <siteMapNode title="文章列表" controller="Article" action="Index"/>
+          <siteMapNode title="文章回收站" controller="Article" action="Trash"/>
+        </siteMapNode>
+        <siteMapNode title="文章分类管理">
+          <siteMapNode title="文章分类列表" controller="ArticleCate" action="Index"/>
+          <siteMapNode title="文章分类回收站" controller="ArticleCate" action="Trash"/>
+        </siteMapNode>
+        <siteMapNode title="前端设置">
+          <siteMapNode title="导航菜单列表" controller="MenuNav" action="Index"/>
+          <siteMapNode title="投票调查列表" controller="Vote" action="Index"/>
+        </siteMapNode>
+
+        <siteMapNode title="广告设置">
+          <siteMapNode title="广告列表" controller="Adv" action="Index"/>
+        </siteMapNode>
+
+        <siteMapNode title="友情链接">
+          <siteMapNode title="友情链接分组列表" controller="LinkGroup" action="Index"/>
+          <siteMapNode title="友情链接列表" controller="Link" action="Index"/>
+        </siteMapNode>
+      </siteMapNode>
+      
+      <siteMapNode title="资金管理" key="N6">
+        <siteMapNode title="文章管理">
+          <siteMapNode title="充值订单列表" controller="Order" action="Index"/>
+          <siteMapNode title="充值订单回收站" controller="Order" action="Trash"/>
+          <siteMapNode title="收款单列表" controller="Order" action="Notice"/>
+          <siteMapNode title="借贷统计" controller="Statistics" action="Index"/>
+        </siteMapNode>
+        <siteMapNode title="支付接口">
+          <siteMapNode title="支付接口列表" controller="Payment" action="Index"/>
+        </siteMapNode>
+        <siteMapNode title="提现申请管理">
+          <siteMapNode title="申请列表" controller="UserCarry" action="Index"/>
+        </siteMapNode>
+      </siteMapNode>
+
+      <siteMapNode title="短信邮件" key="N4">
+        <siteMapNode title="消息模板管理">
+          <siteMapNode title="消息模板管理" controller="MsgTemplateManagment" action="MsgTemplate"/>
+        </siteMapNode>
+        <siteMapNode title="邮件管理">
+          <siteMapNode title="发件箱" controller="Email" action="Index"/>
+          <siteMapNode title="邮件队列" controller="Email" action="Queue"/>
+          <siteMapNode title="邮件配置" controller="Email" action="Config"/>
+        </siteMapNode>
+        <siteMapNode title="短信管理">
+          <siteMapNode title="发件箱" controller="SmManagment" action="Index"/>
+          <siteMapNode title="短信队列" controller="SmManagment" action="Queue"/>
+          <siteMapNode title="短信接口列表" controller="SmManagment" action="MsgInterfaceList"/>
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode title="贷款管理" key="N2">
+        <siteMapNode title="贷款管理">
+          <siteMapNode title="贷款列表" controller="Project" action="Index"/>
+          <siteMapNode title="贷款回收站" controller="Project" action="Trash"/>
+          <siteMapNode title="三日内需还款的" controller="Project" action="Three"/>
+          <siteMapNode title="还款中的贷款" controller="Project" action="Repaying"/>
+          <siteMapNode title="逾期的贷款" controller="Project" action="OverTime"/>
+          <siteMapNode title="三日内返本金" controller="Project" action="ThreePrincipal"/>
+        </siteMapNode>
+        <siteMapNode title="贷款分类">
+          <siteMapNode title="分类列表" controller="ProjectType" action="Index"/>
+          <siteMapNode title="分类回收站" controller="ProjectType" action="Trash"/>
+        </siteMapNode>
+        <siteMapNode title="担保机构">
+          <siteMapNode title="机构列表" controller="ProjectAgency" action="Index"/>
+        </siteMapNode>
+        <siteMapNode title="债权转让">
+          <siteMapNode title="转让列表" controller="Assignment" action="Index"/>
+        </siteMapNode>
+      </siteMapNode>
+
+      <siteMapNode title="会员与留言" key="N3">
+        <siteMapNode title="会员管理">
+          <siteMapNode title="会员列表" controller="User" action="Index"/>
+          <siteMapNode title="会员回收站" controller="User" action="Trash"/>
+          <siteMapNode title="账户变动明细" controller="User" action="ChangeList"/>
+          <siteMapNode title="账户每日统计" controller="User" action="UserDailySta"/>
+          <siteMapNode title="新增投资人" controller="User" action="NewInvester"/>
+          <siteMapNode title="自动投标列表" controller="User" action="AutoBidList"/>
+          <siteMapNode title="自动投标统计" controller="User" action="AutoBidSta"/>
+        </siteMapNode>
+        <siteMapNode title="会员配置">
+          <siteMapNode title="会员组别列表" controller="UserGroup" action="Index"/>
+        </siteMapNode>
+        <siteMapNode title="线下投标">
+          <siteMapNode title="线下投标" controller="Offline" action="Index"/>
+        </siteMapNode>
+      </siteMapNode>
+      
+      <siteMapNode title="系统管理" key="N5">
+        <siteMapNode title="系统配置">
+          <siteMapNode title="系统配置" controller="Config" action="Index"/>
+        </siteMapNode>
+        <siteMapNode title="管理员">
+          <siteMapNode title="管理员组列表" controller="Role" action="Index"/>
+          <siteMapNode title="管理员组回收站" controller="Role" action="Trash"/>
+          <siteMapNode title="管理员列表" controller="Admin" action="Index"/>
+          <siteMapNode title="管理员回收站" controller="Admin" action="Trash"/>
+        </siteMapNode>
+      </siteMapNode>  
+    
+    </siteMapNode>
+</siteMap>

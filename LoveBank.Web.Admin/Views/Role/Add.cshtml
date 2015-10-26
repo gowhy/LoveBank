@@ -1,0 +1,105 @@
+﻿@model LoveBank.Web.Admin.Models.RoleModel
+<div id="p" class="easyui-panel" title="新增" data-options="tools:'#tt'" >
+
+    @*<div class="main_title">
+        新增 <a href="@Url.Action("Index", "Role")" class="back_list">返回列表</a>
+    </div>
+    <div class="blank5">
+    </div>*@
+     @using (Html.BeginForm("PostAdd", "Role", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
+    {
+        <table class="form">
+         
+            <tr>
+                <td class="item_title">
+                    名称:
+                </td>
+                <td class="item_input">
+                    @*<input type="text" class="textbox require" name="Name" />*@
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Name"
+                           data-options="prompt:'请输入角色名称.',required:true,validType:'length[3,20]'"/> *
+                
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    状态:
+                </td>
+                <td class="item_input">
+                    <label>有效<input type="radio" name="IsEffect" value="true" @(Model.IsEffect ? "checked=\"checked\"" : "") /></label>
+                    <label>无效<input type="radio" name="IsEffect" value="false" @(!Model.IsEffect ? "checked=\"checked\"" : "") /></label>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">权限</td>
+                <td class="item_input">
+                    <table class="access_list" style="width: 100%">
+                        @foreach (var module in Model.Modules)
+                        {
+                    <tr>
+                        <td class="access_left" style="width: 180px;">
+                            <span title="@module.Value">@module.Name</span>
+                            &nbsp;&nbsp;全选
+                            <input type="checkbox" value="@module.Value" name="RoleModule[]" style=" margin-top:2px;"  onclick="check_module(this);" />
+                        </td>
+                        <td>
+                            @foreach (var node in module.RoleNodes)
+                            {
+                                <label style="padding:5px;">
+                                    <span title="index">@node.Name</span>
+                                    <input type="checkbox" value="@node.Value" name="RoleNode[]" class="node_item" style=" margin-top:2px;" onclick="check_is_all(this);" />
+                                </label>
+                            }
+                        </td>
+                    </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+
+                        <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="submitForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新 增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 重置 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                     </div>
+
+                </td>
+            </tr>
+         
+        </table>
+    }
+
+
+</div>
+<div id="tt">
+
+    <a href="@Url.Action("Index", "Role")" class="icon-back" title="返回列表"></a>
+ 
+
+    @*<a href="javascript:void(0)" class="icon-help" onclick="javascript:alert('角色新增,新增角色以后增加用户,用户可以继承角色权限')"></a>*@
+    @*<a href="javascript:void(0)" class="icon-edit" onclick="javascript:alert('edit')"></a>
+    <a href="javascript:void(0)" class="icon-cut" onclick="javascript:alert('cut')"></a>
+    *@
+</div>
+
+<style>
+    .panel-tool {
+    right:initial;
+    margin-left:3%;
+    }
+</style>
+
+
+<script>
+    function submitForm() {
+    
+        $('#AddForm').submit();
+    
+    }
+    function clearForm() {
+        $('#AddForm').form('clear');
+    }
+</script>

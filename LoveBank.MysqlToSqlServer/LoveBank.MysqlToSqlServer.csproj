@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B90F3992-CB8B-4E00-8E0A-3DB331A68591}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QDT.MysqlToSqlServer</RootNamespace>
+    <AssemblyName>QDT.MysqlToSqlServer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resource\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\MySqlHelper.cs" />
+    <Compile Include="Helper\SqlHelper.cs" />
+    <Compile Include="ImportTables\ImportAdmin.cs" />
+    <Compile Include="ImportTables\ImportArticle.cs" />
+    <Compile Include="ImportTables\ImportArticleCate.cs" />
+    <Compile Include="ImportTables\ImportBank.cs" />
+    <Compile Include="ImportTables\ImportDeal.cs" />
+    <Compile Include="ImportTables\ImportDealLoad.cs" />
+    <Compile Include="ImportTables\ImportTables.cs" />
+    <Compile Include="ImportTables\ImportDealCate.cs" />
+    <Compile Include="ImportTables\ImportDealLoadRepay.cs" />
+    <Compile Include="ImportTables\ImportDealLoanType.cs" />
+    <Compile Include="ImportTables\ImportDealMsgList.cs" />
+    <Compile Include="ImportTables\ImportDealRepay.cs" />
+    <Compile Include="ImportTables\ImportRole.cs" />
+    <Compile Include="ImportTables\ImportRoleAccess.cs" />
+    <Compile Include="ImportTables\ImportUserGroup.cs" />
+    <Compile Include="ImportTables\ImportUserLog.cs" />
+    <Compile Include="ImportTables\ImportUser.cs" />
+    <Compile Include="ImportTables\ImportChargeOrder.cs" />
+    <Compile Include="ImportTables\ImportPaymentNotice.cs" />
+    <Compile Include="ImportTables\ImportUserSta.cs" />
+    <Compile Include="ImportTables\ImportUserCarry.cs" />
+    <Compile Include="ImportTables\ImportUserAccount.cs" />
+    <Compile Include="MysqlToSqlServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToSqlServer\StartImport.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QDT.Common\QDT.Common.csproj">
+      <Project>{67D27BC8-876A-481B-B5E2-1103C54B5EED}</Project>
+      <Name>QDT.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

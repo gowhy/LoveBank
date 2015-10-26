@@ -1,0 +1,39 @@
+﻿@using LoveBank.Common
+@using LoveBank.Core
+@using LoveBank.Core.Members
+@model LoveBank.Common.IPagedList<UserTransLog>
+
+@{
+    var user = ViewData["User"] as User;
+}
+<div class="main_title">
+    @user.UserName 账户明细
+</div>
+<div class="blank5">
+</div>
+<div class="button_row">
+    <a class="button" href="javascript: deleteMethod('','DeleteLog')">彻底删除</a>
+</div>
+<div class="blank5">
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    @Html.Grid(Model).Columns(column => {
+                                  column.CheckBox(x => x.ID);
+                                  column.For(x => x.ID).Named("编号").HeaderAttributes(style => "width:50px;align:center;");
+                                  column.For(x => x.Trade.ToLocalizable()).Named("交易类型").SortColumnName("InnerTrade");  
+                                  column.For(x => x.Info).Named("操作备注");
+                                  column.For(x =>x.Time).Named("操作时间");
+                                  column.For(x => x.TradeUser).Named("交易对方");
+                                  column.Custom(x => x.LockMoney < 0 ? "<span style='color:#b94a48'>" + x.LockMoney.ToMoney() + "</span>" : "<span style='color:#468847'>" + x.LockMoney.ToMoney() + "</span>").Named("冻结金").SortColumnName("LockMoney").Attributes(style => "text-align: right;");
+                                  column.Custom(x => x.Money < 0 ? "<span style='color:#b94a48'>" + x.Money.ToMoney() + "</span>" : "<span style='color:#468847'>" + x.Money.ToMoney() + "</span>").Named("资金变动").SortColumnName("Money").Attributes(style => "text-align: right;");
+                                  column.For(x => x.OverMoney < 0 ? "---" : x.OverMoney.ToMoney().ToString()).Named("可用余额").SortColumnName("OverMoney").Attributes(style => "text-align: right;");
+                                  column.Buttons(btns => btns.Add(x => Html.ScriptLink("彻底删除", "deleteMethod({0},'{1}')", x.ID, "DeleteLog")));
+                              }).Complex(ViewData)
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+@Html.Pager(Model)

@@ -1,0 +1,359 @@
+﻿@using LoveBank.MVC
+
+@Html.IncludeCSS("~/Content/plug-in/webuploader/webuploader.css")
+@Html.IncludeScript("~/Content/plug-in/webuploader/webuploader.js")
+@Html.IncludeCSS("~/Content/Css/demo.css")
+@Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
+@model LoveBank.Web.Admin.Models.TeamProjectModel
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+
+<!-- 最新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css" />
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"> </script>
+
+
+@Html.IncludeCSS("~/Content/plug-in/summernote/summernote.css")
+@Html.IncludeScript("~/Content/plug-in/summernote/summernote.js")
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.summernote').summernote({
+            height: 400,
+            width: 800
+        });
+
+    });
+</script>
+<style>
+    *, *:before, *:after {
+        -webkit-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+</style>
+<div id="p" class="easyui-panel" title="新增项目" data-options="tools:'#tt'">
+    @using (Html.BeginForm("PostEdit", "TeamProject", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
+    {
+        <table class="form">
+
+
+            <tr>
+                <td class="item_title">
+                    项目名称:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Name" name="Name"
+                        value="@Model.Name"   data-options="required:true,validType:'length[2,20]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    招募日期:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="RecruitStartDate" name="RecruitStartDate"
+                           value="@Model.RecruitStartDate.ToString("yyyy-MM-dd")" onclick="WdatePicker()" data-options="required:true" /> ~
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="RecruitEndDate" name="RecruitEndDate"
+                           value="@Model.RecruitEndDate.ToString("yyyy-MM-dd")" onclick="WdatePicker()" data-options="required:true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    项目日期:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="ProjectStartDate" name="ProjectStartDate"
+                           value="@Model.ProjectStartDate.ToString("yyyy-MM-dd")" onclick="WdatePicker()" data-options="required:true" /> ~
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="ProjectEndDate" name="ProjectEndDate"
+                           value="@Model.ProjectEndDate.ToString("yyyy-MM-dd")" onclick="WdatePicker()" data-options="required:true" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">
+                    项目地址:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Address" name="Address"
+                           value="@Model.Address" data-options="required:true,validType:'length[2,20]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    服务时间:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="ServiceDate" name="ServiceDate"
+                           value="@Model.ServiceDate" onclick="WdatePicker()" data-options="required:true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    服务对象:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="ServiceObject" name="ServiceObject"
+                           value="@Model.ServiceObject" data-options="required:true,validType:'length[2,50]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    HTML文件地址:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   "
+                           value="@Model.HtmlUrl"  id="HtmlUrl" name="HtmlUrl" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    联系人:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="LinkMan" name="LinkMan"
+                           value="@Model.LinkMan" data-options="required:true,validType:'length[2,50]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    联系电话:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="LinkPhone" name="LinkPhone"
+                           value="@Model.LinkPhone" data-options="required:true,validType:'length[2,50]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    服务活动分值:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;   " id="Score" name="Score"
+                           value="@Model.Score" data-options="required:true,validType:'length[1,50]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    评论积分:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;   " id="CommentSocre" name="CommentSocre"
+                           readonly="readonly" value="3" data-options="required:true,validType:'length[1,50]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    点赞积分:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;   " id="GoodScore" name="GoodScore"
+                           readonly="readonly" value="1" data-options="required:true,validType:'length[1,50]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    分享积分:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;   " id="ShareScore" name="ShareScore"
+                           readonly="readonly" value="5" data-options="required:true,validType:'length[1,50]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    描述:
+                </td>
+                <td class="item_input" style="float:left;">
+                    @*<input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Desc" name="Desc"
+                        data-options="validType:'length[8,20]'" /> (必须填)*@
+                    <textarea name="text" class="summernote" style="margin-bottom: 0px;" id="contents" required="required" title="Contents">@Model.Desc</textarea>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td class="item_title">
+                    宣传图片:
+                </td>
+                <td class="item_input">
+                    <div id="uploader" class="wu-example" style="width:700px;margin-left:0px;">
+                        <div class="queueList" style=" margin:0px; ">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker"></div>
+                                <p>或将文件拖到这里,多可选5个图片</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div><div class="info"></div>
+                            <div class="btns">
+                                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+                        <input id="Id" type="hidden" name=" Id" value="@Model.ID"/>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="addFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp 修改 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+    }
+
+
+</div>
+<div id="tt">
+
+    <a href="@Url.Action("Index", "TeamProject")" class="icon-back" title="返回列表"></a>
+</div>
+
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
+
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+
+    #uploader .placeholder {
+        padding-top: 0px;
+    }
+
+    .queueList {
+        width: 800px;
+    }
+
+    #uploader .queueList.filled {
+        padding: 0px;
+    }
+</style>
+
+
+@Html.IncludeScript("~/Content/JS/MachineModule/edit.js")
+@Html.IncludeCSS("~/Content/plug-in/ztree/css/zTreeStyle/zTreeStyle.css")
+
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/My97DatePicker/WdatePicker.js")
+<script>
+    var sourceFileListObj = eval(@Html.Raw( Json.Encode(@Model.SourceFileList)));
+  
+    var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/TeamProject/", action: "/UpLoadProcess", sourceFileList: sourceFileListObj });
+
+
+    function GetFromJsonData() {
+        var json = {
+            "Name": $("#Name").val(),
+            "Desc": $('.summernote').code(),
+            "RecruitStartDate": $("#RecruitStartDate").val(),
+            "RecruitEndDate": $("#RecruitEndDate").val(),
+            "ProjectStartDate": $("#ProjectStartDate").val(),
+            "ProjectEndDate": $("#ProjectEndDate").val(),
+            "ServiceDate": $("#ServiceDate").val(),
+            "Address": $("#Address").val(),
+            "ServiceObject": $("#ServiceObject").val(),
+            "HtmlUrl": $("#HtmlUrl").val(),
+            "LinkMan": $("#LinkMan").val(),
+            "LinkPhone": $("#LinkPhone").val(),
+            "Score": $("#Score").val(),
+            //"CommentSocre": $("#CommentSocre").val(),
+            //"GoodScore": $("#GoodScore").val(),
+            //"ShareScore": $("#ShareScore").val(),
+            "Id": $("#Id").val(),
+
+            "SourceFileList": upLoader.getSourceFileList()
+
+        };
+        return json;
+    }
+
+
+    $("#addFromSubmit").click(function () {
+
+        if (!$("#AddForm").form('validate')) {
+            return false;
+        }
+        var objJson = GetFromJsonData();
+        //if (objJson.SourceFileList == null || objJson.SourceFileList.length < 1 || upLoader.getfileCount() < 1) {
+        //    alert("请先选择并上传至少一文件");
+        //    return false;
+        //}
+
+        //if (objJson.SourceFileList.length != upLoader.getfileCount()) {
+        //    alert("还有文件未上传");
+        //    return false;
+        //}
+        $.ajax({
+            type: "POST",
+            url: "/TeamProject/PostEdit",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(objJson),
+            dataType: "json",
+            success: function (data) {
+                if (data.Status == true) {
+                    alert("修改成功");
+                    $('#AddForm').form('clear');
+                    location.reload();
+
+                } else {
+                    alert(data.Info);
+                }
+            },
+            error: function (data) {
+                alert("添加失败");
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+<style>
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+</style>
+
+
+
+
+
+

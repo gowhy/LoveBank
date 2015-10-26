@@ -1,0 +1,252 @@
+﻿@using LoveBank.MVC
+
+@Html.IncludeCSS("~/Content/plug-in/webuploader/webuploader.css")
+@Html.IncludeScript("~/Content/plug-in/webuploader/webuploader.js")
+@Html.IncludeCSS("~/Content/Css/demo.css")
+@Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
+
+<div id="p" class="easyui-panel" title="新增一体机授权" data-options="tools:'#tt'">
+    @using (Html.BeginForm("PostAdd", "Product", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
+    {
+        <table class="form">
+            
+
+            <tr>
+                <td class="item_title">
+                    产品名称:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Name" name="Name"
+                           data-options="required:true,validType:'length[2,20]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    条形码:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="BarCode" name="BarCode"
+                           data-options="validType:'length[8,20]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    价格:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;   " name="Price" id="Price"
+                           data-options="required:true,validType:'length[1,9]'" /> (必填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    库存:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;   " name="Count" id="Count"
+                           data-options="required:true,validType:'length[1,9]'" /> (必填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    消耗积分:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberbox" type="text" style="height:25px; width:260px;   " name="CostScore" id="CostScore"
+                           data-options="required:true,validType:'length[1,9]'" /> (必填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    有效期:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="StartTime" name="StartTime"
+                           onclick="WdatePicker()" data-options="required:true" /> ~
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="EndTime" name="EndTime"
+                           onclick="WdatePicker()" data-options="required:true" />
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="item_title">
+                    产品图片:
+                </td>
+                <td class="item_input">
+                    <div id="uploader" class="wu-example" style="width:700px;margin-left:0px;">
+                        <div class="queueList" style=" margin:0px; ">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker"></div>
+                                <p>或将文件拖到这里,多可选5个图片</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div><div class="info"></div>
+                            <div class="btns">
+                                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    产品描述:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:460px;   " id="Desc" name="Desc"
+                           />  
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="addFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+    }
+
+
+</div>
+<div id="tt">
+
+    <a href="@Url.Action("Index", "Product")" class="icon-back" title="返回列表"></a>
+</div>
+
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
+
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+
+    #uploader .placeholder {
+        padding-top: 0px;
+    }
+
+    .queueList {
+        width: 800px;
+    }
+
+    #uploader .queueList.filled {
+        padding: 0px;
+    }
+</style>
+
+
+@Html.IncludeScript("~/Content/JS/MachineModule/edit.js")
+@Html.IncludeCSS("~/Content/plug-in/ztree/css/zTreeStyle/zTreeStyle.css")
+
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/My97DatePicker/WdatePicker.js")
+<script>
+    @*var sourceFileListObj = eval(@Html.Raw( Json.Encode(@Model.SourceFileList)));*@
+    //var sourceFileListObj = null;
+    //var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/Product/", action: "/UpLoadProcess", sourceFileList: sourceFileListObj });
+    ///调用文件上传
+    var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/Product/", action: "/UpLoadProcess"});
+
+    function GetFromJsonData() {
+        var json = {
+            "Name": $("#Name").val(),
+            "Price": $("#Price").val(),
+            "Count": $("#Count").val(),
+            "CostScore": $("#CostScore").val(),
+            "BarCode": $("#BarCode").val(),
+            "StartTime": $("#StartTime").val(),
+            "EndTime": $("#EndTime").val(),
+            "Desc": $("#Desc").val(),
+            "SourceFileList": upLoader.getSourceFileList()
+
+        };
+        return json;
+    }
+
+
+    $("#addFromSubmit").click(function () {
+
+        if (!$("#AddForm").form('validate')) {
+            return false;
+        }
+        var objJson = GetFromJsonData();
+        if (objJson.SourceFileList == null || objJson.SourceFileList.length < 1 || upLoader.getfileCount() < 1) {
+            alert("请先选择并上传至少一文件");
+            return false;
+        }
+
+        if (objJson.SourceFileList.length != upLoader.getfileCount()) {
+            alert("还有文件未上传");
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Product/PostAdd",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(objJson),
+            dataType: "json",
+            success: function (data) {
+                if (data.Status == true) {
+                    alert("添加成功");
+                    $('#AddForm').form('clear');
+                    location.reload();
+
+                } else {
+                    alert(data.Info);
+                }
+            },
+            error: function (data) {
+                alert("添加失败");
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+<style>
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+</style>
+@*显示行政区域tree*@
+@*<script type="text/javascript">
+    var zNodes =@(Html.Raw(ViewData["Department_List"].ToString()));
+
+    $("#CoverCommunity").TreeMvc({Department_List:zNodes});
+</script>*@
+
+
+
+
+

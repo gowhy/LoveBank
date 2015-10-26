@@ -1,0 +1,13 @@
+﻿@model MenuRoute
+<div class="ui-grid-5">
+    <ul class="ui-uc-nav">
+        <li class="@(Model == MenuRoute.UserCenter ? "active" : "")"><a href="@Url.Action("Index", "User")"><i class="iconfont">&#xf00bb;</i> 个人中心</a></li>
+        <li class="@(Model == MenuRoute.InvestRecord ? "active" : "")"><a href="@Url.Action("AllInvestList", "User")"><i class="iconfont">&#xf0025;</i> 投资记录</a></li>
+        <li class="@(Model == MenuRoute.TradeDetail ? "active" : "")"><a href="@Url.Action("AllLogList", "User")"><i class="iconfont">&#xf0101;</i> 交易明细</a></li>
+        <li class="@(Model == MenuRoute.ChargeCarry ? "active" : "")"><a href="@Url.Action("Money", "User")"><i class="iconfont">&#xf0280;</i> 充值提现</a></li>
+        <li class="@(Model == MenuRoute.BankCard ? "active" : "")"><a href="@Url.Action("BindBankCard", "User")"><i class="iconfont">&#xf0032;</i> 银行卡</a></li>
+        <li class="@(Model == MenuRoute.CreditRedeem ? "active" : "")"><a href="@Url.Action("CreditList")"><i class="iconfont">&#xf0033;</i> 投资赎回</a></li>
+        <li class="@(Model == MenuRoute.AutoBid ? "active" : "")"><a href="@Url.Action("AutoBid")"><i class="iconfont">&#xf00dd;</i> 自动投标</a></li>
+        <li class="@(Model == MenuRoute.SafeCenter ? "active" : "")"><a href="@Url.Action("SafeCenter")"><i class="iconfont">&#xf00c9;</i> 安全中心</a></li>
+    </ul>
+</div>

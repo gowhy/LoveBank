@@ -1,0 +1,32 @@
+﻿<div class="main_title">
+    新增短消息</div>
+<div class="blank5">
+</div>
+<p style="color: red;">严禁没有权限人员随意发送短信，一经发现，将严肃处理</p>
+@using (Html.BeginForm()) {
+    <table class="form" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+                   <td colspan="2" class="topTd"></td>
+               </tr>
+            <tr>
+                <td class="item_title">手机号码:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="Mobile"></td>
+            </tr>
+            <tr>
+                <td class="item_title">短信内容:</td>
+                <td class="item_input">
+                    <textarea id="Context" name="Context" class="textbox require" rows="3" cols="60"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <input type="submit" class="button" value="新增">
+                    <input type="reset" class="button" value="重置">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bottomTd"></td>
+            </tr>
+        </tbody></table>
+}

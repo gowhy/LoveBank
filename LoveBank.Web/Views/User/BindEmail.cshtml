@@ -1,0 +1,63 @@
+﻿@model LoveBank.Core.Members.User
+
+@{
+    ViewBag.Title = "绑定安全邮箱";
+}
+
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/jquery.validate.js")"> </script>
+<script type="text/javascript" src="@Url.Content("~/Content/Default/JS/messages_zh.js")"> </script>
+<script type="text/javascript">
+    $().ready(function () {
+        $('form').validate({
+            rules: {
+                Email: {
+                    required: true
+                }
+            },
+            messages: {
+                Email: {
+                    required: "<i class='ui-tiptext-icon iconfont' id='iusername-error'  title='出错'>&#xf0155;</i><span  style='color:Red;'>请输入邮箱！</span>"
+                }
+            },
+            errorPlacement: function (error, element) {
+                if (element.is("#Email")) {
+                    error.appendTo('#email-error');
+                }
+            }
+        });
+    });
+</script>
+
+<div class="ui-body">
+    <div class="ui-inner">
+        <div class="ui-grid-row">
+
+            @Html.Action("UserMenu", new { route = MenuRoute.SafeCenter })
+
+            <div class="ui-grid-20">
+                <div class="ui-box">
+                    <div class="ui-box-hd">
+                        <h1 class="ui-box-title">绑定邮箱</h1>
+                    </div>
+                        <form class="ui-form" name="" method="post" action="@Url.Action("SendEmail")">
+                            <fieldset>
+                                <legend>绑定邮箱</legend>
+                            
+                                <div class="ui-form-item">
+                                    <label for="" class="ui-label">
+                                        <span class="ui-form-required">*</span>电子邮箱
+                                    </label>
+                                    <input type="text" id="Email" name="Email" class="ui-input ui-input-large" value="" />
+                                </div>
+                                <div class="ui-form-item">
+                                    <input type="submit" class="ui-button ui-button-orange big" value="发送激活邮件" />
+                                    <a href="@Url.Action("SafeCenter")" class="ui-button ui-button-gray big">返回</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

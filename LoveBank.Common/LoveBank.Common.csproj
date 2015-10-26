@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{67D27BC8-876A-481B-B5E2-1103C54B5EED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LoveBank.Common</RootNamespace>
+    <AssemblyName>LoveBank.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Gma.QrCodeNet.Encoding">
+      <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Resource\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\Resource\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\EnumItemAttribute.cs" />
+    <Compile Include="Attributes\LocalizableAttribute .cs" />
+    <Compile Include="AutheTicketManager.cs" />
+    <Compile Include="Config\DefaultConfigManager.cs" />
+    <Compile Include="Config\IConfig.cs" />
+    <Compile Include="Config\IConfigProvider.cs" />
+    <Compile Include="Des.cs" />
+    <Compile Include="FileTools\ExcelHelper.cs" />
+    <Compile Include="FileTools\FileHelper.cs" />
+    <Compile Include="FileTools\FileUploadService.cs" />
+    <Compile Include="FileTools\FTPHelper.cs" />
+    <Compile Include="FileTools\IFileUploadService.cs" />
+    <Compile Include="Finance\EcanRMB.cs" />
+    <Compile Include="Finance\InterestAlgorithm.cs" />
+    <Compile Include="HttpRequests\HttpHelper.cs" />
+    <Compile Include="IdWorker.cs" />
+    <Compile Include="Log\Log.cs" />
+    <Compile Include="Plugins\CompletedCallback.cs" />
+    <Compile Include="Plugins\Email\EmailSender.cs" />
+    <Compile Include="Plugins\Email\IEmailSender.cs" />
+    <Compile Include="Plugins\Email\Smtp.cs" />
+    <Compile Include="Extensions\StringExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QRCodeHelper.cs" />
+    <Compile Include="SerializerHelp\HelpSerializer.cs" />
+    <Compile Include="XMLHelper.cs" />
+    <Compile Include="Data\BackingStore.cs" />
+    <Compile Include="Data\DynamicLibrary.cs" />
+    <Compile Include="Data\IEntityable.cs" />
+    <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Data\IUnitOfWork.cs" />
+    <Compile Include="Data\ParameterReplacer.cs" />
+    <Compile Include="Data\SortingOrders.cs" />
+    <Compile Include="Events\AwaitCommittedAttribute.cs" />
+    <Compile Include="Events\DefaultEventDispatcher.cs" />
+    <Compile Include="Events\DefaultEventHandlerRegistry.cs" />
+    <Compile Include="Events\DefaultHandlerInvoker.cs" />
+    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\EventConfig.cs" />
+    <Compile Include="Events\EventDispatchingContext.cs" />
+    <Compile Include="Events\EventHandlerException.cs" />
+    <Compile Include="Events\HandleAsyncAttribute.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\IEventDispatcher.cs" />
+    <Compile Include="Events\IEventHandlerRegistry.cs" />
+    <Compile Include="Events\IHandle.cs" />
+    <Compile Include="Events\IHandlerInvoker.cs" />
+    <Compile Include="Events\TypeUtil.cs" />
+    <Compile Include="Events\UnitOfWorkForEvent.cs" />
+    <Compile Include="Extensions\CheckArgument.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\DatetimeExtensions.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\GuidExtensions.cs" />
+    <Compile Include="Extensions\ImageFormatExtensions.cs" />
+    <Compile Include="Extensions\IQueryableExtensions.cs" />
+    <Compile Include="HttpRequests\HttpException.cs" />
+    <Compile Include="HttpRequests\HttpGet.cs" />
+    <Compile Include="HttpRequests\HttpMethod.cs" />
+    <Compile Include="HttpRequests\HttpPost.cs" />
+    <Compile Include="HttpRequests\HttpRequest.cs" />
+    <Compile Include="HttpRequests\IHttpRequest.cs" />
+    <Compile Include="HttpRequests\ParamCollection.cs" />
+    <Compile Include="HttpRequests\ParamPair.cs" />
+    <Compile Include="InputType.cs" />
+    <Compile Include="IoC\ContainerAdapter.cs" />
+    <Compile Include="IoC\IoC.cs" />
+    <Compile Include="IoC\IServiceInjector.cs" />
+    <Compile Include="IoC\IServiceRegister.cs" />
+    <Compile Include="IoC\IServiceResolver.cs" />
+    <Compile Include="IoC\LifetimeType.cs" />
+    <Compile Include="IoC\ServiceRegisterExtensions.cs" />
+    <Compile Include="IoC\ServiceResolverExtensions.cs" />
+    <Compile Include="JsonMessage.cs" />
+    <Compile Include="PagedList\BasePagedList.cs" />
+    <Compile Include="PagedList\IPagedList.cs" />
+    <Compile Include="PagedList\PagedList.cs" />
+    <Compile Include="PagedList\PageListExtensions.cs" />
+    <Compile Include="PagedList\PageListJsonFormat.cs" />
+    <Compile Include="PagedList\StaticPagedList.cs" />
+    <Compile Include="Plugins\ILoginPlugins.cs" />
+    <Compile Include="Plugins\IPaymentInfo.cs" />
+    <Compile Include="Plugins\IPlugins.cs" />
+    <Compile Include="Plugins\IPluginsService.cs" />
+    <Compile Include="Plugins\ListBoxGroup.cs" />
+    <Compile Include="Plugins\payment\AbstractPayment.cs" />
+    <Compile Include="Plugins\payment\IPayment.cs" />
+    <Compile Include="Plugins\payment\PaymentConfig.cs" />
+    <Compile Include="Plugins\payment\PaymentManager.cs" />
+    <Compile Include="Plugins\payment\PaymentOrder.cs" />
+    <Compile Include="Plugins\PluginService.cs" />
+    <Compile Include="Plugins\CheckBoxItem.cs" />
+    <Compile Include="Plugins\Sms\ISmsPlugins.cs" />
+    <Compile Include="Plugins\Sms\SmsInfo.cs" />
+    <Compile Include="Plugins\Sms\SmsSendResult.cs" />
+    <Compile Include="Plugins\ValidateImage.cs" />
+    <Compile Include="Plugins\WaterImage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regular\RegularExtensions.cs" />
+    <Compile Include="Regular\RegularUtil.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="ZXing.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

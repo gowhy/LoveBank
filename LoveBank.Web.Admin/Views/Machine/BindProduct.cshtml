@@ -1,0 +1,121 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Web.Admin.Models.ProductModel>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>绑定产品</title>
+    @Html.IncludeCSS("~/Content/Css/style.css")
+    @Html.IncludeCSS("~/Content/EasyUI/themes/default/easyui.css")
+    @Html.IncludeCSS("~/Content/EasyUI/themes/icon.css")
+
+ 
+
+</head>
+<body>
+
+
+    <div id="button_row">
+        <a class="easyui-linkbutton" data-options="" id="bingproductId" href="javascript:void()">绑定产品</a>
+
+    </div>
+    <div class="grid_box">
+
+        @Html.Grid(Model).Columns(column =>
+    {
+        column.CheckBox(x => x.Id, x => x.MachineId.HasValue);
+        column.For(x => x.Id).Named("ID");
+        column.For(x => x.Name ?? "").Named("产品名称");
+        column.For(x => x.Price).Named("产品价格");
+        column.For(x => x.BarCode).Named("条形码");
+        column.For(x => x.CostScore).Named("兑现积分");
+        column.For(x => x.Count).Named("库存");
+
+        column.For(x => x.StartTime.ToString("yyyy-MM-dd")).Named("有效时间");
+        column.For(x => x.EndTime.ToString("yyyy-MM-dd")).Named("过期时间");
+        //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
+        column.For(x => x.State).Named("状态");
+
+        //column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.ID }))
+        //    .Add(x => Html.ScriptLink("删除", "del({0})", x.ID))
+
+        //    );
+    }).Complex(ViewData)
+
+    </div>
+
+    @Html.Pager(Model)
+    <input type="hidden" id="machineId" name="machineId" value="@ViewBag.MachineId" />
+
+    @Html.IncludeScript("~/Content/EasyUI/jquery.min.js")
+    @Html.IncludeScript("~/Content/EasyUI/jquery.easyui.min.js")
+    @Html.IncludeScript("~/Content/EasyUI/easyui-lang-zh_CN.js")
+    @Html.IncludeScript("~/Content/Js/jquery.timer.js")
+    @Html.IncludeScript("~/Content/Js/common.js")
+    @Html.IncludeScript("~/Content/Js/jquery.bgiframe.js")
+</body>
+</html>
+
+
+
+
+<script type="text/javascript">
+
+    function del(id) {
+
+        var url = '@Url.Action("Delete")' + '?id=' + id;
+        deleteMethod(id, "Delete");
+
+    }
+
+
+
+
+    function GetFromJsonData() {
+        //或许选择项的值
+        var productIdList = new Array();
+        $("input[name='key']:checkbox:checked").each(function () {
+            productIdList.push($(this).val());
+        })
+
+        var json = {
+            "machineId": $("#machineId").val(),
+            "productIdList": productIdList
+
+        };
+        return json;
+    }
+    $("#bingproductId").click(function () {
+
+        var objJson = GetFromJsonData();
+        $.ajax({
+            type: "POST",
+            url: "/machine/PostBindMachine",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(objJson),
+            dataType: "json",
+            success: function (data) {
+                if (data.Status == true) {
+                    alert("绑定成功");
+
+                    location.reload();
+
+                } else {
+                    alert(data.Info);
+                }
+            },
+            error: function (data) {
+                alert("绑定失败");
+            }
+        });
+    });
+
+
+</script>

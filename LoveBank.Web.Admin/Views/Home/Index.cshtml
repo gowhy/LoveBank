@@ -1,0 +1,127 @@
+﻿@using LoveBank.MVC
+@model  List<LoveBank.Core.Domain.MenuEntity>
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    @Html.IncludeCSS("~/Content/Css/style.css")
+    <script type="text/javascript">
+        var ROOT = '@Url.Content("~/")';
+        var MODULE_NAME = '@ViewContext.RouteData.Values["controller"]';
+        var ACTION_NAME = '@ViewContext.RouteData.Values["action"]';
+    </script>
+
+    @Html.IncludeCSS("~/Content/EasyUI/themes/default/easyui.css")
+    @Html.IncludeCSS("~/Content/EasyUI/themes/icon.css")
+    @Html.IncludeScript("~/Content/EasyUI/jquery.min.js")
+    @Html.IncludeScript("~/Content/EasyUI/jquery.easyui.min.js")
+
+    @Html.IncludeScript("~/Content/Js/jquery.timer.js")
+    @Html.IncludeScript("~/Content/Js/common.js")
+
+    @Html.IncludeScript("~/Content/Js/jquery.bgiframe.js")
+    @Html.IncludeScript("~/Content/Js/jquery.weebox.js")
+    @Html.IncludeCSS("~/Content/Css/weebox.css")
+
+</head>
+<body class="easyui-layout">
+    
+            <div data-options="region:'north'" style="height:70px;">
+                <div style="float:right;  color:#fff; ">
+                  
+                    <a style=" font-size:25px;  text-decoration:none; margin-right:20px;" href="@Url.Action("LogOff", "account")" target="_parent">注销</a>
+                </div>
+            </div>
+            @*<div data-options="region:'south',split:true" style="height:100%;"></div>*@
+            @*<div data-options="region:'east',split:true" title="East" style="width:100%;"></div>*@
+            <div data-options="region:'west',split:true" title="菜单" style="width:180px; ">
+
+                @*<div style="padding-bottom:5px; padding-top:5px;"><a style="color: #0099FF; color: black; " href="#" onclick="addTab('菜单腾讯', 'http://www.qq.com')">腾讯</a>  </div>
+                <div style="padding-bottom:5px; padding-top:5px;"><a style="color: #0099FF; color: black; " href="#" onclick="addTab('菜单百度', 'http://www.baidu.com')">百度</a>  </div>*@
+           
+                <div id="aa" class="easyui-accordion">
+                    @foreach (var item in Model)
+                    {
+                        <div title="@item.name"  style="overflow:auto; color:red; text-align:center; ">
+
+                            @foreach (var chlid in item.ChildList)
+                            {
+                                if (string.IsNullOrEmpty(chlid.AText))
+                                {
+                                    <div style="padding-bottom:5px; padding-top:5px;"><a style="color: #0099FF; color: black; " href="#" onclick="addTab('@chlid.name', '@chlid.file')">@chlid.name</a>  </div>
+                                }
+                                else
+                                {
+                                    <div style="padding-bottom:5px; padding-top:5px;">@Html.Raw(chlid.AText) </div>
+                                }
+
+                            }
+                        </div>
+                    }
+
+                </div>
+             </div>
+            <div data-options="region:'center'">
+                <div id="tt" class="easyui-tabs" data-options="tools:'#tab-tools',fit:true">
+                </div>
+            </div>
+    
+</body>
+</html>
+
+
+<style>
+    .accordion-header .panel-title {
+        color: #404040;
+        margin-top:3%;
+        margin-left:5px;
+        font-size:14px;
+        font-style:normal;
+        font-weight:normal;
+    }
+
+</style>
+
+
+<script>
+        var index = 0;
+        function addTab(plugin, route) {
+            if ($('#tt').tabs('exists', plugin)) {
+                $('#tt').tabs('select', plugin);
+                // tab刷新内容
+                var tab = $('#tt').tabs('getSelected');
+                $("#tt").tabs('update', {
+                    tab: tab,
+                    options: {
+                        title: plugin,
+                        content: '<iframe scrolling="auto" frameborder="0"  src="' + route + '" style="width:100%;height:100%;"></iframe>',
+                        closable: true,
+                        selected: true
+                    }
+                });
+            } else {
+                //var content = '<iframe scrolling="auto" frameborder="0"  src="'+route+'" style="width:100%;height:100%;"></iframe>';
+
+                $('#tt').tabs('add', {});
+
+                // tab刷新内容 fix 自适应高度
+                var tab = $('#tt').tabs('getSelected');
+                $("#tt").tabs('update', {
+                    tab: tab,
+                    options: {
+                        title: plugin,
+                        content: '<iframe scrolling="auto" frameborder="0"  src="' + route + '" style="width:100%;height:100%;"></iframe>',
+                        closable: true,
+                        selected: true
+                    }
+                });
+            }
+        }
+</script>

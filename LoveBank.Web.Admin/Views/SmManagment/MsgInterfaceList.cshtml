@@ -1,0 +1,65 @@
+﻿@using LoveBank.Web.Admin.Models
+@model List<SmsServerModel>
+           
+<div class="main_title">
+    短信接口列表
+    <input type="text" name="txtSmText" id="txtSmText"/>
+    <a href="javascript:;" id="btnSendDemo" class="button">发送测试</a>
+</div>
+<div class="blank5">
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    <table class="grid">
+        <thead>
+            <tr>
+                <th>接口名称</th>
+                <th>描述</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SmsServerModel m in Model) {
+                <tr class="gridrow">
+                    <td>@m.ServerName</td>
+                    <td>@m.Description</td>
+                    <td class="grid_btn">
+                        @if (m.IsInstall) {
+                            @Html.ActionLink("卸载","UninstallInterface",new{id=m.Id})
+                            @Html.ActionLink("编辑","EditMsgInterface",new{id=m.Id})
+                            if (m.IsDefault) {
+                                <text>正在使用中</text>
+                            } else {
+                                @Html.ActionLink("使用该短信接口","ActiviteMsgInterface",new{id=m.Id})
+                            }
+                        } else {
+                            @Html.ActionLink("安装","InstallInterface",new{key=m.ClassName})
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnSendDemo').click(sendDemo);
+    });
+    function sendDemo() {
+        var url = "/SmManagment/SendDemo";
+        var phoneNo = $('#txtSmText').val();
+        if(phoneNo == "") {
+            customerAlert("请输入测试号码");
+            return;
+        }
+        $.post(url, { phoneNo: phoneNo }, function(result) {
+            customerAlert(null,result);
+        });
+    }
+</script>

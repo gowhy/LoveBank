@@ -1,0 +1,76 @@
+﻿@model LoveBank.Core.Members.User
+@{
+    ViewBag.Title = "注册成功";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ui-body">
+    <div class="ui-inner">
+        <div class="ui-box">
+            <div class="ui-box-hd">
+                <h2 class="ui-box-title">注册成功</h2>
+            </div>
+            <div class="ui-box-step">
+                <ol class="ui-step ui-step-3">
+                    <li class="ui-step-start ui-step-done">
+                        <div class="ui-step-line">-</div>
+                        <div class="ui-step-icon">
+                            <i class="iconfont">&#xe610;</i>
+                            <i class="ui-step-number">1</i>
+                            <span class="ui-step-text">账户信息</span>
+                        </div>
+                    </li>
+                    <li class="ui-step-done">
+                        <div class="ui-step-line">-</div>
+                        <div class="ui-step-icon">
+                            <i class="iconfont">&#xe610;</i>
+                            <i class="ui-step-number">2</i>
+                            <span class="ui-step-text">账户验证</span>
+                        </div>
+                    </li>
+                    <li class="ui-step-end ui-step-start">
+                        <div class="ui-step-line">-</div>
+                        <div class="ui-step-icon ui-step-active">
+                            <i class="iconfont">&#xe610;</i>
+                            <i class="ui-step-number">&#xf00b2;</i>
+                            <span class="ui-step-text">注册成功</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <div class="ui-tipbox ui-tipbox-success">
+                <div class="ui-tipbox-icon">
+                    <i class="iconfont" title="成功">&#xf0156;</i>
+                </div>
+                <div class="ui-tipbox-content">
+                    <h3 class="ui-tipbox-title">注册成功</h3>
+                    <p class="ui-tipbox-explain">@Html.Raw(string.Format("恭喜{0}成为会员，请返回登录页面进行登录", @Model.UserName))</p>
+                    <p class="ui-tipbox-explain"><a href="@Url.Action("LogIn", "Account")">现在登录</a></p>
+                </div>
+            </div>
+            <fieldset>
+                <legend>@Html.Raw(string.Format("恭喜{0}成为会员，请返回登录页面进行登录", @Model.UserName))</legend>
+                <a href="@Url.Action("LogIn", "Account")">返回登录页面</a>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+@*
+<script type="text/javascript">
+    try {
+        var idgTracker = _alysP.init("ifc", "T-000067-01");
+        idgTracker._setTrackPath(idgJsHost + '://idigger.allyes.com/main/adftrack');
+        var s = {};
+        s.userid = "@Model.ID";       // 注册用户ID - 示例 - s.userid="user1"; 
+        s.nreg = "1";       // 新注册用户标识 
+        idgTracker._setECM(s);
+        idgTracker._trackPoint();
+    } catch (err) { }
+
+    idgTracker._trackEvent('$conversion', "register", "@Model.ID", "");
+</script>
+*@
+
+<script>    !function (w, d, e) { var b = location.href, c = d.referrer, f, g = d.cookie, h = g.match(/(^|;)\s*ipycookie=([^;]*)/), i = g.match(/(^|;)\s*ipysession=([^;]*)/); if (w.parent != w) { f = b; b = c; c = f; }; u = '//stats.ipinyou.com/cvt?a=' + e('nL.Ki.Pup0P-Od8bE5Xrp7emIzg0') + '&c=' + e(h ? h[2] : '') + '&s=' + e(i ? i[2].match(/jump\%3D(\d+)/)[1] : '') + '&u=' + e(b) + '&r=' + e(c) + '&rd=' + (new Date()).getTime() + '&e='; d.write('<script src=' + u + '><\/script>'); } (window, document, encodeURIComponent);</script>
+<noscript><img src="//stats.ipinyou.com/cvt.gif?a=nL.Ki.Pup0P-Od8bE5Xrp7emIzg0&e=" style="display:none;"/></noscript>

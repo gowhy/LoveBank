@@ -1,0 +1,91 @@
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 Des 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Finance.EcanRMBExtension 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Finance.InterestAlgorithm 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.ResultType 生成存根: 类型是一个值类型。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.PostDataType 生成存根: 类型是一个值类型。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Log 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.CompletedCallback 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.StringExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.XMLHelper 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Data.BackingStore 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.DynamicQueryable 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.DynamicExpression 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.DynamicOrdering 生成存根: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.Signature 生成存根: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.ClassFactory 生成存根: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.ParseException 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.ExpressionParser 生成存根: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.Res 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.ParameterReplacer 生成存根: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.PredicateExtensionses 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Data.SortingOrders 生成存根: 类型是一个值类型。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Data.OrderByHelper 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.EventConfig 生成存根: 类型没有系列可见的构造函数。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.TypeUtil 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Check 生成存根: 类型没有系列可见的构造函数。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.CollectionExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.DatetimeExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.DictionaryExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.EnumerableExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.EnumExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.GuidExtension 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Extensions.ImageFormatExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IQueryableExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.HttpMethod 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.InputType 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.LifetimeType 生成存根: 类型是一个值类型。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.ServiceRegisterExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.ServiceResolverExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.PageListExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.WaterImage 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.RegularExtensions 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.RegularUtil 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <>f__AnonymousType0`3 生成存根: 类型已密封。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <PrivateImplementationDetails>{1DE65107-4261-4A57-87AC-4D54C97F4BBD} 生成存根: 类型不受支持，因为存在内部限制。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.AutheTicketManager+<ValidateUserTicket>o__SiteContainer0 生成填充码: 类型不受支持，因为存在内部限制。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Config.IConfig 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Config.IConfigProvider 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IFileUploadService 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.ResultType 生成填充码: 类型是一个枚举。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.PostDataType 生成填充码: 类型是一个枚举。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.CompletedCallback 生成填充码: 类型是一个委托。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.Email.IEmailSender 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.Email.EmailSender+<>c__DisplayClass3 生成填充码: 类型不受支持，因为存在内部限制。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.StringExtensions+<>c__DisplayClass1 生成填充码: 类型不受支持，因为存在内部限制。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.DynamicOrdering 生成填充码: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.Signature 生成填充码: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.ClassFactory 生成填充码: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.ExpressionParser 生成填充码: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 System.Linq.Dynamic.Res 生成填充码: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Data.IEntityable`1 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Data.IRepository 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Data.IRepository`1 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Data.IUnitOfWork 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.ParameterReplacer 生成填充码: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Data.SortingOrders 生成填充码: 类型是一个枚举。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.IEventDispatcher 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.IEventHandlerRegistry 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.IHandlerInvoker 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.DefaultHandlerInvoker+<>c__DisplayClass2 生成填充码: 类型不受支持，因为存在内部限制。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.IDomainEvent 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.IHandle`1 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Events.TypeUtil 生成填充码: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.EnumExtensions+<>c__DisplayClass8 生成填充码: 类型不受支持，因为存在内部限制。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IHttpRequest 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.HttpMethod 生成填充码: 类型对 exported or assembly(LoveBank.Common.Fakes) 不可见。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IServiceRegister 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IServiceResolver 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IServiceInjector 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IContainerAdapter 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.LifetimeType 生成填充码: 类型是一个枚举。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IPagedList 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.IPagedList`1 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.IPlugins 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.ILoginPlugins 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.IPaymentInfo 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.IPluginsService`1 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.IPayment 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.PluginService`1+<>c__DisplayClass9 生成填充码: 类型不受支持，因为存在内部限制。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.ISmsPlugins 生成填充码: 类型是一个接口。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <>f__AnonymousType0`3 生成填充码: 类型不受支持，因为存在内部限制。
+E:\贵阳社会组织系统\爱心银行项目\LoveBank_SoureCode\LoveBank\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <PrivateImplementationDetails>{1DE65107-4261-4A57-87AC-4D54C97F4BBD} 生成填充码: 类型不受支持，因为存在内部限制。

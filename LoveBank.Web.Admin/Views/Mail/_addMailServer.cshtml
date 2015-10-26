@@ -1,0 +1,84 @@
+﻿<div class="main_title">
+    新增 <a href="@Url.Action("MailServer", "Mail")" class="back_list">返回列表</a></div>
+<div class="blank5">
+</div>
+@using (Html.BeginForm()) {
+    <table class="form" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+                   <td colspan="2" class="topTd"></td>
+               </tr>
+            <tr>
+                <td class="item_title">SMTP服务器地址:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="SmtpServer"></td>
+            </tr>
+            <tr>
+                <td class="item_title">帐号:</td>
+                <td class="item_input"><input type="text" class="textbox require" name="SmtpName"></td>
+            </tr>
+            <tr>
+                <td class="item_title">密码:</td>
+                <td class="item_input"><input type="password" class="textbox require" name="SmtpPassword"></td>
+            </tr>
+            <tr>
+                <td class="item_title">是否需要身份验证:</td>
+                <td class="item_input">
+                    <select name="IsVerify">
+                        <option value="true">是</option>
+                        <option value="false">否</option>				
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">端口号:</td>
+                <td class="item_input"><input type="text" class="textbox" name="SmtpPort" value="25"></td>
+            </tr>
+            <tr>
+                <td class="item_title">是否SSL加密:</td>
+                <td class="item_input">
+                    <select name="IsSsl">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </td>
+            </tr>	
+            <tr>
+                <td class="item_title">已用次数:</td>
+                <td class="item_input"><input type="text" class="textbox" name="TotalUse" value="0"></td>
+            </tr>
+            <tr>
+                <td class="item_title">可用次数:</td>
+                <td class="item_input">
+                    <input type="text" class="textbox" name="UseLimit" value="0">
+                    <span class="tip_span">[可用次数为0时表示无限次数使用]</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">是否自动清零:</td>
+                <td class="item_input">
+                    <select name="IsReset">
+                        <option value="false">否</option>
+                        <option value="true">是</option>
+                    </select>
+                    <span class="tip_span">[开启自动清零，在设置可用次数时，当发数用完后将清空已发送的次数，可使该邮箱重新被使用]</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">状态:</td>
+                <td class="item_input">
+                    <lable>有效<input type="radio" name="IsEffect" value="true" checked="checked"></lable>
+                    <lable>无效<input type="radio" name="IsEffect" value="false"></lable>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input">
+                    <input type="submit" class="button" value="新增">
+                    <input type="reset" class="button" value="重置">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bottomTd"></td>
+            </tr>
+        </tbody></table>
+}

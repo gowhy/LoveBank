@@ -1,0 +1,21 @@
+﻿@model String
+<div class="ui-grid-6" style="margin-bottom:0;">
+                    <div class="ui-about-side">
+                        <ul class="ui-about-nav">
+                            <li class="level-1 @(Model.Contains("About") ? "active" : "")">
+                                <a href="@Url.Action("About", "Home", new { p = "Company" })"><i class="iconfont">&#x3438;</i> 关于我们</a>
+                                <ul class="level-2">
+                                    <li class="@(Model.Contains("About-Company") ? "level-2-cur" : "")"><a href="@Url.Action("About", "Home", new { p = "Company" })"><i class="iconfont">&#xe61e;</i>公司简介</a></li>
+                                    <li class="@(Model.Contains("About-Structure") ? "level-2-cur" : "")"><a href="@Url.Action("About", "Home", new { p = "Structure" })"><i class="iconfont">&#xe61e;</i>平台结构</a></li>
+                                    <li class="@(Model.Contains("About-Team") ? "level-2-cur" : "")"><a href="@Url.Action("About", "Home", new { p = "Team" })"><i class="iconfont">&#xe61e;</i>团队介绍</a></li>
+                                    <li class="@(Model.Contains("About-Partner") ? "level-2-cur" : "")"><a href="@Url.Action("About", "Home", new { p = "Partner" })"><i class="iconfont">&#xe61e;</i>合作伙伴</a></li>
+                                    <li class="@(Model.Contains("About-News") ? "level-2-cur" : "")"><a href="@Url.Action("News","Article")"><i class="iconfont">&#xe61e;</i>网站公告</a></li>
+                                </ul>
+                                <div class="nav-arrow"></div>
+                            </li>
+                            <li class="level-1 @(Model.Contains("Report") ? "active" : "")"><a href="@Url.Action("List", "Article", new { cid = 21 })"><i class="iconfont">&#xf0011;</i> 媒体报道</a><div class="nav-arrow"></div></li>
+                            <li class="level-1 @(Model.Contains("Help") ? "active" : "")"><a href="@Url.Action("Help","Home")"><i class="iconfont">&#xf0011;</i> 帮助中心</a><div class="nav-arrow"></div></li>
+                            <li class="level-1 @(Model.Contains("Contact") ? "active" : "")"><a href="@Url.Action("Contact","Home")"><i class="iconfont">&#xf0011;</i> 联系我们</a><div class="nav-arrow"></div></li>
+                        </ul>
+                    </div>
+                </div>

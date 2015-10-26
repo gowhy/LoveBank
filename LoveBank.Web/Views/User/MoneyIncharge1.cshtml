@@ -1,0 +1,111 @@
+﻿@using QDT.Common.Plugins
+@using QDT.Core.Members
+@using QDT.MVC
+@model ICollection<QDT.Common.Plugins.IPayment>
+@{
+    ViewBag.Title = "用户充值";
+    User user = QDTContext.Current.User;
+}
+@section Head {
+    <script type="text/javascript" src="@Url.Content("~/Content/Default/JS/jquery.tabs.js")"> </script>
+}
+
+<div class="m-mian">
+    <div class="inner">
+        <div class="g-bd2 f-cb">
+            <div class="g-mn2">
+                <div class="g-mn2c" style="background: #fff; padding: 20px;">
+                    <div class="m-hd">
+                        <ul>
+                            <li class="z-crt"><a href="#">会员充值</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="u-alert u-alert-c1">
+                        黔贷通禁止信用卡套现、转账、洗钱等行为，一经发现将予以处罚,包括但不限于：限制收款、冻结账户、永久停止服务。</div>
+                    @if (user.IDCardPassed)
+                    {
+                        <div class="u-alert u-alert-c2">
+                            1、充值免费，充值产生的第三方支付平台费用由黔贷通平台承担。 <br/> 2、请注意您的银行卡充值限制，以免造成不便。 <br/>
+                            3、如果充值金额没有及时到账，请和客服联系。
+                        </div>
+
+                        <div class="m-form">
+                            <form name="incharge_form" id="incharge_form" action='@Url.Action("PostMoneyIncharge")' method="post" target="_blank">
+                                <div class="formitm">
+                                    <label class="lab" for="Money">充值金额：</label>
+                                    <div class="ipt">
+                                        <input type="text" class="u-ipt" id="Money" name="Money"/>
+                                    </div>
+                                </div>
+                                <div id="J_online_pay" class="formitm f-cb">
+                                    <script type="text/javascript">
+                                        $(function() {
+                                            $("#tab_payment ul").idTabs();
+                                        });
+                                    </script>
+                                    <div id="tab_payment" class="tab_payment ">
+                                        <ul class="banktabs">
+                                            <li><a href="#bank">银行卡</a></li>
+                                            <li><a href="#online" class="selected">支付平台</a></li>
+                                        </ul>
+                                        <div class="mbank">
+                                            <div id="bank" class="bank">
+                                                @{
+                        IPayment payment = Model.FirstOrDefault(x => x.Key == "UnionPayDirectPayment");
+                                                }
+                                                @if (payment != null)
+                                                {
+                                                    <span>@payment.GetDisplayHtml().ToHtml()</span>
+                                                }
+                                            </div>
+                                            <div id="online" class="online">
+                                                @foreach (IPayment pay in Model)
+                                                {
+                                                    if (pay.Key == "UnionPayDirectPayment")
+                                                    {
+                                                        continue;
+                                                    }
+                                                    <span>@pay.GetDisplayHtml().ToHtml()</span>
+                                                }
+                                            </div>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="formitm formitm-1">
+                                    <button class="u-btn u-btn-c2" type="submit" id="incharge_done">确定充值</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $("#incharge_form").submit(function () {
+                                    var inchargeMoney = $("input[name='Money']").val();
+                                    if (!(inchargeMoney != '' && !isNaN(inchargeMoney) && inchargeMoney > 0)) {
+                                        alert("请输入正确的充值金额");
+                                        $("input[name='money']").focus();
+                                        return false;
+                                    } else if (!$("input[name='payment']:checked").val()) {
+                                        alert("请选择支付方式");
+                                        return false;
+                                    }
+                                    idgTracker._trackPV('/virtual/confirm-incharge/' + inchargeMoney);
+                                });
+
+                                $("#online input:radio:first").attr("checked", "checked");
+                            });
+                        </script>
+                    }
+                    else
+                    {
+                        <div>
+                            <p><a class="u-btn u-btn-c2" href="@Url.Action("BindIdCard")">请先提交身份认证</a></p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

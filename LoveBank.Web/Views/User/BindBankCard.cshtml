@@ -1,0 +1,250 @@
+﻿@using LoveBank.Common
+@using LoveBank.Core.Members
+@using LoveBank.Web
+@model LoveBank.Core.Members.User
+@{
+    ViewBag.Title = "绑定银行卡";
+    var banks = ViewData["UserBank"] as ICollection<UserBank>;
+}
+
+@section Head
+{
+
+    <script type="text/javascript">
+        $().ready(function () {
+            $('#BankId').change(function () {
+                if ($('#BankId').val() == '9999') {
+                    $('#OtherBank').removeClass('hide');
+                } else {
+                    $('#OtherBank').addClass('hide');
+                }
+            });
+            $('#RegionLv2').change(function () {
+                ajaxGetRegion($('#RegionLv2').val());
+            });
+            function ajaxGetRegion(pid) {
+                $.ajax({
+                    type: "post", //使用get方法访问后台
+                    dataType: "json", //返回json格式的数据
+                    url: "/Region/Region", //要访问的后台地址
+                    data: "pid=" + pid,
+                    success: setRegion
+                });
+            }
+            function setRegion(result) {
+                var total = result.total;
+                if (total == 0) {
+                    return false;
+                }
+                var rows = result.rows;
+                var regionlevel = rows[0].RegionLevel;
+                var region3 = document.getElementById('RegionLv3');
+                var eText, eValue, i;
+                if (regionlevel == 3) {
+                    region3.options.length = 0;
+                    region3.options.add(new Option("请选择", "0"));
+                    for (i = 0; i < total; i++) {
+                        eText = rows[i].Name;
+                        eValue = rows[i].ID;
+                        region3.options.add(new Option(eText, eValue));
+                    }
+                }
+            }
+
+            $('#submit_addbank').click(function () {
+                addUserBank();
+            });
+
+            function addUserBank() {
+                var bankCard = $('#BankCard').val();
+                var bankId = $('[name="BankId"]').val();
+                var otherBank = $('[name="OtherBank"]').val();
+                var regionLv2 = $('[name="RegionLv2"]').val();
+                var regionLv3 = $('[name="RegionLv3"]').val();
+                var bankZone = $('#BankZone').val();
+                var data = {};
+
+                if (bankCard == "") {
+                    alert("请填写银行卡号");
+                    return;
+                }
+
+                if (bankId == 0 || (bankId == 9999 && otherBank == 0)) {
+                    alert("请选择银行卡开户银行");
+                    return;
+                }
+                if (regionLv3 == 0) {
+                    alert("请选择银行卡开户城市");
+                    return;
+                }
+                if (bankZone == "") {
+                    alert("请填写银行卡开户行信息");
+                    return;
+                }
+
+                data.BankCard = bankCard;
+                data.BankId = bankId;
+                data.OtherBank = otherBank;
+                data.RegionLv2 = regionLv2;
+                data.RegionLv3 = regionLv3;
+                data.BankZone = bankZone;
+
+                var url = '@Url.Action("PostBindBankCard")';
+
+                $.ajax({
+                    url: url,
+                    data: data,
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (obj) {
+                        alert(obj.Info);
+                        if (obj.Status == true)
+                            location.href = location.href;
+                    }
+                });
+            }
+
+        });
+
+        function deletebank(id) {
+
+            if (!confirm("确认删除银行卡")) {
+                window.event.returnValue = false;
+                return;
+            }
+            
+            var url = '@Url.Action("DeleteBankCard")' + '?bankid=' + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: "json",
+                success: function (obj) {
+                    alert(obj.Info);
+                    if (obj.Status == true) location.href = location.href;
+                }
+            });
+        }
+
+        function defaultbank(id) {
+            var url = '@Url.Action("DefaultBankCard")' + '?bankid=' + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: "json",
+                success: function (obj) {
+                    alert(obj.Info);
+                    if (obj.Status == true) location.href = location.href;
+                }
+            });
+        }
+        
+    </script>
+}
+
+<div class="ui-body">
+        <div class="ui-inner">
+            <div class="ui-grid-row">
+
+                @Html.Action("UserMenu", new { route = MenuRoute.BankCard })
+
+                <div class="ui-grid-20">
+                    <div class="ui-box ui-bank-list fn-clear">
+                    
+                        <div style="float: left;width: 365px;">
+                            @foreach (var bank in banks)
+                            {
+                                <div class="ui-inbox">
+                                    <div class="ui-inbox-head">
+                                        <h3 class="ui-inbox-head-title">@Html.F().GetBankById(bank.BankId)</h3>
+                                        <span class="ui-inbox-head-text"><a href="javascript:void(0);" onclick="deletebank(@bank.ID);">删除</a></span>
+                                        @if (bank.IsDefault)
+                                        {
+                                            <div class="ui-inbox-head-more" style="color: #27ae60;"><i class="iconfont">&#xf00b2;</i> 已绑定</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="ui-inbox-head-more"><a style="color: #f39c12;" href="javascript:void(0);" onclick="defaultbank(@bank.ID);">设为默认</a></div>
+                                        }
+                                    </div>
+                                    <div class="ui-inbox-container">
+                                        <div class="ui-inbox-content">
+                                            <p>卡号：@bank.BankCard.ToConfuse(0, 6, 3)</p>
+                                            <p>户名：@Model.RealName</p>
+                                            <p>开户网点：@bank.BankZone</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="ui-inbox">
+                            <div class="ui-inbox-head">
+                                <h3 class="ui-inbox-head-title"><i class="iconfont">&#xf0154;</i> 添加一张银行卡</h3>
+                            </div>
+                            <div class="ui-inbox-container">
+                                <div class="ui-inbox-content">
+                                    <form class="ui-form ui-form-mini" method="post" action="@Url.Action("PostBindBankCard")" id="bind_bankcard_form">
+                                        <fieldset>
+                                            <div class="ui-form-item">
+                                                <label for="" class="ui-label">
+                                                    持卡人
+                                                </label>
+                                                <input class="ui-input" type="text" disabled value="@(Model.IDCardPassed ? Model.RealName : "请先实名认证")" style="width:180px"/>
+                                            </div>
+                                            
+                                            <div class="ui-form-item">
+                                                <label for="" class="ui-label">
+                                                    卡号
+                                                </label>
+                                                <input type="text" id="BankCard" name="BankCard" class="ui-input" style="width:180px"/>
+                                            </div>
+
+                                            <div class="ui-form-item">
+                                                <label for="" class="ui-label">
+                                                    银行
+                                                </label>
+                                                @Html.DropDownList("BankId", ViewData["BankId"] as IEnumerable<SelectListItem>, new { @class = "ui-input", style = "width: 200px;" })
+                                                @Html.DropDownList("OtherBank", ViewData["OtherBank"] as IEnumerable<SelectListItem>, new { @class = "ui-input hide", style = "width: 200px;" })      
+                                            </div>
+
+                                            <div class="ui-form-item">
+                                                <label for="" class="ui-label">
+                                                    开户城市
+                                                </label>
+                                                @Html.DropDownList("RegionLv2", ViewData["RegionLv2"] as IEnumerable<SelectListItem>, new { @class = "ui-input", style = "width: 100px;" })
+                                                <select id="RegionLv3" name="RegionLv3" class="ui-input" style="width: 100px;">
+                                                    <option value="0">市</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="ui-form-item">
+                                                <label for="" class="ui-label">
+                                                    开户网点
+                                                </label>
+                                                <input type="text" id="BankZone" name="BankZone" class="ui-input" style="width:180px"/>
+                                            </div>
+
+                                            <div class="ui-form-item">
+                                                @if (Model.IDCardPassed)
+                                                {
+                                                    <a type="submit" href="javascript:void(0)" id="submit_addbank" class="ui-button ui-button-orange">添加</a>
+                                                }
+                                                else
+                                                {
+                                                    <a type="submit" href="@Url.Action("BindIdCard")" class="ui-button ui-button-orange">实名认证</a>
+                                                }
+                                            </div>
+
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>

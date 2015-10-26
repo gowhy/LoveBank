@@ -1,0 +1,58 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Web.Admin.Models.VolAddSocreRecordeModel>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+
+     
+
+        function auditingVolAddScore(id) {
+
+            var url = '@Url.Action("AuditingVolAddScore")' + '?id=' + id;
+
+            showAjaxResult(url, "审核增加积分", 600, 285);
+        }
+
+    </script>
+
+}
+
+
+@*<div id="button_row">
+
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增</a>
+</div>*@
+<div class="grid_box">
+
+    @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.Vol.ID).Named("ID");
+        column.For(x => x.Vol.Phone ?? "").Named("手机号");
+        column.For(x => x.Vol.RealName ?? "").Named("姓名");
+        column.For(x => x.Vol.Score).Named("当前积分");
+        column.For(x => x.AddScore).Named("准备加分");
+        column.For(x => x.Vol.Sex).Named("性别");
+        column.For(x => x.Vol.Age).Named("年龄");
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd HH:mm")).Named("申请加分时间");
+        column.For(x => x.Msg).Named("申请加分原因").HeaderAttributes(style => "width:200px;"); ;
+        column.For(x => x.AuditingMsg).Named("审核意见").HeaderAttributes(style => "width:150px;");
+        column.For(x => x.AuditingState).Named("审核状态");
+  
+        column.For(x => x.Vol.Address).Named("居住详细地址");
+  
+    
+
+        column.Buttons(btns => btns
+           　　　 .Add(x => Html.ScriptLink("审核", "auditingVolAddScore({0},'1')", x.ID))
+                  
+            );
+    }).Complex(ViewData)
+
+</div>
+
+@Html.Pager(Model)

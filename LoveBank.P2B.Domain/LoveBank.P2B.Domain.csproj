@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A174BF70-E320-4BF0-999D-529F7741E2EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LoveBank.P2B.Domain</RootNamespace>
+    <AssemblyName>LoveBank.P2B.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Messages\MsgQueueFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\MsgTemplate.cs" />
+    <Compile Include="Messages\MsgTemplateService.cs" />
+    <Compile Include="Messages\Repository\IMessageRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\SendStatus.cs" />
+    <Compile Include="Config\EmailConfig.cs" />
+    <Compile Include="Messages\MsgType.cs" />
+    <Compile Include="Messages\MsgQueue.cs" />
+    <Compile Include="Messages\SmsServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Config\MessageConfig.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoveBank.Common.Plugins\LoveBank.Common.Plugins.csproj">
+      <Project>{be8afab2-11be-4516-8061-afa2e8ac80ce}</Project>
+      <Name>LoveBank.Common.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Common.Unity\LoveBank.Common.Unity.csproj">
+      <Project>{78611fbd-c0f5-44db-a541-a625a0d206e7}</Project>
+      <Name>LoveBank.Common.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Common\LoveBank.Common.csproj">
+      <Project>{67d27bc8-876a-481b-b5e2-1103c54b5eed}</Project>
+      <Name>LoveBank.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoveBank.Core\LoveBank.Core.csproj">
+      <Project>{d1edf8aa-9a5b-4cf4-9ebb-a253d089d32b}</Project>
+      <Name>LoveBank.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,62 @@
+﻿@using LoveBank.Common
+@using LoveBank.Core
+@model LoveBank.Common.IPagedList<LoveBank.Core.Members.UserTransLog>
+@section HeadSection {
+    @Html.IncludeCSS("~/Content/Css/calendar.css")
+    @Html.IncludeScript("~/Content/JS/calendar.js")
+}
+<div class="main_title">
+    账户变动明细</div>
+<div class="blank5">
+</div>
+<div class="search_row">
+    <form name="search" action="@Url.Action("ChangeList")" method="get">
+        备注：<input type="text" class="textbox" name="info" value="@Request.Params["info"]"/>
+        日期：<input type="text" class="textbox" id="createTime" name="time" value="@Request.Params["time"]" onfocus=" this.blur(); return showCalendar('createTime', '%Y-%m-%d', false, false, 'btn_CreateTime'); " size="8"/>
+        <input type="button" class="button" id="btn_CreateTime" value="选择时间" onclick=" return showCalendar('createTime', '%Y-%m-%d', false, false, 'btn_CreateTime'); " />
+        <input type="submit" class="button" value="搜索"/>
+        <a id="export_change_list" href="@Url.Action("ChangeList", "Export", new {info = Request.Params["info"], time = Request.Params["time"], page = @Request.Params["page"]})" class="button">导出</a>
+        页数：<input type="text" class="textbox" size="1" name="page" value="@Request.Params["page"]"/>
+        @if (!string.IsNullOrWhiteSpace(Request.Params["info"]) && !string.IsNullOrWhiteSpace(Request.Params["time"]))
+        {
+            if (Request.Params["info"].Contains("偿还"))
+            {
+                <span>
+                    当天线上用户回款总额：@ViewBag.RepayMoney.ToString("0.00")
+                </span>
+            }
+            if (Request.Params["info"].Contains("充值订单"))
+            {
+                <span>
+                    当前页面充值成功总额：@Model.Sum(x => x.Money).ToString("0.00")
+                </span>
+            }
+        }
+    </form>
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    
+    @Html.Grid(Model).Columns(column =>
+    {
+        column.CheckBox(x => x.ID);
+        column.For(x => x.ID).Named("编号").HeaderAttributes(style => "width:50px;align:center;");
+        column.For(x => x.Trade.ToLocalizable()).Named("交易类型").SortColumnName("InnerTrade");
+        column.For(x => x.Info).Named("操作备注");
+        column.For(x => x.Time).Named("操作时间");
+        column.For(x => Html.F().GetUserName(x.UserID)).Named("会员名称").SortColumnName("UserID");
+        column.For(x => x.TradeUser).Named("交易对方");
+        column.For(x => Html.F().GetUserGroupByUserId(x.UserID)).Named("用户组");
+        column.Custom(x => x.LockMoney < 0 ? "<span style='color:#b94a48'>" + x.LockMoney.ToMoney() + "</span>" : "<span style='color:#468847'>" + x.LockMoney.ToMoney() + "</span>").Named("冻结金").SortColumnName("LockMoney").Attributes(style => "text-align: right;");
+        column.Custom(x => x.Money < 0 ? "<span style='color:#b94a48'>" + x.Money.ToMoney() + "</span>" : "<span style='color:#468847'>" + x.Money.ToMoney() + "</span>").Named("资金变动").SortColumnName("Money").Attributes(style => "text-align: right;");
+        column.For(x => x.OverMoney < 0 ? "---" : x.OverMoney.ToMoney().ToString()).Named("可用余额").SortColumnName("OverMoney").Attributes(style => "text-align: right;");
+        column.Buttons(btns => btns.Add(x => Html.ScriptLink("彻底删除", "deleteMethod({0},'{1}')", x.ID, "DeleteLog")));
+    }).Complex(ViewData)
+   
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+@Html.Pager(Model)

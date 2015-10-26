@@ -1,0 +1,50 @@
+﻿@using LoveBank.MVC
+@using MvcContrib.UI.Grid
+@using MvcContrib.Pagination;
+@using MvcContrib.UI.Pager;  
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+     @Html.IncludeCSS("~/Content/Css/style.css")
+    <script type="text/javascript">
+        var ROOT = '@Url.Content("~/")';
+        var MODULE_NAME = '@ViewContext.RouteData.Values["controller"]';
+        var ACTION_NAME = '@ViewContext.RouteData.Values["action"]';
+    </script>
+  
+
+    @*<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css" />
+        <link rel="stylesheet" type="text/css" href="../../themes/icon.css" />
+        <script type="text/javascript" src="../../jquery.min.js"></script>
+        <script type="text/javascript" src="../../jquery.easyui.min.js"></script>*@
+
+    @Html.IncludeCSS("~/Content/EasyUI/themes/default/easyui.css")
+    @Html.IncludeCSS("~/Content/EasyUI/themes/icon.css")
+    @Html.IncludeScript("~/Content/EasyUI/jquery.min.js")
+    @Html.IncludeScript("~/Content/EasyUI/jquery.easyui.min.js")
+    @Html.IncludeScript("~/Content/EasyUI/easyui-lang-zh_CN.js")
+   
+
+    @*@Html.IncludeScript("~/Content/Js/jquery.min.js")*@
+    @Html.IncludeScript("~/Content/Js/jquery.timer.js")
+    @Html.IncludeScript("~/Content/Js/common.js")
+    @*@Html.IncludeScript("~/Content/JS/kindediter/kindeditor-min.js")
+        @Html.IncludeScript("~/Content/JS/kindediter/zh_CN.js")*@
+    @Html.IncludeScript("~/Content/Js/jquery.bgiframe.js")
+    @Html.IncludeScript("~/Content/Js/jquery.weebox.js")
+    @Html.IncludeCSS("~/Content/Css/weebox.css")
+    @*@Html.IncludeCSS("~/Content/CSS/kindediter/default/default.css")*@
+
+
+    @RenderSection("HeadSection", required: false)
+</head>
+<body>
+    <div class="main">
+        @RenderBody()
+    </div>
+    <div id="info"></div>
+</body>
+</html>

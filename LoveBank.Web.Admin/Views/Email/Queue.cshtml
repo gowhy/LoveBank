@@ -1,0 +1,49 @@
+﻿@model LoveBank.Common.IPagedList<LoveBank.P2B.Domain.Messages.MsgQueue>
+
+<div class="main_title">
+    邮件队列列表
+</div>
+<div class="button_row">
+	<input type="button" class="button" value="彻底删除" onclick="deleteMethod('','DeleteBusinessMsgForever');">
+</div>
+<div class="blank5">
+</div>
+<div class="search_row">
+	<form name="search" action="/imay.php" method="get">	
+		接收人：<input type="text" class="textbox" name="dest" value="" style="width:100px;">
+		内容：<input type="text" class="textbox" name="content" value="">
+		<input type="hidden" value="DealMsgList" name="m">
+		<input type="hidden" value="index" name="a">
+		<input type="submit" class="button" value="搜索">
+	</form>
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    @Html.Grid(Model).Columns(column =>
+                                  {
+                                      column.CheckBox(o => o.ID);
+                                      column.For(x => x.ID).Named("编号").SortColumnName("Id");
+                                      column.For(x => x.Dest).Named("接收人").SortColumnName("Dest");
+                                      column.For(x => Html.F().GetUserName(x.UserId)).Named("会员名称").SortColumnName("UserId");
+                                      column.For(x => Html.ScriptLink("查看","show_content({0})",x.ID )).Named("内容").SortColumnName("Content");
+                                      column.For(x => x.CreateTime.ToString("yyyy/MM/dd HH:mm:ss")).Named("创建时间").SortColumnName("CreateTime");
+                                      column.For(x => x.SendTime.ToString("yyyy/MM/dd HH:mm:ss")).Named("发送时间").SortColumnName("SendTime");
+                                      column.For(x => x.IsSend ? "是" : "否").Named("发送").HeaderAttributes(style => "width:30px;").SortColumnName("IsSend");
+                                      column.For(x => x.IsSuccess ? "成功" : "失败").Named("结果").HeaderAttributes(style => "width:50px;").SortColumnName("IsSuccess");
+                                      column.For(x => x.Result).Named("信息").SortColumnName("Result");
+                                      column.Buttons(btns => btns.Add(o => Html.ScriptLink("彻底删除", "deleteMethod({0},'{1}')", o.ID, "DeleteBusinessMsgForever")));
+
+                                  }).Complex(ViewData)
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
+@Html.Pager(Model)
+<script type="text/javascript">
+    function show_content(id) {
+        var url = "/Email/Content/" + id;
+        showAjaxResult(url);
+    }
+</script>

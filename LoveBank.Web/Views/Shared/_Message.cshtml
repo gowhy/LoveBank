@@ -1,0 +1,23 @@
+﻿@model LoveBank.Web.Models.MessageModel
+
+@section Head{
+    <meta http-equiv="Refresh" content="@Model.WaitSecond; url=@Model.JumpUrl"/>
+}           
+<div class="ui-body">
+    <div class="ui-inner">
+        <div class="ui-tipbox @(Model.Type ? "ui-tipbox-success" : "ui-tipbox-error")">
+            <div class="ui-tipbox-icon">
+                @if (Model.Type) {
+                    <i class="iconfont" title="成功">&#xf0156;</i>
+                } else {
+                    <i class="iconfont" title="失败">&#xf0155;</i>
+                }
+            </div>
+            <div class="ui-tipbox-content">
+                <h3 class="ui-tipbox-title">@Model.Title</h3>
+                <p class="ui-tipbox-explain">@Model.Message</p>
+                <p class="ui-tipbox-explain">@Html.Raw(string.Format("页面将在{0}秒后自动跳转，或直接点击 <a href='{1}'>这里</a> 手动跳转", Model.WaitSecond, Model.JumpUrl))</p>
+            </div>
+        </div>
+    </div>
+</div>

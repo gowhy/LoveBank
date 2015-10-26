@@ -1,0 +1,33 @@
+﻿@using LoveBank.Core
+@model ICollection<LoveBank.Services.DTO.UserDTO>
+@section HeadSection {
+    @Html.IncludeCSS("~/Content/Css/calendar.css")
+    @Html.IncludeScript("~/Content/JS/calendar.js")
+}
+<div class="main_title">
+    新增投资人列表<span style="margin-left: 18px;">线上投资总人数：@ViewData["InvesterCount"]</span></div>
+<div class="blank5">
+</div>
+<div class="search_row">
+	<form name="search" action="@Url.Action("NewInvester")" method="get">	
+        日期：<input type="text" class="textbox" id="date" name="date" value="@Request.Params["date"]" onfocus=" this.blur(); return showCalendar('date', '%Y-%m-%d', false, false, 'btn_date');" size="8"/>
+        <input type="button" class="button" id="btn_date" value="选择时间" onclick=" return showCalendar('date', '%Y-%m-%d', false, false, 'btn_date'); " />
+	    <input type="submit" class="button" value="搜索"/>
+        <span style="margin-left: 18px;">当天新增投资人数：@Model.Count</span>
+	</form>
+</div>
+<div class="grid_box">
+    <div class="grid_top">
+    </div>
+    @Html.Grid(Model).Columns(column =>{
+
+    column.For(x => x.UserID).Named("编号").HeaderAttributes(style => "width:50px;align:center;");
+
+    column.For(x => x.UserName).Named("会员名").HeaderAttributes(style => "width:180px;align:center;");
+
+                              }).Complex(ViewData)
+    <div class="grid_foot">
+    </div>
+</div>
+<div class="blank5">
+</div>
