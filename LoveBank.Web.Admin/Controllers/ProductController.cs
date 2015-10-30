@@ -21,7 +21,7 @@ using System.Transactions;
 
 namespace LoveBank.Web.Admin.Controllers
 {
-    [SecurityModule(Name = "商城商品管理")]
+    [SecurityModule(Name = "商品管理")]
     public class ProductController : BaseController
     {
         // GET: Product
@@ -45,7 +45,7 @@ namespace LoveBank.Web.Admin.Controllers
 
                 var list = from p in t_p select p;
 
-                list = list.Where(x => x.State != RowState.删除);
+                //list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId,)>=0);
 
 
                 return View(list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size));
@@ -93,6 +93,7 @@ namespace LoveBank.Web.Admin.Controllers
             model.StartTime = parm.StartTime;
             model.Price = parm.Price;
             model.BarCode = parm.BarCode;
+            model.Type = parm.Type;
 
             foreach (var item in parm.SourceFileList)
             {
@@ -145,7 +146,7 @@ namespace LoveBank.Web.Admin.Controllers
                                  Id = p.ID,
                                  Desc=p.Desc,
                                  BarCode = p.BarCode,
-
+                                 Type = p.Type,
                                  SourceFileList = t_s.Where(x => x.Guid == p.Guid).ToList()
                              }).SingleOrDefault();
 
@@ -181,6 +182,7 @@ namespace LoveBank.Web.Admin.Controllers
                 model.StartTime = parm.StartTime;
                 model.BarCode = parm.BarCode;
                 model.Desc = parm.Desc;
+                model.Type = parm.Type;
 
                 foreach (var item in parm.SourceFileList)
                 {

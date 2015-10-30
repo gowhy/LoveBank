@@ -27,5 +27,7 @@ namespace LoveBank.Core.Domain
         public string DeptId { get; set; }
 
         public string Guid { get; set; }
+
+        public ProductType Type { get; set; }
     }
 }

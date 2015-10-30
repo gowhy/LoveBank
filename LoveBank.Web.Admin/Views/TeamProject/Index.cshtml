@@ -63,7 +63,8 @@
         column.For(x => x.State).Named("状态");
 
         column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.ID }))
-            .Add(x => Html.ScriptLink("新增岗位", "addStation({0},'{1}')", x.ID, x.Name))
+            .Add(x => Html.ActionLink("活动总结", "AddTeamProjectSummaryIndex", new { teamPojectId = x.ID }))
+            //.Add(x => Html.ScriptLink("新增岗位", "addStation({0},'{1}')", x.ID, x.Name))
             .Add(x => Html.ScriptLink("删除", "del({0})", x.ID))
 
             );

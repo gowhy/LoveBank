@@ -29,6 +29,10 @@ namespace LoveBank.Web.Admin.Models
         public string DeptId { get; set; }
         public string Desc { get; set; }
         public int? MachineId { get; set; }
+        public ProductType Type { get; set; }
         public virtual IList<SourceFile> SourceFileList { get; set; }
+        public virtual IList<AppImgUrlModel> AppSourceFileList { get; set; }
+
+        
     }
 }

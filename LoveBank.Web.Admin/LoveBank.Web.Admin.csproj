@@ -192,16 +192,18 @@
     <Compile Include="Controllers\App\AppBaseController.cs" />
     <Compile Include="Controllers\App\AppCommController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LBSuggestionController.cs" />
     <Compile Include="Controllers\LoveBank_AdController.cs" />
     <Compile Include="Controllers\MachineController.cs" />
     <Compile Include="Controllers\MachineModuleController.cs" />
-    <Compile Include="Controllers\MsgTemplateController.cs" />
+    <Compile Include="Controllers\LBGridMemberController.cs" />
+    <Compile Include="Controllers\LBNoticeController.cs" />
+    <Compile Include="Controllers\LBTSController.cs" />
+    <Compile Include="Controllers\LBWorkGuideController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\SmManagmentController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TeamProjectController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -214,8 +216,10 @@
     <Compile Include="Helper\PaymentInfoExtensions.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AdminUserModel.cs" />
+    <Compile Include="Models\AppImgUrlModel.cs" />
     <Compile Include="Models\BindMachineModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
+    <Compile Include="Models\GridMemberModel.cs" />
     <Compile Include="Models\LoveBank_AdModel.cs" />
     <Compile Include="Models\MachineModel.cs" />
     <Compile Include="Models\MachineModuleShowManageModel.cs" />
@@ -223,18 +227,23 @@
     <Compile Include="Models\MailServerModel.cs" />
     <Compile Include="Models\MsgModel.cs" />
     <Compile Include="Models\NavModel.cs" />
+    <Compile Include="Models\NoticeModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\QRCodeModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\SmModel.cs" />
     <Compile Include="Models\SmServerModel.cs" />
+    <Compile Include="Models\SuggestionModel.cs" />
+    <Compile Include="Models\SuperviseModel.cs" />
     <Compile Include="Models\TeamModel.cs" />
     <Compile Include="Models\TeamProjectModel.cs" />
+    <Compile Include="Models\TeamProjectSummaryModel.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\VolAddScoreModel.cs" />
     <Compile Include="Models\VolAddSocreRecordeModel.cs" />
     <Compile Include="Models\VolModel.cs" />
+    <Compile Include="Models\VolShowModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1415,6 +1424,17 @@
     <Content Include="Views\TeamProject\AddTeamPojectStation.cshtml" />
     <Content Include="Views\TeamProject\Index.cshtml" />
     <Content Include="Views\Product\BindMachine.cshtml" />
+    <Content Include="Views\TeamProject\AddTeamProjectSummary.cshtml" />
+    <Content Include="Views\TeamProject\AddTeamProjectSummaryIndex.cshtml" />
+    <Content Include="Views\TeamProject\EditTeamProjectSummary.cshtml" />
+    <Content Include="Views\LoveBankVol\VolBindNFC.cshtml" />
+    <Content Include="Views\LBTS\Index.cshtml" />
+    <Content Include="Views\LBTS\ShowMap.cshtml" />
+    <Content Include="Views\LBTS\View.cshtml" />
+    <Content Include="Views\LBSuggestion\Index.cshtml" />
+    <Content Include="Views\LBGridMember\Index.cshtml" />
+    <Content Include="Views\LBGridMember\Add.cshtml" />
+    <Content Include="Views\LBGridMember\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

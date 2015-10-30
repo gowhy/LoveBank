@@ -169,7 +169,8 @@ namespace LoveBank.Web.Admin.Controllers
                                Name = p.Name,
                                Price = p.Price,
                                StartTime = p.StartTime,
-                               State = p.State
+                               State = p.State,
+                               Type = p.Type
 
                            };
 

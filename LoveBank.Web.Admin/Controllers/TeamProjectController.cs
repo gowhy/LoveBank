@@ -260,7 +260,186 @@ namespace LoveBank.Web.Admin.Controllers
 
             SourceFile res = UploadFileInstance.SaveFile(file, "TeamProjectImg", AdminUser.ID);
             return Json(res);
+            
+        }
 
+        [SecurityNode(Name = "活动总结列表")]
+        public ActionResult AddTeamProjectSummaryIndex(int teamPojectId, int? page, int? pageSize)
+        {
+
+            var pageNumber = page ?? 1;
+            var size = pageSize ?? PageSize;
+            ViewBag.TeamPojectId = teamPojectId;
+            ViewBag.TeamProjectName = "xxx";
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                var t_p = db.T_TeamProjectSummary;
+                var t_project = db.T_TeamProject;
+
+
+                ViewBag.TeamProjectName = (from tp in t_project where tp.ID == teamPojectId select tp.Name).SingleOrDefault();
+
+
+                var list = from p in t_p where p.TeamProjectId == teamPojectId select p;
+
+                list = list.Where(x => x.State != RowState.删除);
+                //list = list.Where(x => x.TeamProjectId == teamPojectId);
+
+
+                return View(list.OrderBy(x => x.Id).ToPagedList(pageNumber - 1, size));
+            }
+
+        }
+
+        [SecurityNode(Name = "添加活动总结页面")]
+        public ActionResult AddTeamProjectSummary(int teamPojectId, int page = 1, int pageSize = 100)
+        {
+            ViewBag.TeamPojectId = teamPojectId;
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                var t_p = db.T_TeamProjectSummary;
+                var t_project = db.T_TeamProject;
+                ViewBag.TeamProjectName = (from tp in t_project where tp.ID == teamPojectId select tp.Name).SingleOrDefault();
+                var list = from p in t_p select p;
+
+                list = list.Where(x => x.State != RowState.删除 && x.TeamProjectId == teamPojectId);
+
+
+                return View(list.OrderByDescending(x => x.Id).ToPagedList(page - 1, pageSize));
+            }
+
+        }
+        [HttpPost]
+        [SecurityNode(Name = "添加活动总结执行")]
+        public ActionResult PostAddTeamProjectSummary(TeamProjectSummaryModel parm)
+        {
+            TeamProjectSummary model = new TeamProjectSummary();
+
+            model.AddTime = DateTime.Now;
+            model.AddUserId = AdminUser.ID;
+            model.State = RowState.有效;
+            model.Guid = Guid.NewGuid().ToString();
+            model.SubTitle = parm.SubTitle;
+            model.TeamProjectId = parm.TeamProjectId;
+
+            foreach (var item in parm.SourceFileList)
+            {
+                item.Guid = model.Guid;
+                item.AddTime = DateTime.Now;
+
+            }
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                db.Add<TeamProjectSummary>(model);
+                db.SaveChanges();
+
+                db.T_SourceFile.AddRange(parm.SourceFileList);
+                db.SaveChanges();
+
+                return Success("新增成功");
+            }
+
+        }
+
+        [SecurityNode(Name = "编辑活动总结页面")]
+        public ActionResult EditTeamProjectSummary(int teamProjectSummaryId, int page = 1, int pageSize = 100)
+        {
+            ViewBag.TeamPojectId = teamProjectSummaryId;
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var t_p = db.T_TeamProjectSummary;
+                var t_project = db.T_TeamProject;
+                var t_s = db.T_SourceFile;
+
+
+                var Model =( from tp in t_p
+                           join p in t_project on tp.TeamProjectId equals p.ID
+                           where tp.Id == teamProjectSummaryId
+                           select new TeamProjectSummaryModel
+                           {
+                               TeamProjectName = p.Name,
+                               AddTime = tp.AddTime,
+                               Desc = tp.Desc,
+                               Guid = tp.Guid,
+                               SubTitle = tp.SubTitle,
+                               TeamProjectId = tp.TeamProjectId,
+                               SourceFileList = t_s.Where(x => x.Guid == p.Guid).ToList()
+
+                           }).SingleOrDefault();
+                return View(Model);
+            }
+
+        }
+
+
+        [HttpPost]
+        [SecurityNode(Name = "编辑活动总结执行")]
+        public ActionResult PostEditTeamProjectSummary(TeamProjectSummaryModel parm)
+        {
+         
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var t_s = db.T_SourceFile;
+                var t_ps = db.T_TeamProjectSummary;
+
+                TeamProjectSummary model = t_ps.Find(parm.Id);
+
+                //model.AddTime = DateTime.Now;
+                //model.AddUserId = AdminUser.ID;
+                //model.State = RowState.有效;
+                //model.Guid = Guid.NewGuid().ToString();
+                model.SubTitle = parm.SubTitle;
+                model.TeamProjectId = parm.TeamProjectId;
+                model.Desc = parm.Desc;
+          
+
+                foreach (var item in parm.SourceFileList)
+                {
+                    item.Guid = model.Guid;
+                    item.AddTime = DateTime.Now;
+
+                }
+
+                ///删除原来的,彻底以新增方式进行（修改通过删除在新增实现）
+                var delSourceFile = from s in t_s where s.Guid == model.Guid select s;
+                db.T_SourceFile.RemoveRange(delSourceFile);
+                db.SaveChanges();
+
+                db.T_SourceFile.AddRange(parm.SourceFileList);
+                db.SaveChanges();
+
+                db.Add<TeamProjectSummary>(model);
+                db.SaveChanges();
+
+                return Success("新增成功");
+            }
+
+        }
+
+        [HttpPost]
+        [SecurityNode(Name = "编辑活动总结执行")]
+        public ActionResult DeleteEditTeamProjectSummary(int Id)
+        {
+
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+              
+                var t_ps = db.T_TeamProjectSummary;
+
+                TeamProjectSummary model = t_ps.Find(Id);
+                db.Delete<TeamProjectSummary>(model);
+                db.SaveChanges();
+
+                return Success("删除成功");
+            }
         }
     }
 }

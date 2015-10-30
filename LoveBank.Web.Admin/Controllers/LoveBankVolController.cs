@@ -27,7 +27,7 @@ namespace LoveBank.Web.Admin.Controllers
         /// </summary>
         const int PageSize = 20;
         [SecurityNode(Name = "首页")]
-        public ActionResult Index(int? page, int? pageSize)
+        public ActionResult Index(VolModelSelect volModel, int? page, int? pageSize)
         {
             var pageNumber = page ?? 1;
             var size = pageSize ?? PageSize;
@@ -46,8 +46,13 @@ namespace LoveBank.Web.Admin.Controllers
                               Department=d
                            };
 
-                list = list.Where(x => x.Department.Id.IndexOf(AdminUser.DeptId)>-1);
-                return View(list.OrderByDescending(x => x.Vol.ID).ToPagedList(pageNumber - 1, size));
+                //list = list.Where(x => x.Department.Id.IndexOf(AdminUser.DeptId)>-1);
+                list = list.Where(x => x.Department.Id.StartsWith(AdminUser.DeptId));
+                if (!string.IsNullOrEmpty(volModel.Phone)) list = list.Where(x => x.Vol.Phone == volModel.Phone);
+                if (!string.IsNullOrEmpty(volModel.NFC)) list = list.Where(x => x.Vol.NFC == volModel.NFC);
+                if (!string.IsNullOrEmpty(volModel.RealName)) list = list.Where(x => x.Vol.RealName.Contains(volModel.RealName));
+                volModel.VolList = list.OrderByDescending(x => x.Vol.ID).ToPagedList(pageNumber - 1, size);
+                return View(volModel);
             }
         }
         [SecurityNode(Name = "添加页面")]
@@ -313,6 +318,43 @@ namespace LoveBank.Web.Admin.Controllers
                 }
                 return Success("操作成功");
             }
+        }
+
+
+
+        /// <summary>
+        /// 给自愿者新增积分
+        /// </summary>
+        /// <returns></returns>
+        [SecurityNode(Name = "绑定NFC卡页面")]
+        public PartialViewResult VolBindNFC(int volId)
+        {
+            Vol vol = null;
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var t_v = db.T_Vol;
+
+
+                vol = t_v.FirstOrDefault(x => x.ID == volId);
+            
+            }
+            return PartialView(vol);
+        }
+
+        [SecurityNode(Name = "绑定NFC卡执行")]
+        public ActionResult PostVolBindNFC(Vol model)
+        {
+            Vol vol = DbProvider.D<Vol>().FirstOrDefault(x => x.ID == model.ID);
+            if (vol == null)
+            {
+                Error("用户不存在,请核实后从新操作");
+            }
+            vol.NFC = model.NFC;
+            DbProvider.Update(vol);
+            DbProvider.SaveChanges();
+
+            return Success("绑定成功");
         }
     }
 }

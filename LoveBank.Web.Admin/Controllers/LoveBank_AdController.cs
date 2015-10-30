@@ -86,7 +86,7 @@ namespace LoveBank.Web.Admin.Controllers
             model.State = RowState.有效;
             model.Guid = Guid.NewGuid().ToString();
 
-          
+            model.LinkUrl = parm.LinkUrl;     
             model.MachineCode = parm.MachineCode;
             model.Title = parm.Title;
             model.Desc = parm.Desc;
@@ -145,6 +145,7 @@ namespace LoveBank.Web.Admin.Controllers
                                  DeptId = a.DeptId,
                                  Desc = a.Desc,
                                  State = a.State,
+                                 LinkUrl = a.LinkUrl,
                                  SourceFileList = t_s.Where(x => x.Guid == a.Guid).ToList()
                              }).SingleOrDefault();
 
@@ -174,6 +175,7 @@ namespace LoveBank.Web.Admin.Controllers
                 model.MachineCode = parm.MachineCode;
                 model.Title = parm.Title;
                 model.Desc = parm.Desc;
+                model.LinkUrl = parm.LinkUrl;
                
 
              

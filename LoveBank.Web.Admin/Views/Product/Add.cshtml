@@ -5,7 +5,7 @@
 @Html.IncludeCSS("~/Content/Css/demo.css")
 @Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
 
-<div id="p" class="easyui-panel" title="新增一体机授权" data-options="tools:'#tt'">
+<div id="p" class="easyui-panel" title="新增产品" data-options="tools:'#tt'">
     @using (Html.BeginForm("PostAdd", "Product", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
     {
         <table class="form">
@@ -19,6 +19,14 @@
                     <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Name" name="Name"
                            data-options="required:true,validType:'length[2,20]'" /> (必须填)
 
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    产品类型:
+                </td>
+                <td class="item_input">
+                    @Html.EnumToSelectList(new LoveBank.Core.Domain.Enums.ProductType(), null, "Type", null, new { })
                 </td>
             </tr>
             <tr>
@@ -181,6 +189,7 @@
             "StartTime": $("#StartTime").val(),
             "EndTime": $("#EndTime").val(),
             "Desc": $("#Desc").val(),
+            "Type": $("#Type").val(),
             "SourceFileList": upLoader.getSourceFileList()
 
         };
@@ -212,7 +221,7 @@
             success: function (data) {
                 if (data.Status == true) {
                     alert("添加成功");
-                    $('#AddForm').form('clear');
+                    //$('#AddForm').form('clear');
                     location.reload();
 
                 } else {

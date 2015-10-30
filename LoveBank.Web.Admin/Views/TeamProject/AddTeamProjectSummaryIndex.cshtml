@@ -1,0 +1,61 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Core.Domain.TeamProjectSummary>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+
+        function del(id) {
+
+            var url = '@Url.Action("DeleteEditTeamProjectSummary")' + '?id=' + id;
+            deleteMethod(id, "Delete");
+
+        }
+
+
+
+    </script>
+}
+<style>
+        .panel-tool {
+                       float:right;
+                      
+                    }
+</style>
+
+
+<div id="p" class="easyui-panel" title="@ViewBag.TeamProjectName 服务总结列表" data-options="tools:'#tt'">
+    <div class="grid_box">
+
+        @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.Id).Named("ID");
+        column.For(x => x.SubTitle).Named("总结副标题");
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd HH:mm")).Named("总结时间");
+
+        //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
+        column.For(x => x.State).Named("状态");
+        column.For(x => x.Desc).Named("总结说明");
+
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Id }))
+            //.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Id }))
+            .Add(x => Html.ScriptLink("删除", "del({0})", x.Id))
+
+            );
+    }).Complex(ViewData)
+
+    </div>
+
+    @Html.Pager(Model)
+</div>
+    <div id="tt" >
+      
+        <a style="width:63px;" href="@Url.Action("Index", "TeamProject")" class="icon-back" title="返回服务列表">返回</a>
+        <a style="width:160px;" href="@Url.Action("AddTeamProjectSummary")?teamPojectId=@ViewBag.TeamPojectId " class="icon-add" title="新增服务总结">新增服务总结</a>
+       
+
+    </div>

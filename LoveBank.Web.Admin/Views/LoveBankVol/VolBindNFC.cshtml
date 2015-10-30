@@ -1,0 +1,80 @@
+﻿@using LoveBank.Common;
+@using LoveBank.MVC
+@model LoveBank.Core.Domain.Vol
+
+@Html.IncludeScript("~/Content/EasyUI/jquery.easyui.min.js")
+@Html.IncludeScript("~/Content/EasyUI/easyui-lang-zh_CN.js")
+
+<form name="PostVolBindNFC" id="PostVolBindNFC" action="@Url.Action("PostVolBindNFC")" method="post" enctype="multipart/form-data">
+    <table class="form" cellpadding="0" cellspacing="0">
+        <tbody>
+
+            <tr>
+                <td class="item_title">
+                    姓名:
+                </td>
+                <td class="item_input">
+                    <input type="hidden" name="VolID" value="@Model.ID" />
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;" name="RealName" value="@Model.RealName"
+                           disabled="disabled" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    手机号:
+                </td>
+                <td class="item_input">
+
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;" name="Phone" value="@Model.Phone"
+                           disabled="disabled" />
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title">
+                    NFC:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="NFC" id="NFC"
+                       value="@Model.NFC"    data-options="prompt:'NFC卡号.',required:true,validType:'length[2,50]'" />
+
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+                        <input type="hidden" id="Id" name="Id" value="@Model.ID" />
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 绑定NFC卡 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        @*<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 重置 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>*@
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @*<script src="~/Content/JS/jquery.min.js"></script>*@
+    <script>
+            function submitForm() {
+                // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
+                $('#PostVolBindNFC').submit();
+            }
+            function clearForm() {
+                $('#PostVolBindNFC').form('clear');
+            }
+
+            function check_incharge_form() {
+
+                return true;
+            }
+
+            $("#NFC").focus();
+         
+    </script>
+</form>

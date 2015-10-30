@@ -15,7 +15,7 @@ namespace LoveBank.Web.Admin.Models
         /// 授权状态
         /// </summary>
         public QRCodeState State { get; set; }
-
+        public string Ticket { get; set; }
         /// <summary>
         /// 授权时间
         /// </summary>
@@ -31,8 +31,8 @@ namespace LoveBank.Web.Admin.Models
         public string MachineCode { get; set; }
 
         public QRCodeType Type { get; set; }
-  
 
+        public string QRCodeStringKey { get; set; }
         /// <summary>
         /// 存储其他多余数据
         /// </summary>

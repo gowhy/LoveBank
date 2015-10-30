@@ -43,9 +43,14 @@ namespace LoveBank.Core.MSData
             modelBuilder.Configurations.Add(new TeamMembersMap());
             modelBuilder.Configurations.Add(new TeamPojectStationApplyMap());
             modelBuilder.Configurations.Add(new TeamPojectStationMap());
+            modelBuilder.Configurations.Add(new TeamProjectSummaryMap());
 
-        
-
+            modelBuilder.Configurations.Add(new WorkGuideMap());
+            modelBuilder.Configurations.Add(new NoticeMap());
+            modelBuilder.Configurations.Add(new GridMemberMap());
+            modelBuilder.Configurations.Add(new SuperviseMap());
+            modelBuilder.Configurations.Add(new SuggestionMap());
+            
 
         }
         //public virtual DbSet<User> T_User { get; set; }
@@ -66,6 +71,15 @@ namespace LoveBank.Core.MSData
         public virtual DbSet<TeamMembers> T_TeamMembers { get; set; }
         public virtual DbSet<TeamPojectStationApply> T_TeamPojectStationApply { get; set; }
         public virtual DbSet<TeamPojectStation> T_TeamPojectStation { get; set; }
+        public virtual DbSet<TeamProjectSummary> T_TeamProjectSummary { get; set; }
+
+        public virtual DbSet<WorkGuide> T_WorkGuide { get; set; }
+        public virtual DbSet<Notice> T_Notice { get; set; }
+        public virtual DbSet<GridMember> T_GridMember { get; set; }
+        public virtual DbSet<Supervise> T_Supervise { get; set; }
+        public virtual DbSet<Suggestion> T_Suggestion { get; set; }
+        
+
 
     }
 }

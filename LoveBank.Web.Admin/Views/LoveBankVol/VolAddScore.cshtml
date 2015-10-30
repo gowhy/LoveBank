@@ -116,12 +116,14 @@
 
                
                 var score = $("#TeamProjectId").find("option:selected").attr("score");
-               
-                if ($(this).val() > score) {
-                  
-                    alert("该活动最大能加:" + score);
-                    $(this).val(score);
+                if (score>0) {
+                    if ($(this).val() > score) {
+
+                        alert("该活动最大能加:" + score);
+                        $(this).val(score);
+                    }
                 }
+               
 
             });
     </script>

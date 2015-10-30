@@ -23,6 +23,14 @@
             </tr>
             <tr>
                 <td class="item_title">
+                    产品裂隙:
+                </td>
+                <td class="item_input">
+                    @Html.EnumToSelectList(new LoveBank.Core.Domain.Enums.ProductType(), ((int)Model.Type).ToString(), "Type", null, new { })
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
                     条形码:
                 </td>
                 <td class="item_input">
@@ -180,6 +188,7 @@
             "StartTime": $("#StartTime").val(),
             "EndTime": $("#EndTime").val(),
             "Desc": $("#Desc").val(),
+            "Type": $("#Type").val(),
             "Id": $("#Id").val(),
             "SourceFileList": upLoader.getSourceFileList()
 

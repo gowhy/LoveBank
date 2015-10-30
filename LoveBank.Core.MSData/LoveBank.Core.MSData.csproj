@@ -109,6 +109,11 @@
     <Compile Include="DbProvider.cs" />
     <Compile Include="EntityRepository.cs" />
     <Compile Include="Mapping\AdminLogMapping.cs" />
+    <Compile Include="Mapping\SuggestionMap.cs" />
+    <Compile Include="Mapping\WorkGuideMap.cs" />
+    <Compile Include="Mapping\SuperviseMap.cs" />
+    <Compile Include="Mapping\NoticeMap.cs" />
+    <Compile Include="Mapping\GridMemberMap.cs" />
     <Compile Include="Mapping\TeamMembersMap.cs" />
     <Compile Include="Mapping\TeamPojectStationApplyMap.cs" />
     <Compile Include="Mapping\TeamPojectStationMap.cs" />
@@ -135,6 +140,7 @@
     <Compile Include="Mapping\SmServerMapping.cs" />
     <Compile Include="Mapping\Members\UserMapping.cs" />
     <Compile Include="Mapping\SourceFileMap.cs" />
+    <Compile Include="Mapping\TeamProjectsummaryMap.cs" />
     <Compile Include="Mapping\TestProjectMapping.cs" />
     <Compile Include="Mapping\VolAddScoreRecordeMap.cs" />
     <Compile Include="Mapping\VolMap.cs" />

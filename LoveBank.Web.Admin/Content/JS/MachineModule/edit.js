@@ -145,7 +145,7 @@
 
             var filepath = fileEdit.HttpUrl;
 
-
+          
             var extStart = filepath.lastIndexOf(".");
             var ext = filepath.substring(extStart, filepath.length).toUpperCase();
             if (ext != ".BMP" && ext != ".PNG?" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {

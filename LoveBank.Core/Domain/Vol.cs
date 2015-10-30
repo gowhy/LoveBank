@@ -196,5 +196,7 @@ namespace LoveBank.Core.Domain
         public string VillDeptId { get; set; }
 
         public int VolType { get; set; }
+        public string NFC { get; set; }
+
     }
 }
