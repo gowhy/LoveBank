@@ -220,6 +220,7 @@
     <Compile Include="Models\BindMachineModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\GridMemberModel.cs" />
+    <Compile Include="Models\LoveBankProductExchangeLogModel.cs" />
     <Compile Include="Models\LoveBank_AdModel.cs" />
     <Compile Include="Models\MachineModel.cs" />
     <Compile Include="Models\MachineModuleShowManageModel.cs" />

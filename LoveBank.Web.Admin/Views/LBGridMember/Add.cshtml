@@ -6,13 +6,22 @@
 @Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
 
 
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+@*<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 
 <!-- 最新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css" />
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"> </script>
+<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"> </script>*@
+
+
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="http://cdn.bootcss.com/summernote/0.5.1/summernote.css" />
+<script src="http://cdn.bootcss.com/summernote/0.5.1/summernote.min.js"></script>
+
 <style>
     .panel-tool {
         right: initial;
@@ -32,19 +41,12 @@
     }
 </style>
 
-@Html.IncludeCSS("~/Content/plug-in/summernote/summernote.css")
-@Html.IncludeScript("~/Content/plug-in/summernote/summernote.js")
+@*@Html.IncludeCSS("~/Content/plug-in/summernote/summernote.css")
+@Html.IncludeScript("~/Content/plug-in/summernote/summernote.js")*@
 
 
 <script type="text/javascript">
-    $(function () {
-        $('.summernote').summernote({
-            height: 400,
-            width: 800
-        });
 
-       
-    });
 </script>
 <style>
     *, *:before, *:after {
@@ -265,9 +267,85 @@
 </style>
 @*显示行政区域tree*@
 <script type="text/javascript">
-        var zNodes =@(Html.Raw(ViewData["Department_List"].ToString()));
+       var zNodes =@(Html.Raw(ViewData["Department_List"].ToString()));
 
-        $("#CoverCommunity").TreeMvc({Department_List:zNodes});
+    $("#CoverCommunity").TreeMvc({Department_List:zNodes});
+
+    function sendFile(file, editor, $editable){
+        //var $tip=  $(".note-toolbar.btn-toolbar");
+        //$tip.append('正在上传图片');
+        var filename = false;
+        try{
+            filename = file['name'];
+        } catch(e){filename = false;}
+        if(!filename){$(".note-alarm").remove();}
+        //以上防止在图片在编辑器内拖拽引发第二次上传导致的提示错误
+        var ext = filename.substr(filename.lastIndexOf("."));
+        ext = ext.toUpperCase();
+        var timestamp = new Date().getTime();
+        var name = timestamp+"_"+$(".summernote").attr('aid')+ext;
+
+        //name是文件名，自己随意定义，aid是我自己增加的属性用于区分文件用户
+        data = new FormData();
+        data.append("file", file);
+        data.append("key",name);
+        data.append("size","10000");
+        data.append("token",$(".summernote").attr('token'));
+
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/LBGridMember/UpLoadProcess",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                //data是返回的hash,key之类的值，key是定义的文件名
+                editor.insertImage($editable, data.Domain+data.Path);
+                //url-head是自己七牛云的domain
+                $(".note-alarm").html("上传成功,请等待加载");
+                //$tip.html("");
+                setTimeout(function(){$(".note-alarm").remove();},3000);
+            },
+            error:function(){
+                $(".note-alarm").html("上传失败");
+                setTimeout(function(){$(".note-alarm").remove();},3000);
+            }
+        });
+    }
+    $(function () {
+        $('.summernote').summernote({
+            height: 400,
+            width: 850,
+            onImageUpload:function(files, editor, $editable) {
+               
+                sendFile(files[0],editor,$editable);
+            }
+        });
+
+       
+    });
+    //$(document).ready(function() {
+    //    $('.summernote').summernote({
+    //        height: 400,
+    //        width: 800,
+    //        focus:false,
+    //        lang:'zh-CN',
+    //        onImageUpload:function(files, editor, $editable) {
+    //            alert(editor)
+    //            sendFile(files[0],editor,$editable);
+    //        }
+    //        //方法重载
+    //    });
+    //});
+
+
+    //然后是为了美观的css
+    //.note-alarm {
+    //    float: right;
+    //    margin-top: 10px;
+    //    margin-right: 10px;
+    //}
     </script>
 
 

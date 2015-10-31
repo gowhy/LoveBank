@@ -1,69 +1,35 @@
-﻿@model LoveBank.Web.Admin.Models.Test  
+﻿@using LoveBank.MVC
+
 @{
-   // LoveBank.Common.IPagedList<TestProduct>
     Layout = null;
 }
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="windows-Target" content="_parent">
-    <title>登录-爱心银行管理平台</title>
-    @Html.IncludeCSS("~/Content/Css/login.css")
-    @Html.IncludeScript("~/Content/Js/jquery.min.js")
-    @Html.IncludeScript("~/Content/Js/jquery-validate.min.js")
-    <script type="text/javascript">
-        $(function () {
-            $("form input:first").focus();
-            $('form').validate({
-                onKeyup: true,
-                eachValidField: function () {
-                    $(this).removeClass('error').addClass('success');
-                },
-                eachInvalidField: function () {
-                    $(this).removeClass('success').addClass('error');
-                },
-                invalid: function () {
-                    $("#errors").empty().html("用户名和密码不能为空！");
-                }
-            });
-        });
-    </script>
-</head>
-<body>
-    <div id="container">
-        <div class="logo">
-            <a class="logo-label">爱心银行管理平台</a>
-        </div>
-        <div id="box">
-            @using (Html.BeginForm())
-            {
-                <p class="main">
-                    <label>
-                        用户名222
-                    </label>
-                    <input type="text" name="username" tabindex="1" value="user11" data-required   />
-                    <label>
-                        密码
-                    </label>
-                    <input type="password" name="password" tabindex="2" value="word111" data-required />
-                </p>
-                <p class="space">
-                    <input type="submit"  value="登录" class="login" tabindex="3"/>
-                    <div class="errors" id="errors">
-                        @Html.ValidationSummary(true)
-                    </div>
-                </p>
-                
-                    <div>
-                            @foreach (var item in Model.list)
-                            {
-                                <p>@item.ID---@item.ProductName -----  @item.UnitPrice</p>
-                            }
-                   </div>
+
+
+@Html.IncludeScript("~/Content/EasyUI/jquery.min.js")
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="http://cdn.bootcss.com/summernote/0.5.1/summernote.css" />
+  <script src="http://cdn.bootcss.com/summernote/0.5.1/summernote.min.js"></script>
+
+
+
+<textarea name="text" class="summernote" style="margin-bottom: 0px;" id="contents" required="required" title="Contents"></textarea>
+<script type="text/javascript">
+
+    $(function () {
+        $('.summernote').summernote({
+            height: 400,
+            width: 800,
+            onImageUpload: function (files, editor, $editable) {
+                alert(editor)
+                //sendFile(files[0], editor, $editable);
             }
-        </div>
-    </div>
-</body>
-</html>
+        });
+
+
+    });
+</script>
+

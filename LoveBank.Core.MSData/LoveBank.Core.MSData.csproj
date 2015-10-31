@@ -109,6 +109,7 @@
     <Compile Include="DbProvider.cs" />
     <Compile Include="EntityRepository.cs" />
     <Compile Include="Mapping\AdminLogMapping.cs" />
+    <Compile Include="Mapping\LoveBankProductExchangeLogMap.cs" />
     <Compile Include="Mapping\SuggestionMap.cs" />
     <Compile Include="Mapping\WorkGuideMap.cs" />
     <Compile Include="Mapping\SuperviseMap.cs" />

@@ -67,10 +67,12 @@
     <Compile Include="Domain\Enums\QRCodeType.cs" />
     <Compile Include="Domain\Enums\ResoureType.cs" />
     <Compile Include="Domain\Enums\RowState.cs" />
+    <Compile Include="Domain\Enums\ExchangeType.cs" />
     <Compile Include="Domain\Enums\TeamLevel.cs" />
     <Compile Include="Domain\Enums\TeamState.cs" />
     <Compile Include="Domain\Enums\VolType.cs" />
     <Compile Include="Domain\GridMember.cs" />
+    <Compile Include="Domain\LoveBankProductExchangeLog.cs" />
     <Compile Include="Domain\LoveBank_Ad.cs" />
     <Compile Include="Domain\Machine.cs" />
     <Compile Include="Domain\MachineModuleShowManage.cs" />

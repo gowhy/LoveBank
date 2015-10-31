@@ -187,7 +187,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                                Price = p.Price,
                                StartTime = p.StartTime,
                                State = p.State,
-                               Type=p.Type,
+                               Type = p.Type,
                                //SourceFileList = t_s.Where(x => x.Guid == p.Guid).ToList()
                                AppSourceFileList = (from s in t_s where s.Guid == p.Guid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList()
                            };
@@ -224,7 +224,7 @@ namespace LoveBank.Web.Admin.Controllers.App
 
                 var list = from a in ad
                            join d in t_d on a.DeptId equals d.Id
-                           join s in sf  on a.Guid equals s.Guid
+                           join s in sf on a.Guid equals s.Guid
                            where d.Id == deptId
                            select new MachineModuleShowManageModel
                            {
@@ -232,7 +232,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                                ModuleKey = a.ModuleKey,
                                Name = a.Name,
                                //IconUrl = (from s in sf where s.Guid == a.Guid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).FirstOrDefault().ImgHttpUrl,
-                              IconUrl=s.Domain+s.Path,
+                               IconUrl = s.Domain + s.Path,
                                Sort = a.Sort,
                                //Guid = a.Guid,
                                Type = a.Type,
@@ -426,7 +426,7 @@ namespace LoveBank.Web.Admin.Controllers.App
 
         public ActionResult App_LoginQRCode(QRCodeModel qrCodeModel)//该方法和App_QRCode是一对配合使用
         {
-         
+
             JsonMessage retJson = new JsonMessage();
 
             switch (qrCodeModel.Type)
@@ -441,7 +441,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                         qrCodeModel.UserId = qrCodeModel.UserId;
                         qrCodeModel.GrantTime = DateTime.Now;
                         BaseCacheManage.AddObject(qrCodeModel.QRCodeStringKey, qrCodeModel, 60 * 1);//加入缓存
-                      
+
                     }
                     return Json(retJson);
                 case QRCodeType.兑换:
@@ -469,7 +469,7 @@ namespace LoveBank.Web.Admin.Controllers.App
             //bool isLogin = AutheTicketManager.ValidateUserTicket(ticket, out userInfo);
             try
             {
-                if (uId>0)
+                if (uId > 0)
                 {
                     return true;
                 }
@@ -503,7 +503,7 @@ namespace LoveBank.Web.Admin.Controllers.App
             {
                 retJson.Status = true;
                 retJson.Info = "已授权";
-                retJson.Data = new { User = QRCodeLogin(qrCodeModel.UserId), Data = qrCodeModel.Data};
+                retJson.Data = new { User = QRCodeLogin(qrCodeModel.UserId), Data = qrCodeModel.Data };
                 return Json(retJson);
 
             }
@@ -525,7 +525,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                     appUser = t_a.Where(x => x.ID == uId).SingleOrDefault();
                     if (appUser != null)
                     {
-                        appUser.PassWord =string.Empty;
+                        appUser.PassWord = string.Empty;
                         return appUser;
 
                     }
@@ -559,7 +559,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                                Score = v.Score
 
                            };
-                retJson.Data = list.OrderByDescending(x=>x.Score).ToPagedList(page - 1, pageSize);
+                retJson.Data = list.OrderByDescending(x => x.Score).ToPagedList(page - 1, pageSize);
                 retJson.Status = true;
             }
 
@@ -577,7 +577,7 @@ namespace LoveBank.Web.Admin.Controllers.App
             JsonMessage retJson = new JsonMessage();
             try
             {
-                
+
                 using (LoveBankDBContext db = new LoveBankDBContext())
                 {
                     entity.AddTime = DateTime.Now;
@@ -612,7 +612,7 @@ namespace LoveBank.Web.Admin.Controllers.App
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
                 var addUserDetpId = (from v in db.T_Vol where v.ID == entity.AddUser select v.DepId).FirstOrDefault();
-               
+
                 entity.DepId = addUserDetpId;
                 entity.AddTime = DateTime.Now;
                 db.Add<Suggestion>(entity);
@@ -628,8 +628,8 @@ namespace LoveBank.Web.Admin.Controllers.App
 
         public ActionResult App_GridMemberByuUserId(int userId, int page = 1, int pageSize = 20)
         {
-            var pageNumber = page ;
-            var size = pageSize ;
+            var pageNumber = page;
+            var size = pageSize;
 
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
@@ -637,14 +637,14 @@ namespace LoveBank.Web.Admin.Controllers.App
                 var grid = db.T_GridMember;
                 var dep = db.T_Department;
                 VolShowModel addUserDeptId = (from v in db.T_Vol
-                                     where v.ID == userId
-                                     select new VolShowModel
-                                     {
-                                         DepId = v.DepId,
-                                          Address=v.Address
+                                              where v.ID == userId
+                                              select new VolShowModel
+                                              {
+                                                  DepId = v.DepId,
+                                                  Address = v.Address
 
-                                     }).FirstOrDefault();
-              
+                                              }).FirstOrDefault();
+
 
                 var list = from g in grid select g;
 
@@ -685,6 +685,87 @@ namespace LoveBank.Web.Admin.Controllers.App
 
                 return Json(listObj3);
             }
+        }
+
+
+        /// <summary>
+        /// 兑换产品：
+        /// 参数：MacineCode机器Id
+        /// LoveBankProductId:被兑换产品Id
+        /// MacineCode：被兑换机器唯一码
+        /// Type: 账号登陆兑换 = 0,  二维码登陆兑换 = 1,   NFC登陆兑换 = 2
+        /// ExChangeCount:兑换数量，默认值是：1
+        /// AddUserId：兑换人的用户ID
+        /// Address（可选,兑换的地址）
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+
+        public ActionResult App_ExchangeProduct(LoveBankProductExchangeLog entity)
+        {
+            entity.AddTime = DateTime.Now;
+            entity.ExChangeCount = entity.ExChangeCount <= 0 ? 1 : entity.ExChangeCount;
+            entity.Source = "爱心银行";
+            entity.State = 0;
+
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var t_p = db.T_Product;
+                var t_v = db.T_Vol;
+
+                Product productModel = t_p.Find(entity.LoveBankProductId);
+
+
+                if (productModel == null)
+                {
+                    retJson.Status = false;
+                    retJson.Info = "产品不存在";
+                    return Json(retJson);
+                }
+
+                if (productModel.Count < entity.ExChangeCount)
+                {
+                    retJson.Status = false;
+                    retJson.Info = "产品数量不足";
+                    return Json(retJson);
+                }
+
+                Vol vol = t_v.Find(entity.AddUserId);
+                if (vol == null)
+                {
+                    retJson.Status = false;
+                    retJson.Info = "用户不存在";
+                    return Json(retJson);
+                }
+                if (vol.Score < entity.CostScore)
+                {
+                    retJson.Status = false;
+                    retJson.Info = "积分不足,可用积分:" + vol.Score + ".产品所需积分:" + entity.CostScore;
+
+                    return Json(retJson);
+                }
+
+                productModel.Count = productModel.Count - entity.ExChangeCount;//减少兑换数量
+                db.Update<Product>(productModel);
+                db.SaveChanges();
+
+
+
+                entity.CostScore = productModel.CostScore;
+                db.Add<LoveBankProductExchangeLog>(entity);//保存兑换记录
+                db.SaveChanges();
+
+
+                vol.Score = vol.Score - entity.CostScore;//减少积分
+                db.Update<Vol>(vol);
+                db.SaveChanges();
+
+                retJson.Status = true;
+                retJson.Info = "兑换成功";
+            }
+            return Json(retJson);
         }
     }
 }

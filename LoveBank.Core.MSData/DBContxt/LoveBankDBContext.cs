@@ -50,7 +50,7 @@ namespace LoveBank.Core.MSData
             modelBuilder.Configurations.Add(new GridMemberMap());
             modelBuilder.Configurations.Add(new SuperviseMap());
             modelBuilder.Configurations.Add(new SuggestionMap());
-            
+            modelBuilder.Configurations.Add(new LoveBankProductExchangeLogMap());
 
         }
         //public virtual DbSet<User> T_User { get; set; }
@@ -78,8 +78,8 @@ namespace LoveBank.Core.MSData
         public virtual DbSet<GridMember> T_GridMember { get; set; }
         public virtual DbSet<Supervise> T_Supervise { get; set; }
         public virtual DbSet<Suggestion> T_Suggestion { get; set; }
-        
 
 
+        public virtual DbSet<LoveBankProductExchangeLogMap> T_LoveBankProductExchangeLogMap { get; set; }
     }
 }
