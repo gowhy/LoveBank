@@ -139,11 +139,19 @@ namespace LoveBank.Web.Admin.Models
         /// <summary>
         /// 
         /// </summary>
+        public int? LoveBankScore
+        {
+            set;
+            get;
+        }
+
         public int? Score
         {
             set;
             get;
         }
+
+        public int Source { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -191,5 +199,6 @@ namespace LoveBank.Web.Admin.Models
 
         public int VolType { get; set; }
         public string NFC { get; set; }
+      
     }
 }

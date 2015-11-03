@@ -104,6 +104,7 @@ namespace LoveBank.Web.Admin.Controllers
             model.Name = parm.Name;
             model.Sort = parm.Sort;
             model.Type = parm.Type;
+            model.Icon = parm.Icon;
             foreach (var item in parm.SourceFileList)
             {
                 item.Guid = model.Guid;
@@ -159,6 +160,7 @@ namespace LoveBank.Web.Admin.Controllers
                                  DeptId = a.DeptId,
                                  Department = d,
                                  State = a.State,
+                                 Icon=a.Icon,
                                  SourceFileList = t_s.Where(x => x.Guid == a.Guid).ToList()
                              }).SingleOrDefault();
 
@@ -199,6 +201,8 @@ namespace LoveBank.Web.Admin.Controllers
                 model.Name = parm.Name;
                 model.Sort = parm.Sort;
                 model.Type = parm.Type;
+                model.Icon = parm.Icon;
+               
                 foreach (var item in parm.SourceFileList)
                 {
                     item.Guid = model.Guid;

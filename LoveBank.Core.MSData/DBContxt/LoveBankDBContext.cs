@@ -51,6 +51,10 @@ namespace LoveBank.Core.MSData
             modelBuilder.Configurations.Add(new SuperviseMap());
             modelBuilder.Configurations.Add(new SuggestionMap());
             modelBuilder.Configurations.Add(new LoveBankProductExchangeLogMap());
+            modelBuilder.Configurations.Add(new LBStartOrBottomAdMap());
+            modelBuilder.Configurations.Add(new MachineStatisticsMap());
+
+            modelBuilder.Configurations.Add(new MachineHeartbeatMap());
 
         }
         //public virtual DbSet<User> T_User { get; set; }
@@ -80,6 +84,11 @@ namespace LoveBank.Core.MSData
         public virtual DbSet<Suggestion> T_Suggestion { get; set; }
 
 
-        public virtual DbSet<LoveBankProductExchangeLogMap> T_LoveBankProductExchangeLogMap { get; set; }
+        public virtual DbSet<LoveBankProductExchangeLog> T_LoveBankProductExchangeLogMap { get; set; }
+        public virtual DbSet<LBStartOrBottomAd> T_LBStartOrBottomAd { get; set; }
+
+        public virtual DbSet<MachineStatistics> T_MachineStatistics { get; set; }
+
+        public virtual DbSet<MachineHeartbeat> T_MachineHeartbeat { get; set; }
     }
 }

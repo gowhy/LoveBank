@@ -28,7 +28,7 @@ namespace LoveBank.Core.Domain
         public DateTime RecruitEndDate { get; set; }
         public DateTime ProjectStartDate { get; set; }
         public DateTime ProjectEndDate { get; set; }
-        public DateTime ServiceDate { get; set; }
+        public string ServiceDate { get; set; }
 
         public string Address { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model  LoveBank.Common.IPagedList<LoveBank.Web.Admin.Models.VolAddSocreRecordeModel>
+﻿@model LoveBank.Web.Admin.Models.VolAddSocreRecordeSelectModel
 @using MvcContrib.UI.Pager;
 @using LoveBank.Common
 @using LoveBank.MVC
@@ -14,27 +14,43 @@
 
             var url = '@Url.Action("AuditingVolAddScore")' + '?id=' + id;
 
-            showAjaxResult(url, "审核增加积分", 600, 285);
+            showAjaxResult(url, "审核增减积分", 600, 350);
         }
-
+        function submitForm() {
+            // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
+            $('#indexFrom').submit();
+        }
     </script>
 
 }
 
 
-@*<div id="button_row">
+<form id="indexFrom">
 
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增</a>
-</div>*@
+    <div style="float: left;  text-align: center;">
+       
+        <span style="margin-left:30px;">
+            <span>
+
+                @Html.EnumToSelectList(new LoveBank.Core.Domain.Enums.AuditingState(), ((int)Model.AuditingState).ToString(), "AuditingState", null, new { })
+                NFC<input type="text" name="CardNum" style=" width:100px;" value="@Model.NFC" />
+                手机号<input type="text" name="Phone" style=" width:100px;" value="@Model.Phone" />
+                姓名<input type="text" name="RealName" style=" width:80px;" value="@Model.RealName" />
+            </span>
+
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">查询</a>
+        </span>
+    </div>
+</form>
 <div class="grid_box">
 
-    @Html.Grid(Model).Columns(column =>
+    @Html.Grid(Model.VolAddSocreRecordeList).Columns(column =>
     {
         //column.CheckBox(x => x.Id);
         column.For(x => x.Vol.ID).Named("ID");
         column.For(x => x.Vol.Phone ?? "").Named("手机号");
         column.For(x => x.Vol.RealName ?? "").Named("姓名");
-        column.For(x => x.Vol.Score).Named("当前积分");
+        column.For(x => x.Vol.LoveBankScore).Named("当前积分");
         column.For(x => x.AddScore).Named("准备加分");
         column.For(x => x.Vol.Sex).Named("性别");
         column.For(x => x.Vol.Age).Named("年龄");
@@ -55,4 +71,4 @@
 
 </div>
 
-@Html.Pager(Model)
+@Html.Pager(Model.VolAddSocreRecordeList)

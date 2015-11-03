@@ -50,7 +50,7 @@
 
                 </td>
             </tr>
-            <tr>
+            @*<tr>
                 <td class="item_title">
                     招募日期:
                 </td>
@@ -60,7 +60,7 @@
                     <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="RecruitEndDate" name="RecruitEndDate"
                            value="@Model.RecruitEndDate.ToString("yyyy-MM-dd")" onclick="WdatePicker()" data-options="required:true" />
                 </td>
-            </tr>
+            </tr>*@
             <tr>
                 <td class="item_title">
                     项目日期:
@@ -89,7 +89,7 @@
                 </td>
                 <td class="item_input">
                     <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="ServiceDate" name="ServiceDate"
-                           value="@Model.ServiceDate" onclick="WdatePicker()" data-options="required:true" />
+                           value="@Model.ServiceDate"  data-options="required:true" />
                 </td>
             </tr>
             <tr>

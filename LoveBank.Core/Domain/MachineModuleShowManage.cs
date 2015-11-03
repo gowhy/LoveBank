@@ -24,6 +24,7 @@ namespace LoveBank.Core.Domain
         //public RowState State { get; set; }
         public string Guid { get; set; }
         public string ModuleKey { get; set; }
+        public string Icon { get; set; }
 
     }
 }

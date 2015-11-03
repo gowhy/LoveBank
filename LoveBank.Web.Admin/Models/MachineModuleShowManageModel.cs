@@ -25,7 +25,7 @@ namespace LoveBank.Web.Admin.Models
         public int ID { get; set; }
         public int AddUserId { get; set; }
         public DateTime AddTime { get; set; }
-
+        public string Icon { get; set; }
         public RowState State { get; set; }
         public virtual IList<SourceFile> SourceFileList { get; set; }
     }

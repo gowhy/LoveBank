@@ -145,7 +145,7 @@ namespace LoveBank.Web.Admin.Controllers
                 Vol vEntity = vol.Find(model.AddUser);
                 if (model.State != SuperviseRowState.已回复)
                 {
-                    vEntity.Score = vEntity.Score + 5;
+                    vEntity.LoveBankScore = vEntity.LoveBankScore + 5;
                     db.Update<Vol>(vEntity);
                     db.SaveChanges();
                 }

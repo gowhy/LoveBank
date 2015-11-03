@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoveBank.Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,5 +20,7 @@ namespace LoveBank.Web.Admin.Models
         public int State { get; set; }
         public string UploadHtmlFile { get; set; }
         public string LinkSocSerUrl { get; set; }
+
+        public virtual IList<SourceFile> SourceFileList { get; set; }
     }
 }

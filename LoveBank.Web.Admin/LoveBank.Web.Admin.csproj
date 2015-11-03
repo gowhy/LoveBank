@@ -195,6 +195,7 @@
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LBSuggestionController.cs" />
+    <Compile Include="Controllers\LBStartOrBottomAdController.cs" />
     <Compile Include="Controllers\LoveBank_AdController.cs" />
     <Compile Include="Controllers\MachineController.cs" />
     <Compile Include="Controllers\MachineModuleController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TeamProjectController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UploadImgController.cs" />
     <Compile Include="Controllers\ValicodeController.cs" />
     <Compile Include="Controllers\LoveBankVolController.cs" />
     <Compile Include="Global.asax.cs">
@@ -221,15 +223,18 @@
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\GridMemberModel.cs" />
     <Compile Include="Models\LoveBankProductExchangeLogModel.cs" />
+    <Compile Include="Models\LBStartOrBottomAdModel.cs" />
     <Compile Include="Models\LoveBank_AdModel.cs" />
     <Compile Include="Models\MachineModel.cs" />
     <Compile Include="Models\MachineModuleShowManageModel.cs" />
     <Compile Include="Models\MachineProductModel.cs" />
+    <Compile Include="Models\MachineStatisticsModel.cs" />
     <Compile Include="Models\MailServerModel.cs" />
     <Compile Include="Models\MsgModel.cs" />
     <Compile Include="Models\NavModel.cs" />
     <Compile Include="Models\NoticeModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProductSelectModel.cs" />
     <Compile Include="Models\QRCodeModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\SmModel.cs" />
@@ -243,6 +248,7 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\VolAddScoreModel.cs" />
     <Compile Include="Models\VolAddSocreRecordeModel.cs" />
+    <Compile Include="Models\VolAddSocreRecordeSelectModel.cs" />
     <Compile Include="Models\VolModel.cs" />
     <Compile Include="Models\VolShowModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -297,6 +303,7 @@
     <Content Include="Content\CSS\img\system.mp3" />
     <Content Include="Content\CSS\img\topbg.png" />
     <Content Include="Content\CSS\jquery-calendar.css" />
+    <Content Include="Content\EasyUI\jquery-1.8.0.min.js" />
     <Content Include="Content\EasyUI\jquery.easyui.min.js" />
     <Content Include="Content\EasyUI\jquery.min.js" />
     <Content Include="Content\EasyUI\themes\black\accordion.css" />
@@ -1420,6 +1427,7 @@
     <Content Include="Views\TeamProject\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config.json" />
     <None Include="Properties\PublishProfiles\LoveBank.pubxml" />
     <Content Include="Views\AppComm\App_QRCode.cshtml" />
     <Content Include="Views\TeamProject\AddTeamPojectStation.cshtml" />
@@ -1436,6 +1444,21 @@
     <Content Include="Views\LBGridMember\Index.cshtml" />
     <Content Include="Views\LBGridMember\Add.cshtml" />
     <Content Include="Views\LBGridMember\Edit.cshtml" />
+    <Content Include="Views\LBNotice\Index.cshtml" />
+    <Content Include="Views\LBNotice\Add.cshtml" />
+    <Content Include="Views\LBNotice\ShowNews.cshtml" />
+    <Content Include="Views\LBNotice\View.cshtml" />
+    <Content Include="Views\LBWorkGuide\Index.cshtml" />
+    <Content Include="Views\LBWorkGuide\Add.cshtml" />
+    <Content Include="Views\LBWorkGuide\AddBootstrap.cshtml" />
+    <Content Include="Views\LBWorkGuide\View.cshtml" />
+    <Content Include="Views\LBStartOrBottomAd\Index.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
+    <Content Include="Views\LBStartOrBottomAd\Add.cshtml" />
+    <Content Include="Views\LBStartOrBottomAd\Edit.cshtml" />
+    <Content Include="Views\Upload\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

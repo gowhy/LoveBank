@@ -83,8 +83,10 @@ namespace LoveBank.Web.Admin.Controllers
             model.Name = parm.Name;
             model.Desc = parm.Desc;
             model.Type = parm.Type;
-            model.RecruitStartDate = parm.RecruitStartDate;
-            model.RecruitEndDate = parm.RecruitEndDate;
+            //model.RecruitStartDate = parm.RecruitStartDate;
+            //model.RecruitEndDate = parm.RecruitEndDate;
+            model.RecruitStartDate = parm.ProjectStartDate;
+            model.RecruitEndDate = parm.ProjectEndDate;
             model.ProjectStartDate = parm.ProjectStartDate;
             model.ProjectEndDate = parm.ProjectEndDate;
             model.ServiceDate = parm.ServiceDate;
@@ -173,13 +175,14 @@ namespace LoveBank.Web.Admin.Controllers
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
                 var am = db.T_TeamProject;
+                var t_s = db.T_SourceFile;
                 TeamProject model = am.Find(parm.ID);
 
                 model.Name = parm.Name;
                 model.Desc = parm.Desc;
                 model.Type = parm.Type;
-                model.RecruitStartDate = parm.RecruitStartDate;
-                model.RecruitEndDate = parm.RecruitEndDate;
+                //model.RecruitStartDate = parm.RecruitStartDate;
+                //model.RecruitEndDate = parm.RecruitEndDate;
                 model.ProjectStartDate = parm.ProjectStartDate;
                 model.ProjectEndDate = parm.ProjectEndDate;
                 model.ServiceDate = parm.ServiceDate;
@@ -196,6 +199,27 @@ namespace LoveBank.Web.Admin.Controllers
 
                 db.Update<TeamProject>(model);
                 db.SaveChanges();
+
+           
+                ///删除原来的,彻底以新增方式进行（修改通过删除在新增实现）
+                var delSourceFile = from s in t_s where s.Guid == model.Guid select s;
+                db.T_SourceFile.RemoveRange(delSourceFile);
+                db.SaveChanges();
+
+               
+              
+                if (parm.SourceFileList!=null)
+                {
+                    foreach (var item in parm.SourceFileList)
+                    {
+                        item.Guid = model.Guid;
+                        item.AddTime = DateTime.Now;
+                    }
+                    db.T_SourceFile.AddRange(parm.SourceFileList);//重新绑定
+                    db.SaveChanges();
+                }
+            
+
                 return Success("修改成功");
             }
         }

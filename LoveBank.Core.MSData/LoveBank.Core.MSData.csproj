@@ -110,6 +110,9 @@
     <Compile Include="EntityRepository.cs" />
     <Compile Include="Mapping\AdminLogMapping.cs" />
     <Compile Include="Mapping\LoveBankProductExchangeLogMap.cs" />
+    <Compile Include="Mapping\LBStartOrBottomAdMap.cs" />
+    <Compile Include="Mapping\MachineHeartbeatMap.cs" />
+    <Compile Include="Mapping\MachineStatisticsMap.cs" />
     <Compile Include="Mapping\SuggestionMap.cs" />
     <Compile Include="Mapping\WorkGuideMap.cs" />
     <Compile Include="Mapping\SuperviseMap.cs" />

@@ -1,4 +1,4 @@
-﻿@model  IPagedList<LoveBank.Web.Admin.Models.SuperviseModel>
+﻿@model  IPagedList<LoveBank.Web.Admin.Models.SuggestionModel>
 @using MvcContrib.UI.Pager;
 @using LoveBank.Common
 @using LoveBank.MVC
@@ -47,9 +47,10 @@
                                       column.For(x => Html.Raw(x.Content)).Named("反馈类容").HeaderAttributes(style => "width:450px;align:center;");
                                       column.For(x => x.AddTime.ToString("yyyy-MM-dd HH:mm")).Named("反馈时间").HeaderAttributes(style => "width:140px;align:center;");
                                       column.For(x => x.DepName).Named("社区");
-                                      column.For(x => x.volEntity.RealName).Named("真实姓名");
-                                      column.For(x => x.volEntity.Phone).Named("联系电话");
-                                      column.For(x => x.volEntity.Address).Named("地址");
+                                      column.For(x => x.Content).Named("内容");
+                                      column.For(x => x.Vol.Phone).Named("联系电话");
+                                      column.For(x => x.Vol.RealName).Named("真实姓名");
+                                      column.For(x => x.Vol.Address).Named("地址");
 
                                   }).Complex(ViewData)
   

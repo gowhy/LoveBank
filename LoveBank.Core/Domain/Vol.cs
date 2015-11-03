@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoveBank.Core.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace LoveBank.Core.Domain
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public  int ID { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -145,6 +147,12 @@ namespace LoveBank.Core.Domain
         /// <summary>
         /// 
         /// </summary>
+        public int? LoveBankScore
+        {
+            set;
+            get;
+        }
+
         public int? Score
         {
             set;
@@ -195,8 +203,10 @@ namespace LoveBank.Core.Domain
         /// </summary>
         public string VillDeptId { get; set; }
 
-        public int VolType { get; set; }
+        public VolType VolType { get; set; }
         public string NFC { get; set; }
+        public int Source { get; set; }
+        
 
     }
 }

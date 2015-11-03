@@ -80,9 +80,11 @@ namespace LoveBank.Web.Admin.Controllers
             model.RealNameState = 1;
             model.State = 1;
             model.Type = "志愿者";
-            model.Score = 20;//默认20积分
+            model.LoveBankScore = 0;
+            model.Score = 0;
             DbProvider.Add(model);
             DbProvider.SaveChanges();
+            model.Score = 1;//来源未1标示是爱心银行
             return Success("操作成功");
 
         }
@@ -212,12 +214,12 @@ namespace LoveBank.Web.Admin.Controllers
         }
 
         [SecurityNode(Name = "待审核积分列表")]
-        public ActionResult AuditingAddScoreIndex(int? page, int? pageSize)
+        public ActionResult AuditingAddScoreIndex(VolAddSocreRecordeSelectModel model,int? page, int? pageSize)
         {
             var pageNumber = page ?? 1;
             var size = pageSize ?? PageSize;
 
-            using (LoveBankDBContext db= new LoveBankDBContext())
+            using (LoveBankDBContext db = new LoveBankDBContext())
             {
                 var t_v = db.T_Vol;
                 var t_sr = db.T_VolAddScoreRecorde;
@@ -232,15 +234,26 @@ namespace LoveBank.Web.Admin.Controllers
                                AuditingState = s.AuditingState,
                                AuditingMsg = s.AuditingMsg,
                                Msg = s.Msg,
-                               AuditingTime=s.AuditingTime, 
-                               ID=s.ID,
-                               DeptId=s.DeptId,
+                               AuditingTime = s.AuditingTime,
+                               ID = s.ID,
+                               DeptId = s.DeptId,
                                Vol = v
 
                            };
-                list = list.Where(x=>x.DeptId==AdminUser.DeptId);
 
-                return View(list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size));
+                list = list.Where(x => x.DeptId.IndexOf(AdminUser.DeptId) > -1);
+                if (!string.IsNullOrEmpty(model.Phone)) list = list.Where(x => x.Vol.Phone == model.Phone);
+                if (!string.IsNullOrEmpty(model.RealName)) list = list.Where(x => x.Vol.RealName == model.RealName);
+                if (!string.IsNullOrEmpty(model.NFC)) list = list.Where(x => x.Vol.NFC == model.NFC);
+
+                if ((int)model.AuditingState>-1)
+                {
+                    list = list.Where(x => x.AuditingState == model.AuditingState);
+                }
+        
+
+                model.VolAddSocreRecordeList = list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size);
+                return View(model);
             }
         }
 
@@ -313,7 +326,7 @@ namespace LoveBank.Web.Admin.Controllers
                 {
                     //审核通过,增加积分
                     Vol v = t_v.Find(vsr.VolID);
-                    v.Score = v.Score + vsr.AddScore;
+                    v.LoveBankScore = v.LoveBankScore + vsr.AddScore;
                     db.SaveChanges();
                 }
                 return Success("操作成功");

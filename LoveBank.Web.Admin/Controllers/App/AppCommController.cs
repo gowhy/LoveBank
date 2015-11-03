@@ -173,7 +173,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                            join m1 in t_mp on p.ID equals m1.ProductId
                            join m2 in t_m on m1.MachineId equals m2.ID
                            where m2.MachineCode == machine.MachineCode
-
+                           && p.Count > 0
                            select new ProductModel
                            {
                                BarCode = p.BarCode,
@@ -556,10 +556,10 @@ namespace LoveBank.Web.Admin.Controllers.App
                                ID = v.ID,
                                Phone = v.Phone,
                                RealName = v.RealName,
-                               Score = v.Score
+                               LoveBankScore = v.LoveBankScore
 
                            };
-                retJson.Data = list.OrderByDescending(x => x.Score).ToPagedList(page - 1, pageSize);
+                retJson.Data = list.OrderByDescending(x => x.LoveBankScore).ToPagedList(page - 1, pageSize);
                 retJson.Status = true;
             }
 
@@ -739,10 +739,10 @@ namespace LoveBank.Web.Admin.Controllers.App
                     retJson.Info = "用户不存在";
                     return Json(retJson);
                 }
-                if (vol.Score < entity.CostScore)
+                if (vol.LoveBankScore < entity.CostScore)
                 {
                     retJson.Status = false;
-                    retJson.Info = "积分不足,可用积分:" + vol.Score + ".产品所需积分:" + entity.CostScore;
+                    retJson.Info = "积分不足,可用积分:" + vol.LoveBankScore + ".产品所需积分:" + entity.CostScore * entity.ExChangeCount;
 
                     return Json(retJson);
                 }
@@ -753,12 +753,12 @@ namespace LoveBank.Web.Admin.Controllers.App
 
 
 
-                entity.CostScore = productModel.CostScore;
+                entity.CostScore = productModel.CostScore * entity.ExChangeCount;
                 db.Add<LoveBankProductExchangeLog>(entity);//保存兑换记录
                 db.SaveChanges();
 
 
-                vol.Score = vol.Score - entity.CostScore;//减少积分
+                vol.LoveBankScore = vol.LoveBankScore - entity.CostScore * entity.ExChangeCount;//减少积分
                 db.Update<Vol>(vol);
                 db.SaveChanges();
 
@@ -766,6 +766,88 @@ namespace LoveBank.Web.Admin.Controllers.App
                 retJson.Info = "兑换成功";
             }
             return Json(retJson);
+        }
+
+
+        /// <summary>
+        /// 统计首页各个模块点击情况
+        /// ModuleCode：模块自定义编码
+        /// ModuleId：模块Id
+        /// MachineCode:机器唯一编码
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public ActionResult App_MachineStatistics(MachineStatistics entity)
+        {
+            entity.AddTime = DateTime.Now;
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                var tm = db.T_Machine;
+                Machine mModel = tm.FirstOrDefault(x => x.MachineCode == entity.MachineCode);
+                if (mModel != null)
+                {
+                    entity.DeptId = mModel.DeptId;
+                    entity.ModuleId = mModel.ID;
+                }
+
+                db.AddAsync<MachineStatistics>(entity);
+                db.SaveChangesAsync();
+                retJson.Status = true;
+                return Json(retJson);
+            }
+
+        }
+
+        /// <summary>
+        /// 心跳检查一体机运行状况
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public ActionResult App_MachineHeartbeat(MachineHeartbeat entity)
+        {
+            entity.AddTime = DateTime.Now;
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+ 
+                db.AddAsync<MachineHeartbeat>(entity);
+                db.SaveChangesAsync();
+                retJson.Status = true;
+                return Json(retJson);
+            }
+
+        }
+
+        public ActionResult App_LBStartOrBottomAd(string machineCode)
+        {
+            //AppSourceFileList = (from s in t_s where s.Guid == p.Guid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList()
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var tlbs = db.T_LBStartOrBottomAd;
+                var tm = db.T_Machine;
+                var t_s = db.T_SourceFile;
+                var list = from bs in tlbs
+                           join m in tm on bs.DeptId equals m.DeptId
+                           where m.MachineCode == machineCode
+                           select new LBStartOrBottomAdModel
+                           {
+                               LinkUrl = bs.LinkUrl,
+                               Postion=bs.Postion,
+                               HttpImgUrl = (from s in t_s where s.Guid == bs.Guid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).FirstOrDefault().ImgHttpUrl
+
+                           };
+         
+                retJson.Status = true;
+                retJson.Data = list.ToList();
+                return Json(retJson,JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

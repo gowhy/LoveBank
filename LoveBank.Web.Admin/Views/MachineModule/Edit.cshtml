@@ -51,7 +51,15 @@
 
                 </td>
             </tr>
-            
+            <tr>
+                <td class="item_title">
+                    压下图标:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Icon" id="Icon"
+                           value="@Model.Icon" data-options="required:false,validType:'length[1,200]'" />
+                </td>
+            </tr>
             <tr>
                 <td class="item_title">
                     显示ICON:
@@ -138,6 +146,7 @@
             "DeptId": $("#DeptId").val(),
             "Sort": $("#Sort").val(),
             "ModuleKey": $("#ModuleKey").val(),
+            "Icon": $("#Icon").val(),
             "ID": $("#ID").val(),
             "SourceFileList": upLoader.getSourceFileList()
 

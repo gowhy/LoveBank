@@ -1,4 +1,4 @@
-﻿@model  LoveBank.Common.IPagedList<LoveBank.Core.Domain.Product>
+﻿@model  LoveBank.Web.Admin.Models.ProductSelectModel
 @using MvcContrib.UI.Pager;
 @using LoveBank.Common
 @using LoveBank.MVC
@@ -35,18 +35,42 @@
             var url = '@Url.Action("BindMachine")' + '?ProductId=' + id;
             $("#MachineBindProduct").attr("src", url);
         }
+        function submitForm() {
+            // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
+            $('#indexFrom').submit();
+        }
     </script>
 
 }
 
 
-<div id="button_row">
+@*<div id="button_row">
 
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增产品</a>
+</div>*@
+
+<form id="indexFrom">
+
+    <div style="float: left;  text-align: center;">
+        <span>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增产品</a>
+        </span>
+            <span style="margin-left:30px;">
+                <span>
+
+                 
+                    产品名称<input type="text" name="Name" style=" width:100px;" value="@Model.Name" />
+                    产品条形码<input type="text" name="BarCode" style=" width:100px;" value="@Model.BarCode" />
+                   
+                </span>
+
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">查询</a>
+            </span>
 </div>
+</form>
 <div class="grid_box">
 
-    @Html.Grid(Model).Columns(column =>
+    @Html.Grid(Model.ProductList).Columns(column =>
     {
         //column.CheckBox(x => x.Id);
         column.For(x => x.ID).Named("ID");
@@ -70,7 +94,7 @@
 
 </div>
 
-@Html.Pager(Model)
+@Html.Pager(Model.ProductList)
 
 <div id="w" class="easyui-window" title="绑定商品" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:800px;height:450px;padding:0px;">
     <iframe scrolling="auto" id='MachineBindProduct' frameborder="0" src="" style="width:100%;height:100%;"></iframe>

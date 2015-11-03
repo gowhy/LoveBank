@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td class="item_title">
-                    项目:
+                    加分活动:
                 </td>
                 <td class="item_input">
                     <select id="TeamProjectId" name="TeamProjectId">
@@ -61,7 +61,7 @@
             </tr>
             <tr>
                 <td class="item_title">
-                    加分原因:
+                    其他说明:
                 </td>
                 <td class="item_input">
                     <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " name="Msg"
@@ -90,6 +90,13 @@
     <script>
             function submitForm() {
                 // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
+                var score = $("#TeamProjectId").find("option:selected").attr("score");
+               
+                if (!score || score <= 0) {
+                    alert("请选择活动");
+                    return false;
+                }
+
                 $('#PostVolAddScore').submit();
             }
             function clearForm() {
@@ -113,15 +120,19 @@
 
             });
             $("#AddScore").focusout(function () {
-
+                //parseInt
                
+             
                 var score = $("#TeamProjectId").find("option:selected").attr("score");
                 if (score>0) {
-                    if ($(this).val() > score) {
+                    if (parseInt($(this).val()) > parseInt(score)) {
 
-                        alert("该活动最大能加:" + score);
+                        alert("该活动最大能加:" + score+"分");
                         $(this).val(score);
                     }
+                } else {
+                    alert("请选择活动");
+                    return false;
                 }
                
 

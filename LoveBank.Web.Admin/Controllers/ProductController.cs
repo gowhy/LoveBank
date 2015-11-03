@@ -32,9 +32,9 @@ namespace LoveBank.Web.Admin.Controllers
 
 
         [SecurityNode(Name = "首页")]
-        public ActionResult Index(int? page, int? pageSize)
+        public ActionResult Index(ProductSelectModel model, int? page, int? pageSize)
         {
-       
+
             var pageNumber = page ?? 1;
             var size = pageSize ?? PageSize;
 
@@ -45,10 +45,13 @@ namespace LoveBank.Web.Admin.Controllers
 
                 var list = from p in t_p select p;
 
-                //list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId,)>=0);
+                list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId) > -1);
 
+                if (!string.IsNullOrEmpty(model.Name)) list = list.Where(x => x.Name.Contains(model.Name));
+                if (!string.IsNullOrEmpty(model.BarCode)) list = list.Where(x => x.BarCode == model.BarCode);
 
-                return View(list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size));
+                model.ProductList = list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size);
+                return View(model);
             }
         }
 
@@ -184,12 +187,12 @@ namespace LoveBank.Web.Admin.Controllers
                 model.Desc = parm.Desc;
                 model.Type = parm.Type;
 
-                foreach (var item in parm.SourceFileList)
-                {
-                    item.Guid = model.Guid;
-                    item.AddTime = DateTime.Now;
+                //foreach (var item in parm.SourceFileList)
+                //{
+                //    item.Guid = model.Guid;
+                //    item.AddTime = DateTime.Now;
 
-                }
+                //}
                 ///删除原来的,彻底以新增方式进行（修改通过删除在新增实现）
                 var delSourceFile = from s in t_s where s.Guid == model.Guid select s;
                 db.T_SourceFile.RemoveRange(delSourceFile);
