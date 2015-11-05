@@ -1,15 +1,146 @@
-﻿@model LoveBank.Web.Admin.Models.LogOnModel
-@using LoveBank.MVC
+﻿@using LoveBank.MVC
 @{
     Layout = null;
 }
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="windows-Target" content="_parent">
-    <title>登录-爱心银行管理平台</title>
-    @Html.IncludeCSS("~/Content/Css/login.css")
+    <meta charset="utf-8" />
+    <title>无标题文档</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #main {
+        width: 100%;
+        min-width: 760px;
+        height: 566px;
+        margin-top: 8%;
+        background-image: url(/content/images/BG.jpg);
+        background-repeat: no-repeat;
+        -moz-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        background-size: 100% 100%;
+        position: relative;
+    }
+
+    #BGhead {
+        position: absolute;
+        left: 50%;
+        margin-left: -301px;
+        top: -22px;
+    }
+
+    #loginBG {
+        position: absolute;
+        left: 50%;
+        margin-left: -582px;
+        top: 42%;
+    }
+
+    #inputBox {
+        position: absolute;
+        left: 67%;
+        top: 100px;
+    }
+
+    .input {
+        margin-bottom: 20px;
+    }
+
+    .inputbutton {
+        width: 140px;
+        height: 36px;
+    }
+
+    .inputText {
+        color: white;
+        font-size: 20px;
+    }
+
+    #buttonBox {
+        margin-left: 20px;
+        margin-top: 30px;
+    }
+
+        #buttonBox input {
+            border: none;
+            width: 101px;
+            height: 37px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 7px;
+        }
+
+    #enter {
+        background-image: url(/content/images/buttonBG2.png);
+        margin-left:70px;
+        margin-top:-20px;
+        /*background:url("http://xxpt.wsjd.gov.cn/nhisportal/res/img/login_login.png") no-repeat*/
+    }
+
+    #quit {
+        background-image: url(/content/images/buttonBG3.png);
+    }
+
+    #yanzhengma {
+        border: none;
+        width: 60px;
+        height: 30px;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        background-image: url(/content/images/buttonBG1.png);
+        position: absolute;
+        right: 5px;
+        top: 120px;
+    }
+</style>
+
+
+
+<body>
+
+    <div id="main">
+        <img id="BGhead" src="/content/images/BGhead.png" />
+        <div id="loginBG">
+            <img src="/content/images/loginBG.png" />
+            <div id="inputBox" >
+            @using (Html.BeginForm())
+            {
+                <div class="input">
+                    <a class="inputText">用户名：</a>
+                    <input name="username"  class="inputbutton" />
+                </div>
+                <div class="input">
+                    <a class="inputText">密&nbsp;码：</a>
+                    <input name="password" type="password" class="inputbutton" />
+                </div>
+                <div class="input">
+                    <a class="inputText">验证码：</a>
+                    <input class="inputbutton" />
+                    <input id="yanzhengma" type="button" value="获取" />
+                </div>
+                <div id="buttonBox">
+                    <input id="enter" type="submit"  value="确认" />
+                    <div class="errors" id="errors">
+                        @Html.ValidationSummary(true)
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+
+    </div>
+
+    <div id=""></div>
+    <div id=""></div>
+
     @Html.IncludeScript("~/Content/Js/jquery.min.js")
     @Html.IncludeScript("~/Content/Js/jquery-validate.min.js")
     <script type="text/javascript">
@@ -29,33 +160,5 @@
             });
         });
     </script>
-</head>
-<body>
-    <div id="container">
-        <div class="logo">
-            <a class="logo-label">爱心银行管理平台</a>
-        </div>
-        <div id="box">
-            @using (Html.BeginForm())
-            {
-                <p class="main">
-                    <label>
-                        用户名
-                    </label>
-                    <input type="text" name="username" tabindex="1" data-required />
-                    <label>
-                        密码
-                    </label>
-                    <input type="password" name="password" tabindex="2" data-required/>
-                </p>
-                <p class="space">
-                    <input type="submit"  value="登录" class="login" tabindex="3"/>
-                    <div class="errors" id="errors">
-                        @Html.ValidationSummary(true)
-                    </div>
-                </p>
-            }
-        </div>
-    </div>
 </body>
 </html>

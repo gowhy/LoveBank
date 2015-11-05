@@ -554,6 +554,12 @@
     <Content Include="Content\EasyUI\themes\metro\tree.css" />
     <Content Include="Content\EasyUI\themes\metro\validatebox.css" />
     <Content Include="Content\EasyUI\themes\metro\window.css" />
+    <Content Include="Content\Images\BG.jpg" />
+    <Content Include="Content\Images\BGhead.png" />
+    <Content Include="Content\Images\buttonBG1.png" />
+    <Content Include="Content\Images\buttonBG2.png" />
+    <Content Include="Content\Images\buttonBG3.png" />
+    <Content Include="Content\Images\loginBG.png" />
     <Content Include="Content\Images\loginout.png" />
     <Content Include="Content\Images\top-back.jpg" />
     <Content Include="Content\Images\top-back2.jpg" />
@@ -1464,6 +1470,7 @@
     <Content Include="Views\LBStartOrBottomAd\Edit.cshtml" />
     <Content Include="Views\U\Index.cshtml" />
     <Content Include="Views\LoveBankVol\VolTypeEchartsPage.cshtml" />
+    <Content Include="Views\Account\LogOn - 复制.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
