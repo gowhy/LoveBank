@@ -17,6 +17,8 @@ using LoveBank.Core.Domain;
 using LoveBank.Core.SerializerHelp;
 using LoveBank.Core.MSData;
 using LoveBank.Core.Domain.Enums;
+using MySql.Data.MySqlClient;
+using LoveBank.Cache;
 namespace LoveBank.Web.Admin.Controllers
 {
      [SecurityModule(Name = "社区自愿者管理")]
@@ -369,5 +371,65 @@ namespace LoveBank.Web.Admin.Controllers
 
             return Success("绑定成功");
         }
+
+        [SecurityNode(Name = "辖区自愿者分析")]
+        public ActionResult VolTypeEchartsPage()
+        {
+            //using (LoveBankDBContext db = new LoveBankDBContext())
+            //{
+            //    ViewBag.Title = (from d in db.T_Department where d.Id == AdminUser.DeptId select d.Name).FirstOrDefault();
+            //}
+            return View();
+
+        }
+         //[OutputCache(Duration=20)]
+        public ActionResult VolTypeEchartsData(string deptId)
+        {
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                string sql = string.Format(@"SELECT v.VolType  ,count(v.VolType ) value from volunteer v
+                                WHERE v.DepId LIKE'{0}%'
+                                GROUP BY  v.VolType ", AdminUser.DeptId);
+
+                // var tv = db.T_Vol;
+
+                //IQueryable<IGrouping<VolType, Vol>> model=tv.GroupBy(x=>x.VolType);
+
+
+               
+
+                string cacheKey = "VolTypeEchartsData"+AdminUser.DeptId;
+                object listCache = BaseCacheManage.RetrieveObject(cacheKey);
+                if (listCache!=null)
+                {
+                    return Json((VolTypeEchartsDataModel)listCache, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    MySqlParameter[] parm = new MySqlParameter[] { };
+                    List<VolTypeEchartsData> list = db.Database.SqlQuery<VolTypeEchartsData>(sql, parm).ToList();
+
+                    decimal total = list.Sum(x => long.Parse(x.value));
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        list[i].Oname = list[i].VolType.ToLocalizable();
+                        list[i].name = list[i].VolType.ToLocalizable() + "(" + (decimal.Parse(list[i].value) / total).ToString("p") + ")";
+                    }
+
+                    VolTypeEchartsDataModel model = new VolTypeEchartsDataModel();
+                    BaseCacheManage.AddObject(cacheKey, model, 10 * 60);
+
+                    model.DepName = (from d in db.T_Department where d.Id == AdminUser.DeptId select d.Name).FirstOrDefault();
+                    model.VolTypeEchartsDataList = list;
+                    model.Total = total.ToString();
+                    return Json(list, JsonRequestBehavior.AllowGet);
+                }
+             
+            }
+
+        }
+
     }
 }

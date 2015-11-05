@@ -55,7 +55,7 @@ namespace LoveBank.Core.MSData
             modelBuilder.Configurations.Add(new MachineStatisticsMap());
 
             modelBuilder.Configurations.Add(new MachineHeartbeatMap());
-
+            modelBuilder.Configurations.Add(new LoginStatisticsMap());
         }
         //public virtual DbSet<User> T_User { get; set; }
         public virtual DbSet<Role> T_Role { get; set; }
@@ -90,5 +90,7 @@ namespace LoveBank.Core.MSData
         public virtual DbSet<MachineStatistics> T_MachineStatistics { get; set; }
 
         public virtual DbSet<MachineHeartbeat> T_MachineHeartbeat { get; set; }
+        public virtual DbSet<LoginStatistics> T_LoginStatistics { get; set; }
+        
     }
 }

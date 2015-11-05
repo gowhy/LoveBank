@@ -208,7 +208,7 @@
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TeamProjectController.cs" />
     <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\UploadImgController.cs" />
+    <Compile Include="Controllers\UController.cs" />
     <Compile Include="Controllers\ValicodeController.cs" />
     <Compile Include="Controllers\LoveBankVolController.cs" />
     <Compile Include="Global.asax.cs">
@@ -251,6 +251,7 @@
     <Compile Include="Models\VolAddSocreRecordeSelectModel.cs" />
     <Compile Include="Models\VolModel.cs" />
     <Compile Include="Models\VolShowModel.cs" />
+    <Compile Include="Models\VolTypeEchartsDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -553,6 +554,9 @@
     <Content Include="Content\EasyUI\themes\metro\tree.css" />
     <Content Include="Content\EasyUI\themes\metro\validatebox.css" />
     <Content Include="Content\EasyUI\themes\metro\window.css" />
+    <Content Include="Content\Images\loginout.png" />
+    <Content Include="Content\Images\top-back.jpg" />
+    <Content Include="Content\Images\top-back2.jpg" />
     <Content Include="Content\JS\jquery-calendar.js" />
     <Content Include="Content\CSS\kindediter\default\background.png" />
     <Content Include="Content\CSS\kindediter\default\default.css" />
@@ -1458,7 +1462,8 @@
     </Content>
     <Content Include="Views\LBStartOrBottomAd\Add.cshtml" />
     <Content Include="Views\LBStartOrBottomAd\Edit.cshtml" />
-    <Content Include="Views\Upload\Index.cshtml" />
+    <Content Include="Views\U\Index.cshtml" />
+    <Content Include="Views\LoveBankVol\VolTypeEchartsPage.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

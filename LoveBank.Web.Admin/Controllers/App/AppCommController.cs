@@ -107,7 +107,7 @@ namespace LoveBank.Web.Admin.Controllers.App
         /// <param name="phone"></param>
         /// <param name="passWord"></param>
         /// <returns></returns>
-        public ActionResult App_Login(string phone, string passWord)
+        public ActionResult App_Login(string phone, string passWord, string machineCode)
         {
 
             JsonMessage returnJson = new JsonMessage();
@@ -128,6 +128,19 @@ namespace LoveBank.Web.Admin.Controllers.App
                             User = appUser
                         };
                     returnJson.Info = "登录成功";
+
+                    //登陆log
+                    LoginStatistics loginStatistics = new LoginStatistics();
+                    loginStatistics.Type = LoginType.手机;
+                    loginStatistics.LoginState = 1;
+                    loginStatistics.Phone = phone;
+                    loginStatistics.MachineCode = machineCode;
+                    loginStatistics.UserId = appUser.ID;
+
+                    Action<LoginStatistics> loginStatisticsTarget = s => LoginLog(s);
+                    loginStatisticsTarget(loginStatistics);
+
+
                     return Json(returnJson);
                 }
                 else
@@ -188,6 +201,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                                StartTime = p.StartTime,
                                State = p.State,
                                Type = p.Type,
+                               Desc=p.Desc,
                                //SourceFileList = t_s.Where(x => x.Guid == p.Guid).ToList()
                                AppSourceFileList = (from s in t_s where s.Guid == p.Guid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList()
                            };
@@ -240,7 +254,8 @@ namespace LoveBank.Web.Admin.Controllers.App
                                ID = a.ID,
                                DeptId = a.DeptId,
                                Department = d,
-                               State = a.State
+                               State = a.State,
+                               Icon = a.Icon 
                            };
 
                 list = list.Where(x => x.State != RowState.删除);
@@ -428,7 +443,7 @@ namespace LoveBank.Web.Admin.Controllers.App
         {
 
             JsonMessage retJson = new JsonMessage();
-
+         
             switch (qrCodeModel.Type)
             {
                 case QRCodeType.登陆:
@@ -436,6 +451,14 @@ namespace LoveBank.Web.Admin.Controllers.App
                     retJson.Data = qrCodeModel.Data;
                     if (retJson.Status == true)
                     {
+                        //登陆log
+                        LoginStatistics loginStatistics = new LoginStatistics();
+                        loginStatistics.Type = LoginType.二维码登陆;
+                        loginStatistics.LoginState = 1;
+                        //LoginLog(loginStatistics);
+                        Action<LoginStatistics> loginStatisticsTarget = s => LoginLog(s);
+                        loginStatisticsTarget(loginStatistics);
+
                         retJson.Info = "已经授权成功";
                         qrCodeModel.State = QRCodeState.已授权;
                         qrCodeModel.UserId = qrCodeModel.UserId;
@@ -457,6 +480,24 @@ namespace LoveBank.Web.Admin.Controllers.App
 
         }
 
+    
+        private   bool LoginLog(LoginStatistics model)
+        {
+            model.AddTime = DateTime.Now;
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                Machine mModel = db.T_Machine.Find(model.MachineCode);
+
+                model.Lon = mModel.Lon;
+                model.Lat = mModel.Lat;
+                model.Address = mModel.Address;
+
+                db.Add<LoginStatistics>(model);
+                db.SaveChangesAsync();
+            }
+
+            return true;
+        }
         /// <summary>
         /// 用社区1+1扫码登陆
         /// </summary>
@@ -790,7 +831,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                 if (mModel != null)
                 {
                     entity.DeptId = mModel.DeptId;
-                    entity.ModuleId = mModel.ID;
+                    //entity.ModuleId = mModel.ID;
                 }
 
                 db.AddAsync<MachineStatistics>(entity);

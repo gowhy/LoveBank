@@ -613,10 +613,12 @@
                     enable: true,
                     idKey: "Id",
                     pIdKey: "PId",
+                  
                     rootPId: ""
                 },
                 key: {
-                    name: "Name"
+                    name: "Name",
+                    checked: "Ischecked"
                 }
 
             },

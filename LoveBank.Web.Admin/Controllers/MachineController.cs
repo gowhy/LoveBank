@@ -30,23 +30,60 @@ namespace LoveBank.Web.Admin.Controllers
          const int PageSize = 20;
 
 
-        [SecurityNode(Name = "首页")]
-        public ActionResult Index(int? page, int? pageSize)
-        {
-            var pageNumber = page ?? 1;
-            var size = pageSize ?? PageSize;
+         [SecurityNode(Name = "首页")]
+         public ActionResult Index(MachineModel machine, int? page, int? pageSize)
+         {
+             var pageNumber = page ?? 1;
+             var size = pageSize ?? PageSize;
 
-            using (LoveBankDBContext db = new LoveBankDBContext())
-            {
+             using (LoveBankDBContext db = new LoveBankDBContext())
+             {
 
-                var mac = db.T_Machine;
+                 var t_m = db.T_Machine;
+                 var t_d = db.T_Department;
 
-                var list = from m in mac select m;
+                 //var list = from m in mac select m;
 
-                list = list.Where(x=>x.State!=RowState.删除);
-                return View(list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size));
-            }
-        }
+
+                 var list = from m in t_m
+                            join d in t_d on m.DeptId equals d.Id
+                          
+                            select new MachineModel
+                            {
+                                Address = m.Address,
+                                AddTime = m.AddTime,
+                                AddUserDeptId = m.AddUserDeptId,
+                                DeptId = m.DeptId,
+                                Desc = m.Desc,
+                                Id = m.ID,
+                                MachineCode = m.MachineCode,
+                                Name = m.Name,
+                                State = m.State,
+                                Title = m.Title,
+                             
+                                Department = d
+
+                            };
+
+
+                 list = list.Where(x => x.State != RowState.删除);
+                 if (!string.IsNullOrEmpty(machine.Name)) list = list.Where(x => x.Name.Contains(machine.Name));
+                 if (!string.IsNullOrEmpty(machine.MachineCode)) list = list.Where(x => x.MachineCode == machine.MachineCode);
+                 if (!string.IsNullOrEmpty(machine.DeptId)) list = list.Where(x => x.DeptId.IndexOf(machine.DeptId) > -1);
+                 machine.MachineModelList = list.OrderByDescending(x => x.Id).ToPagedList(pageNumber - 1, size);
+
+                 var list2 = t_d.Where(x => x.Level <= 6 && x.Id.IndexOf(AdminUser.DeptId) > -1).ToList();
+                 if (!string.IsNullOrEmpty(machine.DeptId))
+                 {
+                     list2.FirstOrDefault(x => x.Id == machine.DeptId).IsCheck = true;
+                    
+                 }
+
+
+                 ViewData["Department_List"] = HelpSerializer.JSONSerialize<List<Department>>(list2);
+                 return View(machine);
+             }
+         }
         [SecurityNode(Name = "添加页面")]
         public ActionResult Add()
         {

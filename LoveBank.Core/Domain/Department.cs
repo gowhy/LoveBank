@@ -33,6 +33,9 @@ namespace LoveBank.Core.Domain
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public bool IsCheck { get; set; }
 
+        //[System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        //public bool  checked { get; set; }
+
         /// <summary>
         /// 纬度
         /// </summary>

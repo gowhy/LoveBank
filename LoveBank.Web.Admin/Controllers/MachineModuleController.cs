@@ -162,7 +162,7 @@ namespace LoveBank.Web.Admin.Controllers
                                  State = a.State,
                                  Icon=a.Icon,
                                  SourceFileList = t_s.Where(x => x.Guid == a.Guid).ToList()
-                             }).SingleOrDefault();
+                             }).FirstOrDefault();
 
                 return View(model);
             }
@@ -255,5 +255,8 @@ namespace LoveBank.Web.Admin.Controllers
             SourceFile res = UploadFileInstance.SaveFile(file, "MachineModuleShowManageImg", AdminUser.ID);
             return Json(res);
         }
+
+
+
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="Domain\Department.cs" />
     <Compile Include="Domain\Enums\AuditingState.cs" />
     <Compile Include="Domain\Enums\LBStartOrBottomAdPostion.cs" />
+    <Compile Include="Domain\Enums\LoginType.cs" />
     <Compile Include="Domain\Enums\ProductType.cs" />
     <Compile Include="Domain\Enums\QRCodeType.cs" />
     <Compile Include="Domain\Enums\ResoureType.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Domain\Enums\TeamState.cs" />
     <Compile Include="Domain\Enums\VolType.cs" />
     <Compile Include="Domain\GridMember.cs" />
+    <Compile Include="Domain\LoginStatistics.cs" />
     <Compile Include="Domain\LoveBankProductExchangeLog.cs" />
     <Compile Include="Domain\LBStartOrBottomAd.cs" />
     <Compile Include="Domain\LoveBank_Ad.cs" />

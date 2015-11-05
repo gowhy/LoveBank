@@ -1,4 +1,5 @@
-﻿using LoveBank.Core.Domain;
+﻿using LoveBank.Common;
+using LoveBank.Core.Domain;
 using LoveBank.Core.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,8 @@ namespace LoveBank.Web.Admin.Models
         /// </summary>
         public string DeptId { get; set; }
 
+        public string DeptIdName { get; set; }
+
         [ForeignKey("DeptId")]
         public Department Department { get; set; }
         /// <summary>
@@ -62,5 +65,7 @@ namespace LoveBank.Web.Admin.Models
         public string Lat { get; set; }
 
         public int? ProductId { get; set; }
+
+        public IPagedList<MachineModel> MachineModelList { get; set; }
     }
 }

@@ -247,7 +247,7 @@ namespace LoveBank.Web.Admin.Controllers
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [SecurityNode(Name = "绑定机器页面")]
-        public ActionResult BindMachine(MachineProductModel machine, int? page, int? pageSize)
+        public ActionResult BindMachine(MachineModel machine, int? page, int? pageSize)
         {
             var pageNumber = page ?? 1;
             var size = pageSize ?? PageSize;
@@ -283,10 +283,25 @@ namespace LoveBank.Web.Admin.Controllers
 
 
                 list = list.Where(x => x.State != RowState.删除);
-          
+                if (!string.IsNullOrEmpty(machine.Name)) list = list.Where(x => x.Name.Contains(machine.Name));
+                if (!string.IsNullOrEmpty(machine.MachineCode)) list = list.Where(x => x.MachineCode==machine.MachineCode);
+                if (!string.IsNullOrEmpty(machine.DeptId)) list = list.Where(x => x.DeptId.IndexOf(machine.DeptId) > -1);
+
 
                 ViewBag.ProductId = machine.ProductId;
-                return View(list.OrderByDescending(x => x.Id).ToPagedList(pageNumber - 1, size));
+                machine.MachineModelList = list.OrderByDescending(x => x.Id).ToPagedList(pageNumber - 1, size);
+
+                var list2 = t_d.Where(x => x.Level <= 6&&x.Id.IndexOf(AdminUser.DeptId)>-1).ToList();
+                if (!string.IsNullOrEmpty(machine.DeptId))
+                {
+                    list2.FirstOrDefault(x => x.Id == machine.DeptId).IsCheck = true;
+                    //list2[list2.FindIndex(x => x.Id == machine.DeptId)].IsCheck = true;
+                }
+             
+
+                ViewData["Department_List"] = HelpSerializer.JSONSerialize<List<Department>>(list2);
+
+                return View(machine);
             }
         }
         [SecurityNode(Name = "绑定机器执行")]

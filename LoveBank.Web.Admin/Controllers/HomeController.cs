@@ -28,7 +28,7 @@ namespace LoveBank.Web.Admin.Controllers
         //[OutputCache(Duration = 6000)]
         public ActionResult Index()
         {
-
+            ViewBag.AdminUser = AdminUser;
 
             var list = DbProvider.D<MenuEntity>().ToList();
 

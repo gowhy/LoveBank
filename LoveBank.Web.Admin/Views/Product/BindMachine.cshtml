@@ -1,4 +1,4 @@
-﻿@model  LoveBank.Common.IPagedList<LoveBank.Web.Admin.Models.MachineModel>
+﻿@model  LoveBank.Web.Admin.Models.MachineModel
 @using MvcContrib.UI.Pager;
 @using LoveBank.Common
 @using LoveBank.MVC
@@ -17,18 +17,43 @@
     @Html.IncludeCSS("~/Content/EasyUI/themes/icon.css")
 
 
-
 </head>
 <body>
 
 
-    <div id="button_row">
+    @*<div id="button_row">
         <a class="easyui-linkbutton" data-options="" id="bingproductId" href="javascript:void()">绑定终端</a>
 
-    </div>
+    </div>*@
+
+    <form id="indexFrom">
+
+        <div style="float: left;  text-align: center;">
+            <span>
+                <a class="easyui-linkbutton" data-options="" id="bingproductId" href="javascript:void()">绑定终端</a>
+            </span>
+            <span style="margin-left:30px;">
+                <span>
+
+
+                   名称<input type="text" name="Name" style=" width:100px;" value="@Model.Name" />
+                   编码<input type="text" name="MachineCode" style=" width:100px;" value="@Model.MachineCode" />
+
+                    <input type="hidden" name="DeptId" id="DeptId" value="@Model.DeptId" />
+                   所属区域 <input type="text" class="easyui-validatebox" value="@Model.DeptIdName" data-options="prompt:'必填.',required:true" style="height:25px; width:260px;   " id="CoverCommunity" name="DeptIdName" onclick="showMenu(); return false;" />(必填)
+                    <div id="menuContent" class="menuContent" style="display:none;margin-left:450px; z-index:10000;width:260px;  position: absolute;">
+                        <ul id="ztree" class="ztree" style="margin-top:0; background-color:#edf3f7;  overflow:scroll; border:solid 1px #ccc;"></ul>
+                    </div>
+
+                </span>
+
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">查询</a>
+            </span>
+        </div>
+    </form>
     <div class="grid_box">
 
-        @Html.Grid(Model).Columns(column =>
+        @Html.Grid(Model.MachineModelList).Columns(column =>
     {
         column.CheckBox(x => x.Id, x => x.ProductId.HasValue);
         column.For(x => x.Id).Named("ID");
@@ -49,7 +74,7 @@
 
     </div>
 
-    @Html.Pager(Model)
+    @Html.Pager(Model.MachineModelList)
     <input type="hidden" id="productId" name="productId" value="@ViewBag.ProductId" />
 
     @Html.IncludeScript("~/Content/EasyUI/jquery.min.js")
@@ -62,10 +87,27 @@
 </html>
 
 
+@Html.IncludeScript("~/Content/JS/MachineModule/edit.js")
+@Html.IncludeCSS("~/Content/plug-in/ztree/css/zTreeStyle/zTreeStyle.css")
 
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
+@*显示行政区域tree*@
+<script type="text/javascript">
+    var zNodes =@(Html.Raw(ViewData["Department_List"].ToString()));
 
+    $("#CoverCommunity").TreeMvc({Department_List:zNodes});
+</script>
 <script type="text/javascript">
 
+    $("#CoverCommunity").change(function(){
+    
+       
+
+        if (!$(this).val()||$(this).val()=="") {
+            $("#DeptId").val("");
+        }
+    });
     function del(id) {
 
         var url = '@Url.Action("Delete")' + '?id=' + id;
@@ -73,7 +115,10 @@
 
     }
 
-
+    function submitForm() {
+        // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
+        $('#indexFrom').submit();
+    }
 
 
     function GetFromJsonData() {

@@ -11,12 +11,14 @@ using LoveBank.Core.Domain;
 using LoveBank.Common;
 using LoveBank.Services.LogMoudle;
 using LoveBank.MVC;
+using LoveBank.Cache;
 
 namespace LoveBank.Web.Admin.Controllers
 {
     [AdminAuthorize]
     public abstract class BaseController : Controller
     {
+     public readonly static   ICacheStrategy BaseCacheManage = new DefaultCacheStrategy();
         /// <summary>
         /// 每页默认显示条数
         /// </summary>

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace LoveBank.Web.Admin.Controllers
 {
-    public class UploadImgController : Controller
+    public class UController : Controller
     {
         // GET: Upload
         public ActionResult Index()
