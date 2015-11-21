@@ -1336,6 +1336,23 @@ namespace LoveBank.Web.Admin.Controllers.App
                 return Json(retJson);
             }
         }
-      
+
+        public ActionResult App_UserApplyProject(int userId, int teamProjectId)
+        {
+
+
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+
+                var t_vr = db.T_VolAddScoreRecorde;
+
+                retJson.Status = true;
+                retJson.Data = “”;
+                return Json(retJson);
+            }
+        }
     }
 }
