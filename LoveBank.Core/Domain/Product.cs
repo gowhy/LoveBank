@@ -29,5 +29,9 @@ namespace LoveBank.Core.Domain
         public string Guid { get; set; }
 
         public ProductType Type { get; set; }
+        public string LogoGuid { get; set; }
+
+        public string AdGuid { get; set; }
+        public string Sponsors { get; set; }
     }
 }

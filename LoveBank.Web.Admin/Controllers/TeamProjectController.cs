@@ -46,9 +46,9 @@ namespace LoveBank.Web.Admin.Controllers
 
                 var list = from p in t_p select p;
 
-                list = list.Where(x => x.State != RowState.删除);
+              
 
-                //list = list.Where(x => x.Department.Id.IndexOf(AdminUser.DeptId) > -1);
+                list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId) > -1);
 
                 return View(list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size));
             }
@@ -64,6 +64,17 @@ namespace LoveBank.Web.Admin.Controllers
         [SecurityNode(Name = "添加页面")]
         public ActionResult Add()
         {
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                ViewBag.SerTypesSelectListItem =( from s in db.T_SerTypes
+                           where s.Type == 1
+                           select new SelectListItem
+                           {
+                               Text = s.Name,
+                               Value = s.Code
+                           }).ToList();
+            }
             return View();
 
         }
@@ -99,8 +110,8 @@ namespace LoveBank.Web.Admin.Controllers
             model.CommentSocre = parm.CommentSocre;
             model.GoodScore = parm.GoodScore;
             model.ShareScore = parm.ShareScore;
-
-
+            //model.DeptId = parm.DeptId;
+            model.DeptId = AdminUser.DeptId;
 
             #endregion
 
@@ -162,6 +173,13 @@ namespace LoveBank.Web.Admin.Controllers
                                  SourceFileList = t_s.Where(x => x.Guid == p.Guid).ToList()
                              }).SingleOrDefault();
 
+                ViewBag.SerTypesSelectListItem = (from s in db.T_SerTypes
+                                                  where s.Type == 1
+                                                  select new SelectListItem
+                                                  {
+                                                      Text = s.Name,
+                                                      Value = s.Code
+                                                  }).ToList();
                 return View(model);
             }
         }

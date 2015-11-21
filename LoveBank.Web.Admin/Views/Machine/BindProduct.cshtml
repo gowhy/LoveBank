@@ -75,6 +75,14 @@
 
     }
 
+    var productIdInitList = new Array();//初始id
+    @foreach (var item in @Model)
+    {
+        if (item.MachineId.HasValue)
+        {
+            @Html.Raw("productIdInitList.push(" + item.Id + ");");
+        }
+    }
 
 
 
@@ -87,7 +95,8 @@
 
         var json = {
             "machineId": $("#machineId").val(),
-            "productIdList": productIdList
+            "productIdList": productIdList,
+            "productIdInitList": productIdInitList
 
         };
         return json;

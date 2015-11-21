@@ -14,6 +14,11 @@ namespace LoveBank.Core.Domain
         public string DepId { get; set; }
         public string Content { get; set; }
         public int AddUser { get; set; }
+        public string AddUserName { get; set; }
+        public string AddUserPhone { get; set; }
+
+        public string AddUserMachineCode { get; set; }
+
         public System.DateTime AddTime { get; set; }
 
     }

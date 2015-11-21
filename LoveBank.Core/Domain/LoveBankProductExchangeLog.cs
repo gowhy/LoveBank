@@ -56,6 +56,15 @@ namespace LoveBank.Core.Domain
 
         public int ExChangeCount { get; set; }
 
+        /// <summary>
+        /// 纬度
+        /// </summary>
+        public Nullable<double> Lat { get; set; }
+        /// <summary>
+        /// 经度
+        /// </summary>
+        public Nullable<double> Lon { get; set; }
+
         public ExchangeType Type { get; set; }
     }
 }

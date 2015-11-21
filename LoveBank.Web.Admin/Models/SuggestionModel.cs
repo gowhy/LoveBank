@@ -13,6 +13,9 @@ namespace LoveBank.Web.Admin.Models
         public string Content { get; set; }
         public int AddUser { get; set; }
         public string DepName { get; set; }
+        public string AddUserName { get; set; }
+        public string AddUserPhone { get; set; }
+        public string AddUserMachineCode { get; set; }
         public Vol Vol { get; set; }
         public System.DateTime AddTime { get; set; }
     }

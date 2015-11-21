@@ -4,6 +4,10 @@
 @Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
 @Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
 
+@Html.IncludeCSS("~/Content/plug-in/webuploader/webuploader.css")
+@Html.IncludeScript("~/Content/plug-in/webuploader/webuploader.js")
+@Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
+
 <div id="p" class="easyui-panel" title="新增自愿者" data-options="tools:'#tt'">
     @using (Html.BeginForm("PostAdd", "LoveBankVol", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
     {
@@ -37,8 +41,8 @@
                 </td>
                 <td class="item_input">
 
-                    <input class="easyui-validatebox" type="text"  style="height:25px; width:260px;   " name="PassWord" value="000000"
-                           data-options="prompt:'请输入密码.',required:true,validType:'length[6,20]'" /> (默认000000,登陆时使用)
+                    <input class="easyui-numberbox" type="text"  style="height:25px; width:260px;   " name="PassWord" value=""
+                           data-options="prompt:'请输入密码.',required:true,validType:'length[6,6]'" /> (只能输入6位数字,登陆时使用)
 
                 </td>
             </tr>
@@ -79,7 +83,32 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td class="item_title">
+                    头像:
+                </td>
+                <td class="item_input">
+                    <div id="uploader" class="wu-example uploader" style="width:700px;margin-left:0px;">
+                        <div class="queueList" style=" margin:0px; ">
+                            <div id="dndArea" class="placeholder">
+                                <div class="filePicker" id="filePicker"></div>
+                                <p>志愿者头像</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div>
+                            <div class="info"></div>
+                            <div class="btns" >
+                                <div id="filePicker2" class="filePicker2"></div><div class="uploadBtn" style="display:none;">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
 
+                </td>
+            </tr>
         
             <tr>
                 <td class="item_title">
@@ -109,8 +138,9 @@
                 <td class="item_title"></td>
                 <td class="item_input2">
                     <!--隐藏元素-->
+                    <input type="hidden" id="VolHeadImgBase64" name="VolHeadImgBase64" />
                     <div style="padding:5px">
-
+                       
                         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新 增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
                         @*<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"> &nbsp  &nbsp &nbsp &nbsp &nbsp 重置 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>*@
                     </div>
@@ -136,12 +166,46 @@
 </style>
 
 
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
+
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+
+    .uploader .placeholder {
+        padding-top: 0px;
+    }
+
+    .queueList {
+        width: 800px;
+    }
+
+    .uploader .queueList.filled {
+        padding: 0px;
+    }
+</style>
+
+
+
+
+@Html.IncludeScript("~/Content/JS/MachineModule/edit.js")
 <script>
+    var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/Product/", action: "/UpLoadProcess" });
+    
     function submitForm() {
 
         if ( !$("#AddForm").form('validate')) {
             return false;
         }
+  
+        $("#VolHeadImgBase64").val( $(".imgWrap>img:first").attr("src"));
         $('#AddForm').submit();
 
     }
@@ -152,7 +216,10 @@
         $('#AddForm').form('clear');
     }
 </script>
+<script>
 
+      
+</script>
 <script type="text/javascript">
 
 

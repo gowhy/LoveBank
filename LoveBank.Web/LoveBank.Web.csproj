@@ -196,8 +196,6 @@
     <Compile Include="Controllers\PublicController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\User\SafeController.cs" />
-    <Compile Include="Controllers\User\SettingController.cs" />
     <Compile Include="Controllers\ValicodeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -352,9 +350,6 @@
     <Content Include="Views\Public\TrustLogo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
   </ItemGroup>
@@ -362,16 +357,7 @@
     <Content Include="Views\Shared\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\LogIn.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_LoginInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\Account.cshtml" />
-    <Content Include="Views\User\BindIdCard.cshtml" />
-    <Content Include="Views\User\BindPhone.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Help\index.cshtml" />
@@ -391,45 +377,7 @@
     <Content Include="Views\Shared\_NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\RegisterPlus.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\BindBankCard.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\_UserMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\RegisterBindEmail.cshtml" />
-    <Content Include="Views\Account\RegisterBindPhone.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\RegSuccess.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\EmailFindpasswordSuccess.cshtml" />
-    <Content Include="Views\Account\EmailRegSuccess.cshtml" />
-    <Content Include="Views\Account\FindPasswordByEmail.cshtml" />
-    <Content Include="Views\Account\FindPasswordByPhone.cshtml" />
-    <Content Include="Views\Account\FindPasswordSuccess.cshtml" />
-    <Content Include="Views\Account\ForgetPassword.cshtml" />
-    <Content Include="Views\Account\PhoneRegSuccess.cshtml" />
-    <Content Include="Views\Account\RegFail.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_ArticeNav.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\ForgetSafePwd.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\BindEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Default\icon\iconfont.eot" />
@@ -483,6 +431,10 @@
       <Project>{e6f4ec50-af31-4238-87f8-042d17c6c2a8}</Project>
       <Name>LoveBank.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\User\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

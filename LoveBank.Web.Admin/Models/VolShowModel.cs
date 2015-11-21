@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoveBank.Core.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -197,7 +198,7 @@ namespace LoveBank.Web.Admin.Models
         /// </summary>
         public string VillDeptId { get; set; }
 
-        public int VolType { get; set; }
+        public VolType VolType { get; set; }
         public string NFC { get; set; }
       
     }

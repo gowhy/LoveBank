@@ -120,6 +120,16 @@
         $('#indexFrom').submit();
     }
 
+    var machineIdInitList = new Array();//初始id
+    @foreach (var item in @Model.MachineModelList)
+	{
+        if (item.ProductId.HasValue)
+        {
+            
+            @Html.Raw("machineIdInitList.push(" + item.Id + ");");
+        }
+	}
+
 
     function GetFromJsonData() {
         //或许选择项的值
@@ -127,10 +137,20 @@
         $("input[name='key']:checkbox:checked").each(function () {
             machineIdList.push($(this).val());
         })
+        
+
+       
+       
+
+        //var machineIdInitList = new Array();//初始id
+        //$("input[name='key']").each(function () {
+        //    machineIdInitList.push($(this).val());
+        //})
 
         var json = {
             "productId": $("#productId").val(),
-            "machineIdList": machineIdList
+            "machineIdList": machineIdList,
+            "machineIdInitList": machineIdInitList
 
         };
         return json;

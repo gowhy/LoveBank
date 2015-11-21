@@ -21,7 +21,7 @@ namespace LoveBank.Web.Admin.Models
 
         public int? TeamId { get; set; }
 
-        public int? Type { get; set; }
+        public string Type { get; set; }
 
         public DateTime RecruitStartDate { get; set; }
 
@@ -45,7 +45,8 @@ namespace LoveBank.Web.Admin.Models
         public int GoodScore { get; set; }
         public int ShareScore { get; set; }
 
-
+        public string DeptId { get; set; }
         public virtual IList<SourceFile> SourceFileList { get; set; }
+        public virtual IList<AppImgUrlModel> AppSourceFileList { get; set; }
     }
 }

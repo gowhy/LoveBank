@@ -57,12 +57,12 @@ namespace LoveBank.Web.Admin.Models
         /// <summary>
         /// 经度
         /// </summary>
-        public string Lon { get; set; }
+        public Nullable<double> Lon { get; set; }
 
         /// <summary>
         /// 纬度
         /// </summary>
-        public string Lat { get; set; }
+        public Nullable<double> Lat { get; set; }
 
         public int? ProductId { get; set; }
 

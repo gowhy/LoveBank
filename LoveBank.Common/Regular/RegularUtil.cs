@@ -15,5 +15,6 @@ namespace LoveBank.Common
         /// 6~12 char and the letter(_) start
         /// </summary>
         public static Regex UserName = new Regex(@"^[A-Za-z_]\w{3,16}$", RegexOptions.Singleline | RegexOptions.Compiled);
+        public static Regex Phone = new Regex(@"/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/", RegexOptions.Singleline | RegexOptions.Compiled);
     }
 }

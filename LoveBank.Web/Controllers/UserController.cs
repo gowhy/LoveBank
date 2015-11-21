@@ -33,10 +33,7 @@ namespace LoveBank.Web.Controllers
         public UserController(IUserService userService)
         {
 
-            if (LoveBankContext.Current.IsAuthenticated && User.GroupID == 1)
-            {
-                throw new Exception();
-            }
+          
 
             Check.Argument.IsNotNull(userService, "userService");
 

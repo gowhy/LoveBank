@@ -92,7 +92,118 @@ namespace LoveBank.Web.Admin.Controllers.App
                     return Json(retJson);
                 }
 
+         
+
                 db.Add<Machine>(model);
+                db.SaveChanges();
+
+                ///初始化模块 积分商城：JFSC
+                MachineModuleShowManage initMachineModule1 = new MachineModuleShowManage() 
+                {
+                    Name = "积分商城",
+                    ModuleKey = "JFSC",
+                    DeptId = model.DeptId,
+                    AddTime = DateTime.Now,
+                    AddUserId = -1,
+                    Guid = "e96fdf19-465c-4190-b47b-27a9af8ecfd4",
+                    Icon = "http://www.24hmart.cn:8082/iplustv/shouye/jfsc.png"
+                };
+
+                ///初始化模块 社区公益：SQGY
+                MachineModuleShowManage initMachineModule2 = new MachineModuleShowManage()
+                {
+                    Name = "社区公益",
+                    ModuleKey = "SQGY",
+                    DeptId = model.DeptId,
+                    AddTime = DateTime.Now,
+                    AddUserId = -1,
+                    Guid = "bb2ee2e2-3487-4853-846c-75f71558e389",
+                    Icon = "http://www.24hmart.cn:8082/iplustv/shouye/sqgy.png"
+                };
+
+
+                ///初始化模块 网格员：WGY
+                MachineModuleShowManage initMachineModule3 = new MachineModuleShowManage()
+                {
+                    Name = "网格员",
+                    ModuleKey = "WGY",
+                    DeptId = model.DeptId,
+                    AddTime = DateTime.Now,
+                    AddUserId = -1,
+                    Guid = "e5eafdf6-076f-4ac7-9fd0-38d3c935dd0c",
+                    Icon = "http://www.24hmart.cn:8082/iplustv/shouye/wgy.png"
+                };
+
+                #region 初始化数据
+                ///初始化模块 办事指南：BSZN
+                MachineModuleShowManage initMachineModule4 = new MachineModuleShowManage()
+                {
+                    Name = "办事指南",
+                    ModuleKey = "BSZN",
+                    DeptId = model.DeptId,
+                    AddTime = DateTime.Now,
+                    AddUserId = -1,
+                    Guid = "d2ffce6d-9a2a-4f12-869d-5962b18b571e",
+                    Icon = "http://www.24hmart.cn:8082/iplustv/shouye/bszn.png"
+                };
+
+                ///初始化模块 社区动态：SQDT
+                MachineModuleShowManage initMachineModule5 = new MachineModuleShowManage()
+                {
+                    Name = "社区动态",
+                    ModuleKey = "SQDT",
+                    DeptId = model.DeptId,
+                    AddTime = DateTime.Now,
+                    AddUserId = -1,
+                    Guid = "de359c69-c7e1-410d-8291-f8717198bc82",
+                    Icon = "http://www.24hmart.cn:8082/iplustv/shouye/sqdt.png"
+                };
+
+                ///初始化模块 生活圈：SHQ
+                MachineModuleShowManage initMachineModule6 = new MachineModuleShowManage()
+                {
+                    Name = "生活圈",
+                    ModuleKey = "SHQ",
+                    DeptId = model.DeptId,
+                    AddTime = DateTime.Now,
+                    AddUserId = -1,
+                    Guid = "4b6eadc8-48d8-48d9-bd2b-623717d45406",
+                    Icon = "http://www.24hmart.cn:8082/iplustv/shouye/shq.png"
+                };
+
+                ///初始化模块 志愿者风采：ZYZFC
+                MachineModuleShowManage initMachineModule7 = new MachineModuleShowManage()
+                {
+                    Name = "志愿者风采",
+                    ModuleKey = "ZYZFC",
+                    DeptId = model.DeptId,
+                    AddTime = DateTime.Now,
+                    AddUserId = -1,
+                    Guid = "a1581632-87aa-43e0-9b1a-78a3353c1d54",
+                    Icon = "http://www.24hmart.cn:8082/iplustv/shouye/zyzfc.png"
+                };
+
+                ///初始化模块 书记主任信箱：SJZRXX
+                MachineModuleShowManage initMachineModule8 = new MachineModuleShowManage()
+                {
+                    Name = "书记主任信箱",
+                    ModuleKey = "SJZRXX",
+                    DeptId = model.DeptId,
+                    AddTime = DateTime.Now,
+                    AddUserId = -1,
+                    Guid = "682f93c7-b9fa-427e-8c8f-cff0632e87be",
+                    Icon = "http://www.24hmart.cn:8082/iplustv/shouye/sjzrxx.png"
+                };
+                #endregion
+
+                db.Add(initMachineModule1);
+                db.Add(initMachineModule2);
+                db.Add(initMachineModule3);
+                db.Add(initMachineModule4);
+                db.Add(initMachineModule5);
+                db.Add(initMachineModule6);
+                db.Add(initMachineModule7);
+                db.Add(initMachineModule8);
                 db.SaveChanges();
                 retJson.Status = true;
                 retJson.Info = "机器注册成功";
@@ -121,6 +232,7 @@ namespace LoveBank.Web.Admin.Controllers.App
                 {
                     returnJson.Status = true;
                     appUser.PassWord = string.Empty;
+                    appUser.VolHeadImg = null;
                     returnJson.Data =
                         new
                         {
@@ -160,6 +272,70 @@ namespace LoveBank.Web.Admin.Controllers.App
 
         }
 
+        public ActionResult App_NFCLogin(string nfcUid, string passWord, string machineCode)
+        {
+
+            JsonMessage returnJson = new JsonMessage();
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                var t_a = db.T_Vol;
+                //string passWordHash = passWord.Hash();
+                Vol appUser =null;
+                if (!string.IsNullOrEmpty(passWord))
+                {
+                    appUser = t_a.Where(x => x.NFC == nfcUid && x.PassWord == passWord).FirstOrDefault();
+
+                }
+                else
+                {
+                    appUser = t_a.Where(x => x.NFC == nfcUid).FirstOrDefault();
+                }
+
+                if (appUser != null)
+                {
+                    returnJson.Status = true;
+                    appUser.PassWord = string.Empty;
+                    appUser.VolHeadImg = null;
+                    returnJson.Data =
+                        new
+                        {
+                            Ticket = AutheTicketManager.CreateAppLoginUserTicket(appUser.ID.ToString()),
+                            User = appUser
+                        };
+                    returnJson.Info = "登录成功";
+
+                    //登陆log
+                    LoginStatistics loginStatistics = new LoginStatistics();
+                    loginStatistics.Type = LoginType.手机;
+                    loginStatistics.LoginState = 1;
+                    loginStatistics.Phone = nfcUid;
+                    loginStatistics.MachineCode = machineCode;
+                    loginStatistics.UserId = appUser.ID;
+                    loginStatistics.Type = LoginType.NFC登陆;
+
+                    Action<LoginStatistics> loginStatisticsTarget = s => LoginLog(s);
+                    loginStatisticsTarget(loginStatistics);
+
+
+                    return Json(returnJson);
+                }
+                else
+                {
+                    returnJson.Status = false;
+                    returnJson.Info = "登录失败,手机号(NFC)或者密码错误";
+                    returnJson.Data = HttpContext.Error;
+                    return Json(returnJson);
+
+                }
+
+            }
+            returnJson.Status = false;
+            returnJson.Info = "登录失败,系统异常";
+            returnJson.Data = HttpContext.Error;
+            return Json(returnJson);
+
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -171,7 +347,7 @@ namespace LoveBank.Web.Admin.Controllers.App
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public ActionResult App_GetProduct(MachineProductModel machine, int page = 1, int pageSize = 20)
+        public ActionResult App_GetProduct(MachineProductModel machine, int page = 1, int pageSize = 80)
         {
             JsonMessage retJson = new JsonMessage();
             using (LoveBankDBContext db = new LoveBankDBContext())
@@ -182,10 +358,11 @@ namespace LoveBank.Web.Admin.Controllers.App
                 var t_m = db.T_Machine;
                 var t_s = db.T_SourceFile;
 
+                string nulllogo = "http://www.24hmart.cn:8082/TeamProjectImg/20151103/661488175855828992.jpg";
                 var list = from p in t_p
                            join m1 in t_mp on p.ID equals m1.ProductId
                            join m2 in t_m on m1.MachineId equals m2.ID
-                           where m2.MachineCode == machine.MachineCode
+                           where m2.MachineCode == machine.MachineCode&&p.DeptId==m2.DeptId
                            && p.Count > 0
                            select new ProductModel
                            {
@@ -201,9 +378,13 @@ namespace LoveBank.Web.Admin.Controllers.App
                                StartTime = p.StartTime,
                                State = p.State,
                                Type = p.Type,
-                               Desc=p.Desc,
+                               Desc=p.Desc, 
+                                Sponsors=p.Sponsors,
                                //SourceFileList = t_s.Where(x => x.Guid == p.Guid).ToList()
-                               AppSourceFileList = (from s in t_s where s.Guid == p.Guid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList()
+                               AppSourceFileList = (from s in t_s where s.Guid == p.Guid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList(),
+                               AppSourceFileListLogo = (from s in t_s where s.Guid == p.LogoGuid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList(),
+                               //AppSourceFileListAd = (from s in t_s where s.Guid == p.AdGuid select new AppImgUrlModel { ImgHttpUrl = string.IsNullOrEmpty((s.Domain + s.Path)) ? nulllogo : (s.Domain + s.Path) }).ToList()
+                               AppSourceFileListAd = (from s in t_s where s.Guid == p.AdGuid select new AppImgUrlModel { ImgHttpUrl = nulllogo }).ToList()
                            };
 
 
@@ -211,9 +392,10 @@ namespace LoveBank.Web.Admin.Controllers.App
                 if (!string.IsNullOrEmpty(machine.BarCode)) list = list.Where(x => x.BarCode == machine.BarCode);
                 if (!string.IsNullOrEmpty(machine.ProductName)) list = list.Where(x => x.Name.Contains(machine.ProductName));
 
-
+                List<ProductModel> resList = list.OrderBy(x => x.Id).ToPagedList(page - 1, pageSize).ToList();
+          
                 retJson.Status = true;
-                retJson.Data = list.OrderBy(x => x.Id).ToPagedList(page - 1, pageSize).ToList();
+                retJson.Data = resList;
                 return Json(retJson);
             }
         }
@@ -285,13 +467,14 @@ namespace LoveBank.Web.Admin.Controllers.App
 
                 var list = from a in ad
                            where a.State != RowState.删除
-                           where a.MachineCode == machineCode.Trim()
+                           && a.MachineCode == machineCode.Trim()&&a.Type==LoveBank_AdType.一体机首页滚动广告
                            select new LoveBank_AdModel
                            {
                                LinkUrl = a.LinkUrl,
                                Title = a.Title,
                                AppSourceFileList = (from s in sf where s.Guid == a.Guid select new { ImgHttpUrl = s.Domain + s.Path }).ToList()
                            };
+
                 retJson.Data = list.ToList();
                 retJson.Status = true;
                 return Json(retJson);
@@ -309,8 +492,22 @@ namespace LoveBank.Web.Admin.Controllers.App
 
                 var t_a = db.T_AdminUser;
                 var t_m = db.T_Machine;
+                var t_d = db.T_Department;
 
-                Machine model = t_m.SingleOrDefault(x => x.MachineCode == machineCode.Trim());
+                var model = (from m in t_m
+                            join d in t_d on m.DeptId equals d.Id
+
+                            where m.MachineCode == machineCode
+                            select new MachineModel
+                            {
+                                DeptIdName = d.Name,
+                                DeptId = m.DeptId
+                                 
+
+                            }).FirstOrDefault();
+
+                //Machine model = t_m.SingleOrDefault(x => x.MachineCode == machineCode.Trim());
+
                 if (model == null)
                 {
                     retJson.Status = false;
@@ -331,7 +528,7 @@ namespace LoveBank.Web.Admin.Controllers.App
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public ActionResult App_TeamProjectList(int page = 1, int pageSize = 20)
+        public ActionResult App_TeamProjectList(string deptId,string type,int page = 1, int pageSize = 20)
         {
 
             JsonMessage retJson = new JsonMessage();
@@ -341,7 +538,8 @@ namespace LoveBank.Web.Admin.Controllers.App
                 var t_p = db.T_TeamProject;
                 var list = from p in t_p select p;
 
-                list = list.Where(x => x.State != RowState.删除);
+                list = list.Where(x => x.State != RowState.删除 && deptId.IndexOf(x.DeptId)>-1);
+                if (!string.IsNullOrEmpty(type)) list = list.Where(x => x.Type == type);
 
                 retJson.Data = list.OrderByDescending(x => x.ID).ToPagedList(page - 1, pageSize).ToList();
                 retJson.Status = true;
@@ -442,6 +640,7 @@ namespace LoveBank.Web.Admin.Controllers.App
         public ActionResult App_LoginQRCode(QRCodeModel qrCodeModel)//该方法和App_QRCode是一对配合使用
         {
 
+         
             JsonMessage retJson = new JsonMessage();
          
             switch (qrCodeModel.Type)
@@ -451,10 +650,12 @@ namespace LoveBank.Web.Admin.Controllers.App
                     retJson.Data = qrCodeModel.Data;
                     if (retJson.Status == true)
                     {
-                        //登陆log
+                        ////登陆log
                         LoginStatistics loginStatistics = new LoginStatistics();
                         loginStatistics.Type = LoginType.二维码登陆;
                         loginStatistics.LoginState = 1;
+                        loginStatistics.MachineCode = qrCodeModel.MachineCode;
+                        loginStatistics.UserId = qrCodeModel.UserId;
                         //LoginLog(loginStatistics);
                         Action<LoginStatistics> loginStatisticsTarget = s => LoginLog(s);
                         loginStatisticsTarget(loginStatistics);
@@ -486,11 +687,14 @@ namespace LoveBank.Web.Admin.Controllers.App
             model.AddTime = DateTime.Now;
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
-                Machine mModel = db.T_Machine.Find(model.MachineCode);
-
-                model.Lon = mModel.Lon;
-                model.Lat = mModel.Lat;
-                model.Address = mModel.Address;
+                Machine mModel = db.T_Machine.Where(x=>x.MachineCode==model.MachineCode).FirstOrDefault();
+                if (mModel!=null)
+                {
+                    model.Lon = mModel.Lon;
+                    model.Lat = mModel.Lat;
+                    model.Address = mModel.Address;
+                }
+      
 
                 db.Add<LoginStatistics>(model);
                 db.SaveChangesAsync();
@@ -597,7 +801,8 @@ namespace LoveBank.Web.Admin.Controllers.App
                                ID = v.ID,
                                Phone = v.Phone,
                                RealName = v.RealName,
-                               LoveBankScore = v.LoveBankScore
+                               LoveBankScore = v.LoveBankScore,
+                               VolType = v.VolType
 
                            };
                 retJson.Data = list.OrderByDescending(x => x.LoveBankScore).ToPagedList(page - 1, pageSize);
@@ -652,9 +857,16 @@ namespace LoveBank.Web.Admin.Controllers.App
 
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
-                var addUserDetpId = (from v in db.T_Vol where v.ID == entity.AddUser select v.DepId).FirstOrDefault();
+               
+                if (entity.AddUser>0)
+                {
+                      var addUserModel = (from v in db.T_Vol where v.ID == entity.AddUser select new { v.DepId, v.Phone, v.RealName }).FirstOrDefault();
 
-                entity.DepId = addUserDetpId;
+                      entity.DepId = addUserModel.DepId;
+                      entity.AddUserName = addUserModel.RealName;
+                      entity.AddUserPhone = addUserModel.Phone;
+                }
+       
                 entity.AddTime = DateTime.Now;
                 db.Add<Suggestion>(entity);
                 db.SaveChanges();
@@ -666,6 +878,46 @@ namespace LoveBank.Web.Admin.Controllers.App
 
 
         }
+        /// <summary>
+        /// 获取书记信箱
+        /// </summary>
+        /// <param name="machineCode"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public ActionResult App_SuggestionIndex(string machineCode,int page = 1, int pageSize = 20)
+        {
+
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var t_s = db.T_Suggestion;
+                var t_m = db.T_Machine;
+
+                var list = from s in t_s
+                           join m in t_m on s.DepId equals m.DeptId
+                           where m.MachineCode == machineCode
+                           select new SuggestionModel
+                           {
+                               Content = s.Content,
+                               AddTime = s.AddTime,
+                               DepId = s.DepId,
+                               Id = s.Id,
+                               AddUser = s.AddUser,
+                               AddUserName = s.AddUserName,
+                               AddUserPhone = s.AddUserPhone
+                               
+                           };
+               
+                retJson.Status = true;
+                retJson.Info = "获取成功";
+                retJson.Data = list.OrderByDescending(x => x.Id).ToPagedList(page - 1, pageSize);
+
+                return Json(retJson);
+            }
+        }
+
 
         public ActionResult App_GridMemberByuUserId(int userId, int page = 1, int pageSize = 20)
         {
@@ -755,6 +1007,9 @@ namespace LoveBank.Web.Admin.Controllers.App
             {
                 var t_p = db.T_Product;
                 var t_v = db.T_Vol;
+                var t_d = db.T_Department;
+                var t_m = db.T_Machine;
+
 
                 Product productModel = t_p.Find(entity.LoveBankProductId);
 
@@ -780,10 +1035,43 @@ namespace LoveBank.Web.Admin.Controllers.App
                     retJson.Info = "用户不存在";
                     return Json(retJson);
                 }
-                if (vol.LoveBankScore < entity.CostScore)
+
+
+                MachineModel mm = (from m in t_m
+                                   where m.MachineCode == entity.MacineCode
+                                   select new MachineModel
+                                   {
+                                       Address = m.Address,
+                                       Lat = m.Lat,
+                                       Lon = m.Lon,
+                                       DeptId = m.DeptId
+
+                                   }).FirstOrDefault();
+
+                if (vol.DepId.IndexOf(mm.DeptId) < 0)//判断该机器和用户是否是同一个社区
+                {
+                    var depName = (from d in t_d where d.Id == mm.DeptId select d.Name).FirstOrDefault();
+                    retJson.Status = false;
+                    retJson.Info = string.Format("抱歉,该终端只服务于{0}用户", depName);
+                    retJson.Data = "-2";
+                    return Json(retJson);
+                }
+
+                if (vol.DepId.IndexOf(productModel.DeptId) < 0)//判断是否属于该社区
+                {
+                    var depName = (from d in t_d where d.Id == productModel.DeptId select d.Name).FirstOrDefault();
+                    retJson.Status = false;
+                    retJson.Info = string.Format("抱歉,该产品属于{0}", depName);
+                    retJson.Data = "-2";
+                    return Json(retJson);
+                }
+
+
+                int totalCostScore = entity.CostScore * entity.ExChangeCount;
+                if (!vol.LoveBankScore.HasValue || vol.LoveBankScore.Value < totalCostScore)
                 {
                     retJson.Status = false;
-                    retJson.Info = "积分不足,可用积分:" + vol.LoveBankScore + ".产品所需积分:" + entity.CostScore * entity.ExChangeCount;
+                    retJson.Info = "积分不足,可用积分:" + vol.LoveBankScore + ".对应产品所需总积分:" + totalCostScore + ".兑换数量:" + entity.ExChangeCount;
 
                     return Json(retJson);
                 }
@@ -793,7 +1081,9 @@ namespace LoveBank.Web.Admin.Controllers.App
                 db.SaveChanges();
 
 
-
+                entity.Address = mm.Address;
+                entity.Lat = mm.Lat;
+                entity.Lon = mm.Lon;
                 entity.CostScore = productModel.CostScore * entity.ExChangeCount;
                 db.Add<LoveBankProductExchangeLog>(entity);//保存兑换记录
                 db.SaveChanges();
@@ -809,6 +1099,42 @@ namespace LoveBank.Web.Admin.Controllers.App
             return Json(retJson);
         }
 
+        /// <summary>
+        /// 获取兑换记录
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public ActionResult App_ExchangeProductLog(int userId,int page =1,int pageSize=20)
+        {
+         
+
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var epl = db.T_LoveBankProductExchangeLog;
+                var t_p = db.T_Product;
+
+                var list = from ep in epl
+                           join p in t_p on ep.LoveBankProductId equals p.ID
+                           where ep.AddUserId == userId
+                           select new LoveBankProductExchangeLogModel
+                           {
+                               Address = ep.Address,
+                               AddTime = ep.AddTime,
+                               CostScore = ep.CostScore,
+                               ExChangeCount = ep.ExChangeCount,
+                               Id = ep.Id,
+                               ProductName = p.Name
+                           };
+                retJson.Status = true;
+                retJson.Info = "请求成功";
+                retJson.Data = list.OrderBy(x => x.Id).ToPagedList(page - 1, pageSize);
+                return Json(retJson);
+            }
+        }
 
         /// <summary>
         /// 统计首页各个模块点击情况
@@ -890,5 +1216,126 @@ namespace LoveBank.Web.Admin.Controllers.App
             }
 
         }
+
+
+        public ActionResult App_UserTeamProject(int userId,int page=1 ,int pageSize=20)
+        {
+           
+
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+
+                var t_vr = db.T_VolAddScoreRecorde;
+
+                var t_s = db.T_SourceFile;
+                var t_t = db.T_TeamProject;
+                var t_tps = db.T_TeamProjectSummary;
+
+                var list = from vr in t_vr
+                           join p in t_t on vr.TeamProjectId equals p.ID
+                           where vr.VolID == userId &&vr.AddScore>0
+                           select new TeamProjectModel
+                           {
+                               Name = p.Name,
+                               State = p.State,
+                               ID = p.ID,
+                               Desc = p.Desc,
+                               HtmlUrl = p.HtmlUrl,
+                               LinkMan = p.LinkMan,
+                               LinkPhone = p.LinkPhone,
+                               ProjectEndDate = p.ProjectEndDate,
+                               ProjectStartDate = p.ProjectStartDate,
+                               //RecruitEndDate = p.RecruitEndDate,
+                               //RecruitStartDate = p.RecruitStartDate,
+                               Score = p.Score,
+                               ServiceDate = p.ServiceDate,
+                               ServiceObject = p.ServiceObject,
+                               Type = p.Type,
+                               Address = p.Address,
+                               //SourceFileList = t_s.Where(x => x.Guid == p.Guid).ToList(),
+                               AppSourceFileList = (from s in t_s where s.Guid == p.Guid select new AppImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList()
+
+                           };
+
+                retJson.Status = true;
+                retJson.Data = list.OrderBy(x => x.ID).ToPagedList(page-1,pageSize).ToList();
+                return Json(retJson);
+            }
+        }
+
+        /// <summary>
+        /// 获取社区网格员
+        /// </summary>
+        /// <param name="deptId"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public ActionResult App_GridMember(string deptId, int page = 1, int pageSize = 20)
+        {
+
+            JsonMessage retJson = new JsonMessage();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var tgm = db.T_GridMember;
+                var t_d = db.T_Department;
+
+                var dTable = from d in t_d
+                             where d.PId == deptId
+                             select d;
+
+                List<Department> dlist = dTable.ToList();
+
+                var list = from gm in tgm
+                           where gm.DeptId.IndexOf(deptId) > -1
+                           select gm;
+
+                List<GridMember> gList = list.OrderBy(x => x.Id).ToPagedList(page - 1, pageSize).ToList();
+
+
+                List<GridMemberModel> listModel = new List<GridMemberModel>();
+           
+                GridMemberModel tmp = null;
+                foreach (var item in gList)
+                {
+                    tmp = new GridMemberModel();
+
+                    tmp.VDeptName = dlist.Where(x => item.VDeptId.IndexOf(x.Id) > -1).FirstOrDefault().Name;
+                    tmp.GridName = item.GridName;
+                    tmp.GridNo = item.GridNo;
+                    tmp.GridPhone = item.GridPhone;
+                    tmp.GridHeaderImg = item.GridHeaderImg;
+                    tmp.Desc = item.Desc;
+
+                    listModel.Add(tmp);
+                }
+                retJson.Data = listModel;
+                retJson.Status = true;
+                return Json(retJson);
+            }
+        }
+
+        public ActionResult App_GetLastApk(AppVerType type)
+        {
+            var pageNumber = 1;
+            var size = 1;
+            JsonMessage retJson = new JsonMessage();
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                var adimg = db.T_AppVer;
+
+                var list = from a in adimg select a;
+
+                list = list.Where(x => x.State == 0 && x.Type == type);
+                retJson.Status = true;
+                retJson.Data=list.OrderByDescending(x => x.Id).ToPagedList(pageNumber - 1, size);
+                return Json(retJson);
+            }
+        }
+      
     }
 }

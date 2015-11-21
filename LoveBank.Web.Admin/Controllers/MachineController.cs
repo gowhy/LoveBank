@@ -18,6 +18,7 @@ using LoveBank.Core.SerializerHelp;
 using LoveBank.Core.MSData;
 using LoveBank.Core.Domain.Enums;
 using System.Transactions;
+using MySql.Data.MySqlClient;
 
 namespace LoveBank.Web.Admin.Controllers
 {
@@ -47,7 +48,7 @@ namespace LoveBank.Web.Admin.Controllers
 
                  var list = from m in t_m
                             join d in t_d on m.DeptId equals d.Id
-                          
+
                             select new MachineModel
                             {
                                 Address = m.Address,
@@ -60,24 +61,26 @@ namespace LoveBank.Web.Admin.Controllers
                                 Name = m.Name,
                                 State = m.State,
                                 Title = m.Title,
-                             
+                                Lat = m.Lat,
+                                Lon = m.Lon,
                                 Department = d
 
                             };
 
 
-                 list = list.Where(x => x.State != RowState.删除);
+                 list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId) > -1);
                  if (!string.IsNullOrEmpty(machine.Name)) list = list.Where(x => x.Name.Contains(machine.Name));
                  if (!string.IsNullOrEmpty(machine.MachineCode)) list = list.Where(x => x.MachineCode == machine.MachineCode);
                  if (!string.IsNullOrEmpty(machine.DeptId)) list = list.Where(x => x.DeptId.IndexOf(machine.DeptId) > -1);
+
                  machine.MachineModelList = list.OrderByDescending(x => x.Id).ToPagedList(pageNumber - 1, size);
 
                  var list2 = t_d.Where(x => x.Level <= 6 && x.Id.IndexOf(AdminUser.DeptId) > -1).ToList();
-                 if (!string.IsNullOrEmpty(machine.DeptId))
-                 {
-                     list2.FirstOrDefault(x => x.Id == machine.DeptId).IsCheck = true;
+                 //if (!string.IsNullOrEmpty(machine.DeptId))
+                 //{
+                 //    list2.FirstOrDefault(x => x.Id == machine.DeptId).IsCheck = true;
                     
-                 }
+                 //}
 
 
                  ViewData["Department_List"] = HelpSerializer.JSONSerialize<List<Department>>(list2);
@@ -164,6 +167,7 @@ namespace LoveBank.Web.Admin.Controllers
             machine.Name = model.Name;
             machine.Title = model.Title;
             machine.Desc = model.Desc;
+            machine.Address = model.Address;
 
             DbProvider.SaveChanges();
 
@@ -208,11 +212,11 @@ namespace LoveBank.Web.Admin.Controllers
                                StartTime = p.StartTime,
                                State = p.State,
                                Type = p.Type
-
+                           
                            };
 
-      
-                list = list.Where(x => x.State != RowState.删除);
+
+                list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId) > -1);
                 if (!string.IsNullOrEmpty(machine.BarCode)) list = list.Where(x => x.BarCode == machine.BarCode);
                 if (!string.IsNullOrEmpty(machine.ProductName)) list = list.Where(x => x.Name.Contains(machine.ProductName));
 
@@ -225,37 +229,63 @@ namespace LoveBank.Web.Admin.Controllers
         }
 
         [SecurityNode(Name = "绑定机器执行")]
-        public ActionResult PostBindMachine(int machineId, List<int> productIdList)
+        public ActionResult PostBindMachine(int machineId, List<int> productIdList, List<int> productIdInitList)
         {
+
 
             MachineProduct mp;
             List<MachineProduct> machineProductList = new List<MachineProduct>();
-            if (productIdList!=null)
-            {
-                foreach (var item in productIdList)
-                {
-                    mp = new MachineProduct();
-                    mp.AddTime = DateTime.Now;
-                    mp.AddUserId = AdminUser.ID;
-                    mp.ProductId = item;
-                    mp.MachineId = machineId;
-
-                    machineProductList.Add(mp);
-                } 
-            }
-         
 
 
             JsonMessage retJson = new JsonMessage();
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
                 var t_mp = db.T_MachineProduct;
+                var t_d = db.T_Department;
+                var t_p = db.T_Product;
+                var t_m = db.T_MachineProduct;
+
+                ///和初始的机器列表对比，找出被删除的机器Id
+                List<int> delli = null;
+                if (productIdInitList != null)
+                {
+                    delli = productIdInitList.FindAll(x => productIdList == null || !productIdList.Contains(x));
+                }
+                //查找出新增的
+                List<int> addli = null;
+                if (productIdList != null)
+                {
+                    //查找出新增的
+                    addli = productIdList.FindAll(x => productIdInitList == null || !productIdInitList.Contains(x));
+                }
+
+
+                if (productIdList != null && addli != null)
+                {
+                    foreach (var item in addli)
+                    {
+                        mp = new MachineProduct();
+                        mp.AddTime = DateTime.Now;
+                        mp.AddUserId = AdminUser.ID;
+                        mp.ProductId = item;
+                        mp.MachineId = machineId;
+
+                        machineProductList.Add(mp);
+                    }
+                }
+
+
+
                 using (TransactionScope transaction = new TransactionScope())
                 {
                     ///删除原来的,彻底以新增方式进行（修改通过删除在新增实现）
-                    var delSourceFile = from s in t_mp where s.MachineId == machineId select s;
-                    db.T_MachineProduct.RemoveRange(delSourceFile);
-                    db.SaveChanges();
+                    if (delli != null && delli.Count > 0)
+                    {   //var delSourceFile = from s in t_mp where s.MachineId == machineId select s;
+                        var delSourceFile = from s in t_mp where delli.Contains(s.ProductId) && s.MachineId == machineId select s;
+                        db.T_MachineProduct.RemoveRange(delSourceFile);
+                        db.SaveChanges();
+                    }
+
 
                     if (machineProductList == null)//null 标示解除了全部绑定
                     {
@@ -273,6 +303,45 @@ namespace LoveBank.Web.Admin.Controllers
                 }
                 return Json(retJson);
             }
+        }
+
+        public ActionResult MachineRunState(string deptId,int page=1,int size=50)
+        {
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                string sql = string.Format(@" 
+ 
+                                        SELECT  m.`MachineCode`,m.`Name`,m.`Address`,m.`DeptId`,d.`Name` AS DeptIdName,m.`ID`
+                                                         ,(SELECT MAX(id) FROM machineheartbeat  mhb 
+                                                        WHERE   m.MachineCode=mhb.MachineCode AND    mhb.`AddTime` > DATE_ADD(NOW(), INTERVAL -200
+                                                         MINUTE)) AS State
+ 
+                                                    FROM machine m
+                                                    LEFT JOIN department d ON  m.`DeptId`=d.`Id`
+                                                    WHERE m.DeptId LIKE'{0}%'  "
+                                   , AdminUser.DeptId);
+
+
+                string cacheKey = "MachineRunState" + AdminUser.DeptId;
+                object listCache = BaseCacheManage.RetrieveObject(cacheKey);
+                if (listCache != null)
+                {
+                    return View((IPagedList<LoveBank.Web.Admin.Models.MachineRunStateModel>)listCache);
+                }
+                else
+                {
+                    MySqlParameter[] parm = new MySqlParameter[] { };
+                    var list = db.Database.SqlQuery<MachineRunStateModel>(sql, parm).OrderByDescending(x => x.Id).ToPagedList(page - 1, size);
+
+                    BaseCacheManage.AddObject(cacheKey, list);
+                    return View(list);
+                }
+
+                return View();
+            }
+
         }
     }
 }

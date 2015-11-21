@@ -56,6 +56,15 @@ namespace LoveBank.Core.MSData
 
             modelBuilder.Configurations.Add(new MachineHeartbeatMap());
             modelBuilder.Configurations.Add(new LoginStatisticsMap());
+            modelBuilder.Configurations.Add(new AppVerMap());
+            modelBuilder.Configurations.Add(new WebSitNoticeMap());
+            modelBuilder.Configurations.Add(new IncomeAndPayDetailMap());
+
+            modelBuilder.Configurations.Add(new UnitInfoAboutMap());
+
+            modelBuilder.Configurations.Add(new SerTypesMap());
+
+
         }
         //public virtual DbSet<User> T_User { get; set; }
         public virtual DbSet<Role> T_Role { get; set; }
@@ -84,13 +93,21 @@ namespace LoveBank.Core.MSData
         public virtual DbSet<Suggestion> T_Suggestion { get; set; }
 
 
-        public virtual DbSet<LoveBankProductExchangeLog> T_LoveBankProductExchangeLogMap { get; set; }
+        public virtual DbSet<LoveBankProductExchangeLog> T_LoveBankProductExchangeLog { get; set; }
         public virtual DbSet<LBStartOrBottomAd> T_LBStartOrBottomAd { get; set; }
 
         public virtual DbSet<MachineStatistics> T_MachineStatistics { get; set; }
 
         public virtual DbSet<MachineHeartbeat> T_MachineHeartbeat { get; set; }
         public virtual DbSet<LoginStatistics> T_LoginStatistics { get; set; }
-        
+
+        public virtual DbSet<AppVer> T_AppVer { get; set; }
+
+        public virtual DbSet<WebSitNotice> T_WebSitNotice { get; set; }
+        public virtual DbSet<IncomeAndPayDetail> T_IncomeAndPayDetail { get; set; }
+        public virtual DbSet<UnitInfoAbout> T_UnitInfoAbout { get; set; }
+        public virtual DbSet<SerTypes> T_SerTypes { get; set; }
+
     }
+
 }

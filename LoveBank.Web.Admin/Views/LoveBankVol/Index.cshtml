@@ -5,37 +5,8 @@
 @using LoveBank.MVC.UI
 @using MvcContrib.UI.Grid
 
-@section HeadSection {
-    <script type="text/javascript">
 
-        function del(id) {
-
-            var url = '@Url.Action("Delete")' + '?id=' + id;
-            deleteMethod(id, "Delete");
-
-        }
-
-        function volAddScoreRecorde(id) {
-
-            var url = '@Url.Action("VolAddScore")' + '?volId=' + id;
-
-            showAjaxResult(url, "增加积分", 600, 285);
-        }
-        function volBindNFC(id) {
-
-            var url = '@Url.Action("VolBindNFC")' + '?volId=' + id;
-
-            showAjaxResult(url, "绑定NFC卡", 600, 285);
-        }
-        
-        function submitForm() {
-            // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
-            $('#indexFrom').submit();
-        }
-    </script>
-
-}
-
+  
 
 @*<div id="button_row">
 
@@ -59,18 +30,19 @@
                     <option value="志愿者">志愿者</option>
                 </select>*@
 
-                NFC<input type="text" name="CardNum" style=" width:100px;"  value="@Model.NFC" />
+                NFC<input type="text" name="NFC" style=" width:100px;" value="@Model.NFC" />
                 手机号<input type="text" name="Phone" style=" width:100px;" value="@Model.Phone" />
                 姓名<input type="text" name="RealName" style=" width:80px;" value="@Model.RealName" />
             </span>
 
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">查询</a>
+            <a href="#" id="submitFormindexFrom" class="easyui-linkbutton">查询</a>
         </span>
     </div>
 </form>
-<div class="grid_box">
 
-    @Html.Grid(Model.VolList).Columns(column =>
+    <div class="grid_box">
+
+        @Html.Grid(Model.VolList).Columns(column =>
     {
         //column.CheckBox(x => x.Id);
         column.For(x => x.Vol.ID).Named("ID");
@@ -79,21 +51,58 @@
         column.For(x => x.Vol.VolType).Named("类型");
         column.For(x => x.Vol.LoveBankScore).Named("爱心积分");
         column.For(x => x.Vol.Sex).Named("性别");
-        
+
         column.For(x => x.Vol.Age).Named("年龄");
         //column.For(x => x.Vol.AddTime.ToString("yyyy-MM-dd")).Named("注册时间");
         column.For(x => x.Department.Name).Named("居住社区");
         column.For(x => x.Vol.Address).Named("居住详细地址");
         //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
-   
+
 
         column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Vol.ID }))
             .Add(x => Html.ScriptLink("增减积分", "volAddScoreRecorde({0})", x.Vol.ID))
             .Add(x => Html.ScriptLink("绑定NFC卡", "volBindNFC({0})", x.Vol.ID))
-            
+
             );
     }).Complex(ViewData)
 
-</div>
+    </div>
+ 
 
 @Html.Pager(Model.VolList)
+
+<script type="text/javascript">
+
+    function del(id) {
+
+        var url = '@Url.Action("Delete")' + '?id=' + id;
+        deleteMethod(id, "Delete");
+
+    }
+
+    function volAddScoreRecorde(id) {
+
+        var url = '@Url.Action("VolAddScore")' + '?volId=' + id;
+
+        showAjaxResult(url, "增加积分", 600, 285);
+        return;
+    }
+    function volBindNFC(id) {
+
+        var url = '@Url.Action("VolBindNFC")' + '?volId=' + id;
+
+        showAjaxResult(url, "绑定NFC卡", 600, 285);
+    }
+
+    function submitForm() {
+        // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
+        $('#indexFrom').submit();
+    }
+
+    $("#submitFormindexFrom").click(function () {
+        $('#indexFrom').submit();
+
+    });
+</script>
+
+

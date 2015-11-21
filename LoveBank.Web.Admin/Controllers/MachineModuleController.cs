@@ -29,7 +29,7 @@ namespace LoveBank.Web.Admin.Controllers
 
 
         [SecurityNode(Name = "首页")]
-        public ActionResult Index(int? page, int? pageSize)
+        public ActionResult Index(MachineModuleShowManageModel model,int? page, int? pageSize)
         {
             var pageNumber = page ?? 1;
             var size = pageSize ?? PageSize;
@@ -59,10 +59,15 @@ namespace LoveBank.Web.Admin.Controllers
                                State = a.State
                            };
 
-                list = list.Where(x => x.State != RowState.删除);
+                list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId) > -1);
+                if (!string.IsNullOrEmpty(model.DeptId)) list = list.Where(x => x.DeptId.IndexOf(model.DeptId) > -1);
 
 
-                return View(list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size));
+                model.MachineModuleModelList = list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size);
+
+                var list2 = t_d.Where(x => x.Level <= 6 && x.Id.IndexOf(AdminUser.DeptId) > -1).ToList();
+                ViewData["Department_List"] = HelpSerializer.JSONSerialize<List<Department>>(list2);
+                return View(model);
             }
         }
 
@@ -255,6 +260,9 @@ namespace LoveBank.Web.Admin.Controllers
             SourceFile res = UploadFileInstance.SaveFile(file, "MachineModuleShowManageImg", AdminUser.ID);
             return Json(res);
         }
+
+
+
 
 
 

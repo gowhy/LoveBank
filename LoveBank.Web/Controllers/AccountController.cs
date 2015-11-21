@@ -14,18 +14,19 @@ using LoveBank.MVC;
 using System.Linq;
 using LoveBank.P2B.Domain.Messages;
 using System.Web.Hosting;
+using LoveBank.Core.Domain;
+using LoveBank.Core.MSData;
 
 namespace LoveBank.Web.Controllers {
     public class AccountController : BaseController {
 
-        private readonly IUserService _userService;
         private readonly IFormsAuthenticationService _authenticationService;
 
-        public AccountController(IUserService userService,IFormsAuthenticationService authenticationService) {
-            Check.Argument.IsNotNull(userService, "userService");
+        public AccountController(IFormsAuthenticationService authenticationService) {
+       
             Check.Argument.IsNotNull(authenticationService, "authenticationService");
 
-            _userService = userService;
+          
             _authenticationService = authenticationService;
         }
 
@@ -34,11 +35,7 @@ namespace LoveBank.Web.Controllers {
             return View();
         }
 
-        public ActionResult RegisterPlus()
-        {
-            return View();
-        }
-
+    
         public ActionResult RegSuccess()
         {
             ////注册成功后，自动登录
@@ -46,21 +43,16 @@ namespace LoveBank.Web.Controllers {
             return View();
         }
 
-        public ActionResult EmailRegSuccess(int id, string Email)
-        {
-            var user = _userService.GetUserByID(id);
-            user.Email = Email;
-            return View(user);
-        }
+    
 
         [HttpPost]
-        public ActionResult PostRegister(string UserName, string Password, string Validate)
+        public ActionResult PostRegister(string phone, string Password, string Validate)
         {
             if (!ModelState.IsValid) return Error();
 
-            if (!UserName.MatchAndNotNull(RegularUtil.UserName)) return Error("只能是字母、数字、点、减号或下划线组成,并且首字母只能是字母或下划线");
+            if (!phone.MatchAndNotNull(RegularUtil.Phone)) return Error("手机号错误");
 
-            var cookie = Request.Cookies["valicode"];
+            var cookie = Request.Cookies["PostRegister_valicode"];
 
             if (cookie == null)
             {
@@ -77,104 +69,44 @@ namespace LoveBank.Web.Controllers {
 
             try
             {
-                var user = _userService.CreateUser(UserName, Password, true);
+                Vol model = new Vol();
+                model.RealNameState = 1;
+                model.State = 1;
+                model.Type = "志愿者";
+                model.LoveBankScore = 0;
+                model.Score = 0;
+                model.Source = 2;//来源未2标示是爱心银行网站
+                model.Phone = phone;
+                model.PassWord = Password;
 
-                var userCookie = new HttpCookie("qdt_account") { Value = user.ID.ToString().ToDesEncrypt(Des.LoveBank_Key), Expires = DateTime.Now.AddMinutes(300) };
-                
-                Response.AppendCookie(userCookie);
-                
-                //跳转到首页，后期可以改成跳转到用户中心
-                return RedirectToAction("RegisterBindPhone");
-            }
-            catch (UserCreateException userException)
-            {
-                switch (userException.StatusCode)
+                using (LoveBankDBContext db = new LoveBankDBContext())
                 {
-                    case UserCreateException.DuplicateUserName:
-                        return Error("用户名已经存在.");
-                    case UserCreateException.DuplicateEmail:
-                        return Error("电子邮件已经存在.");
-                    case UserCreateException.InvaildEmail:
-                        return Error("无效的电子邮件地址.");
-                    default:
-                        throw userException.InnerException;
+                    var tv = db.T_Vol;
+
+                    if (tv.Count(x => x.Phone == model.Phone) > 0)
+                    {
+                        return Error("该手机号已经存在");
+                    }
+                    db.Add<Vol>(model);
+                    db.SaveChanges();
+
                 }
-            }
-        }
 
-        [HttpPost]
-        public ActionResult PostReg(UserRegModel model)
-        {
-            if (!ModelState.IsValid) return Error();
+                _authenticationService.SignIn(model.ID.ToString(), false);
 
-            try
-            {
-                var user = _userService.CreateUser(model.UserName, model.Password, model.Email, true);
-
-                //注册成功后，自动登录
-                _authenticationService.SignIn(user.UserName, false);
-
-                SaveLoginInfo(user);
+        
 
                 ViewData["Jump"] = Url.Action("Index", "Home");
 
-                //跳转到首页，后期可以改成跳转到用户中心
                 return RedirectToAction("RegSuccess");
             }
-            catch (UserCreateException userException)
+            catch (Exception ex)
             {
-                switch (userException.StatusCode)
-                {
-                    case UserCreateException.DuplicateUserName:
-                        return Error("用户名已经存在.");
-                    case UserCreateException.DuplicateEmail:
-                        return Error("电子邮件已经存在.");
-                    case UserCreateException.InvaildEmail:
-                        return Error("无效的电子邮件地址.");
-                    default:
-                        throw userException.InnerException;
-                }
+                return Error(ex.Message);
             }
         }
 
-        [HttpPost]
-        public ActionResult PostRegPlus(UserRegPlusModel model)
-        {
-            if (!ModelState.IsValid) return Error();
-
-            var isHas = DbProvider.D<User>().Any(x => x.IDCard.Equals(model.IdCard) && x.IDCardPassed && x.GroupID==1);
-
-            if (isHas) return Error("身份证号码已存在");
-            
-            try
-            {
-                var user = _userService.CreateOfflineUser(model.UserName, model.Password, model.IdCard, model.RealName, model.Phone);
-
-                //注册成功后，自动登录
-//                _authenticationService.SignIn(user.UserName, false);
-//
-//                SaveLoginInfo(user);
-
-                ViewData["Jump"] = Url.Action("Index", "Home");
-
-                //跳转到首页，后期可以改成跳转到用户中心
-                return Success("注册成功");
-            }
-            catch (UserCreateException userException)
-            {
-                switch (userException.StatusCode)
-                {
-                    case UserCreateException.DuplicateUserName:
-                        return Error("用户名已经存在.");
-                    case UserCreateException.DuplicateEmail:
-                        return Error("电子邮件已经存在.");
-                    case UserCreateException.InvaildEmail:
-                        return Error("无效的电子邮件地址.");
-                    default:
-                        throw userException.InnerException;
-                }
-            }
-        }
+      
 
         [HttpsRequire]
         public ActionResult LogIn()
@@ -188,188 +120,70 @@ namespace LoveBank.Web.Controllers {
 
         [HttpPost]
         [ActionName("LogIn")]
-        public ActionResult PostLogIn(UserLoginModel model)//UserLoginModel model
+        public ActionResult PostLogIn(string phone, string passWord, string ReturnUrl)//UserLoginModel model
         {
-            if (!ModelState.IsValid) return Error();
-
-            User user;
-
-            var vaild = _userService.ValidateUser(model.UserName, model.Password,out user);
-
-            if (!vaild)
+          
+            
+            Vol vModel = null;
+            using (LoveBankDBContext db = new LoveBankDBContext())
             {
-                ModelState.AddModelError("", "账号或密码错误!");
-                return View(model);
+                var tv = db.T_Vol;
+
+                vModel = (from v in tv
+                          where v.Phone == phone
+                          select new Vol
+                              {
+                                  PassWord = v.PassWord,
+                                  ID = v.ID,
+                                  RealName = v.RealName
+                              }).SingleOrDefault();
+                
+                if (vModel==null)
+                {
+                    return Error("手机号不存在");
+                }
+                if (vModel.PassWord !=passWord)
+                {
+                    return Error("登陆失败,密码错误");
+                }
             }
 
-            if (user.GroupID == 1)
-            {
-                _authenticationService.SignIn(user.UserName, false);
-                SaveLoginInfo(user);
-                return RedirectToAction("UserCenter", "Offline");
-            }
 
-            if (!user.EmailPassed && !user.MobilePassed)
-            {
-                var userCookie = new HttpCookie("qdt_account") { Value = user.ID.ToString().ToDesEncrypt(Des.LoveBank_Key), Expires = DateTime.Now.AddMinutes(300) };
-                Response.AppendCookie(userCookie);
-                return RedirectToAction("RegisterBindPhone");
-            }
+            _authenticationService.SignIn(vModel.ID.ToString(), false);
 
-            _authenticationService.SignIn(user.UserName, false);
+            //SaveLoginInfo(user);
 
-            SaveLoginInfo(user);
-
-            var returnUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl : Url.Content("~/");
+            var returnUrl = Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : Url.Content("~/");
             return Redirect(returnUrl);
         }
 
-        public ActionResult RegisterBindEmail()
-        {
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return NotFound();
-            return PartialView();
-        }
-
-        public ActionResult RegisterBindPhone()
-        {
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return NotFound();
-            return PartialView();
-        }
+    
 
         public ActionResult LogOut() {
             _authenticationService.SignOut();
             return Redirect(Url.Content("~/"));
         }
 
-        [HttpPost]
-        public ActionResult PostRegisterBindPhone(string mobile, string validateCode)
-        {
-            var phone = Request.Cookies["mobile"];
-            var valicode = Request.Cookies["valicode"];
-
-            if (valicode == null || phone == null)
-            {
-                return Error("验证码不正确！");
-            }
-
-            var valicodeValue = valicode.Value;
-            var phoneValue = phone.Value;
-
-            if (mobile.Hash().Hash() != phoneValue)
-            {
-                ModelState.AddModelError("", "手机号码不正确！");
-                return Error("手机号码不正确！");
-            }
-
-            if (validateCode.Hash().Hash() != valicodeValue)
-            {
-                ModelState.AddModelError("", "验证码错误!");
-                return Error("验证码不正确！");
-            }
-
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return Error("验证超时！请重新登录获取验证");
-
-            var userID = Convert.ToInt32(qdt_account.Value.ToDesDecrypt(Des.LoveBank_Key));
-
-            var user = _userService.GetUserByID(userID);
-
-            if (user.MobilePassed)
-            {
-                return Error("用户已绑定手机号，更换请联系客服！");
-            }
-            user.Mobile = mobile;
-            user.BindMobile(mobile);
-            _userService.UpdateUser(user);
-
-            var userCookie = new HttpCookie("qdt_account") { Value = user.ID.ToString().ToDesEncrypt(Des.LoveBank_Key), Expires = DateTime.Now.AddDays(-1) };
-
-            Response.Cookies.Add(userCookie);
-
-            return RedirectToAction("RegSuccess");
-        }
-
-        public ActionResult PostRegisterBindEmail(int id,string email, long time,string sign)
-        {
-            string str = email + Des.LoveBank_Key + time.ToString();
-            if (str.Hash().Hash() != sign)
-            {
-                return Error("验证未通过！无效的链接！");
-            }
-            if ((DateTime.Now - new DateTime(time)).TotalHours >0.5)
-            {
-                return Error("时间超过半个小时，验证失效，请从新发送邮件进行验证！");
-            }
-            var user = _userService.GetUserByEmail(email);
-            if (user != null)
-            {
-                return Error("该邮箱已经被使用！");
-            }
-
-            user = _userService.GetUserByID(id);
-
-            if (user == null)
-            {
-                return Error("用户不存在！无效的链接");
-            } 
-            
-            if (user.EmailPassed) return Error("此页面已经过期");
-
-            user.BindEmail(email);
-            _userService.UpdateUser(user);
-
-            var userCookie = new HttpCookie("qdt_account") { Value = user.ID.ToString().ToDesEncrypt(Des.LoveBank_Key), Expires = DateTime.Now.AddDays(-1) };
-
-            Response.Cookies.Add(userCookie);
-
-            return RedirectToAction("RegSuccess");
-        }
-
-        [HttpPost]
-        public ActionResult Email(string Email)
-        {
-            var isHas = DbProvider.D<User>().Any(x => x.Email == Email && x.EmailPassed);
-            if (isHas) return Error("邮箱已经存在，请重新输入！");
-
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return Error("验证超时！请重新登录获取验证");
-
-            var Pid = Convert.ToInt32(qdt_account.Value.ToDesDecrypt(Des.LoveBank_Key)); 
-            var Ptime = DateTime.Now.Ticks;
-            var Psign = Email + Des.LoveBank_Key + Ptime.ToString();
-            var activateUrl = MakeActiveUrl(Url.Action("PostRegisterBindEmail", "Account", new { id = Pid, email = Email, time = Ptime, sign = Psign.Hash().Hash() }));
-            var content = PrepareMailBodyWith("Registration", "Email", Email, "ActiveUrl", activateUrl);
-            var msg = new MsgQueueFactory().CreateValidatorMsg(Email, "邮箱验证", content);
-
-            DbProvider.Add(msg);
-            DbProvider.SaveChanges();
-
-            SendMailMessage(msg);
-
-            return RedirectToAction("EmailRegSuccess", new { id=Pid,email = Email });
-        }
-
+ 
         public ActionResult SecondEmail(string Email)
         {
-            var isHas = DbProvider.D<User>().Any(x => x.Email == Email && x.EmailPassed);
-            if (isHas) return Error("邮箱已经存在，请重新输入！");
+            //var isHas = DbProvider.D<User>().Any(x => x.Email == Email && x.EmailPassed);
+            //if (isHas) return Error("邮箱已经存在，请重新输入！");
 
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return Error("验证超时！请重新登录获取验证");
+            //var qdt_account = Request.Cookies["qdt_account"];
+            //if (qdt_account == null) return Error("验证超时！请重新登录获取验证");
 
-            var Pid = Convert.ToInt32(qdt_account.Value.ToDesDecrypt(Des.LoveBank_Key)); 
-            var Ptime = DateTime.Now.Ticks;
-            var Psign = Email + Des.LoveBank_Key + Ptime.ToString();
-            string activateUrl = MakeActiveUrl(Url.Action("PostRegisterBindEmail", "Account", new { id = Pid, email = Email, time = Ptime, sign = Psign.Hash().Hash() }));
-            var content = PrepareMailBodyWith("Registration", "Email", Email, "ActiveUrl", activateUrl);
-            var msg = new MsgQueueFactory().CreateValidatorMsg(Email, "邮箱验证", content);
+            //var Pid = Convert.ToInt32(qdt_account.Value.ToDesDecrypt(Des.LoveBank_Key)); 
+            //var Ptime = DateTime.Now.Ticks;
+            //var Psign = Email + Des.LoveBank_Key + Ptime.ToString();
+            //string activateUrl = MakeActiveUrl(Url.Action("PostRegisterBindEmail", "Account", new { id = Pid, email = Email, time = Ptime, sign = Psign.Hash().Hash() }));
+            //var content = PrepareMailBodyWith("Registration", "Email", Email, "ActiveUrl", activateUrl);
+            //var msg = new MsgQueueFactory().CreateValidatorMsg(Email, "邮箱验证", content);
 
-            DbProvider.Add(msg);
-            DbProvider.SaveChanges();
+            //DbProvider.Add(msg);
+            //DbProvider.SaveChanges();
 
-            SendMailMessage(msg);
+            //SendMailMessage(msg);
 
             return RedirectToAction("EmailRegSuccess", new { email = Email });
         }
@@ -396,96 +210,18 @@ namespace LoveBank.Web.Controllers {
                 ModelState.AddModelError("", "验证码错误!");
                 return RedirectToAction("ForgetPassword");
             }
-            var user = _userService.GetUserByAll(UserName);
-            if (user == null) return Error("不存在此用户！");
+            //var user = _userService.GetUserByAll(UserName);
+            //if (user == null) return Error("不存在此用户！");
 
-            var userCookie = new HttpCookie("qdt_account") { Value = user.ID.ToString().ToDesEncrypt(Des.LoveBank_Key), Expires = DateTime.Now.AddMinutes(300) };
+            //var userCookie = new HttpCookie("qdt_account") { Value = user.ID.ToString().ToDesEncrypt(Des.LoveBank_Key), Expires = DateTime.Now.AddMinutes(300) };
 
-            Response.AppendCookie(userCookie);
+            //Response.AppendCookie(userCookie);
 
             return RedirectToAction("FindPasswordByPhone");
             
         }
 
-        public ActionResult FindPasswordByEmail()
-        {
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return NotFound();
-            return View();
-        }
-
-        public ActionResult SendPasswordByEmail(string email)
-        {
-
-            if (!email.IsEmail()) return Error("请输入正确的电子邮件");
-
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return Error("此页面已经过期");
-
-            var Pid = Convert.ToInt32(qdt_account.Value.ToDesDecrypt(Des.LoveBank_Key));
-
-            var user = DbProvider.GetByID<User>(Pid);
-            if (!user.EmailPassed || email != user.Email)
-            {
-                return Error("电子邮件与绑定邮箱地址不匹配！");
-            }
-
-            var Ptime = DateTime.Now.Ticks;
-            var Psign = email + Des.LoveBank_Key + Ptime.ToString();
-            var resetUrl = MakeActiveUrl(Url.Action("ResetPasswordByEmail", "Account", new { email = email, time = Ptime, sign = Psign.Hash().Hash() }));
-            var content = PrepareMailBodyWith("ForgetPwd", "Email", email, "ResetUrl", resetUrl);
-            var msg = new MsgQueueFactory().CreateValidatorMsg(email, "找回密码", content);
-            msg.IsSend = true;
-            
-            DbProvider.Add(msg);
-            DbProvider.SaveChanges();
-
-            SendMailMessage(msg);
-
-            return View("EmailFindpasswordSuccess", user);
-        }
-
-        public ActionResult ResetPasswordByEmail(string email, long time, string sign)
-        {
-            string str = email + Des.LoveBank_Key + time.ToString();
-            if (str.Hash().Hash() != sign)
-            {
-                return Error("验证未通过！无效的链接！");
-            }
-            if ((DateTime.Now - new DateTime(time)).TotalHours > 0.5)
-            {
-                return Error("时间超过半个小时，验证失效，请从新发送邮件进行验证！");
-            }
-
-            var des = email.ToDesEncrypt(Des.LoveBank_Key);
-
-            ViewData["ValidCode"] = des;
-
-            return View("ResetPassword");
-        }
-
-        [HttpPost]
-        public ActionResult ResetPassword(string validate, string Password, string ConfirmPassword)
-        {
-            if (Password != ConfirmPassword)
-            {
-                return Error("密码不一致！");
-            }
-            
-            var user = _userService.GetUserByAll(validate.ToDesDecrypt(Des.LoveBank_Key));
-            
-            user.ChangePassword(Password);
-            _userService.UpdateUser(user);
-
-            return View("FindPasswordSuccess",user);
-        }
-
-        public ActionResult FindPasswordByPhone()
-        {
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return NotFound();
-            return View();
-        }
+    
 
         [HttpPost]
         public ActionResult RestPasswordByPhone(string mobile, string validateCode)
@@ -520,62 +256,11 @@ namespace LoveBank.Web.Controllers {
             return View("ResetPassword");
         }
 
-        public ActionResult PostBindEmail(int id, string email, long time, string sign)
-        {
-            var str = email + Des.LoveBank_Key + time;
+      
 
-            if (str.Hash().Hash() != sign) return Error("验证未通过！无效的链接！");
+    
 
-            if ((DateTime.Now - new DateTime(time)).TotalHours > 0.5) return Error("时间超过半个小时，验证失效，请从新发送邮件进行验证！");
 
-            var user = _userService.GetUserByEmail(email);
-            if (user != null) return Error("该邮箱已经被使用！");
-
-            user = _userService.GetUserByID(id);
-            if (user == null) return Error("用户不存在！无效的链接");
-
-            user.BindEmail(email);
-            _userService.UpdateUser(user);
-
-            return Success("绑定邮箱成功！");
-        }
-
-        private string PrepareMailBodyWith(string templateName, params string[] pairs)
-        {
-            string body = GetMailBodyOfTemplate(templateName);
-
-            for (var i = 0; i < pairs.Length; i += 2)
-            {
-                body = body.Replace("<%={0}%>".FormatWith(pairs[i]), pairs[i + 1]);
-            }
-
-            body = body.Replace("<%=siteTitle%>", "").Replace("<%=rootUrl%>", "");
-
-            return body;
-        }
-
-        private string GetMailBodyOfTemplate(string templateName)
-        {
-            string body = string.Empty;
-            if (string.IsNullOrEmpty(body))
-            {
-                body = ReadFileFrom(templateName);
-            }
-            return body;
-        }
-
-        private string ReadFileFrom(string templateName)
-        {
-            string _templateDirectory = HostingEnvironment.IsHosted
-            ? HostingEnvironment.MapPath("~/Content/EmailTemp") ?? ""
-            : System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "EmailTemp");
-
-            string filePath = string.Concat(System.IO.Path.Combine(_templateDirectory, templateName), ".txt");
-
-            string body = System.IO.File.ReadAllText(filePath);
-
-            return body;
-        }
 
         private string MakeActiveUrl(string action)
         {
@@ -589,9 +274,7 @@ namespace LoveBank.Web.Controllers {
         /// <param name="user"></param>
         private void SaveLoginInfo(User user)
         {
-            user.LoginTime = DateTime.Now;
-            user.LoginIP = Utility.GetIP();
-            _userService.UpdateUser(user);
+
         }
 
         private void SendMailMessage(MsgQueue msg)

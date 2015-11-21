@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using LoveBank.Core.Domain;
+using LoveBank.Common;
 
 namespace LoveBank.Web.Admin.Models
 {
@@ -13,6 +14,7 @@ namespace LoveBank.Web.Admin.Models
         public string LinkUrl { get; set; }
         public int Sort { get; set; }
         public string DeptId { get; set; }
+        public string DeptIdName { get; set; }
         public Department Department { get; set; }
         public short Type { get; set; }
 
@@ -28,5 +30,7 @@ namespace LoveBank.Web.Admin.Models
         public string Icon { get; set; }
         public RowState State { get; set; }
         public virtual IList<SourceFile> SourceFileList { get; set; }
+
+        public IPagedList<MachineModuleShowManageModel> MachineModuleModelList { get; set; }
     }
 }

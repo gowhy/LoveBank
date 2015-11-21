@@ -89,6 +89,9 @@
         column.For(x => x.MachineCode).Named("机器唯一编码");
         column.For(x => x.AddTime.ToString("yyyy-MM-dd")).Named("注册时间");
         column.For(x => x.Department.Name).Named("所属区域");
+        column.For(x => x.Address).Named("地址");
+        column.For(x => x.Lon).Named("经度");
+        column.For(x => x.Lat).Named("维度");
         //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
         column.For(x => x.State).Named("设备状态");
 

@@ -19,9 +19,7 @@ namespace LoveBank.Core.Domain
         public string LinkUrl { get; set; }
 
         public string Title { get; set; }
-        //public DateTime AddTime { get; set; }
-
-        //public int AddUserId { get; set; }
+    
         public FileType AdType { get; set; }
   
         /// <summary>
@@ -35,12 +33,7 @@ namespace LoveBank.Core.Domain
         public string DeptId { get; set; }
         public string Desc { get; set; }
 
-        /// <summary>
-        ///数据状态
-        /// </summary>
-        //public RowState State { get; set; }
-         
-  
+        public LoveBank_AdType Type { get; set; }
 
     }
 }

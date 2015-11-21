@@ -12,6 +12,6 @@ namespace LoveBank.Web.Admin.Models
         public string BarCode { get; set; }
         public string Name { get; set; }
 
-        public IPagedList<Product> ProductList { get; set; }
+        public IPagedList<ProductModel> ProductList { get; set; }
     }
 }

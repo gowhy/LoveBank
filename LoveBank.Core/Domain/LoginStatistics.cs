@@ -37,12 +37,12 @@ namespace LoveBank.Core.Domain
         /// <summary>
         /// Lon
         /// </summary>		
-        public decimal Lon { get; set; }
+        public Nullable<double> Lon { get; set; }
 
         /// <summary>
         /// Lat
         /// </summary>		
-        public decimal Lat { get; set; }
+        public Nullable<double> Lat { get; set; }
 
         /// <summary>
         /// Address

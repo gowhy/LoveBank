@@ -9,15 +9,19 @@ namespace LoveBank.Core.Domain
     public class Department 
     {
 
-        public  string Id { get; set; }
+
+        public string Id { get; set; }
+        public string Ids { get; set; }
         /// <summary>
         /// 
         /// </summary>
         public string PId { set; get; }
+        public string PIds { set; get; }
         /// <summary>
         /// 
         /// </summary>
         public string Name { set; get; }
+        public string Names { set; get; }
         /// <summary>
         /// on update CURRENT_TIMESTAMP
         /// </summary>

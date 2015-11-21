@@ -66,7 +66,7 @@
                     头像:
                 </td>
                 <td class="item_input">
-                    <div id="uploader" class="wu-example" style="width:700px;margin-left:0px;">
+                    <div id="uploader" class="wu-example uploader" style="width:700px;margin-left:0px;">
                         <div class="queueList" style=" margin:0px; ">
                             <div id="dndArea" class="placeholder">
                                 <div id="filePicker"></div>
@@ -79,7 +79,7 @@
                                 <span class="percentage"></span>
                             </div><div class="info"></div>
                             <div class="btns">
-                                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                                <div id="filePicker2" class="filePicker2"></div><div class="uploadBtn">开始上传</div>
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                     <!--隐藏元素-->
                     <div style="padding:5px">
                         <input  type="hidden" id="Id" value="@Model.Id" name="Id"/>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" id="addFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="addFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp 保存修改 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
 
                     </div>
 
@@ -250,7 +250,7 @@
             dataType: "json",
             success: function (data) {
                 if (data.Status == true) {
-                    alert("添加成功");
+                    alert("修改成功");
                     //$('#AddForm').form('clear');
                     location.reload();
 

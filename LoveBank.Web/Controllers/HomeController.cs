@@ -18,11 +18,7 @@ namespace LoveBank.Web.Controllers
             return View();
         }
 
-//        [RequireHttps]
-//        public ActionResult Test()
-//        {
-//            return View();
-//        }
+
 
         [OutputCache(Duration = 600)]
         public ActionResult Reg()

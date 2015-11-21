@@ -6,13 +6,15 @@
             //以下为该插件的属性及其默认值
             Controllers: "/lovebank_ad/", //控制器
             action: "/UpLoadProcess", //action
-        
+            pickid: "#filePicker",
+            pickid2: "#filePicker2",
             sourceFileList:  new Array() //初始化图片或者文件资源数组 Array对象。是后台的SourceFile类的实力数组
         };
         var ops = $.extend(dft,options);
     
 
-        
+        var pickid = ops.pickid;
+        var pickid2 = ops.pickid2;
         var serverUrl = ops.Controllers+ops.action;
         //var $wrap = $('#uploader');
         var $wrap = $(this);
@@ -74,10 +76,13 @@
         // 实例化
         uploader = WebUploader.create({
             pick: {
-                id: '#filePicker',
+                //id: '#filePicker',
+                //id: "#"+$(this).find(".filePicker").attr("id"),
+                id:pickid,
                 label: '点击选择文件'
             },
-            dnd: '#uploader .queueList',
+            //dnd: '#uploader .queueList',
+            dnd: $(this).selector+ ' .queueList',
             paste: document.body,
 
             //accept: {
@@ -210,10 +215,12 @@
             throw new Error('WebUploader does not support the browser you are using.');
         }
 
-
+        //     $info = $statusBar.find('.info'),
+        //"#"+$(this).find(".filePicker").attr("id"),
         // 添加“添加文件”的按钮，
         uploader.addButton({
-            id: '#filePicker2',
+            //id: '#filePicker2',
+            id: pickid2,
             label: '继续添加'
         });
 
@@ -265,7 +272,7 @@
                         return;
                     }
 
-                    var img = $('<img src="' + src + '">');
+                    var img = $('<img name="PageImg" src="' + src + '">');
                     $wrap.empty().append(img);
                 }, thumbnailWidth, thumbnailHeight);
 

@@ -73,21 +73,22 @@
     @Html.Grid(Model.ProductList).Columns(column =>
     {
         //column.CheckBox(x => x.Id);
-        column.For(x => x.ID).Named("ID");
-        column.For(x => x.Name ?? "").Named("名称");
+        column.For(x => x.Id).Named("ID");
+        column.For(x => x.Name).Named("名称");
+        column.For(x => x.DeptIdName).Named("所属社区");
         column.For(x => x.Price).Named("价格");
         column.For(x => x.BarCode).Named("条形码");
         column.For(x => x.CostScore ).Named("兑现积分");
         column.For(x => x.Count).Named("库存");
    
-        column.For(x => x.AddTime.ToString("yyyy-MM-dd")).Named("有效时间");
-        column.For(x => x.AddTime.ToString("yyyy-MM-dd")).Named("过期时间");
+        column.For(x => x.StartTime.ToString("yyyy-MM-dd")).Named("有效时间");
+        column.For(x => x.EndTime.ToString("yyyy-MM-dd")).Named("过期时间");
         //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
         column.For(x => x.State).Named("状态");
 
-        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.ID }))
-            .Add(x => Html.ScriptLink("绑定终端", "bingProduct({0},'{1}')", x.ID, x.Name))
-            .Add(x => Html.ScriptLink("删除", "del({0})", x.ID))
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Id }))
+            .Add(x => Html.ScriptLink("绑定终端", "bingProduct({0},'{1}')", x.Id, x.Name))
+            .Add(x => Html.ScriptLink("删除", "del({0})", x.Id))
 
             );
     }).Complex(ViewData)

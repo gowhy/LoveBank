@@ -47,10 +47,10 @@
                                       column.For(x => Html.Raw(x.Content)).Named("反馈类容").HeaderAttributes(style => "width:450px;align:center;");
                                       column.For(x => x.AddTime.ToString("yyyy-MM-dd HH:mm")).Named("反馈时间").HeaderAttributes(style => "width:140px;align:center;");
                                       column.For(x => x.DepName).Named("社区");
-                                      column.For(x => x.Content).Named("内容");
-                                      column.For(x => x.Vol.Phone).Named("联系电话");
-                                      column.For(x => x.Vol.RealName).Named("真实姓名");
-                                      column.For(x => x.Vol.Address).Named("地址");
+                                      //column.For(x => x.Content).Named("内容");
+                                      column.For(x =>( (x.Vol??new LoveBank.Core.Domain.Vol()).Phone )?? x.AddUserPhone).Named("联系电话");
+                                      column.For(x => (x.Vol?? new LoveBank.Core.Domain.Vol()).RealName ?? x.AddUserName).Named("真实姓名");
+                                      //column.For(x => x.Vol.Address??x.).Named("地址");
 
                                   }).Complex(ViewData)
   

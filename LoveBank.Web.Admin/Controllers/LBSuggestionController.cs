@@ -37,9 +37,18 @@ namespace LoveBank.Web.Admin.Controllers
                 var dep = db.T_Department;
                 var vol = db.T_Vol;
 
+
+                    //var list = from p in t_p
+                    //       join m in t_m on p.ID equals m.ProductId into pm
+                    //       let mlist = pm.Where(x => x.MachineId == machine.MachineId)
+                    //       from m1 in mlist.DefaultIfEmpty()
+
                 var list = from s in sugg
                            join d in dep on s.DepId equals d.Id
-                           join v in vol on s.AddUser equals v.ID
+                           join v in vol on s.AddUser equals v.ID into sv
+                           from sv1 in sv.DefaultIfEmpty()
+                           //let mlist =sv.Where(x => s.AddUser==sv1.ID)
+                           //from m1 in mlist.DefaultIfEmpty()
                            select new SuggestionModel
                            {
                                AddUser = s.AddUser,
@@ -48,7 +57,9 @@ namespace LoveBank.Web.Admin.Controllers
                                DepId = s.DepId,
                                DepName = d.Name,
                                Id = s.Id,
-                               Vol = v
+                               Vol = sv1,
+                               AddUserName = s.AddUserName,
+                               AddUserPhone = s.AddUserPhone
                            };
                 list = list.Where(x => x.DepId.IndexOf(AdminUser.DeptId) > -1);
                 return View(list.OrderByDescending(x => x.Id).ToPagedList(page - 1, pageSize));

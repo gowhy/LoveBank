@@ -21,7 +21,7 @@ namespace LoveBank.Core.Domain
 
         public int? TeamId { get; set; }
 
-        public int? Type { get; set; }
+        public string Type { get; set; }
 
         public DateTime RecruitStartDate { get; set; }
 
@@ -45,7 +45,7 @@ namespace LoveBank.Core.Domain
         public int GoodScore { get; set; }
         public int ShareScore { get; set; }
 
-
+        public string DeptId { get; set; }
 
     }
 }

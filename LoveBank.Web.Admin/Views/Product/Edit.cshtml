@@ -5,7 +5,7 @@
 @Html.IncludeCSS("~/Content/Css/demo.css")
 @Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
 
-<div id="p" class="easyui-panel" title="新增一体机授权" data-options="tools:'#tt'">
+<div id="p" class="easyui-panel" title="编辑商品" data-options="tools:'#tt'">
     @using (Html.BeginForm("PostEdit", "Product", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
     {
         <table class="form">
@@ -86,7 +86,7 @@
                     产品图片:
                 </td>
                 <td class="item_input">
-                    <div id="uploader" class="wu-example" style="width:700px;margin-left:0px;">
+                    <div id="uploader" class="wu-example uploader" style="width:700px;margin-left:0px;">
                         <div class="queueList" style=" margin:0px; ">
                             <div id="dndArea" class="placeholder">
                                 <div id="filePicker"></div>
@@ -99,7 +99,67 @@
                                 <span class="percentage"></span>
                             </div><div class="info"></div>
                             <div class="btns">
-                                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                                <div id="filePicker2" class="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    赞助商家:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Sponsors" name="Sponsors"
+                        value="@Model.Sponsors"   data-options="validType:'length[1,30]'" />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    商家Logo:
+                </td>
+                <td class="item_input">
+                    <div id="uploader2" class="wu-example uploader" style="width:700px;margin-left:0px;">
+                        <div class="queueList" style=" margin:0px; ">
+                            <div id="dndArea" class="placeholder">
+                                <div class="filePickerLogo" id="filePickerLogo"></div>
+                                <p>或将文件拖到这里,多可选5个图片</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div><div class="info"></div>
+                            <div class="btns">
+                                <div class="filePicker3 filePicker2" id="filePicker3"></div><div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    商家宣传图片:
+                </td>
+                <td class="item_input">
+                    <div id="uploader3" class="wu-example uploader" style="width:700px;margin-left:0px;">
+                        <div class="queueList" style=" margin:0px; ">
+                            <div id="dndArea" class="placeholder">
+                                <div class="filePickerLogo" id="filePickerProductor"></div>
+                                <p>或将文件拖到这里,多可选5个图片</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div><div class="info"></div>
+                            <div class="btns">
+                                <div class="filePicker3 filePicker2" id="filePicker4"></div><div class="uploadBtn">开始上传</div>
                             </div>
                         </div>
                     </div>
@@ -152,7 +212,7 @@
         /*margin-top:20px;*/
     }
 
-    #uploader .placeholder {
+    .uploader .placeholder {
         padding-top: 0px;
     }
 
@@ -160,7 +220,7 @@
         width: 800px;
     }
 
-    #uploader .queueList.filled {
+    .uploader .queueList.filled {
         padding: 0px;
     }
 </style>
@@ -178,6 +238,8 @@
     /////调用文件上传
     //var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/Product/", action: "/UpLoadProcess"});
 
+     var upLoader2 = $("#uploader2").WebUploaderMVC({  sourceFileList:  eval(@Html.Raw( Json.Encode(@Model.SourceFileListLogo))),pickid: "#filePickerLogo", pickid2: "#filePicker3", Controllers: "/Product/", action: "/UpLoadProcess" });
+    var upLoader3 = $("#uploader3").WebUploaderMVC({  sourceFileList:  eval(@Html.Raw( Json.Encode(@Model.SourceFileListAd))),pickid: "#filePickerProductor", pickid2: "#filePicker4", Controllers: "/Product/", action: "/UpLoadProcess" });
     function GetFromJsonData() {
         var json = {
             "Name": $("#Name").val(),
@@ -190,7 +252,10 @@
             "Desc": $("#Desc").val(),
             "Type": $("#Type").val(),
             "Id": $("#Id").val(),
-            "SourceFileList": upLoader.getSourceFileList()
+            "Sponsors": $("#Sponsors").val(),
+            "SourceFileList": upLoader.getSourceFileList(),
+            "SourceFileListLogo": upLoader2.getSourceFileList(),
+            "SourceFileListAd": upLoader3.getSourceFileList()
 
         };
         return json;

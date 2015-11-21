@@ -1,0 +1,92 @@
+﻿@model  IPagedList<LoveBank.Web.Admin.Models.MachineRunStateModel>  
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+
+   
+
+        function submitForm() {
+            // var url = "/SocSer/PostNoTakeIn" + '?detailId=' + id + "&state=" + state + "&msg=" + msg;
+            $('#indexFrom').submit();
+        }
+
+
+    </script>
+    <style>
+        .notrun {
+         background-color:red;
+          font-size:larger;
+          color:white;
+        }
+         .run {
+         background-color:green;
+          font-size:larger;
+           color:white;
+        }
+    </style>
+}
+
+
+@*<div id="button_row">
+
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增一体机授权</a>
+    </div>*@
+
+
+@*<form id="indexFrom">
+
+    <div style="float: left;  text-align: center;">
+      
+        <span style="margin-left:30px;">
+            <span>
+
+
+                名称<input type="text" name="Name" style=" width:100px;" value="@Model.Name" />
+                编码<input type="text" name="MachineCode" style=" width:100px;" value="@Model.MachineCode" />
+
+                <input type="hidden" name="DeptId" id="DeptId" value="@Model.DeptId" />
+                所属区域 <input type="text" class="easyui-validatebox" value="@Model.DeptIdName" data-options="prompt:'必填.',required:true" style="height:25px; width:260px;   " id="CoverCommunity" name="DeptIdName" onclick="showMenu(); return false;" />(必填)
+                <div id="menuContent" class="menuContent" style="display:none; margin-left:510px; z-index:10000;width:260px;  position: absolute;">
+                    <ul id="ztree" class="ztree" style="margin-top:0; background-color:#edf3f7;  overflow:scroll; border:solid 1px #ccc;"></ul>
+                </div>
+
+            </span>
+
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">查询</a>
+        </span>
+    </div>
+</form>*@
+<div class="grid_box" >
+
+    @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.Id).Named("ID");
+        column.For(x => x.Name ?? "").Named("名称");
+        column.For(x => x.MachineCode).Named("机器唯一编码");
+        column.For(x => x.DeptIdName).Named("所属区域");
+        column.For(x => x.Address).Named("地址");
+       
+        column.For(x => x.State==null? Html.Raw("<span class='notrun'>未运行</span>"): Html.Raw("<span class='run'>运行</span>")).Named("设备状态");
+
+        //column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Id }))
+        //     .Add(x => Html.ScriptLink("绑定产品", "bingMachine({0},'{1}')", x.Id, x.Name))
+        //    .Add(x => Html.ScriptLink("删除", "del({0})", x.Id))
+
+            @*);*@
+    }).Complex(ViewData)
+
+</div>
+
+
+@Html.Pager(Model)
+
+
+
+
+

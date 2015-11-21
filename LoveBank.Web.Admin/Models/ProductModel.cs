@@ -27,11 +27,23 @@ namespace LoveBank.Web.Admin.Models
         public string Guid { get; set; }
         public string BarCode { get; set; }
         public string DeptId { get; set; }
+        public string DeptIdName { get; set; }
         public string Desc { get; set; }
         public int? MachineId { get; set; }
         public ProductType Type { get; set; }
         public virtual IList<SourceFile> SourceFileList { get; set; }
+
+        public virtual IList<SourceFile> SourceFileListLogo { get; set; }
+        public string LogoGuid { get; set; }
+        public virtual IList<SourceFile> SourceFileListAd { get; set; }
+
+        public string AdGuid { get; set; }
         public virtual IList<AppImgUrlModel> AppSourceFileList { get; set; }
+
+        public virtual IList<AppImgUrlModel> AppSourceFileListLogo { get; set; }
+
+        public virtual IList<AppImgUrlModel> AppSourceFileListAd { get; set; }
+        public string Sponsors { get; set; }
 
         
     }

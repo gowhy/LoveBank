@@ -50,6 +50,14 @@
 
                 </td>
             </tr>
+            <tr>
+                <td class="item_title">
+                    类型:
+                </td>
+                <td class="item_input">
+                    @Html.DBItemToSelectList((List<SelectListItem>)ViewBag.SerTypesSelectListItem, @Model.Type, "Type", null, new { })
+                </td>
+            </tr>
             @*<tr>
                 <td class="item_title">
                     招募日期:
@@ -190,7 +198,7 @@
                     宣传图片:
                 </td>
                 <td class="item_input">
-                    <div id="uploader" class="wu-example" style="width:700px;margin-left:0px;">
+                    <div id="uploader" class="wu-example uploader" style="width:700px;margin-left:0px;">
                         <div class="queueList" style=" margin:0px; ">
                             <div id="dndArea" class="placeholder">
                                 <div id="filePicker"></div>
@@ -203,7 +211,7 @@
                                 <span class="percentage"></span>
                             </div><div class="info"></div>
                             <div class="btns">
-                                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                                <div id="filePicker2" class="filePicker2"></div><div class="uploadBtn">开始上传</div>
                             </div>
                         </div>
                     </div>
@@ -247,7 +255,7 @@
         /*margin-top:20px;*/
     }
 
-    #uploader .placeholder {
+    .uploader .placeholder {
         padding-top: 0px;
     }
 
@@ -255,7 +263,7 @@
         width: 800px;
     }
 
-    #uploader .queueList.filled {
+    .uploader .queueList.filled {
         padding: 0px;
     }
 </style>

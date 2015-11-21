@@ -19,6 +19,9 @@ using LoveBank.Core.MSData;
 using LoveBank.Core.Domain.Enums;
 using MySql.Data.MySqlClient;
 using LoveBank.Cache;
+using System.Collections;
+using LoveBank.Services;
+using System.Web;
 namespace LoveBank.Web.Admin.Controllers
 {
      [SecurityModule(Name = "社区自愿者管理")]
@@ -77,17 +80,38 @@ namespace LoveBank.Web.Admin.Controllers
         }
 
         [SecurityNode(Name = "添加执行")]
-        public ActionResult PostAdd(Vol model)
+        public ActionResult PostAdd(Vol model, string volHeadImgBase64)
         {
-            model.RealNameState = 1;
-            model.State = 1;
-            model.Type = "志愿者";
-            model.LoveBankScore = 0;
-            model.Score = 0;
-            DbProvider.Add(model);
-            DbProvider.SaveChanges();
-            model.Score = 1;//来源未1标示是爱心银行
-            return Success("操作成功");
+            if (!string.IsNullOrEmpty(volHeadImgBase64))
+            {
+                byte[] headerimgByte = Convert.FromBase64String(volHeadImgBase64.Substring(23));
+                model.VolHeadImg = headerimgByte;
+            }
+         
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var tv = db.T_Vol;
+
+                if (tv.Count(x=>x.Phone==model.Phone)>0)
+                {
+                    return Success("该手机号已经存在");
+                }
+
+                model.RealNameState = 1;
+                model.State = 1;
+                model.Type = "志愿者";
+                model.LoveBankScore = 0;
+                model.Score = 0;
+                model.Source = 1;//来源未1标示是爱心银行
+             
+
+                db.Add<Vol>(model);
+                db.SaveChanges();
+
+                return Success("操作成功");
+            }
+         
+         
 
         }
 
@@ -178,21 +202,20 @@ namespace LoveBank.Web.Admin.Controllers
                 var t_v = db.T_Vol;
                 var t_tp = db.T_TeamProject;
 
-
+            
                 volAddScoreModel.Vol = t_v.FirstOrDefault(x => x.ID == volId);
-                volAddScoreModel.TeamProjectList = (from tp in t_tp
-                                                    where tp.ID > 0
-                                                    select new TeamProjectModel
-                                                    {
-                                                        ID = tp.ID,
-                                                        Name = tp.Name,
-                                                        Score = tp.Score
+                var list = from tp in t_tp
+                           where tp.ID > 0
+                           select new TeamProjectModel
+                           {
+                               ID = tp.ID,
+                               Name = tp.Name,
+                               Score = tp.Score,
+                               DeptId = tp.DeptId
 
-                                                    }
-
-                                                    ).ToList();
-
-
+                           };
+                    //list = list.Where(x => x.DeptId.IndexOf(AdminUser.DeptId) > -1);
+                volAddScoreModel.TeamProjectList = list.Where(x => x.DeptId.IndexOf(AdminUser.DeptId) > -1).ToList();
             }
             return PartialView(volAddScoreModel);
         }
@@ -360,15 +383,29 @@ namespace LoveBank.Web.Admin.Controllers
         [SecurityNode(Name = "绑定NFC卡执行")]
         public ActionResult PostVolBindNFC(Vol model)
         {
-            Vol vol = DbProvider.D<Vol>().FirstOrDefault(x => x.ID == model.ID);
-            if (vol == null)
+            if (string.IsNullOrEmpty(model.NFC) || model.NFC.Length != 10)
             {
-                Error("用户不存在,请核实后从新操作");
+                return Error("卡号不对,请重新操作");
             }
-            vol.NFC = model.NFC;
-            DbProvider.Update(vol);
-            DbProvider.SaveChanges();
 
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var t_v = db.T_Vol;
+
+                Vol vol = t_v.FirstOrDefault(x => x.ID == model.ID);
+                if (vol == null)
+                {
+                    return Error("用户不存在,请核实后从新操作");
+                }
+                if (t_v.Count(x => x.NFC == model.NFC) > 0)
+                {
+                    return Error("该NFC卡已经被绑定");
+
+                }
+                vol.NFC = model.NFC;
+                db.Update(vol);
+                db.SaveChanges();
+            }
             return Success("绑定成功");
         }
 
@@ -393,13 +430,7 @@ namespace LoveBank.Web.Admin.Controllers
                                 WHERE v.DepId LIKE'{0}%'
                                 GROUP BY  v.VolType ", AdminUser.DeptId);
 
-                // var tv = db.T_Vol;
-
-                //IQueryable<IGrouping<VolType, Vol>> model=tv.GroupBy(x=>x.VolType);
-
-
-               
-
+            
                 string cacheKey = "VolTypeEchartsData"+AdminUser.DeptId;
                 object listCache = BaseCacheManage.RetrieveObject(cacheKey);
                 if (listCache!=null)
@@ -431,5 +462,125 @@ namespace LoveBank.Web.Admin.Controllers
 
         }
 
-    }
+        [SecurityNode(Name = "辖区终端模块点击分析")]
+        public ActionResult MachineModuleStatisticsPage()
+        {
+        
+            return View();
+
+        }
+        public ActionResult MachineModuleStatisticsData(string deptId)
+        {
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                string sql = string.Format(@"SELECT  mm.`name` ,COUNT( mm.`name`) value  FROM machinestatistics  ms
+                                                LEFT JOIN  machine  m  ON  ms.`MachineCode`=m.`MachineCode`
+                                                LEFT JOIN  machinemoduleshowmanage mm ON mm.`ID`=ms.`ModuleId`
+                                                WHERE ms.`DeptId` LIKE '{0}%'
+                                                GROUP BY  mm.`name`  ", AdminUser.DeptId);
+
+
+                string cacheKey = "MachineModuleStatisticsData" + AdminUser.DeptId;
+                object listCache = BaseCacheManage.RetrieveObject(cacheKey);
+                if (listCache != null)
+                {
+                    return Json((VolTypeEchartsDataModel)listCache, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    MySqlParameter[] parm = new MySqlParameter[] { };
+                    List<VolTypeEchartsData> list = db.Database.SqlQuery<VolTypeEchartsData>(sql, parm).ToList();
+
+                    decimal total = list.Sum(x => long.Parse(x.value));
+                    for (int i = 0; i < list.Count; i++)
+                    {
+
+                        list[i].name = list[i].name + "(" + (decimal.Parse(list[i].value) / total).ToString("p") + ")";
+                    }
+
+                    VolTypeEchartsDataModel model = new VolTypeEchartsDataModel();
+                    BaseCacheManage.AddObject(cacheKey, model, 10 * 60);
+
+                    model.DepName = (from d in db.T_Department where d.Id == AdminUser.DeptId select d.Name).FirstOrDefault();
+                    model.VolTypeEchartsDataList = list;
+                    model.Total = total.ToString();
+                    return Json(list, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+
+        }
+
+
+        [SecurityNode(Name = "贵阳市大规模特效")]
+        public ActionResult MachineModuleLargeEffectsPage()
+        {
+
+            return View();
+
+        }
+        [SecurityNode(Name = "贵阳市大规模特效")]
+        public ActionResult MachineModuleLargeEffectsData(string deptId)
+        {
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+//                string sql = string.Format(@"SELECT  m.`Lat`,m.`Lon`,d.name FROM machinestatistics ms 
+//                                                INNER JOIN machine m ON ms.`MachineCode`=m.`MachineCode`
+//                                                INNER JOIN department d ON d.`Id`=ms.`DeptId`");
+                string sql = string.Format(@"SELECT  m.`Lat`,m.`Lon`,d.name FROM machine m
+                                                                            INNER JOIN department d ON d.`Id`=m.`DeptId`");
+
+                string cacheKey = "MachineModuleLargeEffectsData_11" + AdminUser.DeptId;
+                object listCache = BaseCacheManage.RetrieveObject(cacheKey);
+                if (listCache != null)
+                {
+                    return Json((LargeEffectsDataModel)listCache, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    MySqlParameter[] parm = new MySqlParameter[] { };
+                    List<LargeEffectsDataModel> list = db.Database.SqlQuery<LargeEffectsDataModel>(sql, parm).ToList();
+
+
+                    LargeEffectsDataModelPage tmpPage = null;
+                    //List<LargeEffectsDataModelPage> listPage = new List<LargeEffectsDataModelPage>();
+
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+                    sb.Append("[");
+          
+                    foreach (var item in list)
+                    {
+
+                         //tmpPage = new LargeEffectsDataModelPage();
+                         //tmpPage.name = item.name;
+                         sb.Append("{name:'" + item.name.Trim() + "',geoCoord:[" + item.Lon.Trim() + "," + item.Lat.Trim() + "]},");
+  
+                    }
+                    sb.Append("{name:'11',geoCoord:[01, 10]}");
+                    sb.Append("]");
+
+                    return Json(sb.ToString(), "application/Json", System.Text.Encoding.UTF8);
+                }
+
+            }
+           
+
+        }
+        public ActionResult UpLoadProcess(string id, string name, string type, string lastModifiedDate, int size, HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                Error("请选择文件");
+            }
+
+            SourceFile res = UploadFileInstance.SaveFile(file, "LoveBankVolImg", AdminUser.ID);
+            return Json(res);
+
+        }
+     }
 }

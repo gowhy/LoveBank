@@ -1,0 +1,231 @@
+﻿@using LoveBank.MVC
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    @*<input  type="button" onclick="refresh()" value="刷新"/>*@
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:800px;border:1px solid #e3e3e3;-webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);"></div>
+
+    @Html.IncludeScript("~/Content/EasyUI/jquery.min.js")
+    <!-- ECharts单文件引入 -->
+ 
+    <script src="~/echarts/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+
+        var option;
+        var myChart;
+
+      
+        require.config({
+            paths: {
+                echarts: '../echarts/example/www/js'
+            }
+        });
+        require(
+            [
+                'echarts',
+                'echarts/chart/map'
+             
+            ],
+            requireCallback
+        );
+  
+        function requireCallback(ec, defaultTheme) {
+            //curTheme = themeSelector ? defaultTheme : {};
+            myChart = ec.init(document.getElementById('main'));
+            require('echarts/util/mapData/params').params.guiyang = {
+                getGeoJson: function (callback) {
+                    $.getJSON('../echarts/example/geoJson/guiyang_geo.json', callback);
+                }
+            }
+          
+          
+            getOption(11);
+        
+            myChart.setOption(option);
+        
+        }
+
+     
+        function getOption(id) {
+
+      
+
+            var url = '@Url.Action("MachineModuleLargeEffectsData")' + '?id=' + id;
+            url = encodeURI(url);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                async: false,
+                dataType: "json",
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 通常情况下textStatus和errorThown只有其中一个有值 
+                    alert("cuow "+XMLHttpRequest);
+                },
+                success: function (obj) {
+                    
+                 
+                    var placeList = eval("(" + obj+")");
+                  
+                    //alert(placeList.length);
+                       option = {
+                        backgroundColor: '#1b1b1b',
+                        color: [
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(14, 241, 242, 0.8)',
+                        'rgba(37, 140, 249, 0.8)'
+                        ],
+                        title: {
+                            text: '贵阳市终端活跃大数据',
+                            subtext: '终端活跃大数据展示',
+                            x: 'center',
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            x: 'left',
+                            data: ['强', '中', '弱'],
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        toolbox: {
+                            show: false,
+                            orient: 'vertical',
+                            x: 'right',
+                            y: 'center',
+                            feature: {
+                                mark: { show: true },
+                                dataView: { show: true, readOnly: false },
+                                restore: { show: true },
+                                saveAsImage: { show: true }
+                            }
+                        },
+                        series: [
+                        {
+                            name: '弱',
+                            type: 'map',
+                            mapType: 'guiyang',
+                            itemStyle: {
+                              
+                                normal: {
+                                    borderColor: 'rgba(100,149,237,1)',
+                                    borderWidth: 1.5,
+                                    areaStyle: {
+                                        color: '#1b1b1b'
+                                    }
+                                    , label: { show: true }
+                                }
+                            },
+                            data: [],
+                            markPoint: {
+                                symbolSize: 2,
+                                large: true,
+                                effect: {
+                                    show: true
+                                },
+                                data: (function () {
+                                    var data = [];
+                                    var len = 3000;
+                                    var geoCoord
+                                    while (len--) {
+                                        geoCoord = placeList[len % placeList.length].geoCoord;
+                                        data.push({
+                                            name: placeList[len % placeList.length].name + len,
+                                            value: 10,
+                                            geoCoord: [
+                                            geoCoord[0],
+                                            geoCoord[1]
+                                            ]
+                                        })
+                                    }
+                                    return data;
+                                })()
+                            }
+                        },
+                        {
+                            name: '中',
+                            type: 'map',
+                            mapType: 'guiyang',
+                            itemStyle: {
+                                normal: { label: { show: true } },
+                                emphasis: { label: { show: false } }
+                            },
+                            data: [],
+                            markPoint: {
+                                symbolSize: 3,
+                                large: true,
+                                effect: {
+                                    show: true
+                                },
+                                data: (function () {
+                                    var data = [];
+                                    var len = 1000;
+                                    var geoCoord
+                                    while (len--) {
+                                        geoCoord = placeList[len % placeList.length].geoCoord;
+                                        data.push({
+                                            name: placeList[len % placeList.length].name + len,
+                                            value: 80,
+                                            geoCoord: [
+                                            geoCoord[0] ,
+                                            geoCoord[1]
+                                            ]
+                                        })
+                                    }
+                                    return data;
+                                })()
+                            }
+                        },
+                        {
+                            name: '强',
+                            type: 'map',
+                            mapType: 'guiyang',
+                            itemStyle: {
+                                normal: { label: { show: true } },
+                                emphasis: { label: { show: false } }
+                            },
+
+                            hoverable: false,
+                            roam: true,
+                            data: [],
+                            markPoint: {
+                                symbol: 'diamond',
+                                symbolSize: 6,
+                                large: true,
+                                effect: {
+                                    show: true
+                                },
+                                data: (function () {
+                                    var data = [];
+                                    var len = placeList.length;
+                                    while (len--) {
+                                        data.push({
+                                            name: placeList[len].name,
+                                            value: 90,
+                                            geoCoord: placeList[len].geoCoord
+                                        })
+                                    }
+                                    return data;
+                                })()
+                            }
+                        }
+                        ]
+                    };
+
+                }
+            });
+         
+            return option;
+        }
+     
+    </script>
+</body>

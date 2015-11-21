@@ -53,6 +53,8 @@ namespace LoveBank.Web.Admin.Models
         /// </summary>		
         public string Source { get; set; }
 
+        public string ProductName { get; set; }
+
         public int ExChangeCount { get; set; }
 
         public ExchangeType Type { get; set; }

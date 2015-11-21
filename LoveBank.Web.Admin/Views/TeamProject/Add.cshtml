@@ -17,13 +17,16 @@
 
 @Html.IncludeCSS("~/Content/plug-in/summernote/summernote.css")
 @Html.IncludeScript("~/Content/plug-in/summernote/summernote.js")
+@Html.IncludeScript("~/Content/plug-in/summernote/summernote-zh-CN.js")
 
 
                 <script type="text/javascript">
                     $(function () {
                         $('.summernote').summernote({
                             height: 400,
-                            width: 800
+                            width: 800,
+                            lang: 'zh-CN'
+
                         });
 
                         //$('form').on('submit', function (e) {
@@ -52,6 +55,14 @@
                                     <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Name" name="Name"
                                            data-options="required:true,validType:'length[2,20]'" /> (必须填)
 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="item_title">
+                                    类型:
+                                </td>
+                                <td class="item_input">
+                                    @Html.DBItemToSelectList((List<SelectListItem>)ViewBag.SerTypesSelectListItem, "", "Type", null, new { })
                                 </td>
                             </tr>
                             @*<tr>
@@ -194,7 +205,7 @@
                                     宣传图片:
                                 </td>
                                 <td class="item_input">
-                                    <div id="uploader" class="wu-example" style="width:700px;margin-left:0px;">
+                                    <div id="uploader" class="wu-example uploader" style="width:700px;margin-left:0px;">
                                         <div class="queueList" style=" margin:0px; ">
                                             <div id="dndArea" class="placeholder">
                                                 <div id="filePicker"></div>
@@ -207,7 +218,7 @@
                                                 <span class="percentage"></span>
                                             </div><div class="info"></div>
                                             <div class="btns">
-                                                <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                                                <div id="filePicker2" class="filePicker2"></div><div class="uploadBtn">开始上传</div>
                                             </div>
                                         </div>
                                     </div>
@@ -238,31 +249,32 @@
                     <a href="@Url.Action("Index", "TeamProject")" class="icon-back" title="返回列表"></a>
                 </div>
 
-                <style>
-                    .panel-tool {
-                        right: initial;
-                        margin-left: 100px;
-                    }
+              
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
 
-                    .imgWrap {
-                        word-wrap: break-word;
-                        word-break: normal;
-                        vertical-align: bottom;
-                        /*margin-top:20px;*/
-                    }
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
 
-                    #uploader .placeholder {
-                        padding-top: 0px;
-                    }
+    .uploader .placeholder {
+        padding-top: 0px;
+    }
 
-                    .queueList {
-                        width: 800px;
-                    }
+    .queueList {
+        width: 800px;
+    }
 
-                    #uploader .queueList.filled {
-                        padding: 0px;
-                    }
-                </style>
+    .uploader .queueList.filled {
+        padding: 0px;
+    }
+</style>
 
 
                 @Html.IncludeScript("~/Content/JS/MachineModule/edit.js")

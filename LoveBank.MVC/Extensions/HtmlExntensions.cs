@@ -58,6 +58,44 @@ namespace LoveBank.MVC
             return helper.Content("~/Content/Default/Images/" + name);
         }
 
+        public static IHtmlString DBItemToSelectList(this HtmlHelper helper, IEnumerable<SelectListItem> listItem, string currentValue, string name, string optionLabel, object htmlAttributes)
+        {
+            //var selectList = e.ToSelectItem();
+            var list = new List<SelectListItem>();
+            foreach (SelectListItem current in listItem)
+            {
+                current.Selected = current.Value != null && current.Value == currentValue;
+                list.Add(current);
+            }
+            listItem = list;
+            var stringBuilder = new StringBuilder();
+            if (optionLabel != null)
+            {
+                stringBuilder.AppendLine(ListItemToOption(new SelectListItem
+                {
+                    Text = optionLabel,
+                    Value = string.Empty,
+                    Selected = false
+                }));
+            }
+            foreach (SelectListItem current2 in listItem)
+            {
+                stringBuilder.AppendLine(ListItemToOption(current2));
+            }
+
+
+
+            var tagBuilder = new TagBuilder("select");
+            tagBuilder.InnerHtml = stringBuilder.ToString();
+            tagBuilder.GenerateId(name);
+            //tagBuilder.MergeAttributes(htmlAttributes);
+            tagBuilder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+            tagBuilder.MergeAttribute("name", name, true);
+            tagBuilder.GenerateId(name);
+            return new MvcHtmlString(tagBuilder.ToString(TagRenderMode.Normal));
+
+        }
+
         public static IHtmlString EnumToSelectList(this HtmlHelper helper,Enum e,string currentValue,string name,string optionLabel,object htmlAttributes) {
             var selectList = e.ToSelectItem();
             var list = new List<SelectListItem>();

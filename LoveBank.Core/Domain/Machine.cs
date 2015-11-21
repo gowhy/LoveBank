@@ -51,11 +51,11 @@ namespace LoveBank.Core.Domain
         /// <summary>
         /// 经度
         /// </summary>
-        public decimal Lon { get; set; }
+        public Nullable<double> Lon { get; set; }
 
         /// <summary>
         /// 纬度
         /// </summary>
-        public decimal Lat { get; set; }
+        public Nullable<double> Lat { get; set; }
     }
 }
