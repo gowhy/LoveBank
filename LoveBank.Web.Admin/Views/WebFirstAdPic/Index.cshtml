@@ -1,0 +1,47 @@
+﻿@model  LoveBank.Common.IPagedList<LoveBank.Web.Admin.Models.WebFirstAdPicModel>
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+@section HeadSection {
+    <script type="text/javascript">
+
+        function del(id) {
+
+            var url = '@Url.Action("Delete")' + '?id=' + id;
+            deleteMethod(id, "Delete");
+
+        }
+    </script>
+
+}
+
+
+<div id="button_row">
+
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增</a>
+</div>
+<div class="grid_box">
+
+    @Html.Grid(Model).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.ID).Named("ID");
+        column.For(x => x.Title ?? "").Named("标题");
+        column.For(x => x.DeptIdName).Named("所属区域");
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd")).Named("发布时间");
+        column.For(x => x.Desc).Named("备注");
+        column.For(x => x.State).Named("状态");
+        column.Link(btns => btns.Add(x => Html.ImgLink(x.SourceFileList.FirstOrDefault().Domain + x.SourceFileList.FirstOrDefault().Path, "480", "134", "", "", ""))).Named("图片");
+
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.ID }))
+            .Add(x => Html.ScriptLink("删除", "del({0})", x.ID))
+
+            );
+    }).Complex(ViewData)
+
+</div>
+
+@Html.Pager(Model)

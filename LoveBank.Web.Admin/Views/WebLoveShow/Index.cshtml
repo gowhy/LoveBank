@@ -1,0 +1,61 @@
+﻿@model  LoveBank.Web.Admin.Models.WebLoveShowModel
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+<form id="indexFrom">
+    <div style="float: left;  text-align: center;">
+        <span>
+
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="@Url.Action("Add")">新增</a>
+
+        </span>
+        <span style="margin-left:30px;">
+            <span>
+
+                标题<input type="text" name="Title" style=" width:180px;" value="@Model.Title" />
+            </span>
+            <a href="#" id="submitFormindexFrom" class="easyui-linkbutton">查询</a>
+        </span>
+    </div>
+</form>
+<div class="grid_box">
+    @Html.Grid(Model.WebLoveShowList).Columns(column =>
+    {
+        //column.CheckBox(x => x.Id);
+        column.For(x => x.ID).Named("ID");
+        column.For(x => x.Title).Named("标题");
+        column.For(x => x.Sort).Named("位置序号");
+
+        column.For(x => x.AddTime.ToString("yyyy-MM-dd HH:mm")).Named("发布时间");
+
+
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.ID }))
+                                   .Add(x => Html.ScriptLink("删除", "del({0})", x.ID))
+
+            );
+    }).Complex(ViewData)
+</div>
+
+@Html.Pager(Model.WebLoveShowList)
+<script type="text/javascript">
+
+    function del(id) {
+
+        var url = '@Url.Action("Delete")' + '?id=' + id;
+        deleteMethod(id, "Delete");
+
+    }
+
+    function submitForm() {
+
+        $('#indexFrom').submit();
+    }
+
+    $("#submitFormindexFrom").click(function () {
+        $('#indexFrom').submit();
+
+    });
+</script>

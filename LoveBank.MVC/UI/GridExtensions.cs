@@ -65,6 +65,16 @@ namespace LoveBank.MVC.UI
                                      })
                 .Sortable(false).Named("操作").Attributes(@class=>"grid_btn");
         }
+        public static IGridColumn<T> Link<T>(this ColumnBuilder<T> column, Action<GridButtons<T>> buttons) where T : class
+        {
+            return column.Custom(x =>
+            {
+                var button = new GridButtons<T>(x);
+                buttons(button);
+                return button.ToHtmlString();
+            })
+                .Sortable(false).Attributes(@class => "grid_btn");
+        }
     }
 
     public class GridButtons<T>:IHtmlString where T : class 

@@ -41,8 +41,8 @@
                 </td>
                 <td class="item_input">
 
-                    <input class="easyui-numberbox" type="text"  style="height:25px; width:260px;   " name="PassWord" value=""
-                           data-options="prompt:'请输入密码.',required:true,validType:'length[6,6]'" /> (只能输入6位数字,登陆时使用)
+                    <input class="easyui-numberbox" type="text"  style="height:25px; width:260px;   " name="PassWord" value="111111"
+                           data-options="prompt:'请输入密码.',required:true,validType:'length[6,6]'" /> (默认密码111111，只能输入6位数字,登陆时使用)
 
                 </td>
             </tr>
@@ -76,7 +76,7 @@
                         <option value="1">党员志愿者</option>
                         <option value="2">技术志愿者</option>
                         <option value="3">文化志愿者</option>
-                        <option value="4">专用志愿者</option>
+                        <option value="4">专业志愿者</option>
                         <option value="5">特殊志愿者</option>
                         <option value="6">复退军人</option>
                         <option value="-1">其他</option>
@@ -133,7 +133,15 @@
 
                 </td>
             </tr>
-         
+            <tr>
+                <td class="item_title">
+                    志愿者介绍:
+                </td>
+                <td class="item_input">
+                    <textarea name="Desc" id="Desc" cols="60" rows="10"></textarea>
+                </td>
+            </tr>
+            
             <tr>
                 <td class="item_title"></td>
                 <td class="item_input2">

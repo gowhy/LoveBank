@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>我的需求</title>
+	<link rel="stylesheet" href="css/pc_public.css">
+	<link rel="stylesheet" href="css/yiti_public.css">
+	<link rel="stylesheet" href="css/personCenterpublic.css">
+	<link rel="stylesheet" href="css/personCenterneed.css">
+	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="js/servecenter.js"></script>
+	<style type="text/css">
+		#bgimg{
+			height:7px;
+			background-color: #00AF62;
+		}
+		#footer{
+			border-top:1px solid #ccc;
+		}
+
+		#header .ul2{
+			width:129px;
+			margin:0;
+			padding:0;
+			background-color:#fff;
+		}
+
+		#header .ul2 li{
+			float:left;
+			margin-right:0px;
+			margin-top:65px;
+			width:130px;
+			height:50px;
+			padding:0;
+			text-align: center;
+			
+		}
+
+		#header .ul2 li .exit{ margin-left:30px; }
+		#header .ul2 li img{
+			margin-top:0;
+		}
+		#header .ul2 li a{
+			width:52px;
+			float:left;
+			font-size:13px;
+			height:auto;
+			margin-top:16px;
+			padding:0;
+			line-height:0px;
+			color:#000;
+			}
+	</style>
+</head>
+
+<body>
+	<div id="header">
+		<img src="img/logo.jpg" alt="logo">
+		<div class="x_title">
+			<p class="x_ind_title">平湖街道办</p>
+			<p class="x_ind_phone">0755-28854350</p>
+		</div>
+		<ul class="ul1">
+			<li class="active"><a href="index.html">社区首页</a></li>
+			<li><a href="###">爱心银行</a></li>
+			<li><a href="###">工艺社会组织</a></li>
+			<li><a href="###">爱心兑换</a></li>
+			<li><a href="###">爱心基金</a></li>
+			<li><a href="###">志愿者动态</a></li>
+			<li><a href="severCenterlist.html">服务中心介绍</a></li>
+			<li><a href="###">便民服务</a></li>
+		</ul>
+		<script type="text/javascript">
+			$("#header .ul1").find("li").each(function(){
+				$(this).click(function(){
+
+				$(this).addClass("active").siblings().removeClass('active')
+				})
+			})
+		</script>
+		<ul class="ul2 fl">
+			<li>
+				<img src="img/user.png" alt="use">
+				<a href="personlogin.html" class="pername"/>吴昊天</a>
+				<a href="###" class="percenter">会员中心</a></br>
+				<a href="index.html" class="exit">退出</a>
+			</li>
+		</ul>
+
+	</div>
+	<div id="bgimg" class="x_ind_bgimg">
+	</div>
+<div class="bigbg">
+	<div id="main">
+		<div class="x_sev_info">
+			<div class="fl dis-ib flbox">
+				<div class="fll">
+					<img src="img/hot.png" alt="">
+					&nbsp;热门兑换
+					<img src="img/sj.png" class="sj" alt="">
+				</div>
+
+				<div class="l_record_disimg">
+
+
+					<div class="l_ind_3_con_img">
+						<div class="img_top">
+							<div class="l_ind_3_cimg_img">
+								<a href="#"><img src="img/product_01.png"/> </a>
+								<div class="img_footer">
+									<a href="#">银钥匙—300积分兑换</a>
+								</div>
+							</div>
+
+							<div class="l_ind_3_content_one">
+								<a href="#">钥匙包</a>
+							</div>
+
+							<div class="l_ind_3_content_two">
+								<a class="money" href="#">￥300</a>
+								<a class="shopcar" href="#"><img src="img/shopcar_05.jpg"> 去看看</a>
+							</div>
+				 		</div>
+
+						<div class="l_ind_3_content_tre">
+							<img src="img/shdow_11.png">
+						
+						</div>
+					
+					</div>
+
+
+					<div class="l_ind_3_con_img">
+						<div class="img_top">
+							<div class="l_ind_3_cimg_img">
+								<a href="#"><img src="img/product_01.png"/> </a>
+								<div class="img_footer">
+									<a href="#">银钥匙—300积分兑换</a>
+								</div>
+							</div>
+
+							<div class="l_ind_3_content_one">
+								<a href="#">钥匙包</a>
+							</div>
+
+							<div class="l_ind_3_content_two">
+								<a class="money" href="#">￥300</a>
+								<a class="shopcar" href="#"><img src="img/shopcar_05.jpg"> 去看看</a>
+							</div>
+				 		</div>
+
+						<div class="l_ind_3_content_tre">
+							<img src="img/shdow_11.png">
+						
+						</div>
+					
+					</div>
+
+				</div>
+
+			</div>
+
+			<!--	右边	-->
+
+			<div class="fl dis-ib l_serve_model">
+				<div class="flr">
+					<img src="img/perimg.png" alt="">
+					个人中心
+					<img src="img/sj.png" class="sj" alt="">
+				</div>
+				<div class="l_percen_rcontent">
+		
+					<ul class="l_percen_nav fl">
+						<li><a href="personCentergrade.html"><img src="img/a2.png">我的积分</a></li>
+						<li><a href="personCenterinfor.html"><img src="img/a3.png">个人资料</a></li>
+						<li><a href="personCenterPass.html"><img src="img/a1.png">修改密码</a></li>
+						<li><a href="personCenteraddr.html"><img src="img/a4.png">收货地址</a></li>
+						<li><a href="personCenterrecord.html"><img src="img/a5.png">兑换记录</a></li>
+						<li class="l_percon_active"><a href="personCenterneed.html"><img src="img/a6_c.png">我的需求</a></li>
+						<li><a href="personCenterjion.html"><img src="img/a7.png">我的参与</a></li>
+						
+					</ul>
+
+					<table class="">
+						<thead>
+							<tr>
+								<th class="l_perneed_title">标题</th>
+								<th>需要人数</th>
+								<th>奖励积分</th>
+								<th>参与人数</th>
+								<th>参与时间</th>
+								<th>参与状态</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+							<tr>
+								<td>的地方的方式的发生</td>
+								<td>7788</td>
+								<td>1</td>
+								<td>300</td>
+								<td>2015-11-22</td>
+								<td>未审核</td>
+							</tr>
+
+						</tbody>
+					</table>
+
+					
+					<p class="l_serve_cenfooter fl">
+						<span>
+						共50条记录
+						</span>
+						<a class="l_serve_changepage" href="#">首页</a>
+						<a class="l_serve_changepage" href="#">上一页</a>
+						<a class="l_serve_changenum" href="#">1</a>
+						<a class="l_serve_changenum" href="#">2</a>
+						<a class="l_serve_changenum   l_serve_changeactive" href="#">3</a>
+						<a class="l_serve_changenum" href="#">4</a>
+						<a class="l_serve_changenum" href="#">5</a>
+						<span class="l_serve_pageper">3/5</span>
+
+						<a class="l_serve_changepage" href="#">下一页</a>
+						<a class="l_serve_changepage" href="#">尾页</a>
+					</p>
+
+
+					
+					<p class="l_addheight"></p>
+
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+	<footer id="footer">
+		<diV class="l_ind_footer_content">
+			<div class="l_ind_footer_content_one">
+				<a href="3"><img src="img/logo2footer.png"/></a>
+				
+				<a href="3"><img src="img/footer_one_47.png"/></a>
+			</div>
+			<div class="l_ind_footer_content_two">黔ICP10200922 版权所有，管理单位：明珠城社区服务中心技术支持：Kiw DESIGN</div>
+			<div class="l_ind_footer_content_tre">联系电话：0851-879955111</div>
+			<div class="l_ind_footer_content_for">
+				关于我们　
+				<a href="#"><img src="img/wx.png"/></a>
+				<a href="#"><img src="img/wxl.png"/></a>
+				<a href="#"><img src="img/wq.png"/></a>
+				<a href="#"><img src="img/wt.png"/></a>
+				<a href="#"><img src="img/wrr.png"/></a>
+				<a href="#"><img src="img/wh.png"/></a>
+			</div>
+		</diV>
+		
+	</footer>
+
+
+</body>
+</html>

@@ -140,18 +140,7 @@
 
     <div id=""></div>
     <div id=""></div>
-
-    @Html.IncludeScript("~/Content/Js/jquery.min.js")
-    @Html.IncludeScript("~/Content/Js/jquery-validate.min.js")
-    <script type="text/javascript">
-        $(function () {
-            $("form input:first").focus();
-            $('form').validate({
-                onKeyup: true,
-                eachValidField: function () {
-                    $(this).removeClass('error').addClass('success');
-                },
-                eachInvalidField: function () {
+  eachInvalidField: function () {
                     $(this).removeClass('success').addClass('error');
                 },
                 invalid: function () {
@@ -160,5 +149,16 @@
             });
         });
     </script>
-</body>
+</body>@Html.IncludeScript("~/Content/Js/jquery.min.js")
+@Html.IncludeScript("~/Content/Js/jquery-validate.min.js")
+<script type="text/javascript">
+    $(function () {
+        $("form input:first").focus();
+        $('form').validate({
+            onKeyup: true,
+            eachValidField: function () {
+                $(this).removeClass('error').addClass('success');
+            },
+
 </html>
+</script>

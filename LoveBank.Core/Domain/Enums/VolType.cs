@@ -21,8 +21,8 @@ namespace LoveBank.Core.Domain.Enums
         [EnumItemDescription("文化志愿者")]
         文化志愿者 = 3,
 
-        [EnumItemDescription("专用志愿者")]
-        专用志愿者 = 4,
+        [EnumItemDescription("专业志愿者")]
+        专业志愿者 = 4,
 
         [EnumItemDescription("特殊志愿者")]
         特殊志愿者 = 5,

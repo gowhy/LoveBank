@@ -122,14 +122,14 @@ namespace LoveBank.Web.Admin.Controllers
 
         protected override void OnException(ExceptionContext filterContext)
         {
-            
+            Log.Error(filterContext.Exception.Message, filterContext.Exception);
 
             if (filterContext.IsChildAction) return;
 
             filterContext.Result = Error(filterContext.Exception.Message + filterContext.Exception.Source + filterContext.Exception.StackTrace + filterContext.Exception.TargetSite+
               filterContext.Exception.InnerException);
 
-            //Log.Error(filterContext.Exception.Message, filterContext.Exception);
+         
 
             filterContext.ExceptionHandled = true;
         }

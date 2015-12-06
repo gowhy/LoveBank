@@ -1,0 +1,24 @@
+﻿<div id="header">
+    <img src="img/logo2.png" alt="logo">
+    <ul class="ul1">
+        <li class="active"><a href="###">社区首页</a></li>
+        <li><a href="###">关于我们</a></li>
+        <li><a href="###">志愿者队伍</a></li>
+        <li><a href="###">爱心兑换</a></li>
+        <li><a href="###">收支公示</a></li>
+        <li><a href="###">志愿者动态</a></li>
+        <li><a href="###">爱心集市</a></li>
+    </ul>
+    <script type="text/javascript">
+        $("#header .ul1").find("li").each(function () {
+            $(this).click(function () {
+
+                $(this).addClass("active").siblings().removeClass('active')
+            })
+        })
+    </script>
+    <ul class="ul2 fr">
+        <li><img src="img/user.png" alt="use"><a href="###">登录</a><a href="###">注册</a></li>
+    </ul>
+
+</div>

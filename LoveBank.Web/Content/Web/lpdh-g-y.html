@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>爱心兑换</title>
+	<link rel="stylesheet" href="css/pc_public.css">
+	<link rel="stylesheet" href="css/yiti_public.css">
+	<link rel="stylesheet" href="css/personCenterpublic.css">
+	<link rel="stylesheet" href="css/personCenterjion.css">
+	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="js/servecenter.js"></script>
+	<style type="text/css">
+		#bgimg{
+			height:7px;
+			background-color: #00AF62;
+		}
+		#footer{
+			border-top:1px solid #ccc;
+		}
+
+		#header .ul2{
+			width:129px;
+			margin:0;
+			padding:0;
+			background-color:#fff;
+		}
+
+		#header .ul2 li{
+			float:left;
+			margin-right:0px;
+			margin-top:65px;
+			width:130px;
+			height:50px;
+			padding:0;
+			text-align: center;
+
+		}
+
+		#header .ul2 li .exit{ margin-left:30px; }
+		#header .ul2 li img{
+			margin-top:0;
+		}
+		#header .ul2 li a{
+			width:52px;
+			float:left;
+			font-size:13px;
+			height:auto;
+			margin-top:16px;
+			padding:0;
+			line-height:0px;
+			color:#000;
+			}
+
+		#main .x_sev_info .l_percen_rcontent{
+			width:100%;
+			padding:0 0 20px 0;
+		}
+		.x_top_chouse{
+			height:56px;
+			background-color: #EAEAEA;
+		}
+		.x_top_chouse a{
+			display:inline-block;
+			height:100%;
+			width:50%;
+			text-align:center;
+			background-color: #fff;
+			font:700 20px/56px "microsoft yahei";
+			color:#333;
+		}
+		.x_top_chouse a.fl{
+			background:#EAEAEA  url(./img/zsj.jpg) 100% 0 no-repeat;
+		}
+		.x_lp_info{
+			width:90%;
+			margin:0 auto;
+			/*background-color: #ccc;*/
+		}
+		.x_lp_title{
+			font:400 18px/48px "microsoft yahei";
+			color:#333;
+			border-bottom:1px solid #DADADA;
+		}
+		#main .x_lp_info div{
+			width:90%;
+			margin:0 auto;
+			color:#000;
+		}
+		#main .x_lp_info div ul{
+			border-bottom:1px solid #dadada;
+			overflow:hidden;
+		}
+		#main .x_lp_info div li{
+			width:20%;
+			float:left;
+			text-align:center;
+			line-height:60px;
+		}
+		#main .x_lp_info .x_lp_show li{
+			line-height:120px;
+		}
+		#main .x_lp_info .x_lp_show{
+			border-bottom:2px solid #EBEBEB;
+		}
+		#main .x_lp_info .x_lp_show li img{
+			vertical-align:middle;
+		}
+
+		#main .x_lp_info div.totle{
+			text-align:right;
+			line-height:50px;
+		}
+		#main .x_lp_info div.totle span{
+			color:#FF8243;
+		}
+		#main .x_lp_info div.totle a{
+			width:118px;
+			height:34px;
+			text-align:center;
+			line-height:32px;
+			background-color: #00AF61;
+			color:#fff;
+		}
+
+		.motai{
+			position:absolute;
+			width:100%;
+			z-index:10;
+			padding-top:280px;
+			background-color: rgba(0,0,0,0.3);
+		}
+		.motai .motai_inside{
+			border-radius:10px;
+			width:610px;
+			height:270px;
+			margin:0 auto;
+			overflow:hidden;
+			background-color: #fff;
+		}
+		.motai_title{
+			width:90%;
+			padding:0 5%;
+			background-color: #0FAA66;
+			line-height:46px;
+			color:#fff;
+			font-size:20px;
+			overflow:hidden;
+		}
+		.motai_title img{
+			vertical-align:middle;
+		}
+		.motai_info{
+			text-align:center;
+		}
+		.motai_info p{
+			color:#666;
+			font-size:18px;
+			line-height:40px;
+		}
+		.motai_info .x_th{
+			font-size:30px;
+			color:#333;
+			line-height:100px;
+		}
+		.motai_info .x_th img{
+			margin-right:20px;
+			vertical-align:middle;
+		}
+		.motai_info a{
+			width:130px;
+			height:40px;
+			background: #fff url(./img/ok.jpg) 0 0 no-repeat;
+			margin-top:20px;
+		}
+		.line{
+			height:3px;
+			overflow:hidden;
+			background-color: #00AF62;
+		}
+		.x_lp_info li a{
+			width:46px;
+			height:26px;
+			background-color: #00AF62;
+			border-radius:20px;
+			font-size:14px;
+			line-height:24px;
+			color:#fff;
+		}
+
+	</style>
+</head>
+
+<body>
+<!-- 模态框 -->
+	<div class="motai" style="display:none">
+		<div class="motai_inside">
+			<p class="motai_title"><span>提示</span><a class="fr" href="###"><img src="img/6_14.png"></a></p>
+			<div class="motai_info">
+				<p class="x_th"><img src="img/1_03.png" alt="">兑换失败</p>
+				<p>您的积分不足，请修改礼品数量或兑换其他礼品</p>
+				<a class="dis-ib" href="###"></a>
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$(".motai").height($(document).height()-280);
+			$(".totle a").click(function(){
+				$(".motai").show()
+			})
+			$(".motai_inside a").click(function(){
+				$(".motai").hide()
+			})
+		})
+	</script>
+
+
+
+	<div id="header">
+		<img src="img/logo.jpg" alt="logo">
+		<div class="x_title">
+			<p class="x_ind_title">平湖街道办</p>
+			<p class="x_ind_phone">0755-28854350</p>
+		</div>
+		<ul class="ul1">
+			<li><a href="index.html">社区首页</a></li>
+			<li><a href="###">爱心银行</a></li>
+			<li><a href="###">工艺社会组织</a></li>
+			<li class="active"><a href="###">爱心兑换</a></li>
+			<li><a href="###">爱心基金</a></li>
+			<li><a href="###">志愿者动态</a></li>
+			<li><a href="severCenterlist.html">服务中心介绍</a></li>
+			<li><a href="###">便民服务</a></li>
+		</ul>
+		<script type="text/javascript">
+			$("#header .ul1").find("li").each(function(){
+				$(this).click(function(){
+					$(this).addClass("active").siblings().removeClass('active')
+				})
+			})
+		</script>
+		<ul class="ul2 fl">
+			<li>
+				<img src="img/user.png" alt="use">
+				<a href="personlogin.html" class="pername">吴昊天</a>
+				<a href="###" class="percenter">会员中心</a><br />
+				<a href="index.html" class="exit">退出</a>
+			</li>
+		</ul>
+
+	</div>
+	<div id="bgimg" class="x_ind_bgimg">
+	</div>
+<div class="bigbg">
+	<div id="main">
+		<div class="x_sev_info">
+			<div class="fl dis-ib flbox">
+				<div class="fll">
+					<img src="img/hot.png" alt="">
+					&nbsp;热门兑换
+					<img src="img/sj.png" class="sj" alt="">
+				</div>
+
+				<div class="l_record_disimg">
+
+					<div class="l_ind_3_con_img">
+						<div class="img_top">
+							<div class="l_ind_3_cimg_img">
+								<a href="#"><img src="img/product_01.png"/> </a>
+								<div class="img_footer">
+									<a href="#">银钥匙—300积分兑换</a>
+								</div>
+							</div>
+
+							<div class="l_ind_3_content_one">
+								<a href="#">钥匙包</a>
+							</div>
+
+							<div class="l_ind_3_content_two">
+								<a class="money" href="#">￥300</a>
+								<a class="shopcar" href="#"><img src="img/shopcar_05.jpg"> 去看看</a>
+							</div>
+				 		</div>
+
+						<div class="l_ind_3_content_tre">
+							<img src="img/shdow_11.png">
+
+						</div>
+
+					</div>
+
+
+
+
+					<div class="l_ind_3_con_img">
+						<div class="img_top">
+							<div class="l_ind_3_cimg_img">
+								<a href="#"><img src="img/product_01.png"/> </a>
+								<div class="img_footer">
+									<a href="#">银钥匙—300积分兑换</a>
+								</div>
+							</div>
+
+							<div class="l_ind_3_content_one">
+								<a href="#">钥匙包</a>
+							</div>
+
+							<div class="l_ind_3_content_two">
+								<a class="money" href="#">￥300</a>
+								<a class="shopcar" href="#"><img src="img/shopcar_05.jpg"> 去看看</a>
+							</div>
+				 		</div>
+
+						<div class="l_ind_3_content_tre">
+							<img src="img/shdow_11.png">
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<!--	右边	-->
+
+			<div class="fl dis-ib l_serve_model">
+				<div class="flr">
+					<img src="img/heart_w.png" alt="">
+					爱心超市礼品兑换
+					<!-- <img src="img/sj.png" class="sj" alt=""> -->
+				</div>
+				<div class="l_percen_rcontent">
+					<div class="x_top_chouse">
+						<a href="###" class="fl">自取</a>
+						<a href="###" class="fr　active">邮寄</a>
+					</div>
+					<div class="x_lp_info">
+						<p class="x_lp_title">收货地址</p>
+						<div>
+							<ul>
+								<li>收货人</li>
+								<li>收货地址</li>
+								<li>邮编</li>
+								<li>联系电话</li>
+								<li>操作</li>
+							</ul>
+							<ul style="border-bottom:none">
+								<li>收货地址</li>
+								<li>111</li>
+								<li>351000</li>
+								<li>12345678910</li>
+								<li><a class="dis-ib" href="###">修改</a> | <a class="dis-ib" href="###">删除</a></li>
+							</ul>
+							<script type="text/javascript">
+								$(function(){
+									$(".x_lp_info a").each(function(){
+										$(this).click(function(){
+
+											if ($(this).text().indexOf("删除")>=0) {
+												$(this).parent().parent().text("")
+											}
+										})
+									})
+								})
+							</script>
+						</div>
+					</div>
+					<p class="line"></p>
+					<div class="x_lp_info">
+						<p class="x_lp_title">礼品信息</p>
+						<div>
+							<ul>
+								<li>礼品图</li>
+								<li>礼品名称</li>
+								<li>积分价</li>
+								<li>数量</li>
+								<li>总积分</li>
+							</ul>
+							<ul class="x_lp_show">
+								<li><img src="img/lp.jpg" alt=""></li>
+								<li>电饭锅</li>
+								<li>1412</li>
+								<li>1</li>
+								<li>1412</li>
+							</ul>
+						</div>
+						<div class="totle">总计（包邮）：<span>1412</span> 积分　　<a class="dis-ib" href="###">立即购买</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<footer id="footer">
+	<diV class="l_ind_footer_content">
+		<div class="l_ind_footer_content_one">
+			<a href="3"><img src="img/logo2footer.png"/></a>
+
+			<a href="3"><img src="img/footer_one_47.png"/></a>
+		</div>
+		<div class="l_ind_footer_content_two">黔ICP10200922 版权所有，管理单位：明珠城社区服务中心技术支持：Kiw DESIGN</div>
+		<div class="l_ind_footer_content_tre">联系电话：0851-879955111</div>
+		<div class="l_ind_footer_content_for">
+			关于我们　
+			<a href="#"><img src="img/wx.png"/></a>
+			<a href="#"><img src="img/wxl.png"/></a>
+			<a href="#"><img src="img/wq.png"/></a>
+			<a href="#"><img src="img/wt.png"/></a>
+			<a href="#"><img src="img/wrr.png"/></a>
+			<a href="#"><img src="img/wh.png"/></a>
+		</div>
+	</diV>
+
+</footer>
+
+
+
+
+</body>
+</html>

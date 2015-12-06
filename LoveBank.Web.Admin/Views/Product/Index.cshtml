@@ -74,6 +74,7 @@
     {
         //column.CheckBox(x => x.Id);
         column.For(x => x.Id).Named("ID");
+        column.For(x => x.IsOwn?"是":"否").Named("是否我的");
         column.For(x => x.Name).Named("名称");
         column.For(x => x.DeptIdName).Named("所属社区");
         column.For(x => x.Price).Named("价格");
@@ -87,7 +88,7 @@
         column.For(x => x.State).Named("状态");
 
         column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Id }))
-            .Add(x => Html.ScriptLink("绑定终端", "bingProduct({0},'{1}')", x.Id, x.Name))
+            .Add(x => x.IsOwn ? Html.ScriptLink("绑定终端", "bingProduct({0},'{1}')", x.Id, x.Name) : Html.ScriptLink("",""))
             .Add(x => Html.ScriptLink("删除", "del({0})", x.Id))
 
             );

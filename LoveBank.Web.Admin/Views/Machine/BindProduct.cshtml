@@ -32,7 +32,8 @@
     {
         column.CheckBox(x => x.Id, x => x.MachineId.HasValue);
         column.For(x => x.Id).Named("ID");
-        column.For(x => x.Name ?? "").Named("产品名称");
+        column.For(x => x.DeptIdName).Named("所属社区");
+        column.For(x => x.Name).Named("产品名称");
         column.For(x => x.Price).Named("产品价格");
         column.For(x => x.BarCode).Named("条形码");
         column.For(x => x.CostScore).Named("兑现积分");

@@ -28,6 +28,8 @@ namespace LoveBank.Core.Domain
         /// </summary>
         public double Lng { get; set; }
         public string Address { get; set; }
+        public string AddUserName { get; set; }
+        public string AddUserPhone { get; set; }
     }
 
   public enum SuperviseRowState

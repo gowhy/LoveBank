@@ -46,6 +46,9 @@ namespace LoveBank.Core.Domain
         /// <summary>
         /// 审核时间
         /// </summary>		
-        public DateTime AuditingTime { get; set; }  
+        public DateTime AuditingTime { get; set; }
+        public string Phone { get; set; }
+        public string Name { get; set; }
+        public int ApplyUserId { get; set; }
     }
 }

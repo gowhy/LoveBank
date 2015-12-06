@@ -38,7 +38,12 @@ namespace LoveBank.MVC
         {
             return new HtmlString("<a href=\"javascript: {0}\" class=\"{2}\">{1}</a>".FormatWith(js.FormatWith(format), text,className));
         }
+        public static IHtmlString ImgLink(this HtmlHelper helper, string src, string width, string height, string title, string className, params object[] format)
+        {
+            return new HtmlString("<a href=\"{0}\" target =\"_blank\"> \"  <img src=\"{0}\" width=\"{1}\" height=\"{2}\" title=\"{3}\"  class=\"{4}\"/> </a>".FormatWith(src, width, height, title, className));
+        }
 
+          //<img src="" width="" height="" title="" />
         public static IHtmlString UploadImage(this HtmlHelper helper, string name)
         {
             return new UploadImage(name, null);

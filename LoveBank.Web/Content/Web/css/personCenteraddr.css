@@ -1,0 +1,33 @@
+
+/*	列表内容	*/
+#main table{
+
+	
+}
+
+#main table thead tr th{
+	width:120px;
+	color:#333;
+	font-size:16px;
+	text-align:center;
+	/*background-color:red;*/
+}
+#main table tbody tr{
+	border-top:1px solid #ccc;
+}
+
+#main table tbody tr td{
+
+	color:#666;
+	font-size:14px;
+	text-align:center;
+}
+#main table tbody tr td a{
+	padding:1px 3px;
+	width:40px; 
+	height:30px;
+	border-radius: 10px;
+	background-color:#00af62;
+	color:#fff;
+	font-size:14px;
+}

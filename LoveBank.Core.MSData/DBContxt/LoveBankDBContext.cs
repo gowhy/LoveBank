@@ -63,8 +63,15 @@ namespace LoveBank.Core.MSData
             modelBuilder.Configurations.Add(new UnitInfoAboutMap());
 
             modelBuilder.Configurations.Add(new SerTypesMap());
+            modelBuilder.Configurations.Add(new WebLoveShowMap());
 
+            modelBuilder.Configurations.Add(new LoveFundMap());
+            modelBuilder.Configurations.Add(new LoveBankInfoMap());
+            modelBuilder.Configurations.Add(new CServiceCenterInfoMap());
+            modelBuilder.Configurations.Add(new WebFirstAdPicMap());
+            modelBuilder.Configurations.Add(new WebSiteConifgMap());
 
+            modelBuilder.Configurations.Add(new ConvenienceServicesMap());
         }
         //public virtual DbSet<User> T_User { get; set; }
         public virtual DbSet<Role> T_Role { get; set; }
@@ -107,6 +114,14 @@ namespace LoveBank.Core.MSData
         public virtual DbSet<IncomeAndPayDetail> T_IncomeAndPayDetail { get; set; }
         public virtual DbSet<UnitInfoAbout> T_UnitInfoAbout { get; set; }
         public virtual DbSet<SerTypes> T_SerTypes { get; set; }
+        public virtual DbSet<WebLoveShow> T_WebLoveShow { get; set; }
+        public virtual DbSet<LoveFund> T_LoveFund { get; set; }
+
+        public virtual DbSet<LoveBankInfo> T_LoveBankInfo { get; set; }
+        public virtual DbSet<CServiceCenterInfo> T_CServiceCenterInfo { get; set; }
+        public virtual DbSet<WebFirstAdPic> T_WebFirstAdPic { get; set; }
+        public virtual DbSet<WebSiteConifg> T_WebSiteConifg { get; set; }
+        public virtual DbSet<ConvenienceServices> T_ConvenienceServices { get; set; }
 
     }
 

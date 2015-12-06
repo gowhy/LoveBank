@@ -39,18 +39,19 @@ namespace LoveBank.Web.Controllers {
         public ActionResult RegSuccess()
         {
             ////注册成功后，自动登录
-            //_authenticationService.SignIn(user.UserName, false);
+            _authenticationService.SignIn(User.ID.ToString(), false);
             return View();
         }
 
     
 
         [HttpPost]
+        [ActionName("Register")]
         public ActionResult PostRegister(string phone, string Password, string Validate)
         {
-            if (!ModelState.IsValid) return Error();
+         
 
-            if (!phone.MatchAndNotNull(RegularUtil.Phone)) return Error("手机号错误");
+            //if (!phone.MatchAndNotNull(RegularUtil.Phone)) return Error("手机号错误");
 
             var cookie = Request.Cookies["PostRegister_valicode"];
 
@@ -97,8 +98,8 @@ namespace LoveBank.Web.Controllers {
         
 
                 ViewData["Jump"] = Url.Action("Index", "Home");
-
-                return RedirectToAction("RegSuccess");
+                return Redirect("~/");
+                //return RedirectToAction("RegSuccess");
             }
             catch (Exception ex)
             {
@@ -106,11 +107,39 @@ namespace LoveBank.Web.Controllers {
             }
         }
 
-      
+        /// <summary>
+        /// 短信发送验证码
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public ActionResult SmsValidateCode(string phone)
+        {
+            Random rad = new Random();//实例化随机数产生器rad；
+            int value = rad.Next(1000, 10000);//用rad生成大于等于1000，小于等于9999的随机数；
+            string code = value.ToString();
+            string msg = "【爱心银行】欢迎你，您的注册验证码是：" + code + ".";
+
+            ReturnEntity res = SMSComm.Send(phone, msg);
+
+            JsonMessage rJson = new JsonMessage();
+            if (res.State == 1)
+            {
+                rJson.Status = true;
+                rJson.Data = code.Hash();
+            
+
+            }
+
+            var userCookie = new HttpCookie("PostRegister_valicode") { Value = code.Hash().Hash(), Expires = DateTime.Now.AddMinutes(5) };
+
+            Response.AppendCookie(userCookie);
+            return Json(rJson, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpsRequire]
         public ActionResult LogIn()
         {
+         
             if (LoveBankContext.Current.IsAuthenticated)
             {
                 return Redirect("~/");
@@ -122,16 +151,16 @@ namespace LoveBank.Web.Controllers {
         [ActionName("LogIn")]
         public ActionResult PostLogIn(string phone, string passWord, string ReturnUrl)//UserLoginModel model
         {
-          
-            
-            Vol vModel = null;
+
+
+            VolModel vModel = null;
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
                 var tv = db.T_Vol;
 
                 vModel = (from v in tv
                           where v.Phone == phone
-                          select new Vol
+                          select new VolModel
                               {
                                   PassWord = v.PassWord,
                                   ID = v.ID,
@@ -150,9 +179,7 @@ namespace LoveBank.Web.Controllers {
 
 
             _authenticationService.SignIn(vModel.ID.ToString(), false);
-
-            //SaveLoginInfo(user);
-
+      
             var returnUrl = Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : Url.Content("~/");
             return Redirect(returnUrl);
         }
@@ -165,28 +192,6 @@ namespace LoveBank.Web.Controllers {
         }
 
  
-        public ActionResult SecondEmail(string Email)
-        {
-            //var isHas = DbProvider.D<User>().Any(x => x.Email == Email && x.EmailPassed);
-            //if (isHas) return Error("邮箱已经存在，请重新输入！");
-
-            //var qdt_account = Request.Cookies["qdt_account"];
-            //if (qdt_account == null) return Error("验证超时！请重新登录获取验证");
-
-            //var Pid = Convert.ToInt32(qdt_account.Value.ToDesDecrypt(Des.LoveBank_Key)); 
-            //var Ptime = DateTime.Now.Ticks;
-            //var Psign = Email + Des.LoveBank_Key + Ptime.ToString();
-            //string activateUrl = MakeActiveUrl(Url.Action("PostRegisterBindEmail", "Account", new { id = Pid, email = Email, time = Ptime, sign = Psign.Hash().Hash() }));
-            //var content = PrepareMailBodyWith("Registration", "Email", Email, "ActiveUrl", activateUrl);
-            //var msg = new MsgQueueFactory().CreateValidatorMsg(Email, "邮箱验证", content);
-
-            //DbProvider.Add(msg);
-            //DbProvider.SaveChanges();
-
-            //SendMailMessage(msg);
-
-            return RedirectToAction("EmailRegSuccess", new { email = Email });
-        }
 
         public ActionResult ForgetPassword()
         {

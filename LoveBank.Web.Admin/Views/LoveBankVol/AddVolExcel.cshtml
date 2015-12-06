@@ -1,0 +1,40 @@
+﻿@using LoveBank.Common;
+@using LoveBank.MVC
+<div class="main">
+
+    <form name="PostAddVolExcel" id="PostAddVolExcel" action="@Url.Action("PostAddVolExcel")" method="post" enctype="multipart/form-data">
+        <table class="form" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td class="item_title">批量导入志愿者模板</td>
+                    <td class="item_input"><a   title="下载爱心银行志愿者批量导入模板,用于爱心银行志愿者批量导入,请不要随便修改模板文件" href="@Url.Content("~/Content/爱心银行志愿者批量导入模板.xls")">点击下载志愿者批量导入模板</a>(用于爱心银行志愿者批量导入)</td>
+                </tr>
+             
+                <tr>
+                    <td class="item_title">选择批量导入文件</td>
+                    <td class="item_input"><input type="file" name="volInfoExcel" />(批量导入的用户默认密码:111111)</td>
+                </tr>
+
+                <tr>
+                    <td class="item_title"></td>
+                    <td class="item_input">
+
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">导入</a>
+          
+                    </td>
+                </tr>
+             
+            </tbody>
+        </table>
+        <script>
+            function submitForm() {
+           
+                $('#PostAddVolExcel').submit();
+            }
+         
+
+         
+        </script>
+    </form>
+    @Html.IncludeScript("~/Content/EasyUI/jquery.easyui.min.js")
+</div>

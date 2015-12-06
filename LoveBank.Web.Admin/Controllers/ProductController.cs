@@ -59,7 +59,10 @@ namespace LoveBank.Web.Admin.Controllers
                                EndTime = p.EndTime,
                                StartTime = p.StartTime,
                                State = p.State,
-                               DeptIdName = d.Name
+                               DeptIdName = d.Name,
+                               AddUserId = p.AddUserId,
+                               IsOwn = p.AddUserId == AdminUser.ID ? true : false
+
                            };
 
                 list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId) > -1);
@@ -184,12 +187,17 @@ namespace LoveBank.Web.Admin.Controllers
                                  Desc = p.Desc,
                                  BarCode = p.BarCode,
                                  Type = p.Type,
+                                 AddUserId=p.AddUserId,
                                  Sponsors = p.Sponsors,
                                  SourceFileList = t_s.Where(x => x.Guid == p.Guid && !string.IsNullOrEmpty(p.Guid)).ToList(),
                                  SourceFileListLogo = t_s.Where(x => x.Guid == p.LogoGuid && !string.IsNullOrEmpty(p.LogoGuid)).ToList(),
                                  SourceFileListAd = t_s.Where(x => x.Guid == p.AdGuid && !string.IsNullOrEmpty(p.AdGuid)).ToList()
                              }).SingleOrDefault();
 
+                if (model.AddUserId!=AdminUser.ID)
+                {
+                    return Error("无权限操作只能编辑自己新增的数据");
+                }
                 return View(model);
             }
 
@@ -308,7 +316,18 @@ namespace LoveBank.Web.Admin.Controllers
         [SecurityNode(Name = "删除执行")]
         public ActionResult Delete(int id)
         {
+
             var ad = DbProvider.D<Product>().FirstOrDefault(x => x.ID == id);
+
+            if (ad.AddUserId != AdminUser.ID)
+            {
+                MsgModel msgModel = new MsgModel();
+                msgModel.Message = "无权限操作只能删除自己新增的数据";
+                msgModel.WaitSecond = -1;
+                msgModel.Title = "权限不足";
+                return Message(msgModel);
+            }
+
             ad.State = LoveBank.Core.Domain.Enums.RowState.删除;
             DbProvider.SaveChanges();
             return Success("删除成功");
@@ -345,6 +364,16 @@ namespace LoveBank.Web.Admin.Controllers
                 var t_mp = db.T_MachineProduct;
                 var t_m = db.T_Machine;
                 var t_d = db.T_Department;
+                var t_p = db.T_Product;
+
+                if (t_p.Count(x=>x.AddUserId==AdminUser.ID&&x.ID== machine.ProductId)==0)
+                {
+                    MsgModel msgModel = new MsgModel();
+                    msgModel.Message = "无权限操作，只能绑定自己新增的产品";
+                    msgModel.WaitSecond =- 1;
+                    msgModel.Title = "绑定机器无权操作";
+                    return Message(msgModel);
+                }
 
                 var list = from m in t_m
                            join d in t_d on m.DeptId equals d.Id

@@ -17,215 +17,219 @@
  
     <script src="~/echarts/build/dist/echarts.js"></script>
     <script type="text/javascript">
+        $(function () {
+            var option;
+            var myChart;
 
-        var option;
-        var myChart;
+            setTimeout(loadInit, 100);
+            function loadInit() {
+                require.config({
+                    paths: {
+                        echarts: '../echarts/example/www/js'
+                    }
+                });
+                require(
+                    [
+                        'echarts',
+                        'echarts/chart/map'
 
-      
-        require.config({
-            paths: {
-                echarts: '../echarts/example/www/js'
-            }
-        });
-        require(
-            [
-                'echarts',
-                'echarts/chart/map'
-             
-            ],
-            requireCallback
-        );
-  
-        function requireCallback(ec, defaultTheme) {
-            //curTheme = themeSelector ? defaultTheme : {};
-            myChart = ec.init(document.getElementById('main'));
-            require('echarts/util/mapData/params').params.guiyang = {
-                getGeoJson: function (callback) {
-                    $.getJSON('../echarts/example/geoJson/guiyang_geo.json', callback);
+                    ],
+                    requireCallback
+                );
+
+                function requireCallback(ec, defaultTheme) {
+                    //curTheme = themeSelector ? defaultTheme : {};
+                    myChart = ec.init(document.getElementById('main'));
+                    require('echarts/util/mapData/params').params.guiyang = {
+                        getGeoJson: function (callback) {
+                            $.getJSON('../echarts/example/geoJson/guiyang_geo.json', callback);
+                        }
+                    }
+
+
+                    //getOption(11);
+                    //setTimeout(EchartssetOption, 100);
+                    myChart.setOption(getOption(11));
+
                 }
             }
-          
-          
-            getOption(11);
-        
-            myChart.setOption(option);
-        
-        }
 
-     
-        function getOption(id) {
+            function EchartssetOption() {
+                myChart.setOption(option, true);
+            }
 
-      
 
-            var url = '@Url.Action("MachineModuleLargeEffectsData")' + '?id=' + id;
-            url = encodeURI(url);
-            $.ajax({
-                url: url,
-                type: 'POST',
-                async: false,
-                dataType: "json",
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    // 通常情况下textStatus和errorThown只有其中一个有值 
-                    alert("cuow "+XMLHttpRequest);
-                },
-                success: function (obj) {
-                    
-                 
-                    var placeList = eval("(" + obj+")");
-                  
-                    //alert(placeList.length);
-                       option = {
-                        backgroundColor: '#1b1b1b',
-                        color: [
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(14, 241, 242, 0.8)',
-                        'rgba(37, 140, 249, 0.8)'
-                        ],
-                        title: {
-                            text: '贵阳市终端活跃大数据',
-                            subtext: '终端活跃大数据展示',
-                            x: 'center',
-                            textStyle: {
-                                color: '#fff'
-                            }
-                        },
-                        legend: {
-                            orient: 'vertical',
-                            x: 'left',
-                            data: ['强', '中', '弱'],
-                            textStyle: {
-                                color: '#fff'
-                            }
-                        },
-                        toolbox: {
-                            show: false,
-                            orient: 'vertical',
-                            x: 'right',
-                            y: 'center',
-                            feature: {
-                                mark: { show: true },
-                                dataView: { show: true, readOnly: false },
-                                restore: { show: true },
-                                saveAsImage: { show: true }
-                            }
-                        },
-                        series: [
-                        {
-                            name: '弱',
-                            type: 'map',
-                            mapType: 'guiyang',
-                            itemStyle: {
-                              
-                                normal: {
-                                    borderColor: 'rgba(100,149,237,1)',
-                                    borderWidth: 1.5,
-                                    areaStyle: {
-                                        color: '#1b1b1b'
-                                    }
-                                    , label: { show: true }
+            setInterval(refresh, 1000 * 60 * 10);
+            function refresh() {
+
+
+                getOption("");
+            }
+
+
+
+            function getOption(id) {
+
+
+
+                var url = '@Url.Action("MachineModuleLargeEffectsData")' + '?id=' + id;
+                url = encodeURI(url);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    async: false,
+                    dataType: "json",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        // 通常情况下textStatus和errorThown只有其中一个有值 
+                        alert("cuow " + XMLHttpRequest);
+                    },
+                    success: function (obj) {
+
+
+                        var placeList = obj
+
+                        //alert(placeList.length);
+                        option = {
+                            backgroundColor: '#1b1b1b',
+                            color: [
+                            'rgba(0, 251, 0, 0.8)',
+                            //'rgba(14, 241, 242, 0.8)',
+                            'rgba(255, 0, 0, 0.8)'
+                            ],
+                            title: {
+                                text: '辖区终端活跃大数据',
+                                subtext: '终端活跃大数据展示',
+                                x: 'center',
+                                textStyle: {
+                                    color: '#fff'
                                 }
                             },
-                            data: [],
-                            markPoint: {
-                                symbolSize: 2,
-                                large: true,
-                                effect: {
-                                    show: true
-                                },
-                                data: (function () {
-                                    var data = [];
-                                    var len = 3000;
-                                    var geoCoord
-                                    while (len--) {
-                                        geoCoord = placeList[len % placeList.length].geoCoord;
-                                        data.push({
-                                            name: placeList[len % placeList.length].name + len,
-                                            value: 10,
-                                            geoCoord: [
-                                            geoCoord[0],
-                                            geoCoord[1]
-                                            ]
-                                        })
-                                    }
-                                    return data;
-                                })()
-                            }
-                        },
-                        {
-                            name: '中',
-                            type: 'map',
-                            mapType: 'guiyang',
-                            itemStyle: {
-                                normal: { label: { show: true } },
-                                emphasis: { label: { show: false } }
+                            tooltip: {
+                                trigger: 'item'
+                                
                             },
-                            data: [],
-                            markPoint: {
-                                symbolSize: 3,
-                                large: true,
-                                effect: {
-                                    show: true
-                                },
-                                data: (function () {
-                                    var data = [];
-                                    var len = 1000;
-                                    var geoCoord
-                                    while (len--) {
-                                        geoCoord = placeList[len % placeList.length].geoCoord;
-                                        data.push({
-                                            name: placeList[len % placeList.length].name + len,
-                                            value: 80,
-                                            geoCoord: [
-                                            geoCoord[0] ,
-                                            geoCoord[1]
-                                            ]
-                                        })
-                                    }
-                                    return data;
-                                })()
-                            }
-                        },
-                        {
-                            name: '强',
-                            type: 'map',
-                            mapType: 'guiyang',
-                            itemStyle: {
-                                normal: { label: { show: true } },
-                                emphasis: { label: { show: false } }
+                            legend: {
+                                orient: 'vertical',
+                                x: 'left',
+                                data: ['运行',  '停机'],
+                                textStyle: {
+                                    color: '#fff'
+                                }
                             },
+                            toolbox: {
+                                show: false,
+                                orient: 'vertical',
+                                x: 'right',
+                                y: 'center',
+                                feature: {
+                                    mark: { show: true },
+                                    dataView: { show: true, readOnly: false },
+                                    restore: { show: true },
+                                    saveAsImage: { show: true }
+                                }
+                            },
+                            series: [
+                            {
+                                name: '运行',
+                                type: 'map',
+                                mapType: 'guiyang',
+                                itemStyle: {
 
-                            hoverable: false,
-                            roam: true,
-                            data: [],
-                            markPoint: {
-                                symbol: 'diamond',
-                                symbolSize: 6,
-                                large: true,
-                                effect: {
-                                    show: true
-                                },
-                                data: (function () {
-                                    var data = [];
-                                    var len = placeList.length;
-                                    while (len--) {
-                                        data.push({
-                                            name: placeList[len].name,
-                                            value: 90,
-                                            geoCoord: placeList[len].geoCoord
-                                        })
+                                    normal: {
+                                        borderColor: 'rgba(100,149,237,1)',
+                                        borderWidth: 1.5,
+                                        areaStyle: {
+                                            color: '#1b1b1b'
+                                        }
+                                        , label: { show: true }
                                     }
-                                    return data;
-                                })()
-                            }
-                        }
-                        ]
-                    };
+                                },
+                                data: [],
+                                markPoint: {
+                                    symbol: 'heart',
+                                    symbolSize: 10,
+                                    large: false,
+                                    effect: {
+                                        show: true,
+                                        type: 'scale',
+                                        loop: true,
+                                        period: 30,
+                                        scaleSize: 2,
+                                        bounceDistance: 10,
+                                        color: null,
+                                        shadowColor: null,
+                                        shadowBlur: 0
+                                    },
+                                    data: (function () {
+                                        var data = [];
+                                     
+                                        for (var i = 0; i < placeList.RunList.length; i++) {
+                                            data.push({
+                                                name: placeList.RunList[i].name,
+                                                value: "运行",
+                                                geoCoord: [
+                                                placeList.RunList[i].Lon,
+                                                placeList.RunList[i].Lat
+                                                ]
+                                            })
+                                        }
+                                        return data;
+                                    })()
+                                }
+                            },
+                            
+                            {
+                                name: '停机',
+                                type: 'map',
+                                mapType: 'guiyang',
+                                itemStyle: {
+                                    normal: { label: { show: true } },
+                                    emphasis: { label: { show: false } }
+                                },
 
-                }
-            });
-         
-            return option;
-        }
-     
+                                hoverable: false,
+                                roam: true,
+                                data: [],
+                                markPoint: {
+                                    symbol: 'heart',
+                                    symbolSize: 10,
+                                    large: false,
+                                    effect: {
+                                        show: true,
+                                        type: 'scale',
+                                        loop: true,
+                                        period: 30,
+                                        scaleSize: 2,
+                                        bounceDistance: 10,
+                                        color: null,
+                                        shadowColor: null,
+                                        shadowBlur: 1
+                                    },
+                                    data: (function () {
+                                        var data = [];
+                                        for (var i = 0; i < placeList.NoRunList.length; i++) {
+                                            data.push({
+                                                name: placeList.NoRunList[i].name,
+                                                value: "停机",
+                                                geoCoord: [
+                                               
+                                                placeList.NoRunList[i].Lon,
+                                                placeList.NoRunList[i].Lat
+                                                ]
+                                            })
+                                        }
+                                        return data;
+                                    })()
+                                }
+                            }
+                            ]
+                        };
+
+                    }
+                });
+                //myChart.setOption(option);
+                return option;
+            }
+        });
     </script>
 </body>

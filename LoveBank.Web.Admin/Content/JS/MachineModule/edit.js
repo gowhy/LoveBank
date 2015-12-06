@@ -153,7 +153,7 @@
           
             var extStart = filepath.lastIndexOf(".");
             var ext = filepath.substring(extStart, filepath.length).toUpperCase();
-            if (ext != ".BMP" && ext != ".PNG?" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+            if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
                 $wrap.empty().text(fileEdit.name);
             } else {
                 var img = $('<img width="110" height="110" src="' + fileEdit.HttpUrl + '">');
@@ -645,6 +645,7 @@
         function onCheck(e, treeId, treeNode) {
             $("#DeptId").val(treeNode.Id);
             $("#CoverCommunity").val(treeNode.Name);
+            $("#CoverCommunity").change();
         }
         //$(this).onclick(function () {
 
@@ -656,6 +657,8 @@
             $("#menuContent").slideDown("fast");
             $("body").bind("mousedown", onBodyDown);
         });
+       
+
         function showMenu() {
             $("#menuContent").slideDown("fast");
             $("body").bind("mousedown", onBodyDown);

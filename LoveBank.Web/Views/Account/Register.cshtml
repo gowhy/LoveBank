@@ -1,0 +1,88 @@
+﻿<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/erollpublic.css")">
+@*<script type="text/javascript" src="js/jquery-1.8.3.js"></script>*@
+<script type="text/javascript" src="@Url.Content("~/Content/Web/js/servecenter.js")"></script>
+<style type="text/css">
+    #bgimg {
+        height: 7px;
+        background-color: #00AF62;
+    }
+
+    #footer {
+        border-top: 1px solid #ccc;
+    }
+</style>
+
+<div class="bigbg">
+    <div id="main">
+        <div class="l_log_forminput">
+            <p class="toglogin">
+                <a href="personeroll.html" class="l_log_togactive">志愿者注册</a>
+                <a href="grouperoll.html">社会组织注册</a>
+            </p>
+            <p class="l_log_secinfo">
+                请输入正确的手机以接收信息
+            </p>
+            <div class="l_log_inputarea">
+                <form action="" method="post">
+                    <p class="l_log_user">
+                        <span><img src="@Url.Content("~/Content/Web/img/v_49.png")"></span>
+                        <input type="text" id="phone" name="phone" placeholder="手机号" />
+                    </p>
+                    <p class="l_log_user">
+                        <span><img src="@Url.Content("~/Content/Web/img/pwd_67.png")"></span>
+                        <input type="password" id="password" name="password" placeholder="密码" />
+                    </p>
+
+                    <p class="l_log_user">
+                        <span><img src="@Url.Content("~/Content/Web/img/pwd_67.png")"></span>
+                        <input type="password" name="passwordFix" placeholder="确认密码" />
+                    </p>
+
+                    <p>
+                        <span><img src="@Url.Content("~/Content/Web/img/check_16.png")"></span>
+                        <input type="text" name="Validate" id="Validate" class="l_eroll_inputcheck" placeholder="请输入验证码" />
+                        <a href="#" id="validateCode" class="l_eroll_getcheck">获取验证码</a>
+                    </p>
+                    <p><input type="submit" id="submit" class="sub" value="志愿者注册" /></p>
+                    <p class="l_log_erollinfo"><a href="personlogin.html">已有账号？点击登录</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+
+    $(function () {
+
+        $("#validateCode").click(function () {
+
+            var objJson =
+                {
+                    "phone": $("#phone").val()
+                };
+            $.ajax({
+                type: "POST",
+                url: "/account/SmsValidateCode",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(objJson),
+                dataType: "json",
+                success: function (data) {
+                    if (data.Status == true) {
+                        alert("获取成功");
+                        
+
+                    } else {
+                        alert(data.Info);
+                    }
+                },
+                error: function (data) {
+                    alert("添加失败");
+                }
+            });
+
+
+        });
+    });
+ 
+</script>

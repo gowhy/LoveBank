@@ -46,6 +46,7 @@ namespace LoveBank.Web.Admin.Models
         public int ShareScore { get; set; }
 
         public string DeptId { get; set; }
+        public string DeptIdName { get; set; }
         public virtual IList<SourceFile> SourceFileList { get; set; }
         public virtual IList<AppImgUrlModel> AppSourceFileList { get; set; }
     }

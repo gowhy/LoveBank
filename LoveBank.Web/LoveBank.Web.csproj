@@ -113,32 +113,35 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -190,23 +193,45 @@
     <Content Include="Content\Default\Images\zz_6.jpg" />
     <Content Include="Content\Default\icon\iconfont.svg" />
     <Content Include="Content\EmailTemp\BindEmail.txt" />
+    <Compile Include="Controllers\ConvenienceServicesController.cs" />
+    <Compile Include="Controllers\CServiceCenterInfoController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LBTSController.cs" />
+    <Compile Include="Controllers\LoveBankInfoController.cs" />
+    <Compile Include="Controllers\LoveFundController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PublicController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
+    <Compile Include="Controllers\SuggestionController.cs" />
+    <Compile Include="Controllers\UnitInfoAboutController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValicodeController.cs" />
+    <Compile Include="Controllers\WebLoveShowController.cs" />
+    <Compile Include="Controllers\WebSitNoticeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\ConvenienceServicesModel.cs" />
+    <Compile Include="Models\CServiceCenterInfoModel.cs" />
+    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\ImgUrlModel.cs" />
+    <Compile Include="Models\LoveBankInfoModel.cs" />
+    <Compile Include="Models\LoveFundModel.cs" />
+    <Compile Include="Models\LoveProductModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ProjectAgencyModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\NoticeModel.cs" />
     <Compile Include="Models\UserBankModel.cs" />
     <Compile Include="Models\UserSettingModel.cs" />
+    <Compile Include="Models\VolModel.cs" />
+    <Compile Include="Models\WebFirstAdPicModel.cs" />
+    <Compile Include="Models\WebLoveShowModel.cs" />
+    <Compile Include="Models\WebSitNoticeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +331,224 @@
     <Content Include="Content\EmailTemp\ForgetPwd.txt" />
     <Content Include="Content\EmailTemp\Registration.txt" />
     <Content Include="Content\favicon.ico" />
+    <Content Include="Content\Web\css\erollpublic.css" />
+    <Content Include="Content\Web\css\forgetpwdpublic.css" />
+    <Content Include="Content\Web\css\fundpublic.css" />
+    <Content Include="Content\Web\css\index.css" />
+    <Content Include="Content\Web\css\login.css" />
+    <Content Include="Content\Web\css\loginpublic.css" />
+    <Content Include="Content\Web\css\lovefund.css" />
+    <Content Include="Content\Web\css\pc_public.css" />
+    <Content Include="Content\Web\css\personCenteraddr.css" />
+    <Content Include="Content\Web\css\personCentergrade.css" />
+    <Content Include="Content\Web\css\personCenterinfor.css" />
+    <Content Include="Content\Web\css\personCenterjion.css" />
+    <Content Include="Content\Web\css\personCenterneed.css" />
+    <Content Include="Content\Web\css\personCenterpublic.css" />
+    <Content Include="Content\Web\css\personCenterrecord.css" />
+    <Content Include="Content\Web\css\severCenter.css" />
+    <Content Include="Content\Web\css\severCenterdetails.css" />
+    <Content Include="Content\Web\css\severCentergroup.css" />
+    <Content Include="Content\Web\css\severCenterlist.css" />
+    <Content Include="Content\Web\css\severCenterpublic.css" />
+    <Content Include="Content\Web\css\volunteerpublic.css" />
+    <Content Include="Content\Web\css\volunteerteam.css" />
+    <Content Include="Content\Web\css\volunteerteam1.css" />
+    <Content Include="Content\Web\css\yiti_public.css" />
+    <Content Include="Content\Web\gorvsharescouce.html" />
+    <Content Include="Content\Web\groforgetpwd.html" />
+    <Content Include="Content\Web\grouperoll.html" />
+    <Content Include="Content\Web\grouplogin.html" />
+    <Content Include="Content\Web\img\1.jpg" />
+    <Content Include="Content\Web\img\1_03.png" />
+    <Content Include="Content\Web\img\2.png" />
+    <Content Include="Content\Web\img\2m.jpg" />
+    <Content Include="Content\Web\img\6_14.png" />
+    <Content Include="Content\Web\img\a1.png" />
+    <Content Include="Content\Web\img\a1_c.png" />
+    <Content Include="Content\Web\img\a2.png" />
+    <Content Include="Content\Web\img\a2_c.png" />
+    <Content Include="Content\Web\img\a3.png" />
+    <Content Include="Content\Web\img\a3_c.png" />
+    <Content Include="Content\Web\img\a4.png" />
+    <Content Include="Content\Web\img\a4_c.png" />
+    <Content Include="Content\Web\img\a5.png" />
+    <Content Include="Content\Web\img\a5_c.png" />
+    <Content Include="Content\Web\img\a6.png" />
+    <Content Include="Content\Web\img\a6_c.png" />
+    <Content Include="Content\Web\img\a7.png" />
+    <Content Include="Content\Web\img\a7_c.png" />
+    <Content Include="Content\Web\img\aboutus.jpg" />
+    <Content Include="Content\Web\img\b.jpg" />
+    <Content Include="Content\Web\img\balance.png" />
+    <Content Include="Content\Web\img\bg1.jpg" />
+    <Content Include="Content\Web\img\bg2.jpg" />
+    <Content Include="Content\Web\img\bg3.jpg" />
+    <Content Include="Content\Web\img\bg4.jpg" />
+    <Content Include="Content\Web\img\check_16.png" />
+    <Content Include="Content\Web\img\details.png" />
+    <Content Include="Content\Web\img\footer_one_44.png" />
+    <Content Include="Content\Web\img\footer_one_45.png" />
+    <Content Include="Content\Web\img\footer_one_46.png" />
+    <Content Include="Content\Web\img\footer_one_47.png" />
+    <Content Include="Content\Web\img\footer_pub_103.png" />
+    <Content Include="Content\Web\img\footer_pub_104.png" />
+    <Content Include="Content\Web\img\footer_pub_105.png" />
+    <Content Include="Content\Web\img\footer_pub_106.png" />
+    <Content Include="Content\Web\img\footer_pub_107.png" />
+    <Content Include="Content\Web\img\footer_pub_108.png" />
+    <Content Include="Content\Web\img\gb.png" />
+    <Content Include="Content\Web\img\grov_01.png" />
+    <Content Include="Content\Web\img\grov_02.png" />
+    <Content Include="Content\Web\img\grov_03.png" />
+    <Content Include="Content\Web\img\grov_disimg1.png" />
+    <Content Include="Content\Web\img\grov_disimg2.png" />
+    <Content Include="Content\Web\img\grov_r.png" />
+    <Content Include="Content\Web\img\heart.png" />
+    <Content Include="Content\Web\img\heart_w.png" />
+    <Content Include="Content\Web\img\hot.png" />
+    <Content Include="Content\Web\img\hotsha1.png" />
+    <Content Include="Content\Web\img\hot_27.png" />
+    <Content Include="Content\Web\img\images\1_21.png" />
+    <Content Include="Content\Web\img\images\addr_21.png" />
+    <Content Include="Content\Web\img\images\bank\images\lovebank_01.png" />
+    <Content Include="Content\Web\img\images\bank\images\lovebank_02.png" />
+    <Content Include="Content\Web\img\images\bank\images\lovebank_03.png" />
+    <Content Include="Content\Web\img\images\bank\images\lovebank_04.png" />
+    <Content Include="Content\Web\img\images\bank\images\lovebank_05.png" />
+    <Content Include="Content\Web\img\images\bank\images\lovebank_l.png" />
+    <Content Include="Content\Web\img\images\bank\images\lovebank_r.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\images\grov_01.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\images\grov_02.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\images\grov_03.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\images\grov_disimg1.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\images\grov_disimg2.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\images\wang_01.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\images\wang_02.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\images\wang_l.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\images\wang_r.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\images\shequ_01.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\images\shequ_02.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\images\shequ_03.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\images\shequ_l.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\images\shequ_r.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\zuzhi\images\zhuzhi_01.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\zuzhi\images\zuzhi_02.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\zuzhi\images\zuzhi_l.png" />
+    <Content Include="Content\Web\img\images\bank\xingzheng\wangluo\shequ\zuzhi\images\zuzhi_r.png" />
+    <Content Include="Content\Web\img\images\grov_r.png" />
+    <Content Include="Content\Web\img\images\hot.png" />
+    <Content Include="Content\Web\img\images\jion_21.png" />
+    <Content Include="Content\Web\img\images\pergrade_33.png" />
+    <Content Include="Content\Web\img\images\perimg.png" />
+    <Content Include="Content\Web\img\iwant.png" />
+    <Content Include="Content\Web\img\loginbg_05.png" />
+    <Content Include="Content\Web\img\login_img.gif" />
+    <Content Include="Content\Web\img\logo.jpg" />
+    <Content Include="Content\Web\img\logo.png" />
+    <Content Include="Content\Web\img\logo1.gif" />
+    <Content Include="Content\Web\img\logo2.png" />
+    <Content Include="Content\Web\img\logo2footer.png" />
+    <Content Include="Content\Web\img\logo_02.png" />
+    <Content Include="Content\Web\img\logo_05.png" />
+    <Content Include="Content\Web\img\lovebank_01.png" />
+    <Content Include="Content\Web\img\lovebank_02.png" />
+    <Content Include="Content\Web\img\lovebank_03.png" />
+    <Content Include="Content\Web\img\lovebank_04.png" />
+    <Content Include="Content\Web\img\lovebank_05.png" />
+    <Content Include="Content\Web\img\lovebank_l.png" />
+    <Content Include="Content\Web\img\lovebank_r.png" />
+    <Content Include="Content\Web\img\lovefund_01.png" />
+    <Content Include="Content\Web\img\lovefund_02.png" />
+    <Content Include="Content\Web\img\lovefund_03.png" />
+    <Content Include="Content\Web\img\lovefund_04.png" />
+    <Content Include="Content\Web\img\lovefund_title_l.png" />
+    <Content Include="Content\Web\img\lovesha2.png" />
+    <Content Include="Content\Web\img\loveshadow.png" />
+    <Content Include="Content\Web\img\love_fund_title_r.png" />
+    <Content Include="Content\Web\img\lp.jpg" />
+    <Content Include="Content\Web\img\mypub.png" />
+    <Content Include="Content\Web\img\ok.jpg" />
+    <Content Include="Content\Web\img\percensha2.png" />
+    <Content Include="Content\Web\img\percenshw1.png" />
+    <Content Include="Content\Web\img\percen_nav_01.png" />
+    <Content Include="Content\Web\img\percen_nav_02.png" />
+    <Content Include="Content\Web\img\percen_nav_03.png" />
+    <Content Include="Content\Web\img\percen_nav_04.png" />
+    <Content Include="Content\Web\img\percen_nav_05.png" />
+    <Content Include="Content\Web\img\percen_nav_06.png" />
+    <Content Include="Content\Web\img\percen_nav_07.png" />
+    <Content Include="Content\Web\img\perimg.png" />
+    <Content Include="Content\Web\img\phone.jpg" />
+    <Content Include="Content\Web\img\phone.png" />
+    <Content Include="Content\Web\img\product_01.png" />
+    <Content Include="Content\Web\img\pwd_67.png" />
+    <Content Include="Content\Web\img\sexfemale.png" />
+    <Content Include="Content\Web\img\sexmale.png" />
+    <Content Include="Content\Web\img\shdow_11.png" />
+    <Content Include="Content\Web\img\shequ_01.png" />
+    <Content Include="Content\Web\img\shequ_02.png" />
+    <Content Include="Content\Web\img\shequ_03.png" />
+    <Content Include="Content\Web\img\shequ_l.png" />
+    <Content Include="Content\Web\img\shequ_r.png" />
+    <Content Include="Content\Web\img\shopcar_05.jpg" />
+    <Content Include="Content\Web\img\shopcar_05.png" />
+    <Content Include="Content\Web\img\sj.png" />
+    <Content Include="Content\Web\img\text.png" />
+    <Content Include="Content\Web\img\user.png" />
+    <Content Include="Content\Web\img\volunteer.png" />
+    <Content Include="Content\Web\img\volun_r.png" />
+    <Content Include="Content\Web\img\volun_r_10.png" />
+    <Content Include="Content\Web\img\vrank.png" />
+    <Content Include="Content\Web\img\vteam.png" />
+    <Content Include="Content\Web\img\v_49.png" />
+    <Content Include="Content\Web\img\wang_01.png" />
+    <Content Include="Content\Web\img\wang_02.png" />
+    <Content Include="Content\Web\img\wang_l.png" />
+    <Content Include="Content\Web\img\wang_r.png" />
+    <Content Include="Content\Web\img\wh.png" />
+    <Content Include="Content\Web\img\wq.png" />
+    <Content Include="Content\Web\img\wrr.png" />
+    <Content Include="Content\Web\img\wt.png" />
+    <Content Include="Content\Web\img\wx.png" />
+    <Content Include="Content\Web\img\wxl.png" />
+    <Content Include="Content\Web\img\zsj.jpg" />
+    <Content Include="Content\Web\img\zuzhi_01.png" />
+    <Content Include="Content\Web\img\zuzhi_02.png" />
+    <Content Include="Content\Web\img\zuzhi_l.png" />
+    <Content Include="Content\Web\img\zuzhi_r.png" />
+    <Content Include="Content\Web\index.html" />
+    <Content Include="Content\Web\js\index.js" />
+    <Content Include="Content\Web\js\jquery-1.8.3.js" />
+    <Content Include="Content\Web\js\jquery.min.js" />
+    <Content Include="Content\Web\js\servecenter.js" />
+    <Content Include="Content\Web\login.html" />
+    <Content Include="Content\Web\lovebank.html" />
+    <Content Include="Content\Web\lovefund.html" />
+    <Content Include="Content\Web\lpdh-g-y.html" />
+    <Content Include="Content\Web\lpdh-g-z.html" />
+    <Content Include="Content\Web\lpdh-zz.html" />
+    <Content Include="Content\Web\model.html" />
+    <Content Include="Content\Web\perforgetpwd.html" />
+    <Content Include="Content\Web\personCenteraddr.html" />
+    <Content Include="Content\Web\personCentergrade.html" />
+    <Content Include="Content\Web\personCenterinfor.html" />
+    <Content Include="Content\Web\personCenterjion.html" />
+    <Content Include="Content\Web\personCenterneed.html" />
+    <Content Include="Content\Web\personCenterPass.html" />
+    <Content Include="Content\Web\personCenterrecord.html" />
+    <Content Include="Content\Web\personeroll.html" />
+    <Content Include="Content\Web\personlogin.html" />
+    <Content Include="Content\Web\servecenterintro.html" />
+    <Content Include="Content\Web\serveperson.html" />
+    <Content Include="Content\Web\severCenterdetails.html" />
+    <Content Include="Content\Web\severCentergrouppub.html" />
+    <Content Include="Content\Web\severCenterlist.html" />
+    <Content Include="Content\Web\severCenterperneed.html" />
+    <Content Include="Content\Web\sharegroup.html" />
+    <Content Include="Content\Web\volunteerteam.html" />
+    <Content Include="Content\Web\volunteerteam1.html" />
+    <Content Include="Content\Web\volunteerteam2.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -320,16 +563,29 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\LoveBank_Web.pubxml" />
     <None Include="Scripts\jquery-1.9.1-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Public\Header.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Home\Index - 复制.cshtml" />
+    <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\RegSuccess.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -434,7 +690,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\User\" />
+    <Folder Include="Views\ConvenienceServices\" />
+    <Folder Include="Views\CServiceCenterInfo\" />
+    <Folder Include="Views\LBTS\" />
+    <Folder Include="Views\LoveBankInfo\" />
+    <Folder Include="Views\LoveFund\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\Suggestion\" />
+    <Folder Include="Views\UnitInfoAbout\" />
     <Folder Include="Views\User\" />
+    <Folder Include="Views\WebLoveShow\" />
+    <Folder Include="Views\WebSitNotice\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

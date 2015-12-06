@@ -43,6 +43,7 @@ namespace LoveBank.Web.Admin.Models
         public virtual IList<AppImgUrlModel> AppSourceFileListLogo { get; set; }
 
         public virtual IList<AppImgUrlModel> AppSourceFileListAd { get; set; }
+        public bool IsOwn { get; set; }
         public string Sponsors { get; set; }
 
         

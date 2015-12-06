@@ -162,7 +162,25 @@ namespace LoveBank.Web.Admin.Controllers
                                 DeptId = g.DeptId,
                                 Id = g.Id
                             }).FirstOrDefault();
-                glist.VDeptName = dep.Where(x => glist.VDeptId.IndexOf(x.Id) > -1).FirstOrDefault().Name;
+                 
+               
+                //glist.VDeptName = dep.Where(x => glist.VDeptId.IndexOf(x.Id+",") > -1).FirstOrDefault().Name;
+
+
+                var depNameList = (from d in dep where d.PId.IndexOf(AdminUser.DeptId) > -1 select d).ToList();
+
+                if (glist != null && !string.IsNullOrEmpty(glist.VDeptId))
+                    {
+                        foreach (var item2 in glist.VDeptId.Split(','))
+                        {
+                            string tmp = (depNameList.FirstOrDefault(x => x.Id == item2) ?? new Department()).Name;
+                            if (!string.IsNullOrEmpty(tmp))
+                            {
+                                glist.VDeptName += tmp + ",";
+                            }
+                        }
+                    }
+                
 
                 #region    //恢复图片数组
                 SourceFile sf = new SourceFile();

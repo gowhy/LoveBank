@@ -1,0 +1,167 @@
+html{color:#000;background:#FFF;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;font-variant:normal;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+input,textarea,select{*font-size:100%;}
+legend{color:#000;}
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+a:focus{outline:none;}
+li{ vertical-align:bottom; overflow:hidden; list-style-type:none;}
+
+.clearfix:after,.clearfix:before{            /*成熟的清浮动样式*/
+    content: ".";
+    display:block;
+    overflow: hidden;
+    clear:both;
+    height:0;
+}
+.clearfix{                   /*成熟的清浮动样式，词句为了兼容*/
+    zoom:1;
+}
+
+body{                       /*改变窗口大小时，子元素定位无效解决方法*/
+    *position:relative;
+}
+
+/*转换块级元素*/
+.dis-ib{
+    display:inline-block;
+    *zoom:1;
+    *display:inline;
+}
+
+/*插入字体图标=====记得定义库的文件夹*/
+@font-face {
+	font-family:'iconfont';
+	src: url('../iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../iconfont/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('../iconfont/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../iconfont/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+/*定义使用iconfont的样式 */
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:26px;
+    font-style:none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    color:#fff;
+ 	text-decoration:none;
+ }
+/*<span class="iconfont ">&#x3459;</span>字体图案的设置样式*/
+
+/*html5新增8个标签重置*/
+header, section, footer, aside, nav, main, article, figure {
+    display: block;
+}/*IE8 及更早 IE 版本的浏览器不支持建议使用html5shiv.min.js文件*/
+
+
+
+
+
+/*通用样式*/
+
+/*主体内容*/
+/*#main{
+    width:1900px;
+    margin-left:auto;
+    margin-right:auto;
+}*/
+
+/*左右浮动*/
+.fl{
+    float:left;
+    *display:inline;
+    *display:table;
+}
+.fr{
+    float:right;
+    *display:inline;
+    *display:table;
+}
+
+/*元素居中*/
+.mg-auto{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/*变换兼容*/
+.tianstion{ 
+
+    transition:all ease 0.4s; 
+
+    -moz-transition:all ease 0.4s; 
+
+    -ms-transition:all ease 0.4s; 
+
+    -o-transition:all ease 0.4s;
+
+    -webkit-transition:all ease 0.4s;
+
+}
+
+/* 文字居中 */
+.txt-center{ text-align:center;}
+
+.txt-justify{ text-align:justify; text-justify:inter-ideograph;}
+
+/* 超出隐藏 */
+.overflow{ overflow:hidden;} 
+
+/*外边距10px样式*/
+.mt10{
+    margin-top:10px;
+}
+
+.mr10{
+    margin-right:10px;
+}
+
+.ml10{
+    margin-left:10px;
+}
+
+.mb10{
+    margin-bottom:10px;
+}
+
+/*测试样式*/
+.bgc{
+    background-color: #ccc;
+}
+
+
+
+
+/*clearfix  清浮动*/
+
+/*dis-ib    转换块级元素*/
+
+/*main      内容主体样式*/
+
+/*fl,fr     左右浮动*/
+
+/*mt10,mt10,mt10,mt10   上下左右外边距*/
+
+/*mg-auto   元素居中*/
+
+/*tianstion 变换兼容*/
+
+/*bgc       灰色背景-测试样式*/
+
+/*txt-center,txt-justify 文字居中 */
+
+/*overflow  超出隐藏 */

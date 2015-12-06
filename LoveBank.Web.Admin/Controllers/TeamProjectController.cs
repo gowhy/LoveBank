@@ -43,8 +43,28 @@ namespace LoveBank.Web.Admin.Controllers
             {
 
                 var t_p = db.T_TeamProject;
+                var t_d = db.T_Department;
 
-                var list = from p in t_p select p;
+                var list = from p in t_p
+                           join d in t_d on p.DeptId equals d.Id
+
+                           select
+                           new TeamProjectModel
+                           {
+                               Address = p.Address,
+                               AddTime = p.AddTime,
+                               Name = p.Name,
+                               LinkMan = p.LinkMan,
+                               LinkPhone = p.LinkPhone,
+                               ProjectEndDate = p.ProjectEndDate,
+                               ProjectStartDate = p.ProjectStartDate,
+                               DeptIdName = d.Name,
+                               State=p.State,
+                               DeptId=p.DeptId,
+                               ID=p.ID
+                           };
+                //var list = from p in t_p select p;
+                //var list = from p in t_p select p;
 
               
 
@@ -366,13 +386,14 @@ namespace LoveBank.Web.Admin.Controllers
             model.Guid = Guid.NewGuid().ToString();
             model.SubTitle = parm.SubTitle;
             model.TeamProjectId = parm.TeamProjectId;
+            model.Desc = parm.Desc;
 
-            foreach (var item in parm.SourceFileList)
-            {
-                item.Guid = model.Guid;
-                item.AddTime = DateTime.Now;
+            //foreach (var item in parm.SourceFileList)
+            //{
+            //    item.Guid = model.Guid;
+            //    item.AddTime = DateTime.Now;
 
-            }
+            //}
 
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
@@ -380,8 +401,8 @@ namespace LoveBank.Web.Admin.Controllers
                 db.Add<TeamProjectSummary>(model);
                 db.SaveChanges();
 
-                db.T_SourceFile.AddRange(parm.SourceFileList);
-                db.SaveChanges();
+                //db.T_SourceFile.AddRange(parm.SourceFileList);
+                //db.SaveChanges();
 
                 return Success("新增成功");
             }
@@ -391,7 +412,7 @@ namespace LoveBank.Web.Admin.Controllers
         [SecurityNode(Name = "编辑活动总结页面")]
         public ActionResult EditTeamProjectSummary(int teamProjectSummaryId, int page = 1, int pageSize = 100)
         {
-            ViewBag.TeamPojectId = teamProjectSummaryId;
+          
 
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
@@ -406,6 +427,7 @@ namespace LoveBank.Web.Admin.Controllers
                            select new TeamProjectSummaryModel
                            {
                                TeamProjectName = p.Name,
+                               Id=tp.Id,
                                AddTime = tp.AddTime,
                                Desc = tp.Desc,
                                Guid = tp.Guid,
@@ -414,6 +436,7 @@ namespace LoveBank.Web.Admin.Controllers
                                SourceFileList = t_s.Where(x => x.Guid == p.Guid).ToList()
 
                            }).SingleOrDefault();
+                ViewBag.TeamPojectId = Model.TeamProjectId;
                 return View(Model);
             }
 
@@ -438,26 +461,26 @@ namespace LoveBank.Web.Admin.Controllers
                 //model.State = RowState.有效;
                 //model.Guid = Guid.NewGuid().ToString();
                 model.SubTitle = parm.SubTitle;
-                model.TeamProjectId = parm.TeamProjectId;
+                //model.TeamProjectId = parm.TeamProjectId;
                 model.Desc = parm.Desc;
           
 
-                foreach (var item in parm.SourceFileList)
-                {
-                    item.Guid = model.Guid;
-                    item.AddTime = DateTime.Now;
+                //foreach (var item in parm.SourceFileList)
+                //{
+                //    item.Guid = model.Guid;
+                //    item.AddTime = DateTime.Now;
 
-                }
+                //}
 
                 ///删除原来的,彻底以新增方式进行（修改通过删除在新增实现）
-                var delSourceFile = from s in t_s where s.Guid == model.Guid select s;
-                db.T_SourceFile.RemoveRange(delSourceFile);
-                db.SaveChanges();
+                //var delSourceFile = from s in t_s where s.Guid == model.Guid select s;
+                //db.T_SourceFile.RemoveRange(delSourceFile);
+                //db.SaveChanges();
 
-                db.T_SourceFile.AddRange(parm.SourceFileList);
-                db.SaveChanges();
+                //db.T_SourceFile.AddRange(parm.SourceFileList);
+                //db.SaveChanges();
 
-                db.Add<TeamProjectSummary>(model);
+                db.Update<TeamProjectSummary>(model);
                 db.SaveChanges();
 
                 return Success("新增成功");

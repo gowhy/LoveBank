@@ -4,7 +4,7 @@
 @Html.IncludeScript("~/Content/plug-in/webuploader/webuploader.js")
 @Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
 
-<div id="uploader" class="wu-example" style="width:700px;margin-left:0px;">
+<div id="uploader" class="wu-example uploader" style="width:700px;margin-left:0px;">
     <div class="queueList" style=" margin:0px; ">
         <div id="dndArea" class="placeholder">
             <div id="filePicker"></div>
@@ -17,7 +17,7 @@
             <span class="percentage"></span>
         </div><div class="info"></div>
         <div class="btns">
-            <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+            <div id="filePicker2" class="filePicker2"></div><div class="uploadBtn">开始上传</div>
         </div>
     </div>
 </div>
@@ -112,7 +112,7 @@
               disableGlobalDnd: true,
               //chunked: true,
               //chunkRetry :1,
-
+              compress:false,
               fileNumLimit: 10,
               fileSizeLimit: 5000 * 1024 * 1024,    // 200 M
               fileSingleSizeLimit: 1000 * 1024 * 1024    // 50 M

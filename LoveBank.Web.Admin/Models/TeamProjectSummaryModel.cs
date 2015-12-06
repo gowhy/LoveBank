@@ -53,5 +53,7 @@ namespace LoveBank.Web.Admin.Models
         public virtual IList<SourceFile> SourceFileList { get; set; }
 
         public string TeamProjectName{ get; set; }
+
+        public virtual IList<AppImgUrlModel> AppSourceFileList { get; set; }
     }
 }

@@ -206,7 +206,10 @@ namespace LoveBank.Core.Domain
         public VolType VolType { get; set; }
         public string NFC { get; set; }
         public int Source { get; set; }
-        
+        public int AddUserId { get; set; }
+
+        public string Desc { get; set; }
+
 
     }
 }

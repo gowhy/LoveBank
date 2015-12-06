@@ -21,8 +21,8 @@ namespace LoveBank.Common
 
         public static string FormatWith(this string target, params object[] args)
         {
-            if (String.IsNullOrEmpty(target))
-                throw new ArgumentNullException("target");
+            //if (String.IsNullOrEmpty(target))
+            //    throw new ArgumentNullException("target");
             return string.Format(target, args);
         }
 

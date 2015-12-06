@@ -1,0 +1,50 @@
+
+
+.l_user_details{
+	width:350px;
+	height:250px;
+	margin-top:10px;
+	margin-right:150px;
+}
+
+.l_user_details p{
+	width:350px;
+	height:50px;
+	line-height:50px;
+	color:#666;
+	letter-spacing: 2px;
+}
+.l_user_details p span{
+	float:left;
+	width:50px;
+	font-size:14px;
+}
+.l_user_details p input{
+	width:245px;
+	height:30px;
+	font-size:14px;
+	padding-left:15px;
+}
+.l_user_details p a{
+	margin:0 30px;
+	width:50px;
+	color:#666;
+	font-size:14px;
+
+}
+.l_user_details p a img{
+	margin-right:5px;
+}
+.l_user_details .l_percenif_sub{
+}
+
+.l_user_details .l_percenif_sub input{
+	color:#fff;
+	width:100px;
+	margin-left:120px;
+	background-color:#00af62;
+	border:none;
+	border-radius: 5px;
+}
+
+

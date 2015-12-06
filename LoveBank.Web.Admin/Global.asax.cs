@@ -80,8 +80,8 @@ namespace LoveBank.Web.Admin
                                        {
                                             //config.SiteMap(maps => maps.Register<XmlSiteMap>("default", x => x.Load()));
                                             config.Sercurity(typeof (MvcApplication).Assembly,x=>x.RegisterService<AdminService>());
-                                            //log4net.Config.XmlConfigurator.Configure(new System.IO.FileInfo(Server.MapPath("~/log4net.config")));
-                                            //Log.SetLog(LogManager.GetLogger("Loger"));
+                                            log4net.Config.XmlConfigurator.Configure(new System.IO.FileInfo(Server.MapPath("~/log4net.config")));
+                                            Log.SetLog(LogManager.GetLogger("Loger"));
                                        }
                 );
 

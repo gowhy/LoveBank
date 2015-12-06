@@ -1,0 +1,29 @@
+
+/*	列表内容	*/
+#main .l_perneed_grade{
+	float:left;
+	width:500px;
+	height:auto;
+	
+}
+
+.l_perneed_grade p{
+	text-align:center;
+	color:#666;
+}
+.l_perneed_grade .l_perneed_title{
+	font-size:18px;
+}
+.l_perneed_grade .l_perneed_num{
+	height:50px;
+	font-size:40px;
+	line-height:50px;
+	color:#00af62;
+
+}
+.l_perneed_grade .l_perneed_info{
+	font-size:16px;
+}
+.l_perneed_grade .l_perneed_info a{
+	color:#ff8b54;
+}

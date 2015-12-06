@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Web.Mvc;
 using LoveBank.Web.Admin.Models;
 using LoveBank.Services.AdminModule;
@@ -36,7 +36,7 @@ namespace LoveBank.Web.Admin.Controllers
                 if (AdminService.Validate(model.UserName, model.Password, out admin))
                 {
                     FormsService.SignIn(model.UserName, false);
-
+               
                     admin.LoginIP = Utility.GetIP();
                     admin.LoginTime = DateTime.Now;
                     AdminService.UpdateEntity(admin);

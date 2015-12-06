@@ -1,0 +1,135 @@
+
+/*	右边	*/
+
+.l_serve_centerintro{
+	width:714px;
+	padding-top:10px;
+	
+	background:#fff url(../img/lovesha2.png) 50% 102% no-repeat;
+
+}
+.l_serve_centerintro .ulr{
+	
+	padding:10px 30px;
+	margin:0;
+	list-style-type: none;
+	
+	text-indent: 0px;
+}
+.l_serve_centerintro .ulr .l_serve_intro{
+	
+	padding:0px;
+	margin:0px;
+	height:45px;
+	font-family: "microsoft yahei";
+	font-size:14px;
+	color:#808080;
+}
+#main .l_serve_centerintro .ulr .l_serve_intro{
+	height:45px;
+	line-height:45px;
+	text-indent: 0px;
+	background:#fff url(../img/loveshadow.png) 50% 35px no-repeat;
+}
+
+.l_serve_intro .l_serve_introl{
+	float:left;
+	display:block;
+	color:#808080;
+}
+
+.l_serve_intro .l_serve_intror{
+	float:right;
+	text-align:right;
+}
+
+.l_serve_intro .l_serve_intror span{
+	margin-left:15px;
+	color:#808080;
+}
+
+.l_serve_intro .l_serve_intror .state{
+	color:#ea5151;
+}
+
+/*	结束状态	*/
+
+.l_serve_intro .l_serve_intror .end{
+	color:#c2c1c1;
+}
+
+/*  	页码切换区	*/
+
+.l_serve_cenfooter{
+	text-align:center;
+	margin-top:5px;
+	height:35px;
+	width:714px;
+	font-size:14px;
+	/*background:url(../img/lovesha2.png) 50% 100% no-repeat;*/
+	padding-bottom:10px;
+}
+.l_serve_cenfooter a{
+	color:#808080;
+}
+
+.l_serve_cenfooter .l_serve_changepage{
+	background-color:#ccc;
+	display:inline-block;
+	width:50px;
+	height:18px;
+	line-height:18px;
+	margin-left:10px;
+}
+
+ .l_serve_cenfooter .l_serve_changenum{
+	display:inline-block;
+	width:20px;
+}
+
+ .l_serve_cenfooter .l_serve_pageper{
+	display: inline-block;
+	width:50px;
+	height:16px;
+	line-height:18px;
+	color:#808080;
+	border:1px solid #b1b1b1;
+}
+
+/*	激活页码号类	*/
+
+.l_serve_cenfooter .l_serve_changeactive{
+	color:#00af62;
+}
+
+
+/*	我要发布	*/
+
+.l_sever_pub{
+	width:65px;
+	text-align:right;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

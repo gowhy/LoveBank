@@ -1,0 +1,159 @@
+﻿@using LoveBank.MVC
+@model LoveBank.Core.Domain.ConvenienceServices
+@Html.IncludeCSS("~/Content/plug-in/webuploader/webuploader.css")
+@Html.IncludeScript("~/Content/plug-in/webuploader/webuploader.js")
+@Html.IncludeCSS("~/Content/Css/demo.css")
+@Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<!-- 最新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css" />
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"> </script>
+
+@Html.IncludeCSS("~/Content/plug-in/summernote/summernote.css")
+@Html.IncludeScript("~/Content/plug-in/summernote/summernote.js")
+@Html.IncludeScript("~/Content/plug-in/summernote/summernote-zh-CN.js")
+
+<script type="text/javascript">
+    $(function () {
+        $('.summernote').summernote({
+            height: 400,
+            width: 800,
+            lang: 'zh-CN'
+
+        });
+
+
+    });
+</script>
+<style>
+    *, *:before, *:after {
+        -webkit-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+</style>
+<div id="p" class="easyui-panel" title="便民服务--编辑" data-options="tools:'#tt'">
+    @using (Html.BeginForm("PostEdit", "ConvenienceServices", FormMethod.Post, new { name = "EditForm", id = "EditForm" }))
+    {
+        <table class="form">
+
+            <tr>
+                <td class="item_title">
+                    标题:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Title" name="Title"
+                           value="@Model.Title" data-options="required:true,validType:'length[2,20]'" /> (必须填)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    类型:
+                </td>
+                <td class="item_input">
+                    @Html.EnumToSelectList(new LoveBank.Core.Domain.Enums.ConvenienceServicesType(), ((int)Model.Type).ToString(), "Type", null, new { })
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    位置:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-numberox" type="text" style="height:25px; width:260px;   " id="Sort" name="Sort"
+                           value="@Model.Sort" data-options="required:true,validType:'length[2,20]'" /> (必须填,数字越大越靠前)
+
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="item_title">
+                    内容:
+                </td>
+                <td class="item_input" style="float:left;">
+
+                    <textarea name="text" class="summernote" style="margin-bottom: 0px;" id="content" required="required" title="Content">@Model.Content</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+                        <input type="hidden" name="Id" id="Id" value="@Model.ID" />
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="EditFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp保存 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    }
+
+</div>
+<div id="tt">
+    <a href="@Url.Action("Index", "ConvenienceServices")" class="icon-back" title="返回列表"></a>
+</div>
+
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
+</style>
+
+
+<script>
+
+
+    function GetFromJsonData() {
+        var json = {
+            "Title": $("#Title").val(),
+            "content": $('.summernote').code(),
+            "Sort": $("#Sort").val(),
+            "Type": $("#Type").val(),
+            "Id": $("#Id").val()
+
+
+
+        };
+        return json;
+    }
+
+
+    $("#EditFromSubmit").click(function () {
+
+        if (!$("#EditForm").form('validate')) {
+            return false;
+        }
+        var objJson = GetFromJsonData();
+
+        $.ajax({
+            type: "POST",
+            url: "/ConvenienceServices/PostEdit",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(objJson),
+            dataType: "json",
+            success: function (data) {
+                if (data.Status == true) {
+                    alert("修改成功");
+                    $('#EditForm').form('clear');
+                    location.reload();
+
+                } else {
+                    alert(data.Info);
+                }
+            },
+            error: function (data) {
+                alert("修改失败");
+            }
+        });
+    });
+
+</script>
+
+
+
+
+

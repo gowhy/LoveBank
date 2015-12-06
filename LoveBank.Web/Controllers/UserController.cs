@@ -1,24 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using LoveBank.Common;
-using LoveBank.Core.Members;
-using LoveBank.MVC.Security;
-using LoveBank.Services.Members;
-using LoveBank.Services.Payments;
+using LoveBank.Common.Plugins.Email;
+using LoveBank.P2B.Domain.Config;
+using LoveBank.Services;
 using LoveBank.Web.Code;
 using LoveBank.Web.Code.Attributes;
-using LoveBank.Web.Code.Enums;
 using LoveBank.Web.Models;
+using LoveBank.Services.Members;
+using LoveBank.Core.Members;
+using LoveBank.MVC;
+using System.Linq;
+using LoveBank.P2B.Domain.Messages;
+using System.Web.Hosting;
+using LoveBank.Core.Domain;
+using LoveBank.Core.MSData;
+using LoveBank.MVC.Security;
 
 namespace LoveBank.Web.Controllers
 {
     [DefaultAuthorize]
     public abstract class UserBaseController : BaseController
     {
-        protected new User User { get { return LoveBankContext.Current.User; } }
+        protected new VolModel User { get { return LoveBankContext.Current.User; } }
     }
 
     [HttpsRequire]
@@ -26,10 +31,10 @@ namespace LoveBank.Web.Controllers
     {
         private readonly IUserService _userService;
 
-        //payment支付服务
-        private static IPaymentService PaymentService { get { return IoC.Resolve<IPaymentService>(); } }
+        public UserController()
+        {
 
-
+        }
         public UserController(IUserService userService)
         {
 
@@ -52,8 +57,37 @@ namespace LoveBank.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="passWord"></param>
+        /// <param name="oldPassWord"></param>
+        /// <returns></returns>
+        public ActionResult UpdatePassWord(string passWord,string oldPassWord)
+        {
+            JsonMessage jMessage = new JsonMessage();
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var tv = db.T_Vol;
 
+                Vol vol = tv.Find(User.ID);
 
+                if (oldPassWord==vol.PassWord)
+                {
+                    vol.PassWord =passWord;
+                    db.Update<Vol>(vol);
+                    db.SaveChanges();
+
+                    jMessage.Status = true;
+                }
+                else
+                {
+                    jMessage.Status = false;
+                    jMessage.Info = "新旧密码不对";
+                }
+            }
+            return Json (jMessage);
+        }
 
 
     }

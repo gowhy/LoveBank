@@ -4,18 +4,47 @@ using LoveBank.Common;
 using LoveBank.Common.Data;
 using LoveBank.Core;
 using LoveBank.Web.Models;
+using LoveBank.Core.Domain;
+using LoveBank.Core.MSData;
+using System.Linq;
+using LoveBank.Web.Code;
 
 namespace LoveBank.Web.Controllers
 {
     public abstract class BaseController : Controller
     {
-      
-    
+
+
+        protected new VolModel User { get { return LoveBankContext.Current.User; } }
 
         public IDbProvider DbProvider
         {
             get { return IoC.Resolve<IUnitOfWork>() as IDbProvider; }
         }
+
+        public WebSiteConifg BaseWebSiteConifg
+        {
+            get
+            {
+
+                WebSiteConifg WebSiteConifgCache = HttpContext.Items["LoveBank_web_WebSiteConifg"] as WebSiteConifg;
+                if (WebSiteConifgCache == null)
+                {
+                    using (LoveBankDBContext db = new LoveBankDBContext())
+                    {
+                        string host = HttpContext.Request.Url.Authority;
+
+                        WebSiteConifgCache = db.T_WebSiteConifg.FirstOrDefault(x => x.Domain.Contains(host));
+
+                        HttpContext.Items["LoveBank_web_WebSiteConifg"] = WebSiteConifgCache;
+
+                    }
+                }
+                return WebSiteConifgCache;
+              
+            }
+        }
+
 
         protected ActionResult Message(MessageModel model)
         {

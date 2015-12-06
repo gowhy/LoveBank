@@ -1,0 +1,67 @@
+
+/*	右边	*/
+
+.l_lovefund_intro{
+	position:relative;
+	width:714px;
+	padding-top:10px;
+	font-family: "microsoft yahei";
+	background:#fff url(../img/lovesha2.png) 50% 102% no-repeat;
+
+}
+
+.l_lovefund_intro .l_v1_title{
+	height:50px;
+	font-size:18px;
+	color:#333;
+	text-align:center;
+	background:#fff url(../img/loveshadow.png) 50% 40px no-repeat;
+}
+
+.l_lovefund_intro .l_v1_pubtime{
+	height:50px;
+	font-size:14px;
+	line-height:50px;
+	text-align:center;
+	color:#666;
+}
+
+.l_lovefund_intro .l_v1_pubtime span{
+	margin-right:10px;
+}
+
+.l_lovefund_intro .l_v1_pub{
+	height:50px;
+	font-size:14px;
+	line-height:50px;
+	color:#666;
+}
+.l_lovefund_intro .l_v1_baoren{
+	position:absolute;
+	bottom:30px;
+	left:60px;
+	width:600px;
+	height:50px;
+	font-size:14px;
+	line-height:50px;
+	text-align:center;
+	color:#666;
+}
+.l_lovefund_intro .l_v1_baoren a{
+	color:#666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

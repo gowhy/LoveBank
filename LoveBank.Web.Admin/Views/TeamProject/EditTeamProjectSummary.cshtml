@@ -5,6 +5,31 @@
 @Html.IncludeCSS("~/Content/Css/demo.css")
 @Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
 
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<!-- 最新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css" />
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"> </script>
+
+@Html.IncludeCSS("~/Content/plug-in/summernote/summernote.css")
+@Html.IncludeScript("~/Content/plug-in/summernote/summernote.js")
+
+<script type="text/javascript">
+    $(function () {
+        $('.summernote').summernote({
+            height: 400,
+            width: 800
+        });
+
+    });
+</script>
+<style>
+    *, *:before, *:after {
+        -webkit-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+</style>
+
 <div id="p" class="easyui-panel" title="新增活动总结" data-options="tools:'#tt'">
     @using (Html.BeginForm("PostAddTeamProjectSummary", "TeamProject", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
     {
@@ -21,7 +46,7 @@
 
                 </td>
             </tr>
-            <tr>
+            @*<tr>
                 <td class="item_title">
                     活动副标题:
                 </td>
@@ -30,20 +55,21 @@
                            value="@Model.SubTitle"   data-options=" required:true,validtype:'length[2,20]'" /> (必须填)
 
                 </td>
-            </tr>
+            </tr>*@
             <tr>
                 <td class="item_title">
                     活动说明:
                 </td>
                 <td class="item_input">
-                    <textarea class="easyui-validatebox" style="height:60px; width:460px;   " id="Desc" name="Desc">
-                        value="@Model.Desc"  
-                    </textarea>
+                    @*<textarea class="easyui-validatebox" style="height:60px; width:460px;   " id="Desc" name="Desc">*@
+                      
+                    @*</textarea>*@
+                    <textarea name="text" class="summernote" style="margin-bottom: 0px;" id="contents" required="required" title="Contents">@Model.Desc</textarea>
 
                 </td>
             </tr>
 
-            <tr>
+            @*<tr>
                 <td class="item_title">
                     活动掠影:
                 </td>
@@ -67,7 +93,7 @@
                     </div>
 
                 </td>
-            </tr>
+            </tr>*@
 
             <tr>
                 <td class="item_title"></td>
@@ -75,7 +101,7 @@
                     <!--隐藏元素-->
                     <div style="padding:5px">
                         <input type="hidden" id="Id" name="Id" value="@Model.Id" />
-                        <a href="javascript:void(0)" class="easyui-linkbutton" id="addFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp 新增 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="addFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp 保存 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
 
                     </div>
 
@@ -119,15 +145,15 @@
 </style>
 
 
-@Html.IncludeScript("~/Content/JS/MachineModule/edit.js")
+@*@Html.IncludeScript("~/Content/JS/MachineModule/edit.js")
 @Html.IncludeCSS("~/Content/plug-in/ztree/css/zTreeStyle/zTreeStyle.css")
 
 @Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
 @Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
-@Html.IncludeScript("~/Content/plug-in/My97DatePicker/WdatePicker.js")
+@Html.IncludeScript("~/Content/plug-in/My97DatePicker/WdatePicker.js")*@
 <script>
-    var sourceFileListObj = eval(@Html.Raw( Json.Encode(@Model.SourceFileList)));
-    var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/TeamProject/", action: "/UpLoadProcess", sourceFileList: sourceFileListObj });
+    @*var sourceFileListObj = eval(@Html.Raw( Json.Encode(@Model.SourceFileList)));
+    var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/TeamProject/", action: "/UpLoadProcess", sourceFileList: sourceFileListObj });*@
     ///调用文件上传
     //var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/TeamProject/", action: "/UpLoadProcess" });
 
@@ -135,11 +161,11 @@
 
         var json = {
             "TeamProjectId": $("#teamPojectId").val(),
-            "Desc": $("#Desc").val(),
-            "SubTitle": $("#SubTitle").val(),
-            "Id": $("#Id").val(),
+            "Desc": $('.summernote').code(),
+            //"SubTitle": $("#SubTitle").val(),
+            "Id": $("#Id").val()
             
-            "SourceFileList": upLoader.getSourceFileList()
+          
 
         };
         return json;
@@ -154,15 +180,7 @@
         var objJson = GetFromJsonData();
 
 
-        if (objJson.SourceFileList == null || objJson.SourceFileList.length < 1 || upLoader.getfileCount() < 1) {
-            alert("请先选择并上传至少一文件");
-            return false;
-        }
-
-        if (objJson.SourceFileList.length != upLoader.getfileCount()) {
-            alert("还有文件未上传");
-            return false;
-        }
+      
         $.ajax({
             type: "POST",
             url: "/TeamProject/PostEditTeamProjectSummary",

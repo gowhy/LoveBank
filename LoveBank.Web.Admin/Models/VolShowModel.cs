@@ -200,6 +200,9 @@ namespace LoveBank.Web.Admin.Models
 
         public VolType VolType { get; set; }
         public string NFC { get; set; }
+
+        public string VolHeadImgUrl { get; set; }
+
       
     }
 }

@@ -39,9 +39,9 @@
 
         //column.For(x => (x.Department ?? new LoveBank.Core.Domain.Department()).Name ?? "").Named("所属区域");
         column.For(x => x.State).Named("状态");
-        column.For(x => x.Desc).Named("总结说明");
+        //column.For(x => x.Desc).Named("总结说明");
 
-        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Id }))
+        column.Buttons(btns => btns.Add(x => Html.ActionLink("编辑", "EditTeamProjectSummary", new { teamProjectSummaryId = x.Id }))
             //.Add(x => Html.ActionLink("编辑", "Edit", new { id = x.Id }))
             .Add(x => Html.ScriptLink("删除", "del({0})", x.Id))
 

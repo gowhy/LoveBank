@@ -1,0 +1,212 @@
+
+
+.bigbg{
+	float:left;
+	width:100%;
+	height:auto;
+	background-color:#f7f6f6;
+}
+
+#main .x_sev_info{
+	height:auto;
+	padding-bottom:40px;
+	background-color:#f7f6f6;
+	/*position:relative;*/
+	float: left;
+}
+#main .x_sev_info div{
+	font:400 18px/38px "microsoft yahei";
+	color:#fff;
+}
+#main .x_sev_info div img{
+	vertical-align:-8px;
+}
+#main .x_sev_info .flbox{
+	margin:0 20px;
+	padding:0;
+	
+	
+}
+/*	左边内容区	*/
+#main .x_sev_info .fll{
+	background-color: #00AF62;
+	position:relative;
+	margin-top:-1px\9;
+	padding:0 0 0 25px;
+	width:355px;
+}
+
+/*  左边显示区	*/
+#main .x_sev_info .ull{
+	width:300px;
+	background:#fff url(../img/percenshw1.png) 50% 100% no-repeat;
+
+	height:auto;
+	padding:40px;
+}
+#main .x_sev_info .ull li{
+	width:300px;
+	height:45px;
+	line-height:45px;
+	/*background-color:red;*/
+}
+
+#main .x_sev_info .ull li a{
+	font-size:16px;
+	display:block;
+	color:#333;
+	
+}
+
+#main .x_sev_info .ull li a img{
+	height:30px;
+	width:30px;
+	margin-right:10px;
+	
+}
+#main .x_sev_info .ull li span{
+	width:15px;
+	height:15px;
+	border-radius: 100%;
+	margin-top:8px;
+	background-color:#ccc;
+}
+/*	爱心基金激活样式	*/
+
+#main .x_sev_info .ull li .l_fund_titleactive{
+	color:#4fd2be;
+}
+#main .x_sev_info .ull li .l_fund_active{
+	background-color:#4fd2be;
+}
+
+/*	爱心银行激活样式	*/
+
+#main .x_sev_info .ull li .l_bank_titleactive{
+	color:#fd3d5e;
+}
+#main .x_sev_info .ull li .l_bank_active{
+	background-color:#fd3d5e;
+}
+
+/*	便民服务激活样式	*/
+
+#main .x_sev_info .ull li .l_shequ_titleactive{
+	color:#7687f1;
+}
+#main .x_sev_info .ull li .l_shequ_active{
+	background-color:#7687f1;
+}
+
+/*	便民商业服务网络激活样式	*/
+
+#main .x_sev_info .ull li .l_share_titleactive{
+	color:#7687f1;
+}
+#main .x_sev_info .ull li .l_share_active{
+	background-color:#7687f1;
+}
+
+/* 行政便民激活样式	*/
+
+#main .x_sev_info .ull li .l_grov_titleactive{
+	color:#fdb35c;
+}
+#main .x_sev_info .ull li .l_grov_active{
+	background-color:#fdb35c;
+}
+
+/* 组织互助激活样式	*/
+
+#main .x_sev_info .ull li .l_group_titleactive{
+	color:#fdb35b;
+}
+#main .x_sev_info .ull li .l_group_active{
+	background-color:#fdb35b;
+}
+
+
+/*	右边区域	*/
+#main .x_sev_info .flr{
+	position:relative;
+	margin-top:-3px\9;
+	background-color: #00AF62;
+	padding:0 0 0 26px;
+	width:754px;
+}
+#main .x_sev_info div .sj{
+	position:absolute;
+	bottom:-11px;
+	bottom:-9px\9;
+	left:12.5%;
+	z-index:1;
+}
+#main .x_sev_info  .l_lovefund_intro{
+	float:left;
+	padding:10px 0px 0 40px;
+	width:740px;
+	height:auto;
+	background:#fff url(../img/percensha2.png) 50% 101% no-repeat;
+	
+}
+.l_lovefund_intro .ulr{
+	width:740px;
+	height:auto;
+	/*background-color:red;*/
+}
+
+.l_lovefund_intro .ulr li{
+	width:740px;
+	height:50px;
+	line-height:50px;
+	/*background-color:red;*/
+	background:#fff url(../img/loveshadow.png) 50% 100% no-repeat;
+	background-size:100% 20%;
+}
+.l_lovefund_intro .ulr li a,span{
+	font-size:14px;
+	color:#666;
+
+}
+.l_lovefund_intro .ulr li span{
+	margin-right:40px;
+}
+
+
+/*	行政便民右边	*/
+
+.l_lovefund_intro .l_grov_disimg{
+	margin:20px;
+	width:80px;
+	height:100px;
+	
+}
+
+.l_lovefund_intro .l_grov_disimg .l_disimg{
+	width:80px;
+	height:60px;
+	line-height:60px;
+	text-align:center;
+}
+
+.l_lovefund_intro .l_grov_disimg .l_grov_imgintro{
+	width:80px;
+	height:40px;
+	line-height: 40px;
+	text-align:center;
+}
+.l_lovefund_intro .l_grov_disimg .l_grov_imgintro a{
+	font-size:14px;
+	color:#666;
+}
+
+
+
+
+
+
+
+
+
+
+

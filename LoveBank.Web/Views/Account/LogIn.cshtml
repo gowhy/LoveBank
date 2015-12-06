@@ -1,0 +1,43 @@
+﻿<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/loginpublic.css")">
+
+<script type="text/javascript" src="@Url.Content("~/Content/Web/js/servecenter.js")"></script>
+<style type="text/css">
+    #bgimg {
+        height: 7px;
+        background-color: #00AF62;
+    }
+
+    #footer {
+        border-top: 1px solid #ccc;
+    }
+</style>
+<div class="bigbg">
+    <div id="main">
+        <div class="l_log_forminput">
+            <p class="toglogin">
+                <a href="personlogin.html" class="l_log_togactive">志愿者登录</a>
+                <a href="grouplogin.html">社会组织登录</a>
+            </p>
+            <p class="l_log_secinfo">
+                公共场所不建议自动登录，以防账号丢失
+            </p>
+            <div class="l_log_inputarea">
+                <form action="" method="post">
+                    <p class="l_log_user">
+                        <span><img src="@Url.Content("~/Content/Web/img/v_49.png")"></span>
+                        <input type="text" name="phone" placeholder="手机号" />
+                    </p>
+                    <p class="l_log_user">
+                        <span><img src="@Url.Content("~/Content/Web/img/pwd_67.png")"></span>
+                        <input type="password" name="passWord" placeholder="密码" />
+                    </p>
+
+                    <p><a class="l_log_autolog" href="#">自动登录</a><a class="l_log_regpwd" href="perforgetpwd.html">忘记密码</a></p>
+                    <p><input type="submit" id="submit" class="sub" value="志愿者登录" /></p>
+                    <p class="l_log_erollinfo"><a href="personeroll.html">没有账号？立即注册账号</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

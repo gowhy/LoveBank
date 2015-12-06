@@ -111,6 +111,26 @@ namespace LoveBank.Web.Admin.Controllers
 
         }
 
+        public ActionResult DNameTrim()
+        {
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+
+                var dep = db.T_Department;
+
+                List<Department> list = (from d in dep select d).ToList();
+                foreach (Department item in list)
+                {
+                    string sql = string.Format(@"update department d set `Name`='{0}' where d.Id='{1}'",item.Name.Trim(), item.Id);
+
+                    MySqlParameter[] parm = new MySqlParameter[] { };
+                    db.Database.ExecuteSqlCommand(sql, parm);
+                    db.SaveChangesAsync();
+                }
+                List<Department> list2 = (from d in dep select d).ToList();
+                return Content("成功");
+            }
+        }
         [HttpGet]
         public ActionResult Index( GridSortOptions sort)
         {

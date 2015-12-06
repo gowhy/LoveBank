@@ -5,6 +5,9 @@ using System.Web;
 using LoveBank.Common;
 using LoveBank.Core.Members;
 using LoveBank.Services.Members;
+using LoveBank.Core.Domain;
+using LoveBank.Core.MSData;
+using LoveBank.Web.Models;
 
 namespace LoveBank.Web.Code
 {
@@ -16,22 +19,41 @@ namespace LoveBank.Web.Code
 
         public LoveBankContext(IUserService userService) {
 
-            Check.Argument.IsNotNull(userService, "userService");
-
-            _UserService = userService;
+          
 
         }
 
         public bool IsAuthenticated{get { return HttpContext.Current.User.Identity.IsAuthenticated; }}
 
-        private User _user;
+        private VolModel _user;
 
-        public User User {
-            get {
-
+        public VolModel User
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
+                {
+                    return null;
+                }
+                int uid=int.Parse(HttpContext.Current.User.Identity.Name);
                 if (!IsAuthenticated) return null;
+                using (LoveBankDBContext db = new LoveBankDBContext())
+                {
+                    var tv = db.T_Vol;
+                    VolModel vModel = (from v in tv
+                                       where v.ID == uid
+                                  select new VolModel
+                                      {
+                                          ID = v.ID,
+                                          RealName = v.RealName,
+                                          Phone = v.Phone,
+                                          UerName = v.UerName,
+                                          DepId = v.DepId
 
-                return _user ?? (_user = _UserService.GetUserByName(HttpContext.Current.User.Identity.Name));
+                                      }).SingleOrDefault();
+                    return _user ?? vModel;
+
+                }
             }
         }
 

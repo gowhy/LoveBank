@@ -1,0 +1,87 @@
+
+
+
+/*	右边	*/
+
+
+
+/*	我要发布	*/
+
+.l_sever_pub{
+	width:65px;
+	text-align:right;
+
+}
+
+/*	发布信息	*/
+
+.dis-ib .l_input_text{
+	width:654px;
+	padding:15px 30px;
+	padding-top:20px;
+	background:#fff url(../img/lovesha2.png) 60% 101% no-repeat;
+}
+
+.dis-ib .l_input_text div{
+	padding-bottom:15px;
+}
+
+.dis-ib .l_input_text div span{
+	float:left;
+	width:70px;
+	font-size:14px;
+	color:#747474;
+} 
+
+.dis-ib .l_input_text div textarea{
+	width:475px;
+	height:160px;
+	resize: none;
+}
+
+.l_input_text .l_serve_pernum input{
+	width:195px;
+	height:30px;
+
+}
+
+.l_input_text .l_serve_needtitle input{
+	width:475px;
+	height:30px;
+
+}
+.l_input_text p{
+	text-align: center;
+}
+.l_input_text p input{
+	width:100px;
+	height:30px;
+	outline: none;
+	background-color:#00a35b;
+	border:1px solid #00a35b;
+	border-radius: 5px;
+	color:#fff;
+	font-size:14px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

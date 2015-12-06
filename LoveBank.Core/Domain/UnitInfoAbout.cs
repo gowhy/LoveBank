@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoveBank.Core.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace LoveBank.Core.Domain
 {
-   public class UnitInfoAbout
+   public class UnitInfoAbout:Entity
     {
-        /// <summary>
-        /// Id
-        /// </summary>		
-        public int Id { get; set; }
+        ///// <summary>
+        ///// Id
+        ///// </summary>		
+        //public int Id { get; set; }
 
         /// <summary>
         /// AddUserId
@@ -26,7 +27,7 @@ namespace LoveBank.Core.Domain
         /// <summary>
         /// State
         /// </summary>		
-        public int State { get; set; }
+        public RowState State { get; set; }
 
         /// <summary>
         /// DeptId

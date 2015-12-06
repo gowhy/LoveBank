@@ -194,7 +194,9 @@ namespace LoveBank.Web.Admin.Controllers
                 var t_p = db.T_Product; 
                 var t_m = db.T_MachineProduct;
 
+
                 var list = from p in t_p
+                           join d in t_d on p.DeptId equals d.Id
                            join m in t_m on p.ID equals m.ProductId into pm
                            let mlist = pm.Where(x => x.MachineId == machine.MachineId)
                            from m1 in mlist.DefaultIfEmpty()
@@ -211,7 +213,9 @@ namespace LoveBank.Web.Admin.Controllers
                                Price = p.Price,
                                StartTime = p.StartTime,
                                State = p.State,
-                               Type = p.Type
+                               Type = p.Type,
+                               AddUserId=p.AddUserId,
+                               DeptIdName=d.Name
                            
                            };
 
@@ -219,6 +223,7 @@ namespace LoveBank.Web.Admin.Controllers
                 list = list.Where(x => x.State != RowState.删除 && x.DeptId.IndexOf(AdminUser.DeptId) > -1);
                 if (!string.IsNullOrEmpty(machine.BarCode)) list = list.Where(x => x.BarCode == machine.BarCode);
                 if (!string.IsNullOrEmpty(machine.ProductName)) list = list.Where(x => x.Name.Contains(machine.ProductName));
+                //list = list.Where(x => x.AddUserId==AdminUser.ID);//限制只能绑定自己新增的产品
 
                 ViewBag.MachineId = machine.MachineId;
 
@@ -229,7 +234,8 @@ namespace LoveBank.Web.Admin.Controllers
         }
 
         [SecurityNode(Name = "绑定机器执行")]
-        public ActionResult PostBindMachine(int machineId, List<int> productIdList, List<int> productIdInitList)
+
+         public ActionResult PostBindMachine(int machineId, List<int> productIdList, List<int> productIdInitList)
         {
 
 
@@ -305,6 +311,8 @@ namespace LoveBank.Web.Admin.Controllers
             }
         }
 
+
+        [SecurityNode(Name = "一体机运行状况")]
         public ActionResult MachineRunState(string deptId,int page=1,int size=50)
         {
 

@@ -1,0 +1,203 @@
+﻿@using LoveBank.MVC
+@model LoveBank.Web.Admin.Models.WebFirstAdPicModel
+@Html.IncludeCSS("~/Content/plug-in/webuploader/webuploader.css")
+@Html.IncludeScript("~/Content/plug-in/webuploader/webuploader.js")
+
+@Html.IncludeCSS("~/Content/plug-in/webuploader/demo.css")
+
+<div id="p" class="easyui-panel" title="编辑广告" data-options="tools:'#tt'">
+    @using (Html.BeginForm("PostEdit", "WebFirstAdPic", FormMethod.Post, new { name = "AddForm", id = "AddForm" }))
+    {
+        <table class="form">
+
+
+            <tr>
+                <td class="item_title">
+                    标题:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " id="Title" name="Title"
+                       value="@Model.Title"    data-options="required:true,validType:'length[3,20]'" /> (必须填,广告的标题)
+
+                </td>
+            </tr>
+          
+            <tr>
+                <td class="item_title">
+                    宣传图:
+                </td>
+                <td class="item_input">
+                    <div id="uploader" class="wu-example uploader" style="width:700px;margin-left:0px;">
+                        <div class="queueList" style=" margin:0px; ">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker"></div>
+                                <p>只允许上传一张图片，请上传大小上1200像素*335像素图片</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div><div class="info"></div>
+                            <div class="btns">
+                                <div id="filePicker2" class="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    连接地址:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text"
+                           style="height:25px; width:260px;   "
+                           value="@Model.LinkUrl" id="linkUrl" name="linkUrl" /> (图片连接地址)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title">
+                    备注:
+                </td>
+                <td class="item_input">
+                    <input class="easyui-validatebox" type="text" style="height:25px; width:260px;   " value="@Model.Desc"  id="Desc" name="Desc" /> (选填,对广告进行补充描述)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="item_title"></td>
+                <td class="item_input2">
+                    <!--隐藏元素-->
+                    <div style="padding:5px">
+                        <input  type="hidden" id="ID" name="ID" value="@Model.ID"/>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" id="addFromSubmit"> &nbsp  &nbsp &nbsp &nbsp &nbsp 修改 &nbsp  &nbsp &nbsp &nbsp &nbsp </a>
+                     
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+    }
+
+
+</div>
+<div id="tt">
+
+    <a href="@Url.Action("Index", "WebFirstAdPic")"   class="icon-back" title="返回列表"></a>
+</div>
+
+<style>
+    .panel-tool {
+        right: initial;
+        margin-left: 100px;
+    }
+</style>
+
+
+
+
+<style>
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+</style>
+
+@Html.IncludeScript("~/Content/JS/MachineModule/edit.js")
+@Html.IncludeCSS("~/Content/plug-in/ztree/css/zTreeStyle/zTreeStyle.css")
+
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.core-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/ztree/js/jquery.ztree.excheck-3.5.js")
+@Html.IncludeScript("~/Content/plug-in/My97DatePicker/WdatePicker.js")
+
+<script>
+    var sourceFileListObj = eval(@Html.Raw( Json.Encode(@Model.SourceFileList)));
+    //var sourceFileListObj = null;
+    var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/WebFirstAdPic/", action: "/UpLoadProcess", sourceFileList: sourceFileListObj });
+    ///调用文件上传
+   // var upLoader = $("#uploader").WebUploaderMVC({ Controllers: "/WebFirstAdPic/", action: "/UpLoadProcess" });
+
+    function GetFromJsonData() {
+        var json = {
+            "Title": $("#Title").val(),
+           
+            "linkUrl": $("#linkUrl").val(),
+            "Desc": $("#Desc").val(),
+            "Id": $("#ID").val(),
+            "SourceFileList": upLoader.getSourceFileList()
+
+        };
+        return json;
+    }
+
+
+    $("#addFromSubmit").click(function () {
+
+        if (!$("#AddForm").form('validate')) {
+            return false;
+        }
+        var objJson = GetFromJsonData();
+        if (objJson.SourceFileList == null || objJson.SourceFileList.length != 1) {
+            alert("请先选择并上传一个图片，并且只能上传一个图");
+            return false;
+        }
+
+        if (objJson.SourceFileList.length != upLoader.getfileCount()) {
+            alert("还有图片未上传");
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/WebFirstAdPic/PostEdit",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(objJson),
+            dataType: "json",
+            success: function (data) {
+                if (data.Status == true) {
+                    alert("添加成功");
+                    //$('#AddForm').form('clear');
+                    location.reload();
+
+                } else {
+                    alert(data.Info);
+                }
+            },
+            error: function (data) {
+                alert("添加失败");
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+<style>
+    .imgWrap {
+        word-wrap: break-word;
+        word-break: normal;
+        vertical-align: bottom;
+        /*margin-top:20px;*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+

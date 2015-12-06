@@ -22,9 +22,11 @@ using LoveBank.Cache;
 using System.Collections;
 using LoveBank.Services;
 using System.Web;
+using System.IO;
+using System.Data;
 namespace LoveBank.Web.Admin.Controllers
 {
-     [SecurityModule(Name = "社区自愿者管理")]
+    [SecurityModule(Name = "社区自愿者管理")]
     public class LoveBankVolController : BaseController
     {
         /// <summary>
@@ -45,10 +47,10 @@ namespace LoveBank.Web.Admin.Controllers
 
                 var list = from v in t_v
                            join d in t_d on v.DepId equals d.Id
-                           select new VolModel 
-                           { 
-                              Vol=v,
-                              Department=d
+                           select new VolModel
+                           {
+                               Vol = v,
+                               Department = d
                            };
 
                 //list = list.Where(x => x.Department.Id.IndexOf(AdminUser.DeptId)>-1);
@@ -87,12 +89,12 @@ namespace LoveBank.Web.Admin.Controllers
                 byte[] headerimgByte = Convert.FromBase64String(volHeadImgBase64.Substring(23));
                 model.VolHeadImg = headerimgByte;
             }
-         
+
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
                 var tv = db.T_Vol;
 
-                if (tv.Count(x=>x.Phone==model.Phone)>0)
+                if (tv.Count(x => x.Phone == model.Phone) > 0)
                 {
                     return Success("该手机号已经存在");
                 }
@@ -103,15 +105,16 @@ namespace LoveBank.Web.Admin.Controllers
                 model.LoveBankScore = 0;
                 model.Score = 0;
                 model.Source = 1;//来源未1标示是爱心银行
-             
+                model.AddUserId = AdminUser.ID;
+
 
                 db.Add<Vol>(model);
                 db.SaveChanges();
 
                 return Success("操作成功");
             }
-         
-         
+
+
 
         }
 
@@ -132,14 +135,14 @@ namespace LoveBank.Web.Admin.Controllers
         public ActionResult Edit(int id)
         {
 
-  
+
 
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
 
                 var t_v = db.T_Vol;
                 var t_d = db.T_Department;
-               
+
                 //部门组织
                 var listDep = t_d.Where(x => x.Level <= 6).ToList();
                 ViewData["Department_List"] = HelpSerializer.JSONSerialize<List<Department>>(listDep);
@@ -163,9 +166,9 @@ namespace LoveBank.Web.Admin.Controllers
         [SecurityNode(Name = "编辑执行")]
         public ActionResult PostEdit(Vol model)
         {
-          
-            Vol dbEntity=DbProvider.D<Vol>().FirstOrDefault(x => x.Phone == model.Phone&&x.ID!=model.ID);
-            if (dbEntity !=null&& dbEntity.Phone != null)
+
+            Vol dbEntity = DbProvider.D<Vol>().FirstOrDefault(x => x.Phone == model.Phone && x.ID != model.ID);
+            if (dbEntity != null && dbEntity.Phone != null)
             {
                 Error("该手机号已经存在");
             }
@@ -185,16 +188,16 @@ namespace LoveBank.Web.Admin.Controllers
 
         }
 
-         /// <summary>
-         /// 给自愿者新增积分
-         /// </summary>
-         /// <returns></returns>
+        /// <summary>
+        /// 给自愿者新增积分
+        /// </summary>
+        /// <returns></returns>
         [SecurityNode(Name = "增加积分")]
         public PartialViewResult VolAddScore(int volId)
         {
             VolAddScoreModel volAddScoreModel = new VolAddScoreModel();
 
-         
+
             volAddScoreModel.TeamProjectList = null;
 
             using (LoveBankDBContext db = new LoveBankDBContext())
@@ -202,7 +205,7 @@ namespace LoveBank.Web.Admin.Controllers
                 var t_v = db.T_Vol;
                 var t_tp = db.T_TeamProject;
 
-            
+
                 volAddScoreModel.Vol = t_v.FirstOrDefault(x => x.ID == volId);
                 var list = from tp in t_tp
                            where tp.ID > 0
@@ -214,7 +217,7 @@ namespace LoveBank.Web.Admin.Controllers
                                DeptId = tp.DeptId
 
                            };
-                    //list = list.Where(x => x.DeptId.IndexOf(AdminUser.DeptId) > -1);
+                //list = list.Where(x => x.DeptId.IndexOf(AdminUser.DeptId) > -1);
                 volAddScoreModel.TeamProjectList = list.Where(x => x.DeptId.IndexOf(AdminUser.DeptId) > -1).ToList();
             }
             return PartialView(volAddScoreModel);
@@ -224,7 +227,7 @@ namespace LoveBank.Web.Admin.Controllers
         public ActionResult PostVolAddScore(VolAddScoreRecorde model)
         {
             Vol vol = DbProvider.D<Vol>().FirstOrDefault(x => x.ID == model.VolID);
-            if (vol==null)
+            if (vol == null)
             {
                 Error("用户不存在,请核实后从新操作");
             }
@@ -239,7 +242,7 @@ namespace LoveBank.Web.Admin.Controllers
         }
 
         [SecurityNode(Name = "待审核积分列表")]
-        public ActionResult AuditingAddScoreIndex(VolAddSocreRecordeSelectModel model,int? page, int? pageSize)
+        public ActionResult AuditingAddScoreIndex(VolAddSocreRecordeSelectModel model, int? page, int? pageSize)
         {
             var pageNumber = page ?? 1;
             var size = pageSize ?? PageSize;
@@ -271,11 +274,11 @@ namespace LoveBank.Web.Admin.Controllers
                 if (!string.IsNullOrEmpty(model.RealName)) list = list.Where(x => x.Vol.RealName == model.RealName);
                 if (!string.IsNullOrEmpty(model.NFC)) list = list.Where(x => x.Vol.NFC == model.NFC);
 
-                if ((int)model.AuditingState>-1)
+                if ((int)model.AuditingState > -1)
                 {
                     list = list.Where(x => x.AuditingState == model.AuditingState);
                 }
-        
+
 
                 model.VolAddSocreRecordeList = list.OrderByDescending(x => x.ID).ToPagedList(pageNumber - 1, size);
                 return View(model);
@@ -290,7 +293,7 @@ namespace LoveBank.Web.Admin.Controllers
             {
                 var t_v = db.T_Vol;
                 var t_sr = db.T_VolAddScoreRecorde;
-                var t_tp= db.T_TeamProject;
+                var t_tp = db.T_TeamProject;
 
                 var list = from s in t_sr
                            join v in t_v on s.VolID equals v.ID
@@ -338,7 +341,7 @@ namespace LoveBank.Web.Admin.Controllers
                 VolAddScoreRecorde vsr = t_sr.Find(id);
                 if (vsr.AuditingState == AuditingState.审核通过)
                 {
-                  return  Error("已审核通过,不能在审核");
+                    return Error("已审核通过,不能在审核");
                 }
 
                 vsr.AuditingState = (AuditingState)auditingState;
@@ -375,7 +378,7 @@ namespace LoveBank.Web.Admin.Controllers
 
 
                 vol = t_v.FirstOrDefault(x => x.ID == volId);
-            
+
             }
             return PartialView(vol);
         }
@@ -412,26 +415,38 @@ namespace LoveBank.Web.Admin.Controllers
         [SecurityNode(Name = "辖区自愿者分析")]
         public ActionResult VolTypeEchartsPage()
         {
-            //using (LoveBankDBContext db = new LoveBankDBContext())
-            //{
-            //    ViewBag.Title = (from d in db.T_Department where d.Id == AdminUser.DeptId select d.Name).FirstOrDefault();
-            //}
-            return View();
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var dep = db.T_Department;
+
+                //部门组织
+                //var list = DbProvider.D<Department>().Where(x => x.Level <= 6).ToList();
+                var list = dep.Where(x => x.Level <= 6 && (x.Id.IndexOf(AdminUser.DeptId)>-1)).ToList();
+                ViewData["Department_List"] = HelpSerializer.JSONSerialize<List<Department>>(list);
+
+                return View();
+            }
+            //return View();
 
         }
-         //[OutputCache(Duration=20)]
+        //[OutputCache(Duration=20)]
+         [SecurityNode(Name = "辖区自愿者分析数据源")]
         public ActionResult VolTypeEchartsData(string deptId)
         {
-
+            if (string.IsNullOrEmpty(deptId))
+            {
+                deptId = AdminUser.DeptId;
+            }
+            
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
 
                 string sql = string.Format(@"SELECT v.VolType  ,count(v.VolType ) value from volunteer v
                                 WHERE v.DepId LIKE'{0}%'
-                                GROUP BY  v.VolType ", AdminUser.DeptId);
+                                GROUP BY  v.VolType ", deptId);
 
-            
-                string cacheKey = "VolTypeEchartsData"+AdminUser.DeptId;
+
+                string cacheKey = "VolTypeEchartsData" + deptId;
                 object listCache = BaseCacheManage.RetrieveObject(cacheKey);
                 if (listCache!=null)
                 {
@@ -452,12 +467,14 @@ namespace LoveBank.Web.Admin.Controllers
                     VolTypeEchartsDataModel model = new VolTypeEchartsDataModel();
                     BaseCacheManage.AddObject(cacheKey, model, 10 * 60);
 
-                    model.DepName = (from d in db.T_Department where d.Id == AdminUser.DeptId select d.Name).FirstOrDefault();
+                    model.DepName = (from d in db.T_Department where d.Id == deptId select d.Name).FirstOrDefault();
                     model.VolTypeEchartsDataList = list;
                     model.Total = total.ToString();
-                    return Json(list, JsonRequestBehavior.AllowGet);
+
+                   
+                    return Json(model);
                 }
-             
+
             }
 
         }
@@ -465,24 +482,39 @@ namespace LoveBank.Web.Admin.Controllers
         [SecurityNode(Name = "辖区终端模块点击分析")]
         public ActionResult MachineModuleStatisticsPage()
         {
-        
-            return View();
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var dep = db.T_Department;
+
+                //部门组织
+                //var list = DbProvider.D<Department>().Where(x => x.Level <= 6).ToList();
+                var list = dep.Where(x => x.Level <= 6 && (x.Id.IndexOf(AdminUser.DeptId) > -1)).ToList();
+                ViewData["Department_List"] = HelpSerializer.JSONSerialize<List<Department>>(list);
+
+                return View();
+            }
 
         }
+
+       [SecurityNode(Name = "辖区终端模块点击分析数据源")]
         public ActionResult MachineModuleStatisticsData(string deptId)
         {
-
+            if (string.IsNullOrEmpty(deptId))
+            {
+                deptId = AdminUser.DeptId;
+            }
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
 
                 string sql = string.Format(@"SELECT  mm.`name` ,COUNT( mm.`name`) value  FROM machinestatistics  ms
                                                 LEFT JOIN  machine  m  ON  ms.`MachineCode`=m.`MachineCode`
                                                 LEFT JOIN  machinemoduleshowmanage mm ON mm.`ID`=ms.`ModuleId`
-                                                WHERE ms.`DeptId` LIKE '{0}%'
-                                                GROUP BY  mm.`name`  ", AdminUser.DeptId);
+                                                WHERE mm.`Name` IS NOT NULL  and ms.`DeptId` LIKE '{0}%' 
+                                                GROUP BY  mm.`name`  ", deptId);
 
 
-                string cacheKey = "MachineModuleStatisticsData" + AdminUser.DeptId;
+                string cacheKey = "MachineModuleStatisticsData" + deptId;
                 object listCache = BaseCacheManage.RetrieveObject(cacheKey);
                 if (listCache != null)
                 {
@@ -503,10 +535,10 @@ namespace LoveBank.Web.Admin.Controllers
                     VolTypeEchartsDataModel model = new VolTypeEchartsDataModel();
                     BaseCacheManage.AddObject(cacheKey, model, 10 * 60);
 
-                    model.DepName = (from d in db.T_Department where d.Id == AdminUser.DeptId select d.Name).FirstOrDefault();
+                    model.DepName = (from d in db.T_Department where d.Id == deptId select d.Name).FirstOrDefault();
                     model.VolTypeEchartsDataList = list;
                     model.Total = total.ToString();
-                    return Json(list, JsonRequestBehavior.AllowGet);
+                    return Json(model, JsonRequestBehavior.AllowGet);
                 }
 
             }
@@ -514,29 +546,41 @@ namespace LoveBank.Web.Admin.Controllers
         }
 
 
-        [SecurityNode(Name = "贵阳市大规模特效")]
+        [SecurityNode(Name = "机器运行活跃大数据页面")]
         public ActionResult MachineModuleLargeEffectsPage()
         {
 
             return View();
 
         }
-        [SecurityNode(Name = "贵阳市大规模特效")]
+        [SecurityNode(Name = "机器运行活跃大数据数据源")]
         public ActionResult MachineModuleLargeEffectsData(string deptId)
         {
 
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
 
-//                string sql = string.Format(@"SELECT  m.`Lat`,m.`Lon`,d.name FROM machinestatistics ms 
-//                                                INNER JOIN machine m ON ms.`MachineCode`=m.`MachineCode`
-//                                                INNER JOIN department d ON d.`Id`=ms.`DeptId`");
-                string sql = string.Format(@"SELECT  m.`Lat`,m.`Lon`,d.name FROM machine m
-                                                                            INNER JOIN department d ON d.`Id`=m.`DeptId`");
+              
+//                string sql = string.Format(@"SELECT  m.`Lat`,m.`Lon`,d.name FROM machine m
+//                                                                            INNER JOIN department d ON d.`Id`=m.`DeptId`
+//                                               WHERE m.`DeptId` LIKE '{0}%'
+//                                               ", AdminUser.DeptId);
+
+                string sql = string.Format(@" 
+ 
+                                        SELECT  m.`Lat`,m.`Lon`, m.`MachineCode`,d.name,m.`Address`,m.`DeptId`,m.`ID`
+                                                         ,(SELECT MAX(id) FROM machineheartbeat  mhb 
+                                                        WHERE   m.MachineCode=mhb.MachineCode AND    mhb.`AddTime` > DATE_ADD(NOW(), INTERVAL -200
+                                                         MINUTE)) AS State
+ 
+                                                    FROM machine m
+                                                    LEFT JOIN department d ON  m.`DeptId`=d.`Id`
+                                                    WHERE m.DeptId LIKE'{0}%'  "
+                                , AdminUser.DeptId);
 
                 string cacheKey = "MachineModuleLargeEffectsData_11" + AdminUser.DeptId;
                 object listCache = BaseCacheManage.RetrieveObject(cacheKey);
-                if (listCache != null)
+                if (listCache!=null)
                 {
                     return Json((LargeEffectsDataModel)listCache, JsonRequestBehavior.AllowGet);
                 }
@@ -546,29 +590,46 @@ namespace LoveBank.Web.Admin.Controllers
                     List<LargeEffectsDataModel> list = db.Database.SqlQuery<LargeEffectsDataModel>(sql, parm).ToList();
 
 
-                    LargeEffectsDataModelPage tmpPage = null;
-                    //List<LargeEffectsDataModelPage> listPage = new List<LargeEffectsDataModelPage>();
+                    LargeEffectsDataModelPage tmpPage = new LargeEffectsDataModelPage();
 
-                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-                    sb.Append("[");
-          
                     foreach (var item in list)
                     {
-
-                         //tmpPage = new LargeEffectsDataModelPage();
-                         //tmpPage.name = item.name;
-                         sb.Append("{name:'" + item.name.Trim() + "',geoCoord:[" + item.Lon.Trim() + "," + item.Lat.Trim() + "]},");
-  
+                        if (item.State.HasValue)
+                        {
+                            tmpPage.RunList.Add(item);
+                        }
+                        else
+                        {
+                            tmpPage.NoRunList.Add(item);
+                        }
                     }
-                    sb.Append("{name:'11',geoCoord:[01, 10]}");
-                    sb.Append("]");
 
-                    return Json(sb.ToString(), "application/Json", System.Text.Encoding.UTF8);
+                    #region 以前的方式废弃
+                    //List<LargeEffectsDataModelPage> listPage = new List<LargeEffectsDataModelPage>();
+
+                    //System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+                    //sb.Append("[");
+
+                    //foreach (var item in list)
+                    //{
+
+                    //    //tmpPage = new LargeEffectsDataModelPage();
+                    //    //tmpPage.name = item.name;
+                    //    sb.Append("{name:'" + item.name.Trim() + "',geoCoord:[" + item.Lon.Trim() + "," + item.Lat.Trim() + "]},");
+
+                    //}
+                    //sb.Append("{name:'11',geoCoord:[01, 10]}");
+                    //sb.Append("]");
+
+                    //return Json(sb.ToString(), "application/Json", System.Text.Encoding.UTF8);
+                    #endregion
+
+                    return Json(tmpPage);
                 }
 
             }
-           
+
 
         }
         public ActionResult UpLoadProcess(string id, string name, string type, string lastModifiedDate, int size, HttpPostedFileBase file)
@@ -582,5 +643,70 @@ namespace LoveBank.Web.Admin.Controllers
             return Json(res);
 
         }
-     }
+
+        #region 志愿者批量导入
+        public ActionResult AddVolExcel()
+        {
+
+            return PartialView();
+
+        }
+
+        public ActionResult PostAddVolExcel()
+        {
+            HttpPostedFileBase Volfile = Request.Files["volInfoExcel"];
+
+            FileInfo file2 = new FileInfo(Volfile.FileName);
+            string FileName = Server.MapPath("..//Tmp") + "//" + AdminUser.ID + DateTime.Now.ToString("yyyyMMddHHmmss") + "." + file2.Extension;
+
+            //string FileName = @"C:\工作项目资料\爱心银行项目\志愿者导入模板.xls";
+            FileHelper.Upload(Volfile, FileName);
+
+            ExcelHelper eh = new ExcelHelper(FileName, "");
+            DataTable dt = eh.InputFromExcel();
+
+            List<Vol> volList = new List<Vol>();
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Vol tmp = new Vol();
+                    tmp.Phone = dt.Rows[i]["手机号"].ToString();
+
+
+                    if (db.T_Vol.Count(x => x.Phone == tmp.Phone) > 0)
+                    {
+                        return Error("批量导入失败，手机号是：" + tmp.Phone + "、姓名是" + tmp.RealName + "的自愿者已经存在");
+                    }
+                    tmp.RealName = dt.Rows[i]["姓名"].ToString();
+                    tmp.VolType = (VolType)Enum.Parse(typeof(VolType), dt.Rows[i]["志愿者类型"].ToString());
+                    tmp.Sex = dt.Rows[i]["性别"].ToString();
+                    tmp.State = 1;
+                    tmp.Score = 50;
+                    tmp.ThsScore = 20;
+                    tmp.LoveBankScore = 0;
+                    tmp.Type = "志愿者";
+                    tmp.PassWord = "111111";
+                    tmp.DepId = AdminUser.DeptId;
+                    tmp.VID = tmp.Phone;
+                    tmp.Source = 1;
+                    
+
+                    if (volList.Count(x => x.Phone == tmp.Phone) > 0)
+                    {
+                        return Error("批量导入失败，Excel表格中手机号重复：" + tmp.Phone + "、姓名是" + tmp.RealName + "");
+
+                    }
+                    volList.Add(tmp);
+                }
+
+                db.T_Vol.AddRange(volList);
+                db.SaveChanges();
+            }
+
+            System.IO.File.Delete(FileName);
+            return Success("批量导入成功");
+        }
+        #endregion
+    }
 }

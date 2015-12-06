@@ -1,0 +1,101 @@
+
+
+.bigbg{
+	float: left;
+	width:100%;
+	height:auto;
+	background-color:#f7f6f6;
+}
+
+#main .x_sev_info{
+	height:auto;
+	padding-bottom:40px;
+	background-color:#f7f6f6;
+	/*position:relative;*/
+	float: left;
+}
+#main .x_sev_info div{
+	font:400 18px/38px "microsoft yahei";
+	color:#fff;
+}
+#main .x_sev_info div img{
+	vertical-align:-8px;
+}
+#main .x_sev_info .flbox{
+	margin:0 20px;
+	padding:0;
+	
+	
+}
+#main .x_sev_info .fll{
+	background-color: #00AF62;
+	position:relative;
+	margin-top:-1px\9;
+	padding:0 220px 0 25px;
+}
+#main .x_sev_info .flr{
+	position:relative;
+	margin-top:-3px\9;
+	background-color: #00AF62;
+	padding:0 0 0 26px;
+}
+#main .x_sev_info div .sj{
+	position:absolute;
+	bottom:-11px;
+	bottom:-9px\9;
+	left:12.5%;
+	z-index:1;
+}
+#main .x_sev_info ul{
+
+	padding-top:5px;
+	font:400 16px/32px "microsoft yahei";
+	color:#656565;
+	
+}
+
+#main .x_sev_info .ull{
+
+	background:url(../img/hotsha1.png) 100% 100% no-repeat;
+	background:url(../img/hotsha1.png) 0% 100% no-repeat\9;
+	background-size:120% 200%\9;
+	background-size:100%;
+	padding-bottom:20px;
+	padding-right:10px;
+	padding-top:15px;
+	background-color:#fff;
+	width:370px;
+
+}
+#main .x_sev_info ul li{
+	text-indent:30px;
+	font-size:12px;
+	line-height:30px;
+	background: url(../img/2.png) 15px 11px no-repeat;
+}
+
+#main .x_sev_info ul li a{
+	color:#666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

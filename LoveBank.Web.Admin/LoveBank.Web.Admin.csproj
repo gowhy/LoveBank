@@ -193,11 +193,16 @@
     <Compile Include="Controllers\App\AppBaseController.cs" />
     <Compile Include="Controllers\App\AppCommController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ConvenienceServicesController.cs" />
+    <Compile Include="Controllers\CServiceCenterInfoController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LBSuggestionController.cs" />
+    <Compile Include="Controllers\IncomeAndPayDetailController.cs" />
     <Compile Include="Controllers\LBStartOrBottomAdController.cs" />
+    <Compile Include="Controllers\LBSuggestionController.cs" />
+    <Compile Include="Controllers\LoveBankInfoController.cs" />
     <Compile Include="Controllers\LoveBank_AdController.cs" />
+    <Compile Include="Controllers\LoveFundController.cs" />
     <Compile Include="Controllers\MachineController.cs" />
     <Compile Include="Controllers\MachineModuleController.cs" />
     <Compile Include="Controllers\LBGridMemberController.cs" />
@@ -210,8 +215,12 @@
     <Compile Include="Controllers\TeamProjectController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UController.cs" />
+    <Compile Include="Controllers\UnitInfoAboutController.cs" />
     <Compile Include="Controllers\ValicodeController.cs" />
     <Compile Include="Controllers\LoveBankVolController.cs" />
+    <Compile Include="Controllers\WebFirstAdPicController.cs" />
+    <Compile Include="Controllers\WebLoveShowController.cs" />
+    <Compile Include="Controllers\WebSitNoticeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,12 +230,16 @@
     <Compile Include="Models\AdminUserModel.cs" />
     <Compile Include="Models\AppImgUrlModel.cs" />
     <Compile Include="Models\BindMachineModel.cs" />
+    <Compile Include="Models\ConvenienceServicesModel.cs" />
+    <Compile Include="Models\CServiceCenterInfoModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\GridMemberModel.cs" />
     <Compile Include="Models\LargeEffectsDataModel.cs" />
+    <Compile Include="Models\LoveBankInfoModel.cs" />
     <Compile Include="Models\LoveBankProductExchangeLogModel.cs" />
     <Compile Include="Models\LBStartOrBottomAdModel.cs" />
     <Compile Include="Models\LoveBank_AdModel.cs" />
+    <Compile Include="Models\LoveFundModel.cs" />
     <Compile Include="Models\MachineModel.cs" />
     <Compile Include="Models\MachineModuleShowManageModel.cs" />
     <Compile Include="Models\MachineProductModel.cs" />
@@ -255,6 +268,9 @@
     <Compile Include="Models\VolModel.cs" />
     <Compile Include="Models\VolShowModel.cs" />
     <Compile Include="Models\VolTypeEchartsDataModel.cs" />
+    <Compile Include="Models\WebFirstAdPicModel.cs" />
+    <Compile Include="Models\WebLoveShowModel.cs" />
+    <Compile Include="Models\WebSitNoticeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2082,6 +2098,15 @@
     <Content Include="echarts\zrender\test\testArea.html" />
     <Content Include="Global.asax" />
     <Content Include="Plugins\QDT.Plugins.dll" />
+    <Content Include="Content\爱心银行志愿者批量导入模板.xls" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2094,6 +2119,33 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\WebSitNotice\Index.cshtml" />
+    <Content Include="Views\WebSitNotice\Add.cshtml" />
+    <Content Include="Views\WebSitNotice\Edit.cshtml" />
+    <Content Include="Views\LoveBankVol\AddVolExcel.cshtml" />
+    <Content Include="Views\UnitInfoAbout\Edit.cshtml" />
+    <Content Include="Views\WebLoveShow\Index.cshtml" />
+    <Content Include="Views\WebLoveShow\Add.cshtml" />
+    <Content Include="Views\WebLoveShow\Edit.cshtml" />
+    <Content Include="Views\LoveFund\Index.cshtml" />
+    <Content Include="Views\LoveFund\Add.cshtml" />
+    <Content Include="Views\LoveFund\Edit.cshtml" />
+    <Content Include="Views\LoveBankInfo\Index.cshtml" />
+    <Content Include="Views\LoveBankInfo\Add.cshtml" />
+    <Content Include="Views\LoveBankInfo\Edit.cshtml" />
+    <Content Include="Views\CServiceCenterInfo\Index.cshtml" />
+    <Content Include="Views\CServiceCenterInfo\Add.cshtml" />
+    <Content Include="Views\CServiceCenterInfo\Edit.cshtml" />
+    <Content Include="Views\WebFirstAdPic\Add.cshtml" />
+    <Content Include="Views\WebFirstAdPic\Edit.cshtml" />
+    <Content Include="Views\WebFirstAdPic\Index.cshtml" />
+    <Content Include="Views\ConvenienceServices\Index.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
+    <Content Include="Views\ConvenienceServices\Add.cshtml" />
+    <Content Include="Views\ConvenienceServices\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\LogOn.cshtml" />
@@ -2275,6 +2327,7 @@
     <Folder Include="echarts\example\topic\sino-japanese-war-1895\images\" />
     <Folder Include="echarts\example\topic\sino-japanese-war-1895\js\" />
     <Folder Include="Views\AppBase\" />
+    <Folder Include="Views\IncomeAndPayDetail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Role\Add.cshtml" />

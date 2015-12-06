@@ -1,0 +1,98 @@
+
+#main .l_jion_tableall{
+	float:left;
+	height:auto;
+	margin-left:50px;
+}
+
+/*	列表内容	*/
+#main table{
+/*margin-right:100px;*/
+	
+}
+
+#main table thead tr th{
+	color:#333;
+	font-size:16px;
+	text-align:center;
+	/*background-color:red;*/
+}
+
+#main table thead tr .l_jion_title{
+	width:260px;
+	
+}
+
+
+#main table thead tr .l_jion_time{
+	width:100px;
+}
+#main table thead tr .l_jion_state{
+	width:120px;
+}
+#main table tbody tr{
+	border-top:1px solid #ccc;
+}
+
+#main table tbody tr td{
+
+	color:#666;
+	font-size:14px;
+	text-align:center;
+}
+#main table tbody tr td a{
+	padding:1px 3px;
+	width:40px; 
+	height:30px;
+	border-radius: 10px;
+	background-color:#00af62;
+	color:#fff;
+	font-size:14px;
+}
+
+
+
+/*  	页码切换区	*/
+
+.l_serve_cenfooter{
+	text-align:center;
+	margin:10px 0 0 185px;
+	height:35px;
+	width:550px;
+	font-size:14px;
+	color:#666;
+	/*background:url(../img/lovesha2.png) 50% 100% no-repeat;*/
+	padding-bottom:10px;
+}
+.l_serve_cenfooter a{
+	color:#808080;
+}
+
+.l_serve_cenfooter .l_serve_changepage{
+	background-color:#ccc;
+	display:inline-block;
+	width:50px;
+	height:18px;
+	line-height:18px;
+	margin-left:10px;
+}
+
+ .l_serve_cenfooter .l_serve_changenum{
+	display:inline-block;
+	width:20px;
+}
+
+ .l_serve_cenfooter .l_serve_pageper{
+	display: inline-block;
+	width:50px;
+	height:16px;
+	line-height:18px;
+	color:#808080;
+	border:1px solid #b1b1b1;
+}
+
+/*	激活页码号类	*/
+
+.l_serve_cenfooter .l_serve_changeactive{
+	color:#00af62;
+}

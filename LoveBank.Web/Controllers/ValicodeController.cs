@@ -28,66 +28,8 @@ namespace LoveBank.Web.Controllers
             return File(bytes, @"image/jpeg"); 
         }
 
-        public ActionResult Phone(string phone)
-        {
-            var pattern =new Regex( @"^1[3-9][0-9]\d{8}$");
-            if (!phone.Match(pattern)) return Error("请输入正确的手机号码");
-
-            var isHas = DbProvider.D<User>().Any(x => x.Mobile == phone && x.MobilePassed);
-            if (isHas) return Error("手机号已经存在，请重新输入！");
-
-            var vCode = new ValidateImage();
-            var code = vCode.CreateValidateCode(4);
-            var valicode = new HttpCookie("valicode") { Value = code.Hash().Hash(),Expires = DateTime.Now.AddMinutes(30)};
-            var mobile = new HttpCookie("mobile") { Value = phone.Hash().Hash(),Expires = DateTime.Now.AddMinutes(30)};
-
-            //线下和路人不发短信
-
-            var msg = new MsgQueueFactory().CreateValidatorMsg(phone,code);
-            DbProvider.Add(msg);
-            DbProvider.SaveChanges();
-
-            QuickSendSMS(msg);
-
-            Response.AppendCookie(valicode);
-            Response.AppendCookie(mobile);
-            return Success("发送成功");
-        }
-
-        public ActionResult FindPasswordByPhone(string phone)
-        {
-            var pattern = new Regex(@"^1[3-9][0-9]\d{8}$");
-            if (!phone.Match(pattern)) return Error("请输入正确的手机号码");
-
-            var qdt_account = Request.Cookies["qdt_account"];
-            if (qdt_account == null) return Error("此页面已经过期");
-
-            var Pid = Convert.ToInt32(qdt_account.Value.ToDesDecrypt(Des.LoveBank_Key));
-
-            var user = DbProvider.GetByID<User>(Pid);
-            if (!user.MobilePassed || phone != user.Mobile)
-            {
-                return Error("手机号与绑定手机号不匹配！");
-            }
-
-            var vCode = new ValidateImage();
-            var code = vCode.CreateValidateCode(4);
-            var valicode = new HttpCookie("valicode") { Value = code.Hash().Hash() };
-            var mobile = new HttpCookie("mobile") { Value = phone.Hash().Hash() };
-
-            //线下和路人不发短信
-
-            var msg = new MsgQueueFactory().CreateValidatorMsg(phone, code);
-            DbProvider.Add(msg);
-            DbProvider.SaveChanges();
-
-            QuickSendSMS(msg);
-
-            Response.AppendCookie(valicode);
-            Response.AppendCookie(mobile);
-
-            return Success("发送成功");
-        }
+      
+      
 
 
         private void QuickSendSMS(MsgQueue msg)

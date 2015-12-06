@@ -1,0 +1,125 @@
+
+.fl{float:left;}
+.fr{float:right;}
+.bigbg{
+	float: left;
+	width:100%;
+	height:auto;
+	background-color:#fff;
+}
+
+#main {
+	margin:0 auto;
+	width:1200px;
+	height:400px;
+	background:#fff url(../img/loginbg_05.png) 10% 0 no-repeat;
+	padding-top:40px;
+}
+
+/*	登录	*/
+#main .l_log_forminput{
+	float:right;
+	margin-right:150px;
+	width:370px;
+	height:340px;
+	border:1px solid #cfcfcf;
+	border-top:none;
+	border-bottom:none;
+	font-family:"microsoft yahei";
+	background:#fff url(../img/hotsha1.png) 50% 100% no-repeat;
+	
+}
+
+.l_log_forminput .toglogin{
+	height:40px;
+	background-color:#ccc;
+}
+
+
+.l_log_forminput .toglogin a{
+	float:left;
+	width:185px;
+	display:block;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	font-size:16px;
+	color:#fff;
+	/*background-color:#ccc;*/
+}
+
+/*	激活类	*/
+.l_log_togactive{background-color:#00af62;}
+
+/*	安全提醒	*/
+
+.l_log_forminput .l_log_secinfo{
+	text-align:center;
+	font-size:12px;
+	line-height:40px;
+	color:#666;
+}
+
+
+/*	输入区	*/
+
+.l_log_inputarea{
+	width:285px;
+	height:auto;
+	margin:0 auto;
+	color:#666;
+
+}
+.l_log_inputarea p{
+	width:285px;
+	height:40px;
+	margin-bottom:10px;
+	line-height:40px;
+	
+	
+}
+
+.l_log_user{
+
+}
+/*	用户名和密码*/
+.l_log_inputarea p span{
+	float:left;
+	width:50px;
+	height:30px;
+	margin-top:5px;
+
+}
+.l_log_inputarea p input{
+	float:left;
+	width:230px;
+	height:30px;
+	margin-top:5px;
+	text-indent: 5px;
+}
+.l_log_inputarea p .l_log_autolog{
+	float:left;
+	width:100px;
+	line-height:40px;
+	font-size:12px;
+	margin-left:20px;
+	color:#666;
+}
+.l_log_inputarea p .l_log_regpwd{
+	float:right;
+	line-height:40px;
+	text-align:right;
+	font-size:12px;
+	color:#666;
+}
+
+#submit{width:285px;height:40px; background-color:#00af62; border:1px solid #ccc; color:#fff; font-size:16px;}
+
+
+.l_log_inputarea .l_log_erollinfo {text-align:center;}
+.l_log_inputarea .l_log_erollinfo a{font-size:12px;color:#666;}
+
+
+
+
+
