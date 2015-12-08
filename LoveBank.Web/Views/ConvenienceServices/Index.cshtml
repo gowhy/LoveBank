@@ -1,0 +1,193 @@
+﻿
+
+<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/fundpublic.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/lovefund.css")">
+@model LoveBank.Web.Models.ConvenienceServicesModel
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+<style type="text/css">
+    #bgimg {
+        height: 7px;
+        background-color: #00AF62;
+    }
+
+    #footer {
+        border-top: 1px solid #ccc;
+    }
+
+    #main .x_sev_info .ull {
+        padding-top: 10px;
+    }
+
+        #main .x_sev_info .ull li {
+            line-height: 20px;
+            text-indent: 10px;
+        }
+
+        #main .x_sev_info .ull .bm-title {
+            font-size: 24px;
+            color: #00AF62;
+            text-indent: 0;
+            padding-top: 20px;
+            cursor: default;
+        }
+
+            #main .x_sev_info .ull .bm-title img {
+                vertical-align: -1px;
+                margin-right: 4%;
+            }
+</style>
+
+<div id="bgimg" class="x_ind_bgimg">
+</div>
+<div class="bigbg">
+    <div id="main">
+        <div class="x_sev_info">
+            <div class="fl dis-ib flbox">
+                <div class="fll">
+                    <a href="@Url.Action("index", "ConvenienceServices", new { type = 0 })" style="color: #fff;">
+                        <img src="@Url.Content("~/Content/Web/img/house.png")" alt="">
+                        &nbsp;便民服务
+                        <img src="@Url.Content("~/Content/Web/img/sj.png")" class="sj" alt="">
+                    </a>
+              </div>
+                <ul class="ull">
+                    <li class="bm-title"><img src="@Url.Content("~/Content/Web/img/house_1.png")" alt="">行政便民服务资源</li>
+                    <li>
+                        <a href="@Url.Action("index", "ConvenienceServices", new { type = 1 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/grov_01.png")" alt="" />社区所办事项所需资料
+                        </a>
+                        <span class="fr l_grov_active"></span>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("index", "ConvenienceServices", new { type = 2 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/grov_02.png")" alt="">最新福利，救助等整策更新
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+                    @*<li>
+                        <a href="###" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/grov_03.png")" alt="">便民网站链接
+                        </a>
+                        <span class="fr"></span>
+                    </li>*@
+
+                    <li class="bm-title"><img src="@Url.Content("~/Content/Web/img/house_2.png")" alt="">社区便民商业服务网络</li>
+                    <li>
+                        <a href="@Url.Action("index", "ConvenienceServices", new { type = 3 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/house_21.png")" alt="" />社区商业资源介绍
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("index", "ConvenienceServices", new { type = 4 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/house_22.png")" alt="">爱心企业活动预告
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+
+                    @*<li class="bm-title"><img src="@Url.Content("~/Content/Web/img/house_3.png")" alt="">服务中心介绍</li>
+                    <li>
+                        <a href="###" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/house_31.png")" alt="" />社区商业资源介绍
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+                    <li>
+                        <a href="###" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/house_32.png")" alt="">爱心企业活动预告
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("index", "ConvenienceServices", new { type = 4 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/house_33.png")" alt="">爱心企业活动预告
+                        </a>
+                        <span class="fr"></span>
+                    </li>*@
+
+                ></ul>
+            </div>
+
+            <div class="fl dis-ib l_serve_model">
+                <div class="flr">
+                    <img src="@Url.Content("~/Content/Web/img/love_fund_title_r.png")" alt="">
+
+                    @Model.Type.ToLocalizable()
+                    <img src="@Url.Content("~/Content/Web/img/sj.png")" class="sj" alt="">
+                </div>
+                <div class="l_lovefund_intro">
+
+                    <ul class="ulr">
+                        @foreach (var item in Model.ConvenienceServicesModelList)
+                        {
+                            <li class="l_lovefund_list">
+
+                                <a class="fl l_lovefund_introl" href="severCenterdetails.html">&gt;&nbsp;&nbsp;@item.Title</a>
+                                <span class="time fr">@item.AddTime.ToString("yyyy-MM-dd")</span>
+                            </li>
+                        }
+
+
+
+                    </ul>
+
+
+                    <p class="l_addheight"></p>
+
+
+
+                    @Html.WebPager(Model.ConvenienceServicesModelList)
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        var arrcolors = ["", "#fd4565", "#45a5f5", "", "#1395F7", "#FF7F95", "", "#7687F1", "#1395F7", "#FF8243"];
+        var commcolor = "#cccccc";
+        var listIndex =@((int)Model.Type);
+        $(".ull li").eq(1).find("a").css("color", arrcolors[1]).parent().find("span").css("backgroundColor", arrcolors[1]);
+        $(".ull").find("li").click(function () {
+            $(this).find("a").css("color", arrcolors[$(this).index()]);
+            $(this).find("span").css("backgroundColor", arrcolors[$(this).index()]);
+            $(this).siblings().find("span").css("backgroundColor", commcolor);
+            $(this).siblings().find("a").css("color", "#666");
+           
+        })
+
+        if (listIndex >= 0) {
+         
+            if (listIndex>=3) {
+                $(".ull").find("li:eq(" + (listIndex+1) + ")").click();
+          
+            }else {
+                $(".ull").find("li:eq(" + (listIndex) + ")").click();
+            }
+          
+        }
+
+    })
+</script>

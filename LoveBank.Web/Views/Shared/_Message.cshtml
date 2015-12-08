@@ -1,9 +1,10 @@
 ﻿@model LoveBank.Web.Models.MessageModel
 
 @section Head{
-    <meta http-equiv="Refresh" content="@Model.WaitSecond; url=@Model.JumpUrl"/>
+    @*<meta http-equiv="Refresh" content="@Model.WaitSecond; url=@Model.JumpUrl"/>*@
+<meta http-equiv="Refresh" content="20; url=@Model.JumpUrl" />
 }           
-<div class="ui-body">
+@*<div class="ui-body">
     <div class="ui-inner">
         <div class="ui-tipbox @(Model.Type ? "ui-tipbox-success" : "ui-tipbox-error")">
             <div class="ui-tipbox-icon">
@@ -20,4 +21,45 @@
             </div>
         </div>
     </div>
+</div>*@
+
+@*<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/groupCenterpublic.css")">*@
+<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/groupCenterstate.css")">
+
+<style>
+    .l_user_details {
+        border-left: none;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -10px;
+        min-height: 298px;
+        padding: 30px 0 30px 60px;
+        width: 400px;
+    }
+</style>
+<div class="l_percen_rcontent" style="margin-left:auto; margin-right:auto;">
+
+
+    <div class="l_user_details">
+        <p class="l_groupstate_title">
+        
+            @if (Model.Type)
+            {
+             @Html.Raw("成功")
+            }
+            else
+            {
+                 @Html.Raw("失败")
+            }
+        </p>
+        <p class="l_groupstate_info" style="width:500px;">
+           信息：@Model.Message
+               <br>
+           @Html.Raw(string.Format("页面将在{0}秒后自动跳转，或直接点击 <a href='{1}'>这里</a> 手动跳转", Model.WaitSecond, Model.JumpUrl))
+       
+          </p>
+
+    </div>
+
 </div>

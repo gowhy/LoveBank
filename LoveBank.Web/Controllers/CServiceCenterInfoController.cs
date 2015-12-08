@@ -26,23 +26,12 @@ namespace LoveBank.Web.Controllers
         public ActionResult Index(CServiceCenterInfoType type, int page = 1, int pageSize = 8)
         {
             CServiceCenterInfoModel model = new CServiceCenterInfoModel();
-            //获取最近的列表
-            var list = Task.Factory.StartNew<List<CServiceCenterInfoModel>>(() =>
-            {
-                return GetListCServiceCenterInfo(type, page, pageSize);
-            });
-
-            //获取最新的一篇文章
-            var NewCServiceCenterInfo = Task.Factory.StartNew<CServiceCenterInfoModel>(() =>
-            {
-                return GetNewCServiceCenterInfo(type);
-            });
-            Task.WaitAll(list, NewCServiceCenterInfo);
-
-            model = NewCServiceCenterInfo.Result;
-            model.CServiceCenterInfoPageList = list.Result;
+            model.Type = type;
+       
+            model.CServiceCenterInfoPageList = GetListCServiceCenterInfo(type, page, pageSize);
 
             return View(model);
+
         }
 
         //获取详情
@@ -66,7 +55,7 @@ namespace LoveBank.Web.Controllers
         }
 
         //获取最近的列表
-        private List<CServiceCenterInfoModel> GetListCServiceCenterInfo(CServiceCenterInfoType type, int page = 1, int pageSize = 8)
+        private IPagedList<CServiceCenterInfoModel> GetListCServiceCenterInfo(CServiceCenterInfoType type, int page = 1, int pageSize = 8)
         {
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
@@ -80,7 +69,13 @@ namespace LoveBank.Web.Controllers
                                 Sort = w.Sort,
                                 Type = w.Type
                             };
-                return list2.Where(x => x.DeptId == BaseWebSiteConifg.DeptId && x.Type == type).OrderByDescending(x => x.Sort).ToPagedList(page, pageSize).ToList();
+
+                if (type != CServiceCenterInfoType.服务中心)
+                {
+                    list2 = list2.Where(x => x.Type == type);
+                }
+
+                return list2.Where(x => x.DeptId == BaseWebSiteConifg.DeptId).OrderByDescending(x => x.Sort).ToPagedList(page-1, pageSize);
 
             }
         }

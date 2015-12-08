@@ -23,26 +23,14 @@ namespace LoveBank.Web.Controllers
 {
     public class LoveFundController : BaseController
     {
-        public ActionResult Index(LoveFundType type,int page = 1, int pageSize = 8)
+        public ActionResult List(LoveFundType type, int page = 1, int pageSize = 8)
         {
             LoveFundModel model = new LoveFundModel();
-            //获取最近的列表
-            var list = Task.Factory.StartNew<List<LoveFundModel>>(() =>
-            {
-                return GetListLoveFund(type,page, pageSize);
-            });
 
-            //获取最新的一篇文章
-            var NewLoveFund = Task.Factory.StartNew<LoveFundModel>(() =>
-            {
-                return GetNewLoveFund(type);
-            });
+            model.Type = type;
 
-            Task.WaitAll(list, NewLoveFund);
-            model = NewLoveFund.Result;
-            model.LoveFundPageList = list.Result;
-
-            return View();
+            model.LoveFundPageList = GetListLoveFund(type, page, pageSize);
+            return View(model);
         }
 
         //获取详情
@@ -65,8 +53,16 @@ namespace LoveBank.Web.Controllers
             }
         }
 
+        public ActionResult IndexData(LoveFundType type, int page = 1, int pageSize = 8)
+        {
+            JsonMessage rMsg = new JsonMessage();
+
+
+            return Json(rMsg);
+        }
+
         //获取最近的列表
-        private List<LoveFundModel> GetListLoveFund(LoveFundType type,int page = 1, int pageSize = 8)
+        private IPagedList<LoveFundModel> GetListLoveFund(LoveFundType type,int page = 1, int pageSize = 8)
         {
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
@@ -80,7 +76,12 @@ namespace LoveBank.Web.Controllers
                                 Sort = w.Sort,
                                 Type=w.Type
                             };
-                return list2.Where(x => x.DeptId == BaseWebSiteConifg.DeptId&&x.Type==type).OrderByDescending(x => x.Sort).ToPagedList(page, pageSize).ToList();
+                if (type!=LoveFundType.未知)
+                {
+                    list2 = list2.Where(x=>x.Type == type);
+                }
+
+                return list2.Where(x => x.DeptId == BaseWebSiteConifg.DeptId).OrderByDescending(x => x.Sort).ToPagedList(page-1, pageSize);
 
             }
         }

@@ -52,6 +52,6 @@ namespace LoveBank.Web.Models
         public LoveFundType Type { get; set; }
 
         public IPagedList<LoveFund> LoveFundList { get; set; }
-        public List<LoveFundModel> LoveFundPageList { get; set; }
+        public IPagedList<LoveFundModel> LoveFundPageList { get; set; }
     }
 }

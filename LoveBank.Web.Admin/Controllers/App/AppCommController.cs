@@ -1517,7 +1517,9 @@ namespace LoveBank.Web.Admin.Controllers.App
                 }).FirstOrDefault();
                 model.Phone = vmodel.Phone;
                 model.Name = vmodel.RealName;
-
+                db.Add(model);
+                db.SaveChanges();
+                
                 retJson.Status = true;
                 retJson.Info ="申请成功";
                 return Json(retJson);

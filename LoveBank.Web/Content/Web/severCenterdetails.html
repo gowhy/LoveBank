@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="css/severCenterdetails.css">
 	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 	<script type="text/javascript" src="js/servecenter.js"></script>
+	<script type="text/javascript" src="js/alertposition.js"></script>
 	<style type="text/css">
 		#bgimg{
 			height:7px;
@@ -29,13 +30,13 @@
 		</div>
 		<ul class="ul1">
 			<li><a href="index.html">社区首页</a></li>
-			<li><a href="###">爱心银行</a></li>
-			<li><a href="###">工艺社会组织</a></li>
-			<li><a href="###">爱心兑换</a></li>
-			<li><a href="###">爱心基金</a></li>
-			<li><a href="###">志愿者动态</a></li>
+			<li><a href="lovebank.html">爱心银行</a></li>
+			<li><a href="volunteerteam.html">公益社会组织</a></li>
+			<li><a href="lpdh-g-inde.html">爱心兑换</a></li>
+			<li><a href="lovefund.html">爱心基金</a></li>
+			<li><a href="personCenterinfor.html">志愿者动态</a></li>
 			<li class="active"><a href="severCenterlist.html">服务中心介绍</a></li>
-			<li><a href="###">便民服务</a></li>
+			<li><a href="grovsharescouce.html">便民服务</a></li>
 		</ul>
 		<script type="text/javascript">
 			$("#header .ul1").find("li").each(function(){
@@ -156,7 +157,34 @@
 		</diV>
 		
 	</footer>
-
-
+	
+	<!-- 	弹出窗口 	-->
+	<div class="l_groupcen_passok">
+		<div class="l_groupcen_passalertbg"></div>
+		<div class="l_grocen_alert">
+			<p class="l_grocen_title">
+				<span class="fl">填写参与信息</span>
+				<a href="#" class="fr alert_exit"><img src="img/alert_exit.png"></a>
+			</p>
+			<p class="l_grocen_info">
+				<span class="fl">自我介绍:</span><textarea></textarea>
+			</p>
+			<p class="l_grocen_sub">
+				<input type="button" value="确认参与" class="l_alert_sub">
+			</p>
+		</div>
+		
+	</div>
+	<script>
+		$(document).ready(function(){
+			$(".alert_exit").click(function(){
+				$(".l_groupcen_passok").hide();
+			})
+			$(".l_alert_sub").click(function(){
+				$(".l_groupcen_passok").hide();
+				$(".l_serve_pubinfo").html($(".l_groupcen_passok").find("textarea").val());
+			})
+		})
+	</script>
 </body>
 </html>

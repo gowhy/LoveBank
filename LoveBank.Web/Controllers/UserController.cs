@@ -53,8 +53,50 @@ namespace LoveBank.Web.Controllers
 
         public ActionResult Index()
         {
+          
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var t_v = db.T_Vol;
+                VolModel vModel = (from v in t_v
+                                   where User.ID == v.ID
+                                   select new VolModel
+                                       {
+                                             LoveBankScore=v.LoveBankScore,
+                                             ID=v.ID
+                                       }).Single();
+                return View(vModel);
+            }
+
          
+        }
+
+        public ActionResult Info()
+        {
+
+            using (LoveBankDBContext db = new LoveBankDBContext())
+            {
+                var t_v = db.T_Vol;
+                VolModel vModel = (from v in t_v
+                                   where User.ID == v.ID
+                                   select new VolModel
+                                   {
+                                       RealName = v.RealName,
+                                       UerName = v.UerName,
+                                       Phone = v.Phone,
+                                       EMail = v.EMail,
+                                       Sex = v.Sex,
+
+                                       ID = v.ID
+                                   }).Single();
+                return View(vModel);
+            }
+
+        }
+        public ActionResult UpdatePassWord()
+        {
+
             return View();
+
         }
 
         /// <summary>
@@ -63,7 +105,7 @@ namespace LoveBank.Web.Controllers
         /// <param name="passWord"></param>
         /// <param name="oldPassWord"></param>
         /// <returns></returns>
-        public ActionResult UpdatePassWord(string passWord,string oldPassWord)
+        public ActionResult PostUpdatePassWord(string passWord,string oldPassWord)
         {
             JsonMessage jMessage = new JsonMessage();
             using (LoveBankDBContext db = new LoveBankDBContext())

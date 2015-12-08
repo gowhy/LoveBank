@@ -331,9 +331,19 @@
     <Content Include="Content\EmailTemp\ForgetPwd.txt" />
     <Content Include="Content\EmailTemp\Registration.txt" />
     <Content Include="Content\favicon.ico" />
+    <Content Include="Content\Web\abotours.html" />
+    <Content Include="Content\Web\aboutours.html" />
+    <Content Include="Content\Web\css\about.css" />
+    <Content Include="Content\Web\css\aboutpublic.css" />
     <Content Include="Content\Web\css\erollpublic.css" />
     <Content Include="Content\Web\css\forgetpwdpublic.css" />
     <Content Include="Content\Web\css\fundpublic.css" />
+    <Content Include="Content\Web\css\groupCenterauthorinfor.css" />
+    <Content Include="Content\Web\css\groupCenterjion.css" />
+    <Content Include="Content\Web\css\groupCenterneed.css" />
+    <Content Include="Content\Web\css\groupCenterpass.css" />
+    <Content Include="Content\Web\css\groupCenterpublic.css" />
+    <Content Include="Content\Web\css\groupCenterstate.css" />
     <Content Include="Content\Web\css\index.css" />
     <Content Include="Content\Web\css\login.css" />
     <Content Include="Content\Web\css\loginpublic.css" />
@@ -344,6 +354,7 @@
     <Content Include="Content\Web\css\personCenterinfor.css" />
     <Content Include="Content\Web\css\personCenterjion.css" />
     <Content Include="Content\Web\css\personCenterneed.css" />
+    <Content Include="Content\Web\css\personCenterPass.css" />
     <Content Include="Content\Web\css\personCenterpublic.css" />
     <Content Include="Content\Web\css\personCenterrecord.css" />
     <Content Include="Content\Web\css\severCenter.css" />
@@ -355,22 +366,31 @@
     <Content Include="Content\Web\css\volunteerteam.css" />
     <Content Include="Content\Web\css\volunteerteam1.css" />
     <Content Include="Content\Web\css\yiti_public.css" />
-    <Content Include="Content\Web\gorvsharescouce.html" />
     <Content Include="Content\Web\groforgetpwd.html" />
+    <Content Include="Content\Web\groupCenterauthorinfor.html" />
+    <Content Include="Content\Web\groupCenterjion.html" />
+    <Content Include="Content\Web\groupCenterneed.html" />
+    <Content Include="Content\Web\groupCenterPass.html" />
+    <Content Include="Content\Web\groupCenterstate.html" />
     <Content Include="Content\Web\grouperoll.html" />
     <Content Include="Content\Web\grouplogin.html" />
+    <Content Include="Content\Web\grovsharescouce.html" />
     <Content Include="Content\Web\img\1.jpg" />
     <Content Include="Content\Web\img\1_03.png" />
     <Content Include="Content\Web\img\2.png" />
     <Content Include="Content\Web\img\2m.jpg" />
     <Content Include="Content\Web\img\6_14.png" />
     <Content Include="Content\Web\img\a1.png" />
+    <Content Include="Content\Web\img\a1_1.png" />
+    <Content Include="Content\Web\img\a1_1c.png" />
     <Content Include="Content\Web\img\a1_c.png" />
     <Content Include="Content\Web\img\a2.png" />
     <Content Include="Content\Web\img\a2_c.png" />
     <Content Include="Content\Web\img\a3.png" />
     <Content Include="Content\Web\img\a3_c.png" />
     <Content Include="Content\Web\img\a4.png" />
+    <Content Include="Content\Web\img\a4_1.png" />
+    <Content Include="Content\Web\img\a4_1c.png" />
     <Content Include="Content\Web\img\a4_c.png" />
     <Content Include="Content\Web\img\a5.png" />
     <Content Include="Content\Web\img\a5_c.png" />
@@ -379,6 +399,11 @@
     <Content Include="Content\Web\img\a7.png" />
     <Content Include="Content\Web\img\a7_c.png" />
     <Content Include="Content\Web\img\aboutus.jpg" />
+    <Content Include="Content\Web\img\about_l.png" />
+    <Content Include="Content\Web\img\about_r.png" />
+    <Content Include="Content\Web\img\alert_exit.png" />
+    <Content Include="Content\Web\img\alert_ok.png" />
+    <Content Include="Content\Web\img\alert_person.png" />
     <Content Include="Content\Web\img\b.jpg" />
     <Content Include="Content\Web\img\balance.png" />
     <Content Include="Content\Web\img\bg1.jpg" />
@@ -409,6 +434,18 @@
     <Content Include="Content\Web\img\hot.png" />
     <Content Include="Content\Web\img\hotsha1.png" />
     <Content Include="Content\Web\img\hot_27.png" />
+    <Content Include="Content\Web\img\house.png" />
+    <Content Include="Content\Web\img\house_1.png" />
+    <Content Include="Content\Web\img\house_11.png" />
+    <Content Include="Content\Web\img\house_12.png" />
+    <Content Include="Content\Web\img\house_13.png" />
+    <Content Include="Content\Web\img\house_2.png" />
+    <Content Include="Content\Web\img\house_21.png" />
+    <Content Include="Content\Web\img\house_22.png" />
+    <Content Include="Content\Web\img\house_3.png" />
+    <Content Include="Content\Web\img\house_31.png" />
+    <Content Include="Content\Web\img\house_32.png" />
+    <Content Include="Content\Web\img\house_33.png" />
     <Content Include="Content\Web\img\images\1_21.png" />
     <Content Include="Content\Web\img\images\addr_21.png" />
     <Content Include="Content\Web\img\images\bank\images\lovebank_01.png" />
@@ -470,6 +507,7 @@
     <Content Include="Content\Web\img\mypub.png" />
     <Content Include="Content\Web\img\ok.jpg" />
     <Content Include="Content\Web\img\percensha2.png" />
+    <Content Include="Content\Web\img\percensha3.png" />
     <Content Include="Content\Web\img\percenshw1.png" />
     <Content Include="Content\Web\img\percen_nav_01.png" />
     <Content Include="Content\Web\img\percen_nav_02.png" />
@@ -518,6 +556,9 @@
     <Content Include="Content\Web\img\zuzhi_l.png" />
     <Content Include="Content\Web\img\zuzhi_r.png" />
     <Content Include="Content\Web\index.html" />
+    <Content Include="Content\Web\js\alertposition.js" />
+    <Content Include="Content\Web\js\groupcenterneed.js" />
+    <Content Include="Content\Web\js\groupCenterPass.js" />
     <Content Include="Content\Web\js\index.js" />
     <Content Include="Content\Web\js\jquery-1.8.3.js" />
     <Content Include="Content\Web\js\jquery.min.js" />
@@ -525,6 +566,7 @@
     <Content Include="Content\Web\login.html" />
     <Content Include="Content\Web\lovebank.html" />
     <Content Include="Content\Web\lovefund.html" />
+    <Content Include="Content\Web\lpdh-g-inde.html" />
     <Content Include="Content\Web\lpdh-g-y.html" />
     <Content Include="Content\Web\lpdh-g-z.html" />
     <Content Include="Content\Web\lpdh-zz.html" />
@@ -586,6 +628,14 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\RegSuccess.cshtml" />
+    <Content Include="Views\UnitInfoAbout\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Info.cshtml" />
+    <Content Include="Views\User\UpdatePassWord.cshtml" />
+    <Content Include="Views\LoveFund\List.cshtml" />
+    <Content Include="Views\LoveBankInfo\Index.cshtml" />
+    <Content Include="Views\CServiceCenterInfo\Index.cshtml" />
+    <Content Include="Views\ConvenienceServices\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -690,15 +740,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\User\" />
-    <Folder Include="Views\ConvenienceServices\" />
-    <Folder Include="Views\CServiceCenterInfo\" />
     <Folder Include="Views\LBTS\" />
-    <Folder Include="Views\LoveBankInfo\" />
-    <Folder Include="Views\LoveFund\" />
     <Folder Include="Views\Product\" />
     <Folder Include="Views\Suggestion\" />
-    <Folder Include="Views\UnitInfoAbout\" />
-    <Folder Include="Views\User\" />
     <Folder Include="Views\WebLoveShow\" />
     <Folder Include="Views\WebSitNotice\" />
   </ItemGroup>

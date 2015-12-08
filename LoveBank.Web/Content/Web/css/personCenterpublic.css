@@ -87,6 +87,7 @@
 	left:0;
 	background-color:#333;
 	opacity: 0.5;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
 }
 
 .l_ind_3_con_img .img_top .l_ind_3_cimg_img .img_footer a{

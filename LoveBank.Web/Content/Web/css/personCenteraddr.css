@@ -30,4 +30,215 @@
 	background-color:#00af62;
 	color:#fff;
 	font-size:14px;
+	cursor:pointer;
+}
+
+
+/*	弹出窗口样式删除	*/
+
+.l_groupcen_passokdel{
+	position:fixed;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	z-index: 1000;
+	font-family:"microsoft yahei";
+	display:none;
+	
+}
+.l_groupcen_passokdel .l_groupcen_passalertbg{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-color:#333;
+	opacity: .5;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	z-index:1000;
+}
+
+.l_groupcen_passokdel .l_grocen_alert{
+	position: absolute;
+	/*left:200px;*/
+	/*top:100px;*/
+	width:610px;
+	height:240px;
+	background-color:#fff;
+	z-index: 1001;
+	border-radius: 10px;
+}
+.l_groupcen_passokdel .l_grocen_alert .l_grocen_title{
+	height:55px;
+	background-color:#0fa764;
+	color:#fff;
+	line-height:55px;
+	font-size:20px;
+	border-radius: 10px 10px 0 0;
+
+}
+.l_groupcen_passokdel .l_grocen_alert .l_grocen_title span{
+	width:180px;
+	margin-left:15px;
+	text-align:right;
+	background:url(../img/alert_person.png) 10px 45% no-repeat;
+}
+
+.l_groupcen_passokdel .l_grocen_alert .l_grocen_title a{
+	width:30px;
+	height:30px;
+	margin:10px 50px;
+}
+
+.l_groupcen_passokdel .l_grocen_alert .l_grocen_info{
+	height:95px;
+	line-height:95px;
+	color:#333;
+	font-size:16px;
+	text-align: center;
+	color:#666;
+	
+
+}
+
+.l_groupcen_passokdel .l_grocen_alert .l_grocen_sub{
+	height:60px;
+	line-height:60px;
+	text-align:center;
+}
+.l_groupcen_passokdel .l_grocen_alert .l_grocen_sub input{
+	height:40px;
+	width:120px;
+	background-color: #0fa764;
+	font-size:18px;
+	color:#fff;
+	border-radius: 6px;
+	border:none;
+	outline: none;
+	cursor:pointer;
+}
+
+
+/*	弹出窗口修改	*/
+
+.l_groupcen_passokche{
+	position:fixed;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	z-index: 1000;
+	font-family:"microsoft yahei";
+	display:none;
+
+}
+.l_groupcen_passokche .l_groupcen_passalertbg{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-color:#333;
+	opacity: .5;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	z-index:1000;
+}
+
+.l_groupcen_passokche .l_grocen_alert{
+	position: absolute;
+	/*left:200px;*/
+	/*top:100px;*/
+	width:610px;
+	height:450px;
+	background-color:#fff;
+	z-index: 1001;
+	border-radius: 10px;
+}
+.l_groupcen_passokche .l_grocen_alert .l_grocen_title{
+	height:55px;
+	background-color:#0fa764;
+	color:#fff;
+	line-height:55px;
+	font-size:20px;
+	border-radius: 10px 10px 0 0;
+
+}
+.l_groupcen_passokche .l_grocen_alert .l_grocen_title span{
+	width:180px;
+	margin-left:15px;
+	text-align:right;
+	background:url(../img/alert_person.png) 10px 45% no-repeat;
+}
+
+.l_groupcen_passokche .l_grocen_alert .l_grocen_title a{
+	width:30px;
+	height:30px;
+	margin:10px 50px;
+}
+
+.l_groupcen_passokche .l_grocen_alert .l_grocen_info{
+	height:60px;
+	padding-left:25px;
+	line-height:60px;
+	color:#333;
+	font-size:16px;
+	color:#666;
+	text-align:left;
+	
+
+}
+
+.l_groupcen_passokche .l_grocen_alert .l_grocen_infotext{
+	height:auto;
+	padding-left:25px;
+	margin-top:10px;
+	color:#333;
+	font-size:16px;
+	color:#666;
+	text-align:left;
+	
+
+}
+
+.l_groupcen_passokche .l_grocen_alert .l_grocen_info span{
+	width:120px;
+	
+}
+
+.l_groupcen_passokche .l_grocen_alert .l_grocen_info input{
+	width:175px;
+	height:30px;
+}
+
+.l_groupcen_passokche .l_grocen_alert .l_grocen_infotext span{
+	width:120px;
+}
+
+.l_groupcen_passokche .l_grocen_alert .l_grocen_infotext textarea{
+	width:400px;
+	height:135px;
+	resize: none;
+	
+}
+
+/*	字体间距	*/
+.letdis{
+	letter-spacing: 4px;
+}
+.l_groupcen_passokche .l_grocen_alert .l_grocen_sub{
+	height:60px;
+	line-height:60px;
+	text-align:center;
+}
+.l_groupcen_passokche .l_grocen_alert .l_grocen_sub input{
+	height:40px;
+	width:120px;
+	background-color: #0fa764;
+	font-size:18px;
+	color:#fff;
+	border-radius: 6px;
+	border:none;
+	outline: none;
+	cursor:pointer;
 }

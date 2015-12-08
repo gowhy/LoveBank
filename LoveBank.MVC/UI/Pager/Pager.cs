@@ -133,11 +133,11 @@ namespace LoveBank.MVC.UI
             builder.Append("<div class='pagination'>");
             RenderLeftSideOfPager(builder);
 
-            if (_pagination.PageCount > 1)
-            {
-                RenderRightSideOfPager(builder);
-            }
-
+            //if (_pagination.PageCount > 1)
+            //{
+            //    RenderRightSideOfPager(builder);
+            //}
+            RenderRightSideOfPager(builder);
             builder.Append(@"</div>");
 
             return builder.ToString();

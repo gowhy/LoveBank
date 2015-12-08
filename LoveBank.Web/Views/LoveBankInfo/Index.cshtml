@@ -1,0 +1,130 @@
+﻿<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/fundpublic.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/lovefund.css")">
+
+
+@model LoveBank.Web.Models.LoveBankInfoModel
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+
+
+<div id="bgimg" class="x_ind_bgimg">
+</div>
+<div class="bigbg">
+    <div id="main">
+        <div class="x_sev_info">
+            <div class="fl dis-ib flbox">
+                <div class="fll">
+                    <a href="@Url.Action("Index", "LoveBankInfo", new { type = 0 })" style="color: #fff;">
+                        <img src="@Url.Content("~/Content/Web/img/lovebank_l.png")" alt="">
+                        &nbsp;爱心银行
+                        <img src="@Url.Content("~/Content/Web/img/sj.png")" class="sj" alt="">
+                    </a>
+               </div>
+
+                <ul class="ull">
+                    <li>
+                        <a href="@Url.Action("Index", "LoveBankInfo", new { type = 1 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/lovebank_01.png")" alt="">简介
+                        </a>
+                        <span class="fr l_bank_active"></span>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "LoveBankInfo", new { type = 2 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/lovebank_02.png")" alt="">制度
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "LoveBankInfo", new { type =3 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/lovebank_03.png")" alt="">组织架构
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "LoveBankInfo", new { type = 4 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/lovebank_04.png")" alt="">志愿者服务类别
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "LoveBankInfo", new { type = 5 })" class="fl">
+
+                            <img src="@Url.Content("~/Content/Web/img/lovebank_05.png")" alt="">回馈机制
+                        </a>
+                        <span class="fr"></span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="fl dis-ib l_serve_model">
+                <div class="flr">
+                    <img src="@Url.Content("~/Content/Web/img/lovebank_r.png")" alt="">
+                    @Model.Type.ToLocalizable()
+                    <img src="@Url.Content("~/Content/Web/img/sj.png")" class="sj" alt="">
+                 </div>
+                <div class="l_lovefund_intro">
+
+                    <ul class="ulr">
+                 
+
+                        @foreach (var item in Model.LoveBankInfoPageList)
+                        {
+                            <li class="l_lovefund_list">
+
+                                <a class="fl l_lovefund_introl" href="severCenterdetails.html">&gt;&nbsp;&nbsp;@item.Title</a>
+                                <span class="time fr">@item.AddTime.ToString("yyyy-MM-dd")</span>
+                            </li>
+                        }
+
+                    </ul>
+
+                    
+
+                    <p class="l_addheight"></p>
+
+
+                   
+                    @Html.WebPager(Model.LoveBankInfoPageList)
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        var arrcolors = ["#fd3d5e", "#03b297", "#5bb8fd", "#fbb33d", "#ce7cf4"];
+        var commcolor = "#cccccc";
+        var listIndex =@((int)Model.Type) -1;
+        $(".ull").find("li").click(function () {
+            $(this).find("a").css("color", arrcolors[$(this).index()]);
+            $(this).find("span").css("backgroundColor", arrcolors[$(this).index()]);
+            $(this).siblings().find("span").css("backgroundColor", commcolor);
+            $(this).siblings().find("a").css("color", "#666");
+            //$(".ulr").hide();
+            //$(".ulr").eq($(this).index()).show();
+        })
+
+        if (listIndex >= 0) {
+            $(".ull").find("li:eq(" + listIndex + ")").click();
+        }
+    })
+
+
+
+</script>

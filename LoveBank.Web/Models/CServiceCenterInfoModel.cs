@@ -55,6 +55,6 @@ namespace LoveBank.Web.Models
 
         public IPagedList<CServiceCenterInfo> CServiceCenterInfoList { get; set; }
 
-        public List<CServiceCenterInfoModel> CServiceCenterInfoPageList { get; set; }
+        public IPagedList<CServiceCenterInfoModel> CServiceCenterInfoPageList { get; set; }
     }
 }

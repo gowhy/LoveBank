@@ -153,6 +153,7 @@
     <Compile Include="UI\Image\UpYunImage.cs" />
     <Compile Include="UI\Pager\ClientPager.cs" />
     <Compile Include="UI\Pager\Pager.cs" />
+    <Compile Include="UI\Pager\WebPager.cs" />
     <Compile Include="UI\Pager\PaginationExtensions.cs" />
     <Compile Include="UI\UploadImage.cs" />
     <Compile Include="UI\ValidateImage.cs" />

@@ -63,6 +63,7 @@
 			display:inline-block;
 			height:100%;
 			width:50%;
+			width:380px\9;
 			text-align:center;
 			background-color: #fff;
 			font:700 20px/56px "microsoft yahei";
@@ -123,18 +124,35 @@
 		}
 
 		.motai{
-			position:absolute;
+			position:fixed;
 			width:100%;
+			left:0;
+			top:0;
 			z-index:10;
 			padding-top:280px;
-			background-color: rgba(0,0,0,0.3);
+			
+		}
+		.motai .motaibg{
+			position:absolute;
+			width:100%;
+			height:100%;
+			left:0;
+			top:0;
+			z-index: 10;
+			background-color:#000;
+			opacity: .5;
+			
+			filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
 		}
 		.motai .motai_inside{
+			position: absolute;
 			border-radius:10px;
 			width:610px;
 			height:270px;
-			margin:0 auto;
+			left:30%;
+			top:15%;
 			overflow:hidden;
+			z-index:12;
 			background-color: #fff;
 		}
 		.motai_title{
@@ -193,6 +211,7 @@
 <body>
 <!-- 模态框 -->
 	<div class="motai" style="display:none">
+		<div class="motaibg"></div>
 		<div class="motai_inside">
 			<p class="motai_title"><span>提示</span><a class="fr" href="###"><img src="img/6_14.png"></a></p>
 			<div class="motai_info">
@@ -225,13 +244,13 @@
 		</div>
 		<ul class="ul1">
 			<li><a href="index.html">社区首页</a></li>
-			<li><a href="###">爱心银行</a></li>
-			<li><a href="###">工艺社会组织</a></li>
-			<li class="active"><a href="###">爱心兑换</a></li>
-			<li><a href="###">爱心基金</a></li>
-			<li><a href="###">志愿者动态</a></li>
+			<li><a href="lovebank.html">爱心银行</a></li>
+			<li><a href="volunteerteam.html">公益社会组织</a></li>
+			<li class="active"><a href="lpdh-g-inde.html">爱心兑换</a></li>
+			<li><a href="lovefund.html">爱心基金</a></li>
+			<li><a href="personCenterinfor.html">志愿者动态</a></li>
 			<li><a href="severCenterlist.html">服务中心介绍</a></li>
-			<li><a href="###">便民服务</a></li>
+			<li><a href="grovsharescouce.html">便民服务</a></li>
 		</ul>
 		<script type="text/javascript">
 			$("#header .ul1").find("li").each(function(){

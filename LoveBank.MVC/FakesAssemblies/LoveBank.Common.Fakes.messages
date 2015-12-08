@@ -41,7 +41,7 @@ C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.RegularExtensions 生成存根: 类型已密封。
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.RegularUtil 生成存根: 类型已密封。
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <>f__AnonymousType0`3 生成存根: 类型已密封。
-C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <PrivateImplementationDetails>{D4956EEC-7F14-4FF3-BCD9-38CE1658F5B3} 生成存根: 类型不受支持，因为存在内部限制。
+C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <PrivateImplementationDetails>{17132B90-924A-4494-926E-B9817576DEBB} 生成存根: 类型不受支持，因为存在内部限制。
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.AutheTicketManager+<ValidateUserTicket>o__SiteContainer0 生成填充码: 类型不受支持，因为存在内部限制。
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Config.IConfig 生成填充码: 类型是一个接口。
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Config.IConfigProvider 生成填充码: 类型是一个接口。
@@ -88,4 +88,4 @@ C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.PluginService`1+<>c__DisplayClass9 生成填充码: 类型不受支持，因为存在内部限制。
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 LoveBank.Common.Plugins.ISmsPlugins 生成填充码: 类型是一个接口。
 C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <>f__AnonymousType0`3 生成填充码: 类型不受支持，因为存在内部限制。
-C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <PrivateImplementationDetails>{D4956EEC-7F14-4FF3-BCD9-38CE1658F5B3} 生成填充码: 类型不受支持，因为存在内部限制。
+C:\工作项目资料\爱心银行项目\SourceCode\LoveBank.MVC\Fakes\LoveBank.Common.fakes : warning : 无法为 <PrivateImplementationDetails>{17132B90-924A-4494-926E-B9817576DEBB} 生成填充码: 类型不受支持，因为存在内部限制。

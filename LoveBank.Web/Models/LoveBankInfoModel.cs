@@ -53,6 +53,6 @@ namespace LoveBank.Web.Models
 
         public IPagedList<LoveBankInfo> LoveBankInfoList { get; set; }
 
-        public List<LoveBankInfoModel> LoveBankInfoPageList { get; set; }
+        public IPagedList<LoveBankInfoModel> LoveBankInfoPageList { get; set; }
     }
 }

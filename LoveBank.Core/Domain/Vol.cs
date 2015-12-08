@@ -209,7 +209,20 @@ namespace LoveBank.Core.Domain
         public int AddUserId { get; set; }
 
         public string Desc { get; set; }
+      
+        /// <summary>
+        /// 服务时间
+        /// </summary>
+        public string ServiceDate { get; set; }
 
+        /// <summary>
+        /// 职业
+        /// </summary>
+        public string Profession { get; set; }
+        public string ServiceDirection { get; set; }
+        public string DateBirth { get; set; }
 
+        public string Work { get; set; }
+            
     }
 }

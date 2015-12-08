@@ -1,4 +1,5 @@
-﻿using LoveBank.Core.Domain.Enums;
+﻿using LoveBank.Common;
+using LoveBank.Core.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,6 @@ namespace LoveBank.Web.Models
         /// Type
         /// </summary>		
         public ConvenienceServicesType Type { get; set; }
-        public List<ConvenienceServicesModel> ConvenienceServicesModelList { get; set; }
+        public IPagedList<ConvenienceServicesModel> ConvenienceServicesModelList { get; set; }
     }
 }

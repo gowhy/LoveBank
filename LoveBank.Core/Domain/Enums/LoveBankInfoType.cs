@@ -9,6 +9,9 @@ namespace LoveBank.Core.Domain.Enums
 {
     public enum LoveBankInfoType
     {
+        [EnumItemDescription("爱心银行")]
+        爱心银行 = 0,
+
         [EnumItemDescription("简介")]
         简介 = 1,
         [EnumItemDescription("制度")]

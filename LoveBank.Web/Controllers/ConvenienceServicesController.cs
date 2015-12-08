@@ -26,22 +26,23 @@ namespace LoveBank.Web.Controllers
         public ActionResult Index(ConvenienceServicesType type, int page = 1, int pageSize = 8)
         {
             ConvenienceServicesModel model = new ConvenienceServicesModel();
+            model.Type = type;
             //获取最近的列表
-            var list = Task.Factory.StartNew<List<ConvenienceServicesModel>>(() =>
-            {
-                return GetListConvenienceServices(type, page, pageSize);
-            });
+            //var list = Task.Factory.StartNew<List<ConvenienceServicesModel>>(() =>
+            //{
+            //    return GetListConvenienceServices(type, page, pageSize);
+            //});
 
-            //获取最新的一篇文章
-            var NewConvenienceServices = Task.Factory.StartNew<ConvenienceServicesModel>(() =>
-            {
-                return GetNewConvenienceServices(type);
-            });
+            ////获取最新的一篇文章
+            //var NewConvenienceServices = Task.Factory.StartNew<ConvenienceServicesModel>(() =>
+            //{
+            //    return GetNewConvenienceServices(type);
+            //});
 
-            Task.WaitAll(list, NewConvenienceServices);
+            //Task.WaitAll(list, NewConvenienceServices);
 
-            model = NewConvenienceServices.Result;
-            model.ConvenienceServicesModelList = list.Result;
+            //model = NewConvenienceServices.Result;
+            model.ConvenienceServicesModelList = GetListConvenienceServices(type, page, pageSize);
 
             return View(model);
         }
@@ -67,7 +68,7 @@ namespace LoveBank.Web.Controllers
         }
 
         //获取最近的列表
-        private List<ConvenienceServicesModel> GetListConvenienceServices(ConvenienceServicesType type, int page = 1, int pageSize = 8)
+        private IPagedList<ConvenienceServicesModel> GetListConvenienceServices(ConvenienceServicesType type, int page = 1, int pageSize = 8)
         {
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
@@ -81,7 +82,12 @@ namespace LoveBank.Web.Controllers
                                 Sort = w.Sort,
                                 Type = w.Type
                             };
-                return list2.Where(x => x.DeptId == BaseWebSiteConifg.DeptId && x.Type == type).OrderByDescending(x => x.Sort).ToPagedList(page, pageSize).ToList();
+                if (type != ConvenienceServicesType.所有便民服务)
+                {
+                    list2 = list2.Where(x => x.Type == type);
+                }
+
+                return list2.Where(x => x.DeptId == BaseWebSiteConifg.DeptId).OrderByDescending(x => x.Sort).ToPagedList(page-1, pageSize);
 
             }
         }

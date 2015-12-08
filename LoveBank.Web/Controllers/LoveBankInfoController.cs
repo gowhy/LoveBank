@@ -25,22 +25,11 @@ namespace LoveBank.Web.Controllers
         public ActionResult Index(LoveBankInfoType type, int page = 1, int pageSize = 8)
         {
             LoveBankInfoModel model = new LoveBankInfoModel();
-            //获取最近的列表
-            var list = Task.Factory.StartNew<List<LoveBankInfoModel>>(() =>
-            {
-                return GetListLoveBankInfo(type, page, pageSize);
-            });
-
-            //获取最新的一篇文章
-            var NewLoveBankInfo = Task.Factory.StartNew<LoveBankInfoModel>(() =>
-            {
-                return GetNewLoveBankInfo(type);
-            });
-
-            Task.WaitAll(list, NewLoveBankInfo);
-            model = NewLoveBankInfo.Result;
-            model.LoveBankInfoPageList = list.Result;
+            model.Type = type;
+         
+            model.LoveBankInfoPageList = GetListLoveBankInfo(type, page, pageSize);
             return View(model);
+
         }
 
         //获取详情
@@ -64,7 +53,7 @@ namespace LoveBank.Web.Controllers
         }
 
         //获取最近的列表
-        private List<LoveBankInfoModel> GetListLoveBankInfo(LoveBankInfoType type, int page = 1, int pageSize = 8)
+        private IPagedList<LoveBankInfoModel> GetListLoveBankInfo(LoveBankInfoType type, int page = 1, int pageSize = 8)
         {
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
@@ -78,7 +67,11 @@ namespace LoveBank.Web.Controllers
                                 Sort = w.Sort,
                                 Type = w.Type
                             };
-                return list2.Where(x => x.DeptId == BaseWebSiteConifg.DeptId && x.Type == type).OrderByDescending(x => x.Sort).ToPagedList(page, pageSize).ToList();
+                if (type != LoveBankInfoType.爱心银行)
+                {
+                    list2 = list2.Where(x => x.Type == type);
+                }
+                return list2.Where(x => x.DeptId == BaseWebSiteConifg.DeptId).OrderByDescending(x => x.Sort).ToPagedList(page - 1, pageSize);
 
             }
         }

@@ -17,6 +17,25 @@
 		#footer{
 			border-top:1px solid #ccc;
 		}
+		#main .x_sev_info .ull{
+			padding-top:10px;
+		}
+		#main .x_sev_info .ull li{
+			line-height:20px;
+			text-indent:10px;
+		}
+		#main .x_sev_info .ull .bm-title{
+			font-size:24px;
+			color:#00AF62;
+			text-indent:0;
+			padding-top:20px;
+			cursor:default;
+		}
+		#main .x_sev_info .ull .bm-title img{
+			vertical-align:-1px;
+			margin-right:4%;
+		}
+
 	</style>
 </head>
 
@@ -29,13 +48,13 @@
 		</div>
 		<ul class="ul1">
 			<li><a href="index.html">社区首页</a></li>
-			<li><a href="###">爱心银行</a></li>
-			<li><a href="###">工艺社会组织</a></li>
-			<li><a href="###">爱心兑换</a></li>
-			<li><a href="###">爱心基金</a></li>
-			<li><a href="###">志愿者动态</a></li>
+			<li><a href="lovebank.html">爱心银行</a></li>
+			<li><a href="volunteerteam.html">公益社会组织</a></li>
+			<li><a href="lpdh-g-inde.html">爱心兑换</a></li>
+			<li><a href="lovefund.html">爱心基金</a></li>
+			<li><a href="personCenterinfor.html">志愿者动态</a></li>
 			<li><a href="severCenterlist.html">服务中心介绍</a></li>
-			<li class="active"><a href="###">便民服务</a></li>
+			<li class="active"><a href="grovsharescouce.html">便民服务</a></li>
 		</ul>
 		<script type="text/javascript">
 			$("#header .ul1").find("li").each(function(){
@@ -57,22 +76,22 @@
 		<div class="x_sev_info">
 			<div class="fl dis-ib flbox">
 				<div class="fll">
-					<img src="img/lovebank_l.png" alt="">
-					&nbsp;社会公益社会组织
+					<img src="img/house.png" alt="">
+					&nbsp;便民服务
 					<img src="img/sj.png" class="sj" alt="">
 				</div>
-
 				<ul class="ull">
+					<li class="bm-title"><img src="img/house_1.png" alt="">行政便民服务资源</li>
 					<li>
-						<a href="#" class="fl">
+						<a href="###" class="fl">
 
 							<img src="img/grov_01.png" alt=""/>社区所办事项所需资料
 						</a>
-						<span class="fr"></span>
+						<span class="fr l_grov_active"></span>
 					</li>
 
 					<li>
-						<a href="#" class="fl">
+						<a href="###" class="fl">
 
 							<img src="img/grov_02.png" alt="">最新福利，救助等整策更新
 						</a>
@@ -80,11 +99,54 @@
 					</li>
 
 					<li>
-						<a href="#" class="fl">
+						<a href="###" class="fl">
 
 							<img src="img/grov_03.png" alt="">便民网站链接
 						</a>
-						<span class="fr l_grov_active"></span>
+						<span class="fr"></span>
+					</li>
+
+					<li class="bm-title"><img src="img/house_2.png" alt="">社区便民商业服务网络</li>
+					<li>
+						<a href="###" class="fl">
+
+							<img src="img/house_21.png" alt=""/>社区商业资源介绍
+						</a>
+						<span class="fr"></span>
+					</li>
+
+					<li>
+						<a href="###" class="fl">
+
+							<img src="img/house_22.png" alt="">爱心企业活动预告
+						</a>
+						<span class="fr"></span>
+					</li>
+
+
+					<li class="bm-title"><img src="img/house_3.png" alt="">服务中心介绍</li>
+					<li>
+						<a href="###" class="fl">
+
+							<img src="img/house_31.png" alt=""/>社区商业资源介绍
+						</a>
+						<span class="fr"></span>
+					</li>
+
+					<li>
+						<a href="###" class="fl">
+
+							<img src="img/house_32.png" alt="">爱心企业活动预告
+						</a>
+						<span class="fr"></span>
+					</li>
+
+					<li>
+						<a href="###" class="fl">
+
+							<img src="img/house_33.png" alt="">爱心企业活动预告
+						</a>
+						<span class="fr"></span>
 					</li>
 
 				</ul>
@@ -93,7 +155,7 @@
 			<div class="fl dis-ib l_serve_model">
 				<div class="flr">
 					<img src="img/grov_r.png" alt="">
-					互助性组织介绍
+					便民网站链接
 					<img src="img/sj.png" class="sj" alt="">
 				</div>
 				<div class="l_lovefund_intro">
@@ -258,7 +320,21 @@
 		</diV>
 		
 	</footer>
-
+	<script>
+	$(document).ready(function(){
+		var arrcolors=["","#fd4565","#45a5f5","#FDB35B","","#1395F7","#FF7F95","","#7687F1","#1395F7","#FF8243"];
+		var commcolor="#cccccc";
+		$(".ull li").eq(1).find("a").css("color",arrcolors[1]).parent().find("span").css("backgroundColor",arrcolors[1]);
+		$(".ull").find("li").click(function(){
+			$(this).find("a").css("color",arrcolors[$(this).index()]);
+			$(this).find("span").css("backgroundColor",arrcolors[$(this).index()]);
+			$(this).siblings().find("span").css("backgroundColor",commcolor);
+			$(this).siblings().find("a").css("color","#666");
+			$(".ulr").hide();
+			$(".ulr").eq($(this).index()).show();
+		})
+	})
+</script>
 
 </body>
 </html>

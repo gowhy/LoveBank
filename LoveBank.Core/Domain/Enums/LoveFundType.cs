@@ -11,7 +11,7 @@ namespace LoveBank.Core.Domain.Enums
 
     public enum LoveFundType
     {
-        [EnumItemDescription("未知")]
+        [EnumItemDescription("爱心基金")]
         未知 = 0,
         [EnumItemDescription("组成")]
         组成 = 1,

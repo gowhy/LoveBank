@@ -9,6 +9,9 @@ namespace LoveBank.Core.Domain.Enums
 {
     public enum CServiceCenterInfoType
     {
+        [EnumItemDescription("服务中心")]
+        服务中心 = 0,
+
         [EnumItemDescription("简介")]
         简介 = 1,
         [EnumItemDescription("服务项目介绍")]

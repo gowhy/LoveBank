@@ -43,13 +43,13 @@ namespace LoveBank.Web.Controllers {
             return View();
         }
 
-    
+
 
         [HttpPost]
         [ActionName("Register")]
         public ActionResult PostRegister(string phone, string Password, string Validate)
         {
-         
+
 
             //if (!phone.MatchAndNotNull(RegularUtil.Phone)) return Error("手机号错误");
 
@@ -95,11 +95,11 @@ namespace LoveBank.Web.Controllers {
 
                 _authenticationService.SignIn(model.ID.ToString(), false);
 
-        
+
 
                 ViewData["Jump"] = Url.Action("Index", "Home");
-                return Redirect("~/");
-                //return RedirectToAction("RegSuccess");
+                //return Redirect("~/");
+                return RedirectToAction("RegSuccess");
             }
             catch (Exception ex)
             {
