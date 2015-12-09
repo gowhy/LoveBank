@@ -410,7 +410,9 @@
     <Content Include="Content\Web\img\bg2.jpg" />
     <Content Include="Content\Web\img\bg3.jpg" />
     <Content Include="Content\Web\img\bg4.jpg" />
+    <Content Include="Content\Web\img\boxleeter.png" />
     <Content Include="Content\Web\img\check_16.png" />
+    <Content Include="Content\Web\img\degree.png" />
     <Content Include="Content\Web\img\details.png" />
     <Content Include="Content\Web\img\footer_one_44.png" />
     <Content Include="Content\Web\img\footer_one_45.png" />
@@ -479,6 +481,7 @@
     <Content Include="Content\Web\img\images\pergrade_33.png" />
     <Content Include="Content\Web\img\images\perimg.png" />
     <Content Include="Content\Web\img\iwant.png" />
+    <Content Include="Content\Web\img\letterbox.png" />
     <Content Include="Content\Web\img\loginbg_05.png" />
     <Content Include="Content\Web\img\login_img.gif" />
     <Content Include="Content\Web\img\logo.jpg" />
@@ -486,6 +489,7 @@
     <Content Include="Content\Web\img\logo1.gif" />
     <Content Include="Content\Web\img\logo2.png" />
     <Content Include="Content\Web\img\logo2footer.png" />
+    <Content Include="Content\Web\img\Logo3.png" />
     <Content Include="Content\Web\img\logo_02.png" />
     <Content Include="Content\Web\img\logo_05.png" />
     <Content Include="Content\Web\img\lovebank_01.png" />
@@ -520,6 +524,7 @@
     <Content Include="Content\Web\img\phone.jpg" />
     <Content Include="Content\Web\img\phone.png" />
     <Content Include="Content\Web\img\product_01.png" />
+    <Content Include="Content\Web\img\pubdegree.png" />
     <Content Include="Content\Web\img\pwd_67.png" />
     <Content Include="Content\Web\img\sexfemale.png" />
     <Content Include="Content\Web\img\sexmale.png" />
@@ -532,6 +537,7 @@
     <Content Include="Content\Web\img\shopcar_05.jpg" />
     <Content Include="Content\Web\img\shopcar_05.png" />
     <Content Include="Content\Web\img\sj.png" />
+    <Content Include="Content\Web\img\test.jpg" />
     <Content Include="Content\Web\img\text.png" />
     <Content Include="Content\Web\img\user.png" />
     <Content Include="Content\Web\img\volunteer.png" />
@@ -636,6 +642,8 @@
     <Content Include="Views\LoveBankInfo\Index.cshtml" />
     <Content Include="Views\CServiceCenterInfo\Index.cshtml" />
     <Content Include="Views\ConvenienceServices\Index.cshtml" />
+    <Content Include="Views\Home\Index - 复制%282%29.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -741,7 +749,6 @@
   <ItemGroup>
     <Folder Include="Controllers\User\" />
     <Folder Include="Views\LBTS\" />
-    <Folder Include="Views\Product\" />
     <Folder Include="Views\Suggestion\" />
     <Folder Include="Views\WebLoveShow\" />
     <Folder Include="Views\WebSitNotice\" />

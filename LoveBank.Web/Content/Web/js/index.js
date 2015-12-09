@@ -129,5 +129,42 @@
 	};
 	
 
+/*	弹窗控制	*/
 
+		$(document).ready(function(){
+			var timer=null;
+			var h;
 
+			/*	右边小窗口位置控制	*/
+
+			var siderighttop=window.screen.availHeight;
+			var siderighth=$(".sideright").height();
+			var sidelefth=$(".sideleft").height();
+			var sidelefttop=(siderighttop-sidelefth)/2;
+			var positop=(siderighttop-siderighth)/2;
+			$(".sideright").css("top",positop+"px");
+			$(".sideleft").animate({"top":sidelefttop+"px",
+									"left":0+"px",
+									opacity:1,
+									},1000);
+			/*	左边小窗口位置控制	*/
+			timer=setInterval(function(){
+			// $(document).scroll(function(){
+				$(".sideleft").css("top",h+sidelefttop+"px");
+			//})
+			h=$(document).scrollTop();
+		},1);
+
+			/*	修改	*/
+			$(".l_addalert").click(function(){
+				$(".l_groupcen_passokche").show();
+				
+			})
+			$(".alert_exitche").click(function(){
+				$(".l_groupcen_passokche").hide();
+			})
+			$(".l_alert_sub").click(function(){
+				$(".l_groupcen_passokche").hide();
+
+			})
+		})

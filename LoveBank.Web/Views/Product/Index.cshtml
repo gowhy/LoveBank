@@ -1,0 +1,186 @@
+﻿<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/personCenterpublic.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/Web/css/personCenterjion.css")">
+@model LoveBank.Web.Models.LoveProductModel
+@using MvcContrib.UI.Pager;
+@using LoveBank.Common
+@using LoveBank.MVC
+@using LoveBank.MVC.UI
+@using MvcContrib.UI.Grid
+<style type="text/css">
+    #bgimg {
+        height: 7px;
+        background-color: #00AF62;
+    }
+
+    #footer {
+        border-top: 1px solid #ccc;
+    }
+
+    #header .ul2 {
+        width: 129px;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+
+        #header .ul2 li {
+            float: left;
+            margin-right: 0px;
+            margin-top: 65px;
+            width: 130px;
+            height: 50px;
+            padding: 0;
+            text-align: center;
+        }
+
+            #header .ul2 li .exit {
+                margin-left: 30px;
+            }
+
+            #header .ul2 li img {
+                margin-top: 0;
+            }
+
+            #header .ul2 li a {
+                width: 52px;
+                float: left;
+                font-size: 13px;
+                height: auto;
+                margin-top: 16px;
+                padding: 0;
+                line-height: 0px;
+                color: #000;
+            }
+
+    #main .x_sev_info .l_percen_rcontent {
+        /*width:100%;*/
+        padding: 30px 20px 0px 0;
+        overflow: hidden;
+        background: #fff url(./img/percensha3.png) 0 bottom no-repeat;
+    }
+
+    .l_percen_rcontent .l_ind_3_con_img {
+        width: 30%;
+        float: left;
+        display: inline;
+        overflow: hidden;
+        margin: 0 1.5% 1% 1.5%;
+        padding: 0;
+        zoom: 1;
+    }
+
+        .l_percen_rcontent .l_ind_3_con_img .l_ind_3_cimg_img {
+            width: 100%;
+            overflow: hidden;
+        }
+
+    .img_top {
+        width: 90%;
+    }
+
+    .l_percen_rcontent .l_ind_3_con_img .l_ind_3_cimg_img img {
+        width: 100%;
+    }
+</style>
+
+<div id="bgimg" class="x_ind_bgimg">
+</div>
+<div class="bigbg">
+    <div id="main">
+        <div class="x_sev_info">
+            <div class="fl dis-ib flbox">
+                <div class="fll">
+                    <img src="@Url.Content("~/Content/Web/img/hot.png")" alt="">
+                    &nbsp;热门兑换
+                    <img src="@Url.Content("~/Content/Web/img/sj.png")" class="sj" alt="">
+                </div>
+
+                <div class="l_record_disimg">
+
+                    @foreach (var item in Model.ProductListHot)
+                    {
+                 
+                        
+                      <div class="l_ind_3_con_img">
+                        <div class="img_top">
+                            <div class="l_ind_3_cimg_img">
+                                <a href="lpdh-zz.html"><img src="@item.ProductPic.FirstOrDefault().ImgHttpUrl" /> </a>
+                                <div class="img_footer">
+                                    <a href="lpdh-zz.html">@item.Name—@item.CostScore 积分兑换</a>
+                                </div>
+                            </div>
+
+                            <div class="l_ind_3_content_one">
+                                <a href="lpdh-zz.html">@item.Name</a>
+                            </div>
+
+                            <div class="l_ind_3_content_two">
+                                <a class="money" href="lpdh-zz.html">￥@item.CostScore</a>
+                                <a class="shopcar" href="lpdh-zz.html"><img src="@Url.Content("~/Content/Web/img/shopcar_05.jpg")">去兑换</a>
+                            </div>
+                        </div>
+
+                        <div class="l_ind_3_content_tre">
+                            <img src="@Url.Content("~/Content/Web/img/shdow_11.png")">
+
+                        </div>
+
+                    </div>
+                    }
+  
+
+                </div>
+
+            </div>
+
+            <!--	右边	-->
+
+            <div class="fl dis-ib l_serve_model">
+                <div class="flr">
+                    <img src="@Url.Content("~/Content/Web/img/heart_w.png")" alt="">
+                    爱心超市礼品兑换
+                    <!-- <img src="img/sj.png" class="sj" alt=""> -->
+                </div>
+                <div class="l_percen_rcontent">
+
+                    @foreach (var item in Model.ProductList)
+                     {
+                      <div class="l_ind_3_con_img">
+                        <div class="img_top">
+                            <div class="l_ind_3_cimg_img">
+                                <a href="lpdh-zz.html"><img src="@((item.ProductPic.FirstOrDefault()?? new LoveBank.Web.Models.ImgUrlModel()).ImgHttpUrl)" /> </a>
+                                <div class="img_footer">
+                                    <a href="lpdh-zz.html">@item.Name—@item.CostScore 积分兑换</a>
+                                </div>
+                            </div>
+
+                            <div class="l_ind_3_content_one">
+                                <a href="lpdh-zz.html">@item.Name</a>
+                            </div>
+
+                            <div class="l_ind_3_content_two">
+                                <a class="money" href="lpdh-zz.html">￥@item.CostScore</a>
+                                <a class="shopcar" href="lpdh-zz.html"><img src="@Url.Content("~/Content/Web/img/shopcar_05.jpg")">去兑换</a>
+                            </div>
+                        </div>
+
+                        <div class="l_ind_3_content_tre">
+                            <img src="@Url.Content("~/Content/Web/img/shdow_11.png")">
+
+                        </div>
+
+                    </div>
+                    }
+
+                
+
+                </div>
+               
+                    @Html.WebPager(Model.ProductList)
+               
+                
+            </div>
+        </div>
+    </div>
+
+</div>

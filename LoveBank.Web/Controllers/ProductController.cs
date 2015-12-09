@@ -26,12 +26,12 @@ namespace LoveBank.Web.Controllers
     {
         //
         // GET: /Product/
-        public ActionResult Index(int page = 1, int pageSize = 8)
+        public ActionResult Index(int page = 1, int pageSize =9)
         {
 
 
 
-            var list = Task.Factory.StartNew<List<ProductModel>>(() =>
+            var list = Task.Factory.StartNew<IPagedList<ProductModel>>(() =>
             {
                 using (LoveBankDBContext db = new LoveBankDBContext())
                 {
@@ -45,7 +45,7 @@ namespace LoveBank.Web.Controllers
                 using (LoveBankDBContext db = new LoveBankDBContext())
                 {
 
-                    return GetHotExchangProduct(page, pageSize);
+                    return GetHotExchangProduct(page, 3);
                 }
             });
 
@@ -58,7 +58,7 @@ namespace LoveBank.Web.Controllers
             return View(model);
         }
 
-        private List<ProductModel> GetProduct(int page = 1, int pageSize = 8)
+        private IPagedList<ProductModel> GetProduct(int page = 1, int pageSize = 9)
         {
             using (LoveBankDBContext db = new LoveBankDBContext())
             {
@@ -78,7 +78,7 @@ namespace LoveBank.Web.Controllers
                                ProductPic = (from s in t_s where s.Guid == p.Guid select new ImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList()
 
                            };
-                return list.OrderByDescending(x => x.Id).ToPagedList(page, pageSize).ToList();
+                return list.OrderByDescending(x => x.Id).ToPagedList(page-1, pageSize);
             }
         }
 
@@ -103,7 +103,7 @@ namespace LoveBank.Web.Controllers
                                ProductPic = (from s in t_s where s.Guid == p.Guid select new ImgUrlModel { ImgHttpUrl = s.Domain + s.Path }).ToList()
 
                            };
-                return list.OrderByDescending(x => x.Id).ToPagedList(page, pageSize).ToList();
+                return list.OrderByDescending(x => x.Id).ToPagedList(page-1, pageSize).ToList();
 
             }
         }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using LoveBank.Web.Code
+<!DOCTYPE html>
 <html class="no-js">
     <head>
         <title>@ViewBag.DeptIdName--爱心银行</title>
@@ -14,24 +15,58 @@
         <link href="@Url.Content("~/Content/Web/css/yiti_public.css")" rel=" stylesheet" />
       
         <script type="text/javascript" src="@Url.Content("~/Content/Web/js/jquery-1.8.3.js") "></script>
-        <script type="text/javascript" src="@Url.Content("~/Content/Web/js/index.js") "></script>
-     
-    </head>
-    <body>
+   
+        <style type="text/css">
+            #bgimg {
+                height: 7px;
+                background-color: #00AF62;
+            }
 
+            #footer {
+                border-top: 1px solid #ccc;
+            }
+
+            #main .x_sev_info .ull {
+                padding-top: 10px;
+            }
+
+                #main .x_sev_info .ull li {
+                    line-height: 20px;
+                    text-indent: 10px;
+                }
+
+                #main .x_sev_info .ull .bm-title {
+                    font-size: 24px;
+                    color: #00AF62;
+                    text-indent: 0;
+                    padding-top: 20px;
+                    cursor: default;
+                }
+
+                    #main .x_sev_info .ull .bm-title img {
+                        vertical-align: -1px;
+                        margin-right: 4%;
+                    }
+        </style>
+    </head>
+
+    <body>
         <div id="header">
-            @ViewBag.DeptIdName
-            <img src="@Url.Content("~/Content/Web/img/logo2.png")" alt="logo">
-        
+            <img  width="63"  height="123" src="@Url.Content("~/Content/Web/img/logo3.png")" alt="logo">
+            <div class="x_title">
+                <p class="x_ind_title">平湖街古木社区</p>
+                <p class="x_ind_phone">0755-28854350</p>
+            </div>
             <ul class="ul1">
-                <li class="active"><a href="###">社区首页</a></li>
-                <li><a href="###">关于我们</a></li>
-                <li><a href="###">志愿者队伍</a></li>
-                <li><a href="###">爱心兑换</a></li>
-                <li><a href="###">收支公示</a></li>
-                <li><a href="###">志愿者动态</a></li>
-                <li><a href="###">爱心集市</a></li>
-      
+                
+                <li id="Home" ><a href="@Url.Action("index", "home")">社区首页</a></li>
+                <li id="LoveBankInfo"><a href="@Url.Action("index", "LoveBankInfo", new { type = 0 })">爱心银行</a></li>
+                <li id="team"><a href="volunteerteam.html">公益社会组织</a></li>
+                <li id="Product"><a href="@Url.Action("index", "Product", new { type = 0 })">爱心兑换</a></>爱心兑换</a></li>
+                <li id="LoveFund"><a href="@Url.Action("List", "LoveFund", new { type = 0 })">爱心基金</a></li>
+                <li id=""><a href="personCenterinfor.html">志愿者动态</a></li>
+                <li id="CServiceCenterInfo"><a href="@Url.Action("index", "CServiceCenterInfo", new { type = 0 })">服务中心介绍</a></li>
+                <li id="ConvenienceServices"><a href="@Url.Action("index", "ConvenienceServices", new { type = 0 })">便民服务</a></li>
             </ul>
             <script type="text/javascript">
                 $("#header .ul1").find("li").each(function () {
@@ -39,14 +74,42 @@
 
                         $(this).addClass("active").siblings().removeClass('active')
                     })
-                })
+                });
+                $("#@ViewContext.RouteData.Values["controller"]").click();
             </script>
-            <ul class="ul2 fr">
-                <li><img src="@Url.Content("~/Content/Web/img/user.png")" alt="use"><a href="###">登录</a><a href="###">注册</a></li>
-            </ul>
+         
+            @if(!LoveBankContext.Current.IsAuthenticated)
+            {   <ul class="ul2 fr">
+                    <li>
+            <img src="@Url.Content("~/Content/Web/img/user.png")" alt="use">
+            <a href="@Url.Action("Login", "Account")">登录</a><a href="@Url.Action("Register", "Account")">注册</a></li>
+              </ul>
+            }
+            else
+            {
+                <ul class="ul2 fr" >
+                    @*<li>
+                        <img src="@Url.Content("~/Content/Web/img/user.png")" alt="use">
+                        <a href="personlogin.html" class="pername">吴昊天</a>
+                        <a href="index.html" class="exit">退出</a>
+                    </li>*@
+                    <li>
+                    <img src="@Url.Content("~/Content/Web/img/user.png")" alt="use">
+                       
+                            <a href="@Url.Action("Index", "User")" style="  margin-left:-20px;" title="点击进入个人中心" class="pername">@LoveBankContext.Current.User.RealName</a>
+                      
+                     <a href="@Url.Action("Logout", "Account")" style="padding-left:0px;">退出</a></li>
+                </ul>
+            }
+               
+            
+            
+            
+            
+
+          
 
         </div>
-
         @RenderBody()
         <!--footer begin-->
         @Html.Action("Footer", "Public")
